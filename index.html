@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriLuck</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #f4f6f8; color: #334155; padding-bottom: 90px; }
+        
+        /* Top Header */
+        .header-bg { background: linear-gradient(180deg, #4f46e5 0%, #6366f1 100%); padding: 20px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; color: white; text-align: center; }
+        .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 22px; }
+        .notification-icon { position: relative; font-size: 22px; }
+        .badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; }
+        
+        /* Stats Cards */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .stat-card { border-radius: 16px; padding: 15px 10px; color: white; text-align: left; height: 130px; display: flex; flex-direction: column; justify-content: space-between; }
+        .s-blue { background: linear-gradient(135deg, #3b82f6, #4f46e5); }
+        .s-orange { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .s-green { background: linear-gradient(135deg, #10b981, #34d399); }
+        .card-val { font-size: 18px; font-weight: bold; margin: 4px 0; }
+        .card-label { font-size: 10px; opacity: 0.9; }
+        .view-btn { font-size: 10px; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Streak Section */
+        .container { padding: 15px; }
+        .streak-card { background: white; border-radius: 16px; padding: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .streak-title { font-weight: bold; font-size: 13px; }
+        .streak-sub { font-size: 10px; color: #64748b; margin: 5px 0; }
+        .streak-btn { background: #4f46e5; color: white; border: none; padding: 6px 15px; border-radius: 20px; font-size: 10px; }
+        .streak-progress { display: flex; gap: 5px; }
+        .day { width: 22px; height: 22px; background: #e0e7ff; color: #4f46e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+        .day.active { background: #4f46e5; color: white; }
+
+        /* Actions Grid */
+        .actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .act-card { background: white; padding: 15px 10px; border-radius: 16px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .act-card i { font-size: 22px; margin-bottom: 8px; }
+        .act-title { font-size: 11px; font-weight: 600; color: #1e293b; }
+        .act-sub { font-size: 8px; color: #94a3b8; margin-top: 3px; }
+
+        /* Task List */
+        .section-title { font-size: 14px; font-weight: bold; margin-bottom: 12px; display: flex; justify-content: space-between; }
+        .task-list-card { background: white; padding: 12px; border-radius: 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .task-left { display: flex; align-items: center; gap: 12px; }
+        .task-icon { width: 40px; height: 40px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 20px; }
+        .task-info h4 { font-size: 12px; }
+        .task-info p { font-size: 9px; color: #64748b; }
+        .task-right { display: flex; align-items: center; gap: 10px; }
+        .reward-tag { background: #dcfce7; color: #16a34a; font-weight: bold; padding: 4px 10px; border-radius: 8px; font-size: 12px; }
+        .start-btn { background: #4f46e5; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 10px; }
+
+        /* Refer Banner */
+        .refer-card { background: linear-gradient(90deg, #4f46e5 0%, #a855f7 100%); color: white; padding: 15px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .ref-txt h4 { font-size: 13px; }
+        .ref-txt p { font-size: 9px; opacity: 0.9; }
+        .ref-btn { background: white; color: #4f46e5; border: none; padding: 8px 12px; border-radius: 20px; font-size: 10px; font-weight: bold; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .nav-item { text-align: center; color: #64748b; font-size: 10px; text-decoration: none; }
+        .nav-item.active { color: #4f46e5; }
+    </style>
+</head>
+<body>
+
+    <div class="header-bg">
+        <div class="top-nav">
+            <i class="fa-solid fa-bars"></i>
+            <div class="logo-area">
+                <i class="fa-brands fa-telegram"></i> প্রিলাক
+            </div>
+            <div class="notification-icon">
+                <i class="fa-regular fa-bell"></i>
+                <div class="badge">3</div>
+            </div>
+        </div>
+        <p style="font-size: 11px; opacity: 0.8;">Task করুন, Earn করুন</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card s-blue">
+                <i class="fa-solid fa-wallet"></i>
+                <div>
+                    <div class="card-label">আজকের আয়</div>
+                    <div class="card-val">₹142.50</div>
+                </div>
+                <div class="view-btn">ওয়ালেট দেখুন ></div>
+            </div>
+            <div class="stat-card s-orange">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <div>
+                    <div class="card-label">আজকের টাস্ক</div>
+                    <div class="card-val">8/15</div>
+                </div>
+                <div class="view-btn">সব টাস্ক দেখুন ></div>
+            </div>
+            <div class="stat-card s-green">
+                <i class="fa-solid fa-chart-line"></i>
+                <div>
+                    <div class="card-label">সাকসেস রেট</div>
+                    <div class="card-val">92%</div>
+                </div>
+                <div class="view-btn">ডিটেইলস দেখুন ></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Streak -->
+        <div class="streak-card">
+            <div>
+                <div class="streak-title">ধারাবাহিকতা বজায় রাখুন!</div>
+                <div class="streak-sub">টানা 7 দিন লগইন করুন আর পান বিশেষ বোনাস</div>
+                <button class="streak-btn">প্রগতি দেখুন > </button>
+            </div>
+            <div class="streak-progress">
+                <div class="day active"><i class="fa-solid fa-check"></i></div>
+                <div class="day active"><i class="fa-solid fa-check"></i></div>
+                <div class="day active"><i class="fa-solid fa-check"></i></div>
+                <div class="day active"><i class="fa-solid fa-check"></i></div>
+                <div class="day active"><i class="fa-solid fa-check"></i></div>
+                <div class="day">6</div>
+                <div class="day" style="background:#fef3c7; color:#f59e0b;"><i class="fa-solid fa-fire"></i></div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-grid">
+            <div class="act-card">
+                <i class="fa-solid fa-gift" style="color:#ec4899;"></i>
+                <div class="act-title">অফার ও বোনাস</div>
+                <div class="act-sub">দারুণ সব অফার</div>
+            </div>
+            <div class="act-card">
+                <i class="fa-solid fa-chart-pie" style="color:#3b82f6;"></i>
+                <div class="act-title">আমার পারফরম্যান্স</div>
+                <div class="act-sub">আপনার মোট আয়, টাস্ক</div>
+            </div>
+            <div class="act-card">
+                <i class="fa-solid fa-fire" style="color:#f59e0b;"></i>
+                <div class="act-title">আজকের স্ট্রিক</div>
+                <div class="act-sub">স্ট্রিক ধরে রাখুন</div>
+            </div>
+        </div>
+
+        <!-- Task List -->
+        <div class="section-title">
+            <span>আজকের Top Tasks</span>
+            <span style="color:#4f46e5; font-size:11px;">সব দেখুন ></span>
+        </div>
+
+        <div class="task-list-card">
+            <div class="task-left">
+                <div class="task-icon"><i class="fa-brands fa-google" style="color:#ea4335;"></i></div>
+                <div class="task-info">
+                    <h4>গুগল সার্চ করুন</h4>
+                    <p>2 মিনিট • CPX Research</p>
+                </div>
+            </div>
+            <div class="task-right">
+                <div class="reward-tag">₹8</div>
+                <button class="start-btn">শুরু করুন</button>
+            </div>
+        </div>
+        
+        <div class="task-list-card">
+            <div class="task-left">
+                <div class="task-icon"><i class="fa-brands fa-youtube" style="color:#ff0000;"></i></div>
+                <div class="task-info">
+                    <h4>ইউটিউব ভিডিও দেখুন</h4>
+                    <p>2 মিনিট • CPX Research</p>
+                </div>
+            </div>
+            <div class="task-right">
+                <div class="reward-tag">₹6</div>
+                <button class="start-btn">শুরু করুন</button>
+            </div>
+        </div>
+
+        <div class="task-list-card">
+            <div class="task-left">
+                <div class="task-icon"><i class="fa-solid fa-download" style="color:#4f46e5;"></i></div>
+                <div class="task-info">
+                    <h4>অ্যাপ ইনস্টল ও খুলুন</h4>
+                    <p>3 মিনিট • RevenueWall</p>
+                </div>
+            </div>
+            <div class="task-right">
+                <div class="reward-tag">₹10</div>
+                <button class="start-btn">শুরু করুন</button>
+            </div>
+        </div>
+
+        <!-- Refer -->
+        <div class="refer-card">
+            <div class="ref-txt">
+                <h4>বন্ধুকে Refer করুন</h4>
+                <p>বন্ধু ৮০টা টাস্ক কমপ্লিট করলে আপনি পাবেন ₹50</p>
+            </div>
+            <button class="ref-btn">এখনই Refer করুন ></button>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><br>হোম</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-trophy"></i><br>লিডারবোর্ড</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-wallet"></i><br>ওয়ালেট</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-user-group"></i><br>রেফার</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-user"></i><br>প্রোফাইল</a>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+    </script>
+</body>
+</html>
