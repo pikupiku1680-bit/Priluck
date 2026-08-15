@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>PriLuck</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    font-family:
+        "Noto Sans Bengali",
+        "Nirmala UI",
+        "Segoe UI",
+        sans-serif;
+
+    background:#f6f7ff;
+    color:#11113d;
+    overflow-x:hidden;
+}
+
+button{
+    font-family:inherit;
+    border:none;
+    outline:none;
+}
+
+.app{
+    width:100%;
+    min-height:100vh;
+    padding-bottom:95px;
+    background:#f7f8ff;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.hero{
+    position:relative;
+    padding:22px 20px 30px;
+    background:
+        linear-gradient(
+            145deg,
+            #1715a9 0%,
+            #2920d4 48%,
+            #5b42ff 100%
+        );
+
+    border-radius:0 0 42px 42px;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:280px;
+    height:280px;
+    right:-110px;
+    top:-120px;
+    background:rgba(255,255,255,.07);
+    border-radius:50%;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    left:-130px;
+    bottom:-140px;
+    background:rgba(255,255,255,.05);
+    border-radius:50%;
+}
+
+
+/* Header top */
+
+.header{
+    position:relative;
+    z-index:2;
+
+    display:grid;
+    grid-template-columns:52px 1fr 52px;
+    align-items:center;
+
+    min-height:80px;
+}
+
+.menu-btn,
+.notification{
+    width:50px;
+    height:50px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+    background:rgba(20,15,130,.55);
+    color:white;
+}
+
+.menu-btn{
+    font-size:29px;
+}
+
+.notification{
+    position:relative;
+    font-size:29px;
+}
+
+.badge{
+    position:absolute;
+    right:-2px;
+    top:-4px;
+
+    width:25px;
+    height:25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+    background:#ff4545;
+
+    color:white;
+    font-size:13px;
+    font-weight:700;
+}
+
+.logo-area{
+    text-align:center;
+    color:white;
+}
+
+.logo-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+}
+
+.logo-circle{
+    width:52px;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#28a9ef;
+    box-shadow:0 5px 18px rgba(0,0,0,.15);
+
+    font-size:29px;
+}
+
+.logo-name{
+    font-size:38px;
+    line-height:1;
+    font-weight:800;
+}
+
+.tagline{
+    margin-top:8px;
+    font-size:16px;
+    color:#fff;
+}
+
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stats{
+    position:relative;
+    z-index:2;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+
+    margin-top:18px;
+}
+
+.stat-card{
+    min-height:280px;
+    padding:18px 14px;
+
+    border-radius:28px;
+
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.12);
+
+    border:1px solid rgba(255,255,255,.3);
+}
+
+.income{
+    background:
+        linear-gradient(
+            145deg,
+            #376cf5,
+            #284be1
+        );
+}
+
+.tasks{
+    background:
+        linear-gradient(
+            145deg,
+            #ffc12b,
+            #ff9200
+        );
+}
+
+.success{
+    background:
+        linear-gradient(
+            145deg,
+            #55d85e,
+            #19b967
+        );
+}
+
+.stat-icon{
+    width:58px;
+    height:58px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.95);
+    color:#2831d4;
+
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+.tasks .stat-icon{
+    color:#ff8a00;
+}
+
+.success .stat-icon{
+    color:#12a851;
+}
+
+.stat-title{
+    font-size:17px;
+    font-weight:500;
+    margin-bottom:7px;
+}
+
+.stat-value{
+    font-family:"Segoe UI",sans-serif;
+    font-size:39px;
+    font-weight:800;
+    line-height:1.1;
+}
+
+.stat-button{
+    margin-top:auto;
+
+    height:45px;
+    padding:0 15px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.15);
+
+    color:white;
+    font-size:15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.content{
+    padding:20px;
+}
+
+
+/* =========================
+   STREAK
+========================= */
+
+.streak{
+    background:white;
+    border-radius:28px;
+    padding:22px 18px;
+
+    display:grid;
+    grid-template-columns:1fr 1.15fr;
+    gap:12px;
+
+    box-shadow:
+        0 5px 22px rgba(35,32,120,.08);
+}
+
+.streak-left{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.fire{
+    width:68px;
+    height:68px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#fff;
+    border-radius:50%;
+
+    font-size:42px;
+
+    box-shadow:
+        0 5px 20px rgba(255,140,0,.15);
+
+    margin-bottom:10px;
+}
+
+.streak-title{
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.streak-text{
+    color:#66688b;
+    font-size:15px;
+    line-height:1.5;
+}
+
+.progress-btn{
+    margin-top:12px;
+
+    width:max-content;
+
+    padding:11px 18px;
+
+    border-radius:25px;
+
+    background:#4327eb;
+    color:white;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+.streak-right{
+    background:#fafaff;
+    border-radius:22px;
+    padding:16px 10px;
+}
+
+.today{
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:14px;
+}
+
+.days{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.day{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+
+    font-size:11px;
+}
+
+.day-circle{
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:17px;
+}
+
+.done{
+    background:#4d2be8;
+    color:white;
+}
+
+.current{
+    background:white;
+    border:2px solid #7256ff;
+    color:#5540db;
+}
+
+.fire-day{
+    font-size:25px;
+}
+
+
+/* =========================
+   QUICK FEATURES
+========================= */
+
+.quick{
+    margin-top:18px;
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:18px 8px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    box-shadow:
+        0 5px 22px rgba(35,32,120,.08);
+}
+
+.quick-item{
+    text-align:center;
+    padding:5px 10px;
+
+    border-right:1px solid #e6e6f5;
+}
+
+.quick-item:last-child{
+    border-right:none;
+}
+
+.quick-icon{
+    width:58px;
+    height:58px;
+
+    margin:0 auto 9px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    font-size:29px;
+}
+
+.gift-icon{
+    background:#ffe8f1;
+    color:#f42c79;
+}
+
+.performance-icon{
+    background:#e5efff;
+    color:#2468e8;
+}
+
+.streak-icon{
+    background:#fff0dc;
+    color:#f38a00;
+}
+
+.quick-title{
+    font-size:16px;
+    font-weight:800;
+    line-height:1.35;
+}
+
+.quick-sub{
+    margin-top:3px;
+    color:#9293aa;
+    font-size:13px;
+    line-height:1.35;
+}
+
+.quick-arrow{
+    margin:9px auto 0;
+
+    width:42px;
+    height:30px;
+
+    border-radius:20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:19px;
+}
+
+
+/* =========================
+   TASK SECTION
+========================= */
+
+.section-header{
+    margin:26px 2px 13px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.section-title{
+    font-size:20px;
+    font-weight:800;
+}
+
+.see-all{
+    color:#4126e9;
+    font-size:15px;
+    font-weight:700;
+}
+
+
+/* Task list */
+
+.task-list{
+    background:white;
+    border-radius:28px;
+
+    padding:7px 16px;
+
+    box-shadow:
+        0 5px 22px rgba(35,32,120,.08);
+}
+
+.task{
+    min-height:100px;
+
+    display:grid;
+    grid-template-columns:58px 1fr 70px 105px;
+    gap:13px;
+
+    align-items:center;
+
+    border-bottom:1px solid #ededf7;
+}
+
+.task:last-child{
+    border-bottom:none;
+}
+
+.task-icon{
+    width:54px;
+    height:54px;
+
+    border-radius:17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#f5f6fc;
+
+    font-size:30px;
+}
+
+.google{
+    color:#4285f4;
+}
+
+.youtube{
+    color:#ff1e18;
+}
+
+.clipboard{
+    color:#4930e8;
+}
+
+.instagram{
+    font-size:29px;
+}
+
+.task-name{
+    font-size:16px;
+    font-weight:800;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.task-meta{
+    margin-top:5px;
+
+    color:#85879e;
+
+    font-size:13px;
+}
+
+.reward{
+    min-width:65px;
+    height:52px;
+
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#eaf9ef;
+
+    color:#19a84b;
+
+    font-size:21px;
+    font-weight:800;
+}
+
+.start{
+    height:48px;
+
+    border-radius:18px;
+
+    background:#4b29ed;
+
+    color:white;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+
+/* =========================
+   REFER BANNER
+========================= */
+
+.refer{
+    margin-top:18px;
+
+    min-height:120px;
+
+    border-radius:26px;
+
+    padding:18px 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:
+        linear-gradient(
+            110deg,
+            #2020db,
+            #5931f0 50%,
+            #a653f5
+        );
+
+    color:white;
+
+    box-shadow:
+        0 10px 25px rgba(73,38,225,.2);
+}
+
+.refer-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.refer-icon{
+    font-size:52px;
+}
+
+.refer-title{
+    font-size:20px;
+    font-weight:800;
+}
+
+.refer-text{
+    margin-top:4px;
+    font-size:14px;
+    line-height:1.4;
+}
+
+.refer-money{
+    color:#ffd800;
+    font-size:24px;
+    font-weight:900;
+}
+
+.refer-btn{
+    min-width:190px;
+    height:54px;
+
+    padding:0 20px;
+
+    border-radius:30px;
+
+    background:white;
+    color:#4325e9;
+
+    font-size:16px;
+    font-weight:800;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.12);
+}
+
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+    position:fixed;
+    z-index:20;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:88px;
+
+    background:rgba(255,255,255,.97);
+
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+
+    padding:8px 10px 7px;
+
+    box-shadow:
+        0 -5px 25px rgba(0,0,0,.08);
+
+    backdrop-filter:blur(12px);
+}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:3px;
+
+    color:#70738d;
+
+    font-size:13px;
+}
+
+.nav-icon{
+    width:52px;
+    height:43px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    font-size:27px;
+}
+
+.nav-item.active{
+    color:#4327e9;
+}
+
+.nav-item.active .nav-icon{
+    background:#4b2be9;
+    color:white;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:650px){
+
+    .hero{
+        padding-left:18px;
+        padding-right:18px;
+    }
+
+    .logo-name{
+        font-size:32px;
+    }
+
+    .logo-circle{
+        width:47px;
+        height:47px;
+        font-size:25px;
+    }
+
+    .stats{
+        gap:9px;
+    }
+
+    .stat-card{
+        min-height:240px;
+        padding:15px 11px;
+        border-radius:24px;
+    }
+
+    .stat-icon{
+        width:50px;
+        height:50px;
+        font-size:24px;
+    }
+
+    .stat-title{
+        font-size:14px;
+    }
+
+    .stat-value{
+        font-size:31px;
+    }
+
+    .stat-button{
+        font-size:12px;
+        padding:0 10px;
+    }
+
+    .content{
+        padding:16px;
+    }
+
+    .streak{
+        grid-template-columns:1fr;
+    }
+
+    .streak-right{
+        padding:14px;
+    }
+
+    .quick{
+        padding:15px 3px;
+    }
+
+    .quick-item{
+        padding:4px 5px;
+    }
+
+    .quick-title{
+        font-size:14px;
+    }
+
+    .quick-sub{
+        font-size:11px;
+    }
+
+    .task{
+        grid-template-columns:48px 1fr 58px;
+        gap:9px;
+    }
+
+    .task-icon{
+        width:45px;
+        height:45px;
+        font-size:24px;
+    }
+
+    .task-name{
+        font-size:14px;
+    }
+
+    .task-meta{
+        font-size:11px;
+    }
+
+    .reward{
+        min-width:55px;
+        height:45px;
+        font-size:17px;
+    }
+
+    .start{
+        grid-column:2 / 4;
+        margin-bottom:12px;
+        height:42px;
+    }
+
+    .refer{
+        padding:15px;
+    }
+
+    .refer-icon{
+        font-size:40px;
+    }
+
+    .refer-title{
+        font-size:16px;
+    }
+
+    .refer-text{
+        font-size:12px;
+    }
+
+    .refer-btn{
+        min-width:125px;
+        height:45px;
+        font-size:12px;
+        padding:0 10px;
+    }
+
+    .nav-icon{
+        width:45px;
+        height:40px;
+        font-size:23px;
+    }
+
+    .nav-item{
+        font-size:11px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- ================= HEADER ================= -->
+
+<section class="hero">
+
+    <div class="header">
+
+        <button class="menu-btn" onclick="openMenu()">
+            ☰
+        </button>
+
+        <div class="logo-area">
+
+            <div class="logo-row">
+
+                <div class="logo-circle">
+                    ➤
+                </div>
+
+                <div class="logo-name">
+                    প্রিলাক
+                </div>
+
+            </div>
+
+            <div class="tagline">
+                Task করুন, Earn করুন
+            </div>
+
+        </div>
+
+        <button class="notification">
+            ♧
+            <span class="badge">3</span>
+        </button>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="stats">
+
+        <!-- Income -->
+
+        <div class="stat-card income">
+
+            <div class="stat-icon">
+                💳
+            </div>
+
+            <div class="stat-title">
+                আজকের আয়
+            </div>
+
+            <div class="stat-value">
+                ₹142.50
+            </div>
+
+            <button class="stat-button"
+                    onclick="openWallet()">
+                <span>ওয়ালেট দেখুন</span>
+                <span>›</span>
+            </button>
+
+        </div>
+
+
+        <!-- Tasks -->
+
+        <div class="stat-card tasks">
+
+            <div class="stat-icon">
+                📋
+            </div>
+
+            <div class="stat-title">
+                আজকের টাস্ক
+            </div>
+
+            <div class="stat-value">
+                8/15
+            </div>
+
+            <button class="stat-button"
+                    onclick="openTasks()">
+                <span>সব টাস্ক দেখুন</span>
+                <span>›</span>
+            </button>
+
+        </div>
+
+
+        <!-- Success -->
+
+        <div class="stat-card success">
+
+            <div class="stat-icon">
+                📈
+            </div>
+
+            <div class="stat-title">
+                সাকসেস রেট
+            </div>
+
+            <div class="stat-value">
+                92%
+            </div>
+
+            <button class="stat-button">
+                <span>ডিটেইলস দেখুন</span>
+                <span>›</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= CONTENT ================= -->
+
+<main class="content">
+
+
+<!-- STREAK -->
+
+<section class="streak">
+
+    <div class="streak-left">
+
+        <div class="fire">
+            🔥
+        </div>
+
+        <div class="streak-title">
+            ধারাবাহিকতা বজায় রাখুন!
+        </div>
+
+        <div class="streak-text">
+            টানা ৭ দিন লগইন করুন<br>
+            আর পান বিশেষ বোনাস
+        </div>
+
+        <button class="progress-btn">
+            স্ট্রিক দেখুন　›
+        </button>
+
+    </div>
+
+
+    <div class="streak-right">
+
+        <div class="today">
+            আজ আপনি আছেন
+        </div>
+
+        <div class="days">
+
+            <div class="day">
+                <div class="day-circle done">✓</div>
+                <span>১ দিন</span>
+            </div>
+
+            <div class="day">
+                <div class="day-circle done">✓</div>
+                <span>২ দিন</span>
+            </div>
+
+            <div class="day">
+                <div class="day-circle done">✓</div>
+                <span>৩ দিন</span>
+            </div>
+
+            <div class="day">
+                <div class="day-circle done">✓</div>
+                <span>৪ দিন</span>
+            </div>
+
+            <div class="day">
+                <div class="day-circle done">✓</div>
+                <span>৫ দিন</span>
+            </div>
+
+            <div class="day">
+                <div class="day-circle current">6</div>
+                <span>৬ দিন</span>
+            </div>
+
+            <div class="day">
+                <div class="fire-day">🔥</div>
+                <span>৭ দিন</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= QUICK FEATURES ================= -->
+
+<section class="quick">
+
+
+    <div class="quick-item">
+
+        <div class="quick-icon gift-icon">
+            🎁
+        </div>
+
+        <div class="quick-title">
+            অফার ও বোনাস
+        </div>
+
+        <div class="quick-sub">
+            দারুণ সব অফার<br>
+            ও বোনাস দেখুন
+        </div>
+
+        <div class="quick-arrow"
+             style="background:#ffe3ef;color:#f42c79;">
+            →
+        </div>
+
+    </div>
+
+
+    <div class="quick-item">
+
+        <div class="quick-icon performance-icon">
+            📊
+        </div>
+
+        <div class="quick-title">
+            আমার পারফরম্যান্স
+        </div>
+
+        <div class="quick-sub">
+            আপনার মোট আয়, টাস্ক<br>
+            ও সাকসেস দেখুন
+        </div>
+
+        <div class="quick-arrow"
+             style="background:#e5efff;color:#2468e8;">
+            →
+        </div>
+
+    </div>
+
+
+    <div class="quick-item">
+
+        <div class="quick-icon streak-icon">
+            🔥
+        </div>
+
+        <div class="quick-title">
+            আজকের স্ট্রিক
+        </div>
+
+        <div class="quick-sub">
+            স্ট্রিক ধরে রাখুন এবং<br>
+            বোনাস জিতুন
+        </div>
+
+        <div class="quick-arrow"
+             style="background:#fff0dc;color:#f38a00;">
+            →
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= TASK HEADER ================= -->
+
+<div class="section-header">
+
+    <div class="section-title">
+        আজকের টাস্ক
+    </div>
+
+    <div class="see-all"
+         onclick="openTasks()">
+        সব দেখুন ›
+    </div>
+
+</div>
+
+
+
+<!-- ================= TASK LIST ================= -->
+
+<section class="task-list">
+
+
+    <!-- Google -->
+
+    <div class="task">
+
+        <div class="task-icon google">
+            G
+        </div>
+
+        <div>
+            <div class="task-name">
+                গুগল সার্চ করুন
+            </div>
+
+            <div class="task-meta">
+                2 মিনিট • CPX Research
+            </div>
+        </div>
+
+        <div class="reward">
+            ₹8
+        </div>
+
+        <button class="start"
+                onclick="startTask('google')">
+            শুরু করুন
+        </button>
+
+    </div>
+
+
+
+    <!-- YouTube -->
+
+    <div class="task">
+
+        <div class="task-icon youtube">
+            ▶
+        </div>
+
+        <div>
+            <div class="task-name">
+                ইউটিউব ভিডিও দেখুন
+            </div>
+
+            <div class="task-meta">
+                2 মিনিট • CPX Research
+            </div>
+        </div>
+
+        <div class="reward">
+            ₹6
+        </div>
+
+        <button class="start"
+                onclick="startTask('youtube')">
+            শুরু করুন
+        </button>
+
+    </div>
+
+
+
+    <!-- App -->
+
+    <div class="task">
+
+        <div class="task-icon clipboard">
+            📋
+        </div>
+
+        <div>
+            <div class="task-name">
+                অ্যাপ ইনস্টল ও খুলুন
+            </div>
+
+            <div class="task-meta">
+                3 মিনিট • RevenueWall
+            </div>
+        </div>
+
+        <div class="reward">
+            ₹10
+        </div>
+
+        <button class="start"
+                onclick="startTask('app')">
+            শুরু করুন
+        </button>
+
+    </div>
+
+
+
+    <!-- Instagram -->
+
+    <div class="task">
+
+        <div class="task-icon instagram">
+            📸
+        </div>
+
+        <div>
+            <div class="task-name">
+                ইনস্টাগ্রাম পোস্ট লাইক করুন
+            </div>
+
+            <div class="task-meta">
+                2 মিনিট • CPX Research
+            </div>
+        </div>
+
+        <div class="reward">
+            ₹4
+        </div>
+
+        <button class="start"
+                onclick="startTask('instagram')">
+            শুরু করুন
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= REFER ================= -->
+
+<section class="refer">
+
+    <div class="refer-left">
+
+        <div class="refer-icon">
+            🎁
+        </div>
+
+        <div>
+
+            <div class="refer-title">
+                বন্ধুকে Refer করুন
+            </div>
+
+            <div class="refer-text">
+                বন্ধু ৮০টা টাস্ক কমপ্লিট করলে<br>
+                আপনি পাবেন
+                <span class="refer-money">₹50</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button class="refer-btn"
+            onclick="openRefer()">
+        এখনই Refer করুন　›
+    </button>
+
+</section>
+
+
+</main>
+
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
+<nav class="bottom-nav">
+
+
+    <div class="nav-item active"
+         onclick="goHome()">
+
+        <div class="nav-icon">
+            🏠
+        </div>
+
+        <span>হোম</span>
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="openLeaderboard()">
+
+        <div class="nav-icon">
+            🏆
+        </div>
+
+        <span>লিডারবোর্ড</span>
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="openWallet()">
+
+        <div class="nav-icon">
+            👛
+        </div>
+
+        <span>ওয়ালেট</span>
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="openRefer()">
+
+        <div class="nav-icon">
+            👥
+        </div>
+
+        <span>রেফার</span>
+
+    </div>
+
+
+    <div class="nav-item"
+         onclick="openProfile()">
+
+        <div class="nav-icon">
+            ♙
+        </div>
+
+        <span>প্রোফাইল</span>
+
+    </div>
+
+
+</nav>
+
+</div>
+
+
+
+<script>
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function openMenu(){
+    alert("Menu");
+}
+
+function openWallet(){
+    alert("Wallet");
+}
+
+function openTasks(){
+    alert("Tasks");
+}
+
+function openLeaderboard(){
+    alert("Leaderboard");
+}
+
+function openRefer(){
+    alert("Refer");
+}
+
+function openProfile(){
+    alert("Profile");
+}
+
+function goHome(){
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =========================
+   TASK
+========================= */
+
+function startTask(task){
+
+    console.log("Starting task:",task);
+
+    /*
+       এখানে পরে তোমার real task system
+       connect করবে।
+
+       যেমন:
+
+       startTask("google")
+       startTask("youtube")
+       startTask("app")
+       startTask("instagram")
+    */
+
+}
+
+
+/* =========================
+   TELEGRAM MINI APP
+========================= */
+
+if(window.Telegram &&
+   window.Telegram.WebApp){
+
+    Telegram.WebApp.ready();
+
+    Telegram.WebApp.expand();
+
+}
+
+</script>
+
+</body>
+</html>
