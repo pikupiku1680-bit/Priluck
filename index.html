@@ -1,855 +1,291 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <title>PriLuck</title>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Bengali Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            bangla: ['Noto Sans Bengali', 'sans-serif']
-          },
-          colors: {
-            priPurple: '#4B22E8',
-            deepPurple: '#5422E8',
-            heroBlue: '#2438D9',
-            heroPurple: '#5B28E8',
-            darkNavy: '#11145B',
-            softGray: '#8C8CA5',
-            pageBg: '#F4F4FF',
-            rewardGreen: '#1B9B50'
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      background: #F4F4FF;
-      font-family: 'Noto Sans Bengali', sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    button {
-      font-family: inherit;
-    }
-
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    /* Soft card shadow */
-    .soft-shadow {
-      box-shadow: 0 8px 28px rgba(45, 40, 120, 0.08);
-    }
-
-    /* Hero shadow */
-    .hero-shadow {
-      box-shadow: 0 12px 35px rgba(58, 37, 220, 0.20);
-    }
-
-    /* Small glass effect */
-    .glass-white {
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-    }
-
-    /* Referral banner */
-    .referral-gradient {
-      background: linear-gradient(
-        100deg,
-        #2539E8 0%,
-        #5422E8 52%,
-        #A52BEF 100%
-      );
-    }
-
-    /* Simple human illustration */
-    .person-head {
-      background: #F7B77A;
-      border-radius: 50%;
-      position: relative;
-    }
-
-    .person-head::before {
-      content: "";
-      position: absolute;
-      left: 4%;
-      top: -7%;
-      width: 92%;
-      height: 45%;
-      background: #211B2B;
-      border-radius: 55% 55% 30% 30%;
-    }
-
-    .person-body-purple {
-      background: linear-gradient(180deg, #6D35E8, #4520B9);
-      border-radius: 35px 35px 14px 14px;
-    }
-
-    .person-body-blue {
-      background: linear-gradient(180deg, #1688E8, #0757B9);
-      border-radius: 35px 35px 14px 14px;
-    }
-
-    .gift-box {
-      background: linear-gradient(145deg, #FF77B8, #E9338D);
-      position: relative;
-      border-radius: 8px;
-    }
-
-    .gift-box::before {
-      content: "";
-      position: absolute;
-      left: 43%;
-      top: 0;
-      width: 14%;
-      height: 100%;
-      background: #FFD22A;
-    }
-
-    .gift-box::after {
-      content: "";
-      position: absolute;
-      left: 28%;
-      top: -18%;
-      width: 44%;
-      height: 35%;
-      border: 5px solid #FFD22A;
-      border-radius: 50%;
-    }
-
-    /* Prevent bottom nav from covering content */
-    .page-content {
-      padding-bottom: 105px;
-    }
-
-    /* Mobile optimization */
-    @media (max-width: 380px) {
-      .stat-title {
-        font-size: 13px !important;
-      }
-
-      .stat-value {
-        font-size: 25px !important;
-      }
-
-      .stat-button {
-        font-size: 11px !important;
-      }
-
-      .task-title {
-        font-size: 14px !important;
-      }
-
-      .task-sub {
-        font-size: 10px !important;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priluck Premium UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #F4F4FF; font-family: system-ui, -apple-system, sans-serif; color: #11145B; }
+        .hero-bg { background: linear-gradient(135deg, #2438D9 0%, #4325E8 50%, #5B28E8 100%); }
+        .card-blue { background: linear-gradient(135deg, #3478F6 0%, #2255E8 100%); }
+        .card-orange { background: linear-gradient(135deg, #FFAA18 0%, #FF9415 100%); }
+        .card-green { background: linear-gradient(135deg, #24D76A 0%, #18C968 100%); }
+        .refer-bg { background: linear-gradient(100deg, #2539E8 0%, #5422E8 50%, #A52BEF 100%); }
+        .custom-shadow { box-shadow: 0 6px 20px rgba(40,40,120,0.08); }
+    </style>
 </head>
+<body class="pb-24">
 
-<body>
+    <!-- 🟣 ২. Header / Hero Section -->
+    <div class="hero-bg text-white px-5 pt-6 pb-20 rounded-b-[2rem] shadow-xl">
+        <div class="flex justify-between items-center">
+            <!-- Menu Button -->
+            <button class="w-10 h-10 bg-[#2024A8] flex items-center justify-center rounded-[20px] shadow-sm">
+                <i class="fa-solid fa-bars text-white text-base"></i>
+            </button>
+            
+            <!-- Telegram Icon & Title -->
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-[#20A9E8] rounded-full flex items-center justify-center shadow-md">
+                    <i class="fa-brands fa-telegram text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight leading-tight text-white">প্রিলাক</h1>
+                    <p class="text-[11px] text-white opacity-90">Task করুন, Earn করুন</p>
+                </div>
+            </div>
 
-<div class="min-h-screen bg-[#F4F4FF] page-content">
-
-  <!-- =====================================================
-       HERO / HEADER
-  ====================================================== -->
-  <section
-    class="hero-shadow overflow-hidden rounded-b-[38px] bg-gradient-to-br from-[#2438D9] via-[#4325E8] to-[#5B28E8] px-4 pt-5 pb-7"
-  >
-
-    <!-- Header -->
-    <div class="flex items-center justify-between">
-
-      <!-- Menu -->
-      <button
-        class="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-[#2024A8]/80 text-white"
-        aria-label="Menu"
-      >
-        <div class="space-y-1.5">
-          <span class="block h-1 w-8 rounded-full bg-white"></span>
-          <span class="block h-1 w-8 rounded-full bg-white"></span>
-          <span class="block h-1 w-8 rounded-full bg-white"></span>
+            <!-- Notification Button with Badge -->
+            <button class="w-10 h-10 relative flex items-center justify-center">
+                <i class="fa-solid fa-bell text-white text-xl"></i>
+                <span class="absolute top-2 right-2 w-2.5 h-2.5 bg-[#FF3B3B] rounded-full ring-2 ring-[#4325E8]"></span>
+            </button>
         </div>
-      </button>
-
-      <!-- Logo / Brand -->
-      <div class="flex flex-1 items-center justify-center gap-2 px-2">
-
-        <div class="flex h-[62px] w-[62px] shrink-0 items-center justify-center rounded-full bg-[#20A9E8] shadow-lg">
-          <span class="text-[31px] leading-none text-white">➤</span>
-        </div>
-
-        <div class="text-center">
-          <h1 class="text-[28px] font-extrabold leading-tight text-white sm:text-[34px]">
-            প্রিলাক
-          </h1>
-
-          <p class="mt-0.5 text-[12px] font-medium text-white/95 sm:text-[14px]">
-            Task করুন, Earn করুন
-          </p>
-        </div>
-      </div>
-
-      <!-- Notification -->
-      <button
-        class="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-[#2024A8]/80"
-        aria-label="Notifications"
-      >
-        <span class="text-[31px] leading-none text-white">♧</span>
-
-        <span
-          class="absolute -right-1 -top-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF3B3B] text-sm font-bold text-white shadow-md"
-        >
-          3
-        </span>
-      </button>
-
     </div>
 
-
-    <!-- =====================================================
-         STATISTICS CARDS
-    ====================================================== -->
-
-    <div class="mt-7 grid grid-cols-3 gap-3">
-
-      <!-- TODAY EARNING -->
-      <div
-        class="hero-shadow min-w-0 rounded-[25px] border border-white/45 bg-gradient-to-br from-[#3478F6] to-[#2255E8] p-3 text-white sm:p-4"
-      >
-
-        <!-- Icon -->
-        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white sm:h-16 sm:w-16">
-          <span class="text-2xl">💳</span>
+    <!-- 🟦🟧🟩 ৩. Three Statistics Cards -->
+    <div class="grid grid-cols-3 gap-2.5 px-4 -mt-14">
+        <!-- Card 1: আজকের আয় -->
+        <div class="card-blue p-3.5 rounded-2xl text-white shadow-lg border border-white/45 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-1">
+                <span class="text-[10px] opacity-90 font-medium">আজকের আয়</span>
+                <div class="w-5 h-5 bg-white rounded-full flex items-center justify-center text-[#2563EB] text-[10px] font-bold">₹</div>
+            </div>
+            <p class="text-sm font-extrabold mb-2">₹142.50</p>
+            <button class="bg-white/15 border border-white/25 rounded-lg text-[9px] py-1 text-center font-medium text-white flex items-center justify-center gap-1">
+                বিস্তারিত <span class="text-[8px]">›</span>
+            </button>
         </div>
 
-        <p class="stat-title mt-4 whitespace-nowrap text-[14px] font-semibold sm:text-[16px]">
-          আজকের আয়
-        </p>
-
-        <p class="stat-value mt-1 text-[26px] font-extrabold leading-tight sm:text-[31px]">
-          ₹142.50
-        </p>
-
-        <button
-          class="stat-button mt-5 flex w-full items-center justify-center gap-1 rounded-full border border-white/25 bg-white/15 px-2 py-2 text-[11px] font-semibold text-white sm:text-[13px]"
-        >
-          ওয়ালেট দেখুন
-          <span>›</span>
-        </button>
-
-      </div>
-
-
-      <!-- TODAY TASK -->
-      <div
-        class="hero-shadow min-w-0 rounded-[25px] border border-white/45 bg-gradient-to-br from-[#FFC12A] to-[#FF9415] p-3 text-white sm:p-4"
-      >
-
-        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white sm:h-16 sm:w-16">
-          <span class="text-2xl">📋</span>
+        <!-- Card 2: আজকের টাস্ক -->
+        <div class="card-orange p-3.5 rounded-2xl text-white shadow-lg border border-white/40 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-1">
+                <span class="text-[10px] opacity-90 font-medium">আজকের টাস্ক</span>
+                <div class="w-5 h-5 bg-white rounded-full flex items-center justify-center text-[#FF9415] text-[9px]">
+                    <i class="fa-solid fa-list-check"></i>
+                </div>
+            </div>
+            <p class="text-sm font-extrabold mb-2">8/15</p>
+            <button class="bg-white/18 border border-white/30 rounded-lg text-[9px] py-1 text-center font-medium text-white flex items-center justify-center gap-1">
+                বিস্তারিত <span class="text-[8px]">›</span>
+            </button>
         </div>
 
-        <p class="stat-title mt-4 whitespace-nowrap text-[14px] font-semibold sm:text-[16px]">
-          আজকের টাস্ক
-        </p>
-
-        <p class="stat-value mt-1 text-[29px] font-extrabold leading-tight sm:text-[33px]">
-          8/15
-        </p>
-
-        <button
-          class="stat-button mt-5 flex w-full items-center justify-center gap-1 rounded-full border border-white/30 bg-white/15 px-1.5 py-2 text-[10px] font-semibold text-white sm:text-[12px]"
-        >
-          সব টাস্ক দেখুন
-          <span>›</span>
-        </button>
-
-      </div>
-
-
-      <!-- SUCCESS RATE -->
-      <div
-        class="hero-shadow min-w-0 rounded-[25px] border border-white/45 bg-gradient-to-br from-[#24D76A] to-[#0BB85A] p-3 text-white sm:p-4"
-      >
-
-        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white sm:h-16 sm:w-16">
-          <span class="text-2xl">📈</span>
+        <!-- Card 3: সাকসেস রেট -->
+        <div class="card-green p-3.5 rounded-2xl text-white shadow-lg border border-white/40 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-1">
+                <span class="text-[10px] opacity-90 font-medium">সাকসেস রেট</span>
+                <div class="w-5 h-5 bg-white rounded-full flex items-center justify-center text-[#0BAA55] text-[9px]">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+            </div>
+            <p class="text-sm font-extrabold mb-2">92%</p>
+            <button class="bg-white/18 border border-white/30 rounded-lg text-[9px] py-1 text-center font-medium text-white flex items-center justify-center gap-1">
+                বিস্তারিত <span class="text-[8px]">›</span>
+            </button>
         </div>
-
-        <p class="stat-title mt-4 whitespace-nowrap text-[14px] font-semibold sm:text-[16px]">
-          সাকসেস রেট
-        </p>
-
-        <p class="stat-value mt-1 text-[29px] font-extrabold leading-tight sm:text-[33px]">
-          92%
-        </p>
-
-        <button
-          class="stat-button mt-5 flex w-full items-center justify-center gap-1 rounded-full border border-white/30 bg-white/15 px-1.5 py-2 text-[10px] font-semibold text-white sm:text-[12px]"
-        >
-          ডিটেইলস দেখুন
-          <span>›</span>
-        </button>
-
-      </div>
-
     </div>
 
-  </section>
-
-
-  <!-- MAIN CONTENT -->
-  <main class="mx-auto w-full max-w-[900px] space-y-5 px-4 pt-5">
-
-
-    <!-- =====================================================
-         STREAK CARD
-    ====================================================== -->
-
-    <section class="soft-shadow rounded-[25px] bg-white p-5">
-
-      <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
-
-        <!-- LEFT -->
-        <div class="flex-1">
-
-          <div class="flex items-start gap-4">
-
-            <!-- Flame -->
-            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#FFF8EA] shadow-sm">
-              <span class="text-[38px]">🔥</span>
+    <!-- 🔥 ৫. Streak / ধারাবাহিকতা Section -->
+    <div class="bg-white mx-4 mt-4 p-4 rounded-[24px] custom-shadow">
+        <div class="flex justify-between items-center mb-3">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-full bg-[#FFF8EA] flex items-center justify-center text-orange-500 text-lg">🔥</div>
+                <div>
+                    <p class="text-xs font-bold text-[#15175A]">ধারাবাহিকতা বজায় রাখুন!</p>
+                    <p class="text-[10px] text-[#8C8CA5]">প্রতিদিন এসে বোনাস নিন</p>
+                </div>
             </div>
-
-            <div>
-              <h2 class="text-[20px] font-extrabold leading-tight text-[#11145B] sm:text-[23px]">
-                ধারাবাহিকতা বজায় রাখুন!
-              </h2>
-
-              <p class="mt-2 text-[13px] leading-6 text-[#8C8CA5]">
-                টানা ৭ দিন লগইন করুন<br>
-                আর পান বিশেষ বোনাস
-              </p>
-
-              <button
-                class="mt-3 rounded-full bg-[#4B22E8] px-5 py-2.5 text-[13px] font-bold text-white shadow-md"
-              >
-                স্ট্রিক দেখুন ›
-              </button>
-            </div>
-
-          </div>
-
+            <button class="bg-[#4B27E8] text-white text-[10px] font-semibold px-3 py-1.5 rounded-full shadow-md">স্ট্রিক দেখুন</button>
         </div>
 
-
-        <!-- RIGHT / DAYS -->
-        <div class="flex-1">
-
-          <p class="mb-3 text-center text-[15px] font-bold text-[#11145B] sm:text-left">
-            আজ আপনি আছেন
-          </p>
-
-          <div class="flex items-center justify-between gap-1">
-
-            <!-- Day 1 -->
-            <div class="flex flex-col items-center">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#4B22E8] text-xl font-bold text-white">
-                ✓
-              </div>
-              <span class="mt-1 text-[10px] text-[#55557A]">১ দিন</span>
-            </div>
-
-            <!-- Day 2 -->
-            <div class="flex flex-col items-center">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#4B22E8] text-xl font-bold text-white">
-                ✓
-              </div>
-              <span class="mt-1 text-[10px] text-[#55557A]">২ দিন</span>
-            </div>
-
-            <!-- Day 3 -->
-            <div class="flex flex-col items-center">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#4B22E8] text-xl font-bold text-white">
-                ✓
-              </div>
-              <span class="mt-1 text-[10px] text-[#55557A]">৩ দিন</span>
-            </div>
-
-            <!-- Day 4 -->
-            <div class="flex flex-col items-center">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#4B22E8] text-xl font-bold text-white">
-                ✓
-              </div>
-              <span class="mt-1 text-[10px] text-[#55557A]">৪ দিন</span>
-            </div>
-
-            <!-- Day 5 -->
-            <div class="flex flex-col items-center">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#4B22E8] text-xl font-bold text-white">
-                ✓
-              </div>
-              <span class="mt-1 text-[10px] text-[#55557A]">৫ দিন</span>
-            </div>
-
-            <!-- Day 6 -->
-            <div class="flex flex-col items-center">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#4B22E8] bg-white text-lg font-bold text-[#4B22E8]">
-                6
-              </div>
-              <span class="mt-1 text-[10px] text-[#55557A]">৬ দিন</span>
-            </div>
-
-            <!-- Day 7 -->
-            <div class="flex flex-col items-center">
-              <div class="flex h-10 w-10 items-center justify-center text-3xl">
-                🔥
-              </div>
-              <span class="mt-1 text-[10px] text-[#55557A]">৭ দিন</span>
-            </div>
-
-          </div>
-
+        <div class="flex justify-between items-center text-center pt-2">
+            <!-- Day 1-5 Completed -->
+            <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-xs font-bold">✓</div><span class="text-[9px] text-[#8C8CA5]">১ দিন</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-xs font-bold">✓</div><span class="text-[9px] text-[#8C8CA5]">২ দিন</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-xs font-bold">✓</div><span class="text-[9px] text-[#8C8CA5]">৩ দিন</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-xs font-bold">✓</div><span class="text-[9px] text-[#8C8CA5]">৪ দিন</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-xs font-bold">✓</div><span class="text-[9px] text-[#8C8CA5]">৫ দিন</span></div>
+            <!-- Day 6 Current -->
+            <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-full bg-white border-2 border-[#4B22E8] text-[#4B22E8] flex items-center justify-center text-xs font-bold">6</div><span class="text-[9px] font-bold text-[#15175A]">৬ দিন</span></div>
+            <!-- Day 7 Flame -->
+            <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-full bg-[#FFF1D8] border border-orange-300 flex items-center justify-center text-xs">🔥</div><span class="text-[9px] text-[#8C8CA5]">৭ দিন</span></div>
         </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         FEATURE CARD
-    ====================================================== -->
-
-    <section class="soft-shadow overflow-hidden rounded-[25px] bg-white">
-
-      <div class="grid grid-cols-3">
-
-        <!-- FEATURE 1 -->
-        <button class="group min-w-0 border-r border-[#E5E5EE] px-3 py-5 text-center">
-
-          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#FFE5EF]">
-            <span class="text-3xl">🎁</span>
-          </div>
-
-          <h3 class="mt-3 text-[15px] font-extrabold text-[#11145B] sm:text-[17px]">
-            অফার ও বোনাস
-          </h3>
-
-          <p class="mt-2 text-[10px] leading-5 text-[#8C8CA5] sm:text-[12px]">
-            দারুণ সব অফার<br>
-            ও বোনাস দেখুন
-          </p>
-
-          <span class="mx-auto mt-4 flex h-10 w-14 items-center justify-center rounded-full bg-[#FFE0EB] text-xl font-bold text-[#E91E63]">
-            →
-          </span>
-
-        </button>
-
-
-        <!-- FEATURE 2 -->
-        <button class="group min-w-0 border-r border-[#E5E5EE] px-3 py-5 text-center">
-
-          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#E5F0FF]">
-            <span class="text-3xl">📊</span>
-          </div>
-
-          <h3 class="mt-3 text-[15px] font-extrabold text-[#11145B] sm:text-[17px]">
-            আমার পারফরম্যান্স
-          </h3>
-
-          <p class="mt-2 text-[10px] leading-5 text-[#8C8CA5] sm:text-[12px]">
-            আপনার মোট আয়, টাস্ক<br>
-            ও সাকসেস দেখুন
-          </p>
-
-          <span class="mx-auto mt-4 flex h-10 w-14 items-center justify-center rounded-full bg-[#E0EEFF] text-xl font-bold text-[#1769D1]">
-            →
-          </span>
-
-        </button>
-
-
-        <!-- FEATURE 3 -->
-        <button class="group min-w-0 px-3 py-5 text-center">
-
-          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#FFF1D8]">
-            <span class="text-3xl">🔥</span>
-          </div>
-
-          <h3 class="mt-3 text-[15px] font-extrabold text-[#11145B] sm:text-[17px]">
-            আজকের স্ট্রিক
-          </h3>
-
-          <p class="mt-2 text-[10px] leading-5 text-[#8C8CA5] sm:text-[12px]">
-            স্ট্রিক ধরে রাখুন এবং<br>
-            বোনাস জিতুন
-          </p>
-
-          <span class="mx-auto mt-4 flex h-10 w-14 items-center justify-center rounded-full bg-[#FFF0D1] text-xl font-bold text-[#E99A00]">
-            →
-          </span>
-
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         TOP TASK HEADER
-    ====================================================== -->
-
-    <div class="flex items-center justify-between px-1">
-
-      <h2 class="text-[22px] font-extrabold text-[#11145B] sm:text-[25px]">
-        আজকের Top Tasks
-      </h2>
-
-      <button class="text-[14px] font-bold text-[#4B22E8] sm:text-[16px]">
-        সব দেখুন ›
-      </button>
-
     </div>
 
+    <!-- 🎁 ৬. Feature Cards (3 Columns with Divider) -->
+    <div class="bg-white mx-4 mt-4 p-3.5 rounded-[24px] custom-shadow grid grid-cols-3 divide-x divide-[#E5E5EE]">
+        <!-- Column 1 -->
+        <div class="flex flex-col items-center text-center px-1">
+            <div class="w-10 h-10 rounded-full bg-[#FFE5EF] flex items-center justify-center text-[#E91E63] text-lg mb-1.5">🎁</div>
+            <p class="text-[11px] font-bold text-[#11145B]">অফার ও বোনাস</p>
+            <p class="text-[9px] text-[#8C8CA5] mb-2">স্পেশাল অফার</p>
+            <div class="w-5 h-5 rounded-full bg-[#FFE0EB] flex items-center justify-center text-[#E91E63] text-xs">›</div>
+        </div>
+        <!-- Column 2 -->
+        <div class="flex flex-col items-center text-center px-1">
+            <div class="w-10 h-10 rounded-full bg-[#E5F0FF] flex items-center justify-center text-[#3478F6] text-lg mb-1.5">📊</div>
+            <p class="text-[11px] font-bold text-[#11145B]">আমার পারফরম্যান্স</p>
+            <p class="text-[9px] text-[#8C8CA5] mb-2">আপনার রেকর্ড</p>
+            <div class="w-5 h-5 rounded-full bg-[#E5F0FF] flex items-center justify-center text-[#3478F6] text-xs">›</div>
+        </div>
+        <!-- Column 3 -->
+        <div class="flex flex-col items-center text-center px-1">
+            <div class="w-10 h-10 rounded-full bg-[#FFF1D8] flex items-center justify-center text-[#FF9415] text-lg mb-1.5">🔥</div>
+            <p class="text-[11px] font-bold text-[#11145B]">আজকের স্ট্রিক</p>
+            <p class="text-[9px] text-[#8C8CA5] mb-2">ডেইলি প্রগ্রেস</p>
+            <div class="w-5 h-5 rounded-full bg-[#FFF1D8] flex items-center justify-center text-[#FF9415] text-xs">›</div>
+        </div>
+    </div>
 
-    <!-- =====================================================
-         TASK LIST
-    ====================================================== -->
+    <!-- 🟣 ৭. Top Tasks Header -->
+    <div class="flex justify-between items-center mx-4 mt-6 mb-3">
+        <h2 class="font-extrabold text-[#11145B] text-base">আজকের Top Tasks</h2>
+        <a href="#" class="text-xs font-bold text-[#4B27E8]">সব দেখুন ›</a>
+    </div>
 
-    <section class="soft-shadow overflow-hidden rounded-[25px] bg-white px-4">
-
-      <!-- TASK 1 -->
-      <div class="flex items-center gap-3 border-b border-[#EEEEF5] py-4">
-
-        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F6F7FB]">
-          <span class="text-3xl font-bold text-[#4285F4]">G</span>
+    <!-- 📋 ৮. Task List Card -->
+    <div class="bg-white mx-4 rounded-[22px] custom-shadow divide-y divide-[#EEEEF5]">
+        <!-- Task 1: Google -->
+        <div class="p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-xl shadow-sm">
+                    <i class="fa-brands fa-google text-blue-600"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#11145B]">গুগল সার্চ করুন</p>
+                    <p class="text-[10px] text-[#8C8CA5]">২ মিনিট • CPX Research</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-[#E8F8EE] text-[#1B9B50] font-bold text-xs px-2.5 py-1 rounded-full">₹8</span>
+                <button class="bg-[#4B22E8] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+            </div>
         </div>
 
-        <div class="min-w-0 flex-1">
-          <h3 class="task-title truncate text-[15px] font-bold text-[#11145B] sm:text-[18px]">
-            গুগল সার্চ করুন
-          </h3>
-
-          <p class="task-sub mt-1 text-[11px] text-[#8C8CA5] sm:text-[13px]">
-            ২ মিনিট • CPX Research
-          </p>
+        <!-- Task 2: YouTube -->
+        <div class="p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-xl shadow-sm">
+                    <i class="fa-brands fa-youtube text-red-600"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#11145B]">ইউটিউব ভিডিও দেখুন</p>
+                    <p class="text-[10px] text-[#8C8CA5]">৩ মিনিট • ওয়াচ টাইম</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-[#E8F8EE] text-[#1B9B50] font-bold text-xs px-2.5 py-1 rounded-full">₹6</span>
+                <button class="bg-[#4B22E8] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+            </div>
         </div>
 
-        <div class="flex shrink-0 items-center gap-2">
-
-          <span class="rounded-full bg-[#E8F8EE] px-4 py-2 text-[17px] font-extrabold text-[#1B9B50]">
-            ₹8
-          </span>
-
-          <button class="rounded-full bg-[#4B22E8] px-4 py-2.5 text-[12px] font-bold text-white sm:px-5 sm:text-[13px]">
-            শুরু করুন
-          </button>
-
+        <!-- Task 3: App Install -->
+        <div class="p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-xl shadow-sm text-indigo-600">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#11145B]">অ্যাপ ইনস্টল ও খুলুন</p>
+                    <p class="text-[10px] text-[#8C8CA5]">১ মিনিট • ইন্সটল টাস্ক</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-[#E8F8EE] text-[#1B9B50] font-bold text-xs px-2.5 py-1 rounded-full">₹10</span>
+                <button class="bg-[#4B22E8] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+            </div>
         </div>
 
-      </div>
+        <!-- Task 4: Instagram -->
+        <div class="p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-xl shadow-sm text-pink-600">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#11145B]">ইনস্টাগ্রাম পোস্ট লাইক করুন</p>
+                    <p class="text-[10px] text-[#8C8CA5]">১ মিনিট • লাইক টাস্ক</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-[#E8F8EE] text-[#1B9B50] font-bold text-xs px-2.5 py-1 rounded-full">₹4</span>
+                <button class="bg-[#4B22E8] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+            </div>
+        </div>
+    </div>
 
-
-      <!-- TASK 2 -->
-      <div class="flex items-center gap-3 border-b border-[#EEEEF5] py-4">
-
-        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F6F7FB]">
-          <span class="text-3xl text-[#FF0000]">▶</span>
+    <!-- 👥 ৯. Referral Banner (With Transparent Human Characters Asset) -->
+    <div class="refer-bg mx-4 mt-5 p-4 rounded-[22px] text-white shadow-xl flex items-center justify-between relative overflow-hidden min-h-[110px]">
+        <!-- Transparent Human Character SVG Illustration Asset -->
+        <div class="w-20 h-20 flex-shrink-0 z-10 relative mr-1">
+            <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                <!-- Gift Box Base & Ribbon -->
+                <rect x="25" y="55" width="50" height="35" rx="6" fill="#FF3B3B" />
+                <rect x="22" y="48" width="56" height="10" rx="3" fill="#FF5252" />
+                <rect x="46" y="48" width="8" height="42" fill="#FFD21C" />
+                <rect x="22" y="66" width="56" height="8" fill="#FFD21C" />
+                <!-- Ribbon Bow -->
+                <path d="M 40 40 C 30 30, 45 35, 50 48 C 55 35, 70 30, 60 40 Z" fill="#FFD21C" />
+                
+                <!-- Left Character (Boy) -->
+                <circle cx="28" cy="28" r="11" fill="#FFD1B3" /> <!-- Face -->
+                <path d="M 20 25 C 20 15, 36 15, 36 22 C 32 20, 24 20, 20 25 Z" fill="#4A2E2B" /> <!-- Hair -->
+                <path d="M 16 50 C 16 38, 40 38, 40 50 Z" fill="#3478F6" /> <!-- Body/Shirt -->
+                
+                <!-- Right Character (Girl) -->
+                <circle cx="72" cy="28" r="11" fill="#FFD1B3" /> <!-- Face -->
+                <path d="M 60 28 C 60 14, 84 14, 84 28 C 84 38, 78 40, 78 40 Z" fill="#2C1A1D" /> <!-- Long Hair -->
+                <path d="M 60 50 C 60 38, 84 38, 84 50 Z" fill="#E91E63" /> <!-- Body/Shirt -->
+            </svg>
         </div>
 
-        <div class="min-w-0 flex-1">
-          <h3 class="task-title truncate text-[15px] font-bold text-[#11145B] sm:text-[18px]">
-            ইউটিউব ভিডিও দেখুন
-          </h3>
-
-          <p class="task-sub mt-1 text-[11px] text-[#8C8CA5] sm:text-[13px]">
-            ২ মিনিট • CPX Research
-          </p>
+        <!-- Banner Content Area -->
+        <div class="z-10 flex-1 px-1">
+            <p class="font-extrabold text-sm tracking-tight mb-0.5 text-white">বন্ধুকে Refer করুন</p>
+            <p class="text-[10px] text-white/90 leading-snug">
+                বন্ধু ৮০টা টাস্ক কমপ্লিট করলে আপনি পাবেন <span class="text-[#FFD21C] font-black text-xs">₹50</span>
+            </p>
         </div>
 
-        <div class="flex shrink-0 items-center gap-2">
-
-          <span class="rounded-full bg-[#E8F8EE] px-4 py-2 text-[17px] font-extrabold text-[#1B9B50]">
-            ₹6
-          </span>
-
-          <button class="rounded-full bg-[#4B22E8] px-4 py-2.5 text-[12px] font-bold text-white sm:px-5 sm:text-[13px]">
-            শুরু করুন
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- TASK 3 -->
-      <div class="flex items-center gap-3 border-b border-[#EEEEF5] py-4">
-
-        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F6F7FB]">
-          <span class="text-3xl">📋</span>
-        </div>
-
-        <div class="min-w-0 flex-1">
-          <h3 class="task-title truncate text-[15px] font-bold text-[#11145B] sm:text-[18px]">
-            অ্যাপ ইনস্টল ও খুলুন
-          </h3>
-
-          <p class="task-sub mt-1 text-[11px] text-[#8C8CA5] sm:text-[13px]">
-            ৩ মিনিট • RevenueWall
-          </p>
-        </div>
-
-        <div class="flex shrink-0 items-center gap-2">
-
-          <span class="rounded-full bg-[#E8F8EE] px-4 py-2 text-[17px] font-extrabold text-[#1B9B50]">
-            ₹10
-          </span>
-
-          <button class="rounded-full bg-[#4B22E8] px-4 py-2.5 text-[12px] font-bold text-white sm:px-5 sm:text-[13px]">
-            শুরু করুন
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- TASK 4 -->
-      <div class="flex items-center gap-3 py-4">
-
-        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F6F7FB]">
-          <span class="text-3xl">📸</span>
-        </div>
-
-        <div class="min-w-0 flex-1">
-          <h3 class="task-title truncate text-[15px] font-bold text-[#11145B] sm:text-[18px]">
-            ইনস্টাগ্রাম পোস্ট লাইক করুন
-          </h3>
-
-          <p class="task-sub mt-1 text-[11px] text-[#8C8CA5] sm:text-[13px]">
-            ২ মিনিট • CPX Research
-          </p>
-        </div>
-
-        <div class="flex shrink-0 items-center gap-2">
-
-          <span class="rounded-full bg-[#E8F8EE] px-4 py-2 text-[17px] font-extrabold text-[#1B9B50]">
-            ₹4
-          </span>
-
-          <button class="rounded-full bg-[#4B22E8] px-4 py-2.5 text-[12px] font-bold text-white sm:px-5 sm:text-[13px]">
-            শুরু করুন
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         REFERRAL BANNER
-    ====================================================== -->
-
-    <section class="referral-gradient relative overflow-hidden rounded-[24px] px-4 py-5 text-white shadow-lg">
-
-      <div class="flex items-center gap-3">
-
-        <!-- HUMAN CHARACTERS -->
-        <div class="relative flex h-[105px] w-[125px] shrink-0 items-end justify-center sm:h-[125px] sm:w-[160px]">
-
-          <!-- Left Person -->
-          <div class="absolute bottom-0 left-1">
-
-            <div class="person-head mx-auto h-9 w-9 sm:h-11 sm:w-11"></div>
-
-            <div class="person-body-purple mt-[-2px] h-[55px] w-[45px] sm:h-[68px] sm:w-[55px]"></div>
-
-          </div>
-
-          <!-- Right Person -->
-          <div class="absolute bottom-0 right-1">
-
-            <div class="person-head mx-auto h-9 w-9 sm:h-11 sm:w-11"></div>
-
-            <div class="person-body-blue mt-[-2px] h-[55px] w-[45px] sm:h-[68px] sm:w-[55px]"></div>
-
-          </div>
-
-          <!-- Gift -->
-          <div class="gift-box absolute bottom-1 left-1/2 h-9 w-11 -translate-x-1/2 sm:h-11 sm:w-14"></div>
-
-        </div>
-
-
-        <!-- BANNER TEXT -->
-        <div class="min-w-0 flex-1">
-
-          <h2 class="text-[19px] font-extrabold leading-tight sm:text-[25px]">
-            বন্ধুকে Refer করুন
-          </h2>
-
-          <p class="mt-1 text-[11px] leading-5 text-white/95 sm:text-[14px]">
-            বন্ধু ৮০টা টাস্ক কমপ্লিট করলে
-          </p>
-
-          <p class="text-[12px] font-semibold sm:text-[15px]">
-            আপনি পাবেন
-            <span class="text-[25px] font-extrabold text-[#FFD21C] sm:text-[31px]">
-              ₹50
-            </span>
-          </p>
-
-        </div>
-
-
-        <!-- BUTTON -->
-        <button
-          class="hidden shrink-0 items-center gap-2 rounded-full bg-white px-5 py-3 text-[13px] font-bold text-[#4B22E8] shadow-md sm:flex"
-        >
-          এখনই Refer করুন
-          <span class="text-xl">›</span>
+        <!-- Referral Button -->
+        <button class="z-10 bg-white text-[#4B22E8] font-extrabold text-[11px] px-3 py-2 rounded-full shadow-md flex items-center gap-1 flex-shrink-0">
+            Refer করুন <span class="text-xs">›</span>
         </button>
+    </div>
 
-      </div>
-
-
-      <!-- Mobile Button -->
-      <button
-        class="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-[13px] font-bold text-[#4B22E8] shadow-md sm:hidden"
-      >
-        এখনই Refer করুন
-        <span class="text-xl">›</span>
-      </button>
-
-    </section>
-
-
-  </main>
-
-</div>
-
-
-<!-- =====================================================
-     FIXED BOTTOM NAVIGATION
-====================================================== -->
-
-<nav
-  class="fixed bottom-0 left-0 right-0 z-50 border-t border-[#E8E8F0] bg-white/95 px-2 py-2 shadow-[0_-8px_25px_rgba(0,0,0,0.08)] backdrop-blur-md"
->
-
-  <div class="mx-auto flex max-w-[700px] items-end justify-between">
-
-    <!-- HOME -->
-    <button class="flex min-w-[58px] flex-col items-center">
-
-      <span class="flex h-12 w-16 items-center justify-center rounded-[18px] bg-[#4B22E8] text-2xl text-white shadow-md">
-        🏠
-      </span>
-
-      <span class="mt-1 text-[11px] font-bold text-[#4B22E8]">
-        হোম
-      </span>
-
-    </button>
-
-
-    <!-- LEADERBOARD -->
-    <button class="flex min-w-[58px] flex-col items-center">
-
-      <span class="flex h-12 w-16 items-center justify-center text-2xl">
-        🏆
-      </span>
-
-      <span class="text-[11px] font-semibold text-[#353568]">
-        লিডারবোর্ড
-      </span>
-
-    </button>
-
-
-    <!-- WALLET -->
-    <button class="flex min-w-[58px] flex-col items-center">
-
-      <span class="flex h-12 w-16 items-center justify-center text-2xl">
-        👛
-      </span>
-
-      <span class="text-[11px] font-semibold text-[#353568]">
-        ওয়ালেট
-      </span>
-
-    </button>
-
-
-    <!-- REFER -->
-    <button class="flex min-w-[58px] flex-col items-center">
-
-      <span class="flex h-12 w-16 items-center justify-center text-2xl text-[#147ED1]">
-        👥
-      </span>
-
-      <span class="text-[11px] font-semibold text-[#353568]">
-        রেফার
-      </span>
-
-    </button>
-
-
-    <!-- PROFILE -->
-    <button class="flex min-w-[58px] flex-col items-center">
-
-      <span class="flex h-12 w-16 items-center justify-center text-2xl text-[#353568]">
-        ♙
-      </span>
-
-      <span class="text-[11px] font-semibold text-[#353568]">
-        প্রোফাইল
-      </span>
-
-    </button>
-
-  </div>
-
-</nav>
-
+    <!-- 🏠 ১০. Bottom Navigation -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E5E5EE] py-2 px-3 flex justify-around items-center z-50 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]">
+        <!-- Home Active -->
+        <div class="flex flex-col items-center">
+            <div class="w-10 h-6 bg-[#4B22E8] rounded-full flex items-center justify-center text-white text-xs mb-0.5 shadow-sm">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <span class="text-[10px] font-bold text-[#4B22E8]">হোম</span>
+        </div>
+        <!-- Leaderboard -->
+        <div class="flex flex-col items-center text-[#353568]">
+            <i class="fa-solid fa-trophy text-sm mb-1"></i>
+            <span class="text-[10px] font-medium">লিডারবোর্ড</span>
+        </div>
+        <!-- Wallet -->
+        <div class="flex flex-col items-center text-[#353568]">
+            <i class="fa-solid fa-wallet text-sm mb-1"></i>
+            <span class="text-[10px] font-medium">ওয়ালেট</span>
+        </div>
+        <!-- Refer -->
+        <div class="flex flex-col items-center text-[#353568]">
+            <i class="fa-solid fa-user-group text-sm mb-1"></i>
+            <span class="text-[10px] font-medium">রেফার</span>
+        </div>
+        <!-- Profile -->
+        <div class="flex flex-col items-center text-[#353568]">
+            <i class="fa-solid fa-user text-sm mb-1"></i>
+            <span class="text-[10px] font-medium">প্রোফাইল</span>
+        </div>
+    </div>
 
 </body>
 </html>
