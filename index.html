@@ -3,332 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PriLuck - Home</title>
-    <!-- Tailwind CSS CDN -->
+    <title>PriLuck Premium App UI</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            blue: '#2D6BF6',
-                            orange: '#FF8800',
-                            green: '#08B052',
-                            dark: '#1E1E2D'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Font: Noto Sans Bengali -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
+        body { 
+            background-color: #F4F4FF; 
+            font-family: 'Noto Sans Bengali', system-ui, -apple-system, sans-serif; 
+            color: #11145B; 
         }
-        /* Custom Gradient for Top Cards (Bottom-Left Dark to Top-Right Light) */
-        .card-blue-grad {
-            background: linear-gradient(45deg, #1A4BD6 0%, #2D6BF6 100%);
-        }
-        .card-orange-grad {
-            background: linear-gradient(45deg, #E66A00 0%, #FF9900 100%);
-        }
-        .card-green-grad {
-            background: linear-gradient(45deg, #05853D 0%, #08B052 100%);
-        }
+        .hero-bg { background: linear-gradient(135deg, #1C24D4 0%, #351AE3 50%, #521AE3 100%); }
+        .card-blue { background: linear-gradient(135deg, #2E6DF6 0%, #1A4EE8 100%); }
+        .card-orange { background: linear-gradient(135deg, #FFB81C 0%, #FF8C00 100%); }
+        .card-green { background: linear-gradient(135deg, #20D063 0%, #08B052 100%); }
+        .refer-bg { background: linear-gradient(100deg, #2133E8 0%, #4D1AE8 50%, #9B22EF 100%); }
+        .custom-shadow { box-shadow: 0 8px 24px rgba(30, 30, 100, 0.05); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 pb-24">
+<body class="pb-24">
 
-    <!-- Top App Header -->
-    <header class="bg-gradient-to-r from-blue-700 via-indigo-600 to-indigo-700 text-white px-4 pt-4 pb-12 rounded-b-[30px] shadow-md relative">
-        <div class="flex items-center justify-between mb-4">
-            <button class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white text-lg">
-                <i class="fa-solid fa-bars"></i>
+    <!-- 🟣 1. Header / Hero Section -->
+    <div class="hero-bg text-white px-5 pt-6 pb-20 rounded-b-[2.2rem] shadow-xl">
+        <div class="flex justify-between items-center">
+            <!-- Menu Button -->
+            <button class="w-10 h-10 bg-[#171A9E]/60 flex items-center justify-center rounded-[16px] border border-white/10 shadow-sm">
+                <i class="fa-solid fa-bars text-white text-base"></i>
             </button>
-            <div class="flex items-center gap-2 bg-white/15 px-3.5 py-1.5 rounded-full backdrop-blur-md">
-                <div class="w-6 h-6 rounded-full bg-sky-400 flex items-center justify-center text-white text-xs">
-                    <i class="fa-brands fa-telegram"></i>
+            
+            <!-- Telegram Icon & Title -->
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-[#20A9E8] rounded-full flex items-center justify-center shadow-md">
+                    <i class="fa-brands fa-telegram text-white text-xl"></i>
                 </div>
-                <div class="text-left">
-                    <h2 class="text-xs font-bold leading-tight">প্রিলাক</h2>
-                    <p class="text-[9px] text-white/80 leading-tight">Task করুন, Earn করুন</p>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight leading-none text-white">প্রিলাক</h1>
+                    <p class="text-[11px] text-white/90 font-medium">Task করুন, Earn করুন</p>
                 </div>
             </div>
-            <button class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white text-lg relative">
-                <i class="fa-regular fa-bell"></i>
-                <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-indigo-600"></span>
+
+            <!-- Notification Button with Badge -->
+            <button class="w-10 h-10 relative flex items-center justify-center">
+                <i class="fa-regular fa-bell text-white text-xl"></i>
+                <span class="absolute top-2 right-2 w-4 h-4 bg-[#FF3B3B] text-white text-[9px] font-bold rounded-full flex items-center justify-center ring-2 ring-[#351AE3]">3</span>
             </button>
         </div>
-    </header>
+    </div>
 
-    <!-- Main Container -->
-    <main class="px-4 -mt-8 space-y-4">
+    <!-- 🟦🟧🟩 2. Three Statistics Cards -->
+    <div class="grid grid-cols-3 gap-2.5 px-4 -mt-14">
+        <!-- Card 1: আজকের আয় -->
+        <div class="card-blue p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-1">
+                <span class="text-[11px] opacity-90 font-medium">আজকের আয়</span>
+                <div class="w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#1A4EE8] text-xs shadow-sm">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+            </div>
+            <p class="text-base font-extrabold mb-2">₹142.50</p>
+            <button class="bg-white/20 border border-white/30 rounded-full text-[9px] py-1 px-2 text-center font-semibold text-white flex items-center justify-center gap-1">
+                ওয়ালেট দেখুন <i class="fa-solid fa-chevron-right text-[7px]"></i>
+            </button>
+        </div>
 
-        <!-- Top 3 Cards Grid -->
-        <div class="grid grid-cols-3 gap-2.5">
-            <!-- 1. Blue Card (Today's Earnings) -->
-            <div class="card-blue-grad p-3 rounded-2xl text-white shadow-md flex flex-col justify-between relative overflow-hidden">
-                <div class="flex items-center justify-between mb-2">
-                    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-white text-base shadow-inner">
-                        <!-- Wallet with half coins icon SVG -->
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 7H5C3.89543 7 3 7.89543 3 9V18C3 19.1046 3.89543 20 5 20H19C20.1046 20 21 19.1046 21 18V9C21 7.89543 20.1046 7 19 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M16 14C16.5523 14 17 13.5523 17 13C17 12.4477 16.5523 12 16 12C15.4477 12 15 12.4477 15 13C15 13.5523 15.4477 14 16 14Z" fill="#FFD700"/>
-                            <path d="M19 7V6C19 4.89543 18.1046 4 17 4H7C5.89543 4 5 4.89543 5 6V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <!-- Card 2: আজকের টাস্ক -->
+        <div class="card-orange p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-1">
+                <span class="text-[11px] opacity-90 font-medium">আজকের টাস্ক</span>
+                <div class="w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#FF8C00] text-xs shadow-sm">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+            </div>
+            <p class="text-base font-extrabold mb-2">8/15</p>
+            <button class="bg-white/20 border border-white/30 rounded-full text-[9px] py-1 px-2 text-center font-semibold text-white flex items-center justify-center gap-1">
+                সব টাস্ক দেখুন <i class="fa-solid fa-chevron-right text-[7px]"></i>
+            </button>
+        </div>
+
+        <!-- Card 3: সাকসেস রেট -->
+        <div class="card-green p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-1">
+                <span class="text-[11px] opacity-90 font-medium">সাকসেস রেট</span>
+                <div class="w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#08B052] text-xs shadow-sm">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+            </div>
+            <p class="text-base font-extrabold mb-2">92%</p>
+            <button class="bg-white/20 border border-white/30 rounded-full text-[9px] py-1 px-2 text-center font-semibold text-white flex items-center justify-center gap-1">
+                ডিটেইলস দেখুন <i class="fa-solid fa-chevron-right text-[7px]"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 🔥 3. Streak / ধারাবাহিকতা Section (100% Reference Match Layout) -->
+    <div class="bg-white mx-4 mt-4 p-4 rounded-[24px] custom-shadow border border-gray-100/50">
+        <div class="flex items-center justify-between gap-2">
+            <!-- Left Side: Flame + Details + Button -->
+            <div class="flex flex-col justify-between h-full">
+                <div class="flex items-center gap-2.5 mb-2">
+                    <!-- 3D Flame Icon -->
+                    <div class="w-10 h-10 rounded-2xl bg-[#FFF3E6] flex items-center justify-center shadow-inner flex-shrink-0">
+                        <svg class="w-6 h-6 drop-shadow" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2C10 5 7.5 7 7.5 10.5C7.5 13 9.5 14.5 12 14.5C14.5 14.5 16.5 13 16.5 10.5C16.5 7 14 5 12 2Z" fill="#FF3D00"/>
+                            <path d="M12 6.5C9.5 9 6 12 6 16C6 19.5 8.7 22.5 12 22.5C15.3 22.5 18 19.5 18 16C18 12 14.5 9 12 6.5Z" fill="#FF6D00"/>
+                            <path d="M12 13.5C10.8 14.8 10 16 10 17.3C10 18.5 10.9 19.5 12 19.5C13.1 19.5 14 18.5 14 17.3C14 16 13.2 14.8 12 13.5Z" fill="#FFC107"/>
                         </svg>
                     </div>
-                </div>
-                <div>
-                    <p class="text-[11px] font-medium text-white/90">আজকের আয়</p>
-                    <h3 class="text-sm font-extrabold text-white mt-0.5 tracking-tight">₹142.50</h3>
-                </div>
-                <button class="mt-2.5 w-full bg-white/20 hover:bg-white/30 text-white text-[10px] font-bold py-1.5 px-2 rounded-lg backdrop-blur-sm transition flex items-center justify-center gap-1">
-                    ওয়ালেট <i class="fa-solid fa-chevron-right text-[8px]"></i>
-                </button>
-            </div>
-
-            <!-- 2. Orange Card (Today's Tasks) -->
-            <div class="card-orange-grad p-3 rounded-2xl text-white shadow-md flex flex-col justify-between relative overflow-hidden">
-                <div class="flex items-center justify-between mb-2">
-                    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-white text-base shadow-inner">
-                        <i class="fa-solid fa-clipboard-list text-white"></i>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-[11px] font-medium text-white/90">আজকের টাস্ক</p>
-                    <h3 class="text-sm font-extrabold text-white mt-0.5 tracking-tight">8/15</h3>
-                </div>
-                <button class="mt-2.5 w-full bg-white/20 hover:bg-white/30 text-white text-[10px] font-bold py-1.5 px-2 rounded-lg backdrop-blur-sm transition flex items-center justify-center gap-1">
-                    সব টাস্ক <i class="fa-solid fa-chevron-right text-[8px]"></i>
-                </button>
-            </div>
-
-            <!-- 3. Green Card (Success Rate) -->
-            <div class="card-green-grad p-3 rounded-2xl text-white shadow-md flex flex-col justify-between relative overflow-hidden">
-                <div class="flex items-center justify-between mb-2">
-                    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-white text-base shadow-inner">
-                        <!-- Custom Growth Chart Icon matching reference -->
-                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 17L7 13L11 15L17 9L21 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M16 5H21V10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-[11px] font-medium text-white/90">সাকসেস রেট</p>
-                    <h3 class="text-sm font-extrabold text-white mt-0.5 tracking-tight">92%</h3>
-                </div>
-                <button class="mt-2.5 w-full bg-white/20 hover:bg-white/30 text-white text-[10px] font-bold py-1.5 px-2 rounded-lg backdrop-blur-sm transition flex items-center justify-center gap-1">
-                    ডিটেইলস <i class="fa-solid fa-chevron-right text-[8px]"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Login Streak Bonus Box -->
-        <div class="bg-white p-4 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-            <!-- Left Info -->
-            <div class="flex items-center gap-3.5 w-full md:w-auto">
-                <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center flex-shrink-0 shadow-inner p-1">
-                    <!-- Vibrant Flame SVG -->
-                    <svg class="w-9 h-9" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50 5C50 5 25 30 25 55C25 68.8071 36.1929 80 50 80C63.8071 80 75 68.8071 75 55C75 35 50 5 50 5Z" fill="url(#paint0_linear)"/>
-                        <path d="M50 25C50 25 37 42 37 58C37 65.1797 42.8203 71 50 71C57.1797 71 63 65.1797 63 58C63 45 50 25 50 25Z" fill="url(#paint1_linear)"/>
-                        <defs>
-                            <linearGradient id="paint0_linear" x1="50" y1="5" x2="50" y2="80" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#FFDD00"/>
-                                <stop offset="0.5" stop-color="#FF3B00"/>
-                                <stop offset="1" stop-color="#FF0000"/>
-                            </linearGradient>
-                            <linearGradient id="paint1_linear" x1="50" y1="25" x2="50" y2="71" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#FFF066"/>
-                                <stop offset="1" stop-color="#FF5500"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-900 text-sm tracking-tight whitespace-nowrap">ধারাবাহিকতা বজায় রাখুন!</h4>
-                    <p class="text-[11px] text-slate-500 mt-0.5">টানা ৭ দিন লগইন করুন আর পান বিশেষ বোনাস</p>
-                    <button class="mt-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md shadow-indigo-200 transition inline-flex items-center gap-1.5">
-                        স্ট্রিক দেখুন <i class="fa-solid fa-chevron-right text-[9px]"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Right Streak Progress -->
-            <div class="w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-100 pt-3 md:pt-0 md:pl-4">
-                <p class="text-xs font-bold text-slate-900 mb-2.5">আজ আপনি আছেন</p>
-                <div class="flex items-center justify-between gap-1.5">
-                    <!-- Day 1 -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shadow-sm">
-                            <i class="fa-solid fa-check text-[10px]"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-slate-800">১ দিন</span>
-                    </div>
-                    <!-- Day 2 -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shadow-sm">
-                            <i class="fa-solid fa-check text-[10px]"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-slate-800">২ দিন</span>
-                    </div>
-                    <!-- Day 3 -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shadow-sm">
-                            <i class="fa-solid fa-check text-[10px]"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-slate-800">৩ দিন</span>
-                    </div>
-                    <!-- Day 4 -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shadow-sm">
-                            <i class="fa-solid fa-check text-[10px]"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-slate-800">৪ দিন</span>
-                    </div>
-                    <!-- Day 5 -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shadow-sm">
-                            <i class="fa-solid fa-check text-[10px]"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-slate-800">৫ দিন</span>
-                    </div>
-                    <!-- Day 6 (Active) -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-extrabold ring-4 ring-indigo-100 shadow-md">
-                            ৬
-                        </div>
-                        <span class="text-[10px] font-extrabold text-slate-900">৬ দিন</span>
-                    </div>
-                    <!-- Day 7 (Fire Bonus) -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-7 h-7 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center border border-amber-200">
-                            <i class="fa-solid fa-fire text-xs text-orange-500"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-slate-800">৭ দিন</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3 Feature Action Cards -->
-        <div class="grid grid-cols-3 gap-3">
-            <!-- Offer & Bonus -->
-            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                <div class="w-10 h-10 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center text-base mb-2">
-                    <i class="fa-solid fa-gift"></i>
-                </div>
-                <h4 class="font-bold text-slate-800 text-xs">অফার ও বোনাস</h4>
-                <p class="text-[9px] text-slate-400 mt-0.5 leading-tight">দারুণ সব অফার ও বোনাস দেখুন</p>
-                <div class="mt-3 w-6 h-6 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center text-[10px]">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-            </div>
-
-            <!-- My Performance -->
-            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-base mb-2">
-                    <!-- Deep Blue Pie Chart Icon matching user image -->
-                    <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50 50V10C72.0914 10 90 27.9086 90 50C90 72.0914 72.0914 90 50 90C27.9086 90 10 72.0914 10 50C10 39.2946 14.1565 29.5639 21.01 22.35L50 50Z" fill="#1D4ED8"/>
-                        <path d="M50 10C55.352 10 60.6276 10.8715 65.65 12.53L50 50V10Z" fill="#3B82F6"/>
-                    </svg>
-                </div>
-                <h4 class="font-bold text-slate-800 text-xs">আমার পারফরম্যান্স</h4>
-                <p class="text-[9px] text-slate-400 mt-0.5 leading-tight">আপনার মোট আয়, টাস্ক ও সাকসেস দেখুন</p>
-                <div class="mt-3 w-6 h-6 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center text-[10px]">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-            </div>
-
-            <!-- Today Streak Box -->
-            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
-                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center text-base mb-2">
-                    <i class="fa-solid fa-fire text-orange-500"></i>
-                </div>
-                <h4 class="font-bold text-slate-800 text-xs">আজকের স্ট্রিক</h4>
-                <p class="text-[9px] text-slate-400 mt-0.5 leading-tight">স্ট্রিক ধরে রাখুন এবং বোনাস জিতুন</p>
-                <div class="mt-3 w-6 h-6 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center text-[10px]">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Today Tasks Section -->
-        <section class="mt-4">
-            <div class="flex items-center justify-between mb-3">
-                <h3 class="font-extrabold text-slate-900 text-base">আজকের টাস্ক</h3>
-                <a href="#" class="text-indigo-600 font-bold text-xs flex items-center gap-1">সব দেখুন <i class="fa-solid fa-chevron-right text-[9px]"></i></a>
-            </div>
-
-            <!-- Task Item 1 -->
-            <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between mb-2.5">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-blue-600 text-lg flex-shrink-0">
-                        <i class="fa-brands fa-google text-blue-500"></i>
-                    </div>
                     <div>
-                        <h4 class="font-bold text-slate-900 text-xs">গুগল সার্চ করুন</h4>
-                        <p class="text-[10px] text-slate-400">২ মিনিট • CPX Research</p>
+                        <h3 class="text-xs font-extrabold text-[#11145B] leading-tight">ধারাবাহিকতা বজায় রাখুন!</h3>
+                        <p class="text-[9px] text-[#8C8CA5]">টানা ৭ দিন লগইন করুন</p>
+                        <p class="text-[9px] text-[#8C8CA5]">আর পান বিশেষ বোনাস</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2.5">
-                    <span class="bg-emerald-50 text-emerald-600 font-extrabold text-xs px-2.5 py-1 rounded-lg">₹৪</span>
-                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[11px] px-3.5 py-1.5 rounded-xl shadow-sm transition">শুরু করুন</button>
-                </div>
+                <button class="bg-[#4B27E8] text-white text-[9px] font-bold px-3 py-1.5 rounded-full shadow-md w-fit flex items-center gap-1">
+                    স্ট্রিক দেখুন <i class="fa-solid fa-chevron-right text-[7px]"></i>
+                </button>
             </div>
 
-            <!-- Task Item 2 -->
-            <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between mb-2.5">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-red-600 text-lg flex-shrink-0">
-                        <i class="fa-brands fa-youtube text-red-500"></i>
+            <!-- Divider -->
+            <div class="w-[1px] h-20 bg-[#EEEEF5]"></div>
+
+            <!-- Right Side: Header + 1-7 Days Streak Bar -->
+            <div class="flex-1 pl-1">
+                <span class="text-[10px] font-extrabold text-[#11145B] block mb-2">আজ আপনি আছেন</span>
+                <div class="flex justify-between items-center text-center">
+                    <!-- Days 1-5 -->
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="text-[8px] text-[#8C8CA5]">১ দিন</span>
                     </div>
-                    <div>
-                        <h4 class="font-bold text-slate-900 text-xs">ইউটিউব ভিডিও দেখুন</h4>
-                        <p class="text-[10px] text-slate-400">২ মিনিট • CPX Research</p>
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="text-[8px] text-[#8C8CA5]">২ দিন</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="text-[8px] text-[#8C8CA5]">৩ দিন</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="text-[8px] text-[#8C8CA5]">৪ দিন</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="text-[8px] text-[#8C8CA5]">৫ দিন</span>
+                    </div>
+
+                    <!-- Day 6 Active -->
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-6 h-6 rounded-full bg-white border-2 border-[#4B22E8] text-[#4B22E8] flex items-center justify-center text-[10px] font-black shadow-sm">
+                            6
+                        </div>
+                        <span class="text-[8px] font-extrabold text-[#11145B]">৬ দিন</span>
+                    </div>
+
+                    <!-- Day 7 Flame -->
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-6 h-6 rounded-full bg-[#FFF1D8] border border-orange-300 flex items-center justify-center shadow-sm">
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 6.5C9.5 9 6 12 6 16C6 19.5 8.7 22.5 12 22.5C15.3 22.5 18 19.5 18 16C18 12 14.5 9 12 6.5Z" fill="#FF6D00"/>
+                                <path d="M12 13.5C10.8 14.8 10 16 10 17.3C10 18.5 10.9 19.5 12 19.5C13.1 19.5 14 18.5 14 17.3C14 16 13.2 14.8 12 13.5Z" fill="#FFC107"/>
+                            </svg>
+                        </div>
+                        <span class="text-[8px] text-[#8C8CA5]">৭ দিন</span>
                     </div>
                 </div>
-                <div class="flex items-center gap-2.5">
-                    <span class="bg-emerald-50 text-emerald-600 font-extrabold text-xs px-2.5 py-1 rounded-lg">₹৬</span>
-                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[11px] px-3.5 py-1.5 rounded-xl shadow-sm transition">শুরু করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🎁 4. Three Feature Columns -->
+    <div class="bg-white mx-4 mt-4 p-3.5 rounded-[24px] custom-shadow grid grid-cols-3 divide-x divide-[#EEEEF5] border border-gray-100/50">
+        <!-- Column 1 -->
+        <div class="flex flex-col items-center text-center px-1">
+            <div class="w-9 h-9 rounded-full bg-[#FFE5EF] flex items-center justify-center text-[#E91E63] text-sm mb-1 shadow-sm">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+            <p class="text-[10px] font-bold text-[#11145B]">অফার ও বোনাস</p>
+            <p class="text-[8px] text-[#8C8CA5] leading-tight mb-2">দারুণ সব অফার ও বোনাস দেখুন</p>
+            <div class="w-4 h-4 rounded-full bg-[#FFE0EB] flex items-center justify-center text-[#E91E63] text-[8px]">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="flex flex-col items-center text-center px-1">
+            <div class="w-9 h-9 rounded-full bg-[#E5F0FF] flex items-center justify-center text-[#3478F6] text-sm mb-1 shadow-sm">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <p class="text-[10px] font-bold text-[#11145B]">আমার পারফরম্যান্স</p>
+            <p class="text-[8px] text-[#8C8CA5] leading-tight mb-2">আপনার মোট আয়, টাস্ক ও সাকসেস দেখুন</p>
+            <div class="w-4 h-4 rounded-full bg-[#E5F0FF] flex items-center justify-center text-[#3478F6] text-[8px]">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="flex flex-col items-center text-center px-1">
+            <div class="w-9 h-9 rounded-full bg-[#FFF1D8] flex items-center justify-center text-[#FF9415] text-sm mb-1 shadow-sm">
+                <i class="fa-solid fa-fire"></i>
+            </div>
+            <p class="text-[10px] font-bold text-[#11145B]">আজকের স্ট্রিক</p>
+            <p class="text-[8px] text-[#8C8CA5] leading-tight mb-2">স্ট্রিক ধরে রাখুন এবং বোনাস জিতুন</p>
+            <div class="w-4 h-4 rounded-full bg-[#FFF1D8] flex items-center justify-center text-[#FF9415] text-[8px]">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🟣 5. Top Tasks Header (Fixed Title) -->
+    <div class="flex justify-between items-center mx-4 mt-5 mb-2.5">
+        <h2 class="font-extrabold text-[#11145B] text-base">আজকের টাস্ক</h2>
+        <a href="#" class="text-xs font-bold text-[#4B27E8] flex items-center gap-1">
+            সব দেখুন <i class="fa-solid fa-chevron-right text-[9px]"></i>
+        </a>
+    </div>
+
+    <!-- 📋 6. Task List Card (Compact Rows) -->
+    <div class="bg-white mx-4 rounded-[22px] custom-shadow divide-y divide-[#EEEEF5] border border-gray-100/50">
+        <!-- Task 1: Google -->
+        <div class="p-3 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-lg shadow-sm">
+                    <i class="fa-brands fa-google text-blue-600"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#11145B] leading-snug">গুগল সার্চ করুন</p>
+                    <p class="text-[9px] text-[#8C8CA5]">২ মিনিট • CPX Research</p>
                 </div>
             </div>
-        </section>
-
-    </main>
-
-    <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-4 py-2 flex items-center justify-between shadow-lg z-50">
-        <a href="#" class="flex flex-col items-center text-indigo-600">
-            <div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center">
-                <i class="fa-solid fa-house text-sm"></i>
+            <div class="flex items-center gap-2">
+                <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹8</span>
+                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
             </div>
-            <span class="text-[10px] font-bold mt-0.5">হোম</span>
-        </a>
-        <a href="#" class="flex flex-col items-center text-slate-400 hover:text-indigo-600">
-            <i class="fa-solid fa-trophy text-base"></i>
-            <span class="text-[10px] font-medium mt-0.5">লিডারবোর্ড</span>
-        </a>
-        <a href="#" class="flex flex-col items-center text-slate-400 hover:text-indigo-600">
-            <i class="fa-solid fa-wallet text-base"></i>
-            <span class="text-[10px] font-medium mt-0.5">ওয়ালেট</span>
-        </a>
-        <a href="#" class="flex flex-col items-center text-slate-400 hover:text-indigo-600">
-            <i class="fa-solid fa-users text-base"></i>
-            <span class="text-[10px] font-medium mt-0.5">রেফার</span>
-        </a>
-        <a href="#" class="flex flex-col items-center text-slate-400 hover:text-indigo-600">
-            <i class="fa-solid fa-user text-base"></i>
-            <span class="text-[10px] font-medium mt-0.5">প্রোফাইল</span>
-        </a>
-    </nav>
+        </div>
+
+        <!-- Task 2: YouTube -->
+        <div class="p-3 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-lg shadow-sm">
+                    <i class="fa-brands fa-youtube text-red-600"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#11145B] leading-snug">ইউটিউব ভিডিও দেখুন</p>
+                    <p class="text-[9px] text-[#8C8CA5]">২ মিনিট • CPX Research</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹6</span>
+                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+            </div>
+        </div>
+
+        <!-- Task 3: App Install -->
+        <div class="p-3 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-lg shadow-sm text-indigo-600">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#11145B] leading-snug">অ্যাপ ইনস্টল ও খুলুন</p>
+                    <p class="text-[9px] text-[#8C8CA5]">৩ মিনিট • RevenueWall</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹10</span>
+                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+            </div>
+        </div>
+
+        <!-- Task 4: Instagram -->
+        <div class="p-3 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-lg shadow-sm text-pink-600">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#11145B] leading-snug">ইনস্টাগ্রাম পোস্ট লাইক করুন</p>
+                    <p class="text-[9px] text-[#8C8CA5]">২ মিনিট • CPX Research</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹4</span>
+                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 👥 7. Referral Banner (High Quality 3D Character Illustration) -->
+    <div class="refer-bg mx-4 mt-5 p-4 rounded-[22px] text-white shadow-xl flex items-center justify-between relative overflow-hidden min-h-[115px]">
+        <!-- 3D Characters & Coin Graphics Asset Container -->
+        <div class="w-24 h-20 flex-shrink-0 z-10 relative mr-1">
+            <svg viewBox="0 0 120 90" class="w-full h-full drop-shadow-xl">
+                <!-- Golden Coin Left Flying -->
+                <circle cx="15" cy="20" r="7" fill="#FFD700" stroke="#FFA500" stroke-width="1.5"/>
+                <text x="15" y="23" font-size="8" font-weight="bold" fill="#B8860B" text-anchor="middle">₹</text>
+
+                <!-- Golden Coin Right Flying -->
+                <circle cx="105" cy="20" r="7" fill="#FFD700" stroke="#FFA500" stroke-width="1.5"/>
+                <text x="105" y="23" font-size="8" font-weight="bold" fill="#B8860B" text-anchor="middle">₹</text>
+
+                <!-- Dotted Coin Path -->
+                <path d="M 22 23 Q 40 10, 60 30" fill="none" stroke="#FFE57F" stroke-width="1.5" stroke-dasharray="2,2"/>
+                <path d="M 98 23 Q 80 10, 60 30" fill="none" stroke="#FFE57F" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+                <!-- 3D Gift Box -->
+                <rect x="42" y="45" width="36" height="28" rx="4" fill="#FFD21C" />
+                <rect x="38" y="38" width="44" height="8" rx="2" fill="#FFE066" />
+                <rect x="57" y="38" width="6" height="35" fill="#FF3B3B" />
+                <path d="M 60 38 C 50 28, 42 35, 57 38 C 70 28, 78 35, 63 38 Z" fill="#FF3B3B"/>
+
+                <!-- Left Boy (Purple Hoodie + Phone) -->
+                <circle cx="22" cy="40" r="11" fill="#FFD1B3" />
+                <path d="M 12 36 C 12 24, 32 24, 32 36 Z" fill="#2E1C14" />
+                <path d="M 8 68 C 8 50, 36 50, 36 68 Z" fill="#4B22E8" />
+                <rect x="26" y="52" width="7" height="12" rx="1.5" fill="#FFFFFF" stroke="#333" stroke-width="0.5"/>
+
+                <!-- Right Boy (Blue Hoodie + Phone) -->
+                <circle cx="98" cy="40" r="11" fill="#FFD1B3" />
+                <path d="M 88 36 C 88 24, 108 24, 108 36 Z" fill="#1C1B2E" />
+                <path d="M 84 68 C 84 50, 112 50, 112 68 Z" fill="#2133E8" />
+                <rect x="87" y="52" width="7" height="12" rx="1.5" fill="#FFFFFF" stroke="#333" stroke-width="0.5"/>
+            </svg>
+        </div>
+
+        <!-- Banner Content -->
+        <div class="z-10 flex-1 px-1">
+            <h4 class="font-extrabold text-sm tracking-tight mb-0.5 text-white">বন্ধুকে Refer করুন</h4>
+            <p class="text-[10px] text-white/90 leading-tight">
+                বন্ধু ৮০টা টাস্ক কমপ্লিট করলে আপনি পাবেন 
+                <span class="text-[#FFD21C] font-extrabold text-xs block mt-0.5">₹50</span>
+            </p>
+        </div>
+
+        <!-- Button -->
+        <button class="z-10 bg-white text-[#4B22E8] font-extrabold text-[10px] px-3 py-2 rounded-full shadow-md flex items-center gap-1 flex-shrink-0">
+            এখনই Refer করুন <i class="fa-solid fa-chevron-right text-[8px]"></i>
+        </button>
+    </div>
+
+    <!-- 🏠 8. Bottom Navigation (Fixed Footer) -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E5E5EE] py-2 px-3 flex justify-around items-center z-50 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]">
+        <!-- Home Active -->
+        <div class="flex flex-col items-center">
+            <div class="w-10 h-6 bg-[#4B22E8] rounded-full flex items-center justify-center text-white text-xs mb-0.5 shadow-sm">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <span class="text-[10px] font-bold text-[#4B22E8]">হোম</span>
+        </div>
+        <!-- Leaderboard -->
+        <div class="flex flex-col items-center text-[#353568]">
+            <i class="fa-solid fa-trophy text-sm mb-1"></i>
+            <span class="text-[10px] font-medium">লিডারবোর্ড</span>
+        </div>
+        <!-- Wallet -->
+        <div class="flex flex-col items-center text-[#353568]">
+            <i class="fa-solid fa-wallet text-sm mb-1"></i>
+            <span class="text-[10px] font-medium">ওয়ালেট</span>
+        </div>
+        <!-- Refer -->
+        <div class="flex flex-col items-center text-[#353568]">
+            <i class="fa-solid fa-user-group text-sm mb-1"></i>
+            <span class="text-[10px] font-medium">রেফার</span>
+        </div>
+        <!-- Profile -->
+        <div class="flex flex-col items-center text-[#353568]">
+            <i class="fa-solid fa-user text-sm mb-1"></i>
+            <span class="text-[10px] font-medium">প্রোফাইল</span>
+        </div>
+    </div>
 
 </body>
 </html>
