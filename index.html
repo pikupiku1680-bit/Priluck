@@ -1,3 +1,4 @@
+cat << 'EOF' > index.html
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -26,7 +27,7 @@
 </head>
 <body class="pb-20">
 
-    <!-- 🟣 Header / Hero Section -->
+    <!-- Header / Hero Section -->
     <div class="hero-bg text-white px-5 pt-5 pb-16 rounded-b-[2rem] shadow-lg">
         <div class="flex justify-between items-center">
             <!-- Menu -->
@@ -53,7 +54,7 @@
         </div>
     </div>
 
-    <!-- 🟦🟧🟩 3 Statistics Cards -->
+    <!-- 3 Statistics Cards -->
     <div class="grid grid-cols-3 gap-2 px-3.5 -mt-10">
         <!-- Card 1 -->
         <div class="card-blue p-3 rounded-2xl text-white shadow-md flex flex-col justify-between">
@@ -98,14 +99,16 @@
         </div>
     </div>
 
-    <!-- 🔥 Streak Section -->
+    <!-- Streak Section -->
     <div class="bg-white mx-3.5 mt-3.5 p-3.5 rounded-[20px] custom-shadow border border-gray-100/60">
         <div class="flex items-center justify-between">
-            <!-- Left Info -->
             <div class="flex items-center gap-2.5">
                 <div class="w-10 h-10 rounded-2xl bg-[#FFF3E6] flex items-center justify-center flex-shrink-0">
-                    <!-- 3D Flame Image -->
-                    <img src="https://img.icons8.com/3d-fluency/94/fire-element.png" alt="Flame" class="w-7 h-7">
+                    <!-- SVG Flame Icon -->
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C16.4183 22 20 18.4183 20 14C20 9.5 15 4 12 2 9 4 4 9.5 4 14 4 18.4183 7.58172 22 12 22Z" fill="#FF8C00"/>
+                        <path d="M12 20C14.2091 20 16 18.2091 16 16C16 13.5 13.5 10.5 12 9.5C10.5 10.5 8 13.5 8 16C8 18.2091 9.79086 20 12 20Z" fill="#FFD21C"/>
+                    </svg>
                 </div>
                 <div>
                     <h3 class="text-[11px] font-extrabold text-[#11145B] leading-tight">ধারাবাহিকতা বজায় রাখুন!</h3>
@@ -113,7 +116,6 @@
                     <p class="text-[8px] text-[#8C8CA5]">আর পান বিশেষ বোনাস</p>
                 </div>
             </div>
-            <!-- Streak Button -->
             <button class="bg-[#4B27E8] text-white text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
                 স্ট্রিক দেখুন <i class="fa-solid fa-chevron-right text-[6px]"></i>
             </button>
@@ -121,7 +123,7 @@
 
         <hr class="border-[#EEEEF5] my-2.5">
 
-        <!-- 1-7 Days Streak -->
+        <!-- Days Streak -->
         <div class="flex justify-between items-center text-center">
             <span class="text-[9px] font-extrabold text-[#11145B] mr-1">আজ আপনি আছেন</span>
             <div class="flex justify-between items-center flex-1 ml-1">
@@ -151,7 +153,9 @@
                 </div>
                 <div class="flex flex-col items-center gap-0.5">
                     <div class="w-5 h-5 rounded-full bg-[#FFF1D8] border border-orange-300 flex items-center justify-center">
-                        <img src="https://img.icons8.com/3d-fluency/94/fire-element.png" class="w-3 h-3">
+                        <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="#FF8C00">
+                            <path d="M12 22C16.4183 22 20 18.4183 20 14C20 9.5 15 4 12 2 9 4 4 9.5 4 14 4 18.4183 7.58172 22 12 22Z"/>
+                        </svg>
                     </div>
                     <span class="text-[7px] text-[#8C8CA5]">৭ দিন</span>
                 </div>
@@ -159,7 +163,7 @@
         </div>
     </div>
 
-    <!-- 🎁 3 Feature Columns -->
+    <!-- 3 Feature Columns -->
     <div class="bg-white mx-3.5 mt-3.5 p-3 rounded-[20px] custom-shadow grid grid-cols-3 divide-x divide-[#EEEEF5] border border-gray-100/60">
         <div class="flex flex-col items-center text-center px-0.5">
             <div class="w-8 h-8 rounded-full bg-[#FFE5EF] flex items-center justify-center text-[#E91E63] text-xs mb-1">
@@ -195,7 +199,7 @@
         </div>
     </div>
 
-    <!-- 🟣 Task Section Header -->
+    <!-- Task Section Header -->
     <div class="flex justify-between items-center mx-3.5 mt-4 mb-2">
         <h2 class="font-extrabold text-[#11145B] text-sm">আজকের টাস্ক</h2>
         <a href="#" class="text-[11px] font-bold text-[#4B27E8] flex items-center gap-0.5">
@@ -203,7 +207,7 @@
         </a>
     </div>
 
-    <!-- 📋 Task List -->
+    <!-- Task List -->
     <div class="bg-white mx-3.5 rounded-[20px] custom-shadow divide-y divide-[#EEEEF5] border border-gray-100/60">
         <!-- Task 1 -->
         <div class="p-2.5 flex items-center justify-between">
@@ -274,14 +278,40 @@
         </div>
     </div>
 
-    <!-- 👥 Referral Banner (High Quality 3D Banner Artwork) -->
+    <!-- 👥 Referral Banner (Pure CSS & SVG Graphic Illustration) -->
     <div class="refer-bg mx-3.5 mt-4 p-3.5 rounded-[20px] text-white shadow-lg flex items-center justify-between relative overflow-hidden">
-        <!-- 3D Illustration Graphic -->
-        <div class="w-20 h-16 flex-shrink-0 z-10 relative mr-1 flex items-center justify-center">
-            <img src="https://cdni.iconscout.com/illustration/premium/thumb/referral-program-illustration-download-in-svg-png-gif-file-formats--refer a friend-gift-bonus-rewards-pack-business-illustrations-6481745.png" alt="Referral 3D Illustration" class="w-full h-full object-contain">
+        <!-- SVG 3D Character & Gift Illustration -->
+        <div class="w-20 h-14 flex-shrink-0 z-10 relative mr-1 flex items-center justify-center">
+            <svg class="w-full h-full" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Flying Coins -->
+                <circle cx="15" cy="20" r="6" fill="#FFD700"/>
+                <text x="15" y="22" font-size="6" fill="#B8860B" font-weight="bold" text-anchor="middle">₹</text>
+                
+                <circle cx="85" cy="15" r="7" fill="#FFD700"/>
+                <text x="85" y="17.5" font-size="7" fill="#B8860B" font-weight="bold" text-anchor="middle">₹</text>
+
+                <!-- Center 3D Gift Box -->
+                <rect x="35" y="35" width="30" height="30" rx="4" fill="#FF3B5C"/>
+                <rect x="33" y="30" width="34" height="8" rx="2" fill="#FF5271"/>
+                <!-- Ribbon -->
+                <rect x="47" y="30" width="6" height="35" fill="#FFD700"/>
+                <rect x="35" y="45" width="30" height="6" fill="#FFD700"/>
+                <!-- Bow -->
+                <path d="M43 25C40 20 50 20 50 30C50 20 60 20 57 25Z" fill="#FFD700"/>
+
+                <!-- Left Character Avatar -->
+                <circle cx="20" cy="45" r="10" fill="#FFD1DC"/>
+                <circle cx="20" cy="42" r="6" fill="#2D6BF6"/>
+                <path d="M10 65C10 55 30 55 30 65" fill="#2D6BF6"/>
+
+                <!-- Right Character Avatar -->
+                <circle cx="80" cy="45" r="10" fill="#FFD1DC"/>
+                <circle cx="80" cy="42" r="6" fill="#08B052"/>
+                <path d="M70 65C70 55 90 55 90 65" fill="#08B052"/>
+            </svg>
         </div>
 
-        <!-- Text -->
+        <!-- Text Content -->
         <div class="z-10 flex-1 px-1">
             <h4 class="font-extrabold text-xs tracking-tight mb-0.5 text-white">বন্ধুকে Refer করুন</h4>
             <p class="text-[9px] text-white/90 leading-tight">
@@ -296,7 +326,7 @@
         </button>
     </div>
 
-    <!-- 🏠 Bottom Navigation -->
+    <!-- Bottom Navigation -->
     <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E5E5EE] py-1.5 px-3 flex justify-around items-center z-50 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]">
         <div class="flex flex-col items-center">
             <div class="w-9 h-5 bg-[#4B22E8] rounded-full flex items-center justify-center text-white text-[10px] mb-0.5">
