@@ -10,18 +10,128 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Font: Noto Sans Bengali -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { 
-            background-color: #F4F4FF; 
-            font-family: 'Noto Sans Bengali', system-ui, -apple-system, sans-serif; 
-            color: #11145B; 
+        body {
+            background-color: #F4F4FF;
+            font-family: 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
+            color: #11145B;
         }
         .hero-bg { background: linear-gradient(135deg, #1C24D4 0%, #351AE3 50%, #521AE3 100%); }
-        .card-blue { background: linear-gradient(135deg, #2E6DF6 0%, #1A4EE8 100%); }
-        .card-orange { background: linear-gradient(135deg, #FFB81C 0%, #FF8C00 100%); }
-        .card-green { background: linear-gradient(135deg, #20D063 0%, #08B052 100%); }
         .refer-bg { background: linear-gradient(100deg, #2133E8 0%, #4D1AE8 50%, #9B22EF 100%); }
         .custom-shadow { box-shadow: 0 8px 24px rgba(30, 30, 100, 0.05); }
+
+        /* ===== Premium Statistics Cards ===== */
+        .card-blue {
+            background: linear-gradient(145deg, #3F7DFF 0%, #2461F2 38%, #1747D9 72%, #1035B8 100%);
+        }
+        .card-orange {
+            background: linear-gradient(145deg, #FFC52B 0%, #FFAD16 42%, #FF9700 72%, #F57C00 100%);
+        }
+        .card-green {
+            background: linear-gradient(145deg, #32DC78 0%, #19CC62 40%, #0EB652 72%, #079A45 100%);
+        }
+
+        /* Premium card icon */
+        .premium-card-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.96);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.9);
+        }
+
+        /* Coin coming out of wallet */
+        .wallet-premium {
+            position: relative;
+        }
+        .wallet-premium .coin {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#FFE36A,#FFB300);
+            border: 1px solid #E69500;
+            top: -4px;
+            right: -2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.25);
+        }
+        .wallet-premium .coin-two {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#FFF176,#FFA000);
+            border: 1px solid #D88900;
+            top: -7px;
+            right: 5px;
+        }
+
+        /* Premium chart icon */
+        .chart-premium {
+            color: #079A45;
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        /* ===== Premium Streak Flame ===== */
+        .streak-flame-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 18px;
+            background: linear-gradient(145deg,#FFF8ED,#FFE9C7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 12px rgba(255,120,0,.12), inset 0 1px 3px rgba(255,255,255,.9);
+            flex-shrink: 0;
+        }
+
+        .streak-flame {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 2px 2px rgba(255,80,0,.25)) drop-shadow(0 0 3px rgba(255,145,0,.25));
+        }
+
+        /* Streak text */
+        .streak-title {
+            white-space: nowrap;
+            color: #11145B;
+            font-weight: 900;
+        }
+
+        /* Day labels */
+        .streak-day-label {
+            color: #11145B !important;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* More spacing between streak counters */
+        .streak-days {
+            gap: 7px;
+        }
+
+        /* Day 7 premium flame */
+        .day-seven-flame {
+            width: 27px;
+            height: 27px;
+            border-radius: 50%;
+            background: linear-gradient(145deg,#FFF8E8,#FFE7B5);
+            border: 1.5px solid #F4B33A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 7px rgba(255,145,0,.18), inset 0 1px 2px rgba(255,255,255,.9);
+        }
+        .day-seven-flame svg {
+            width: 14px;
+            height: 14px;
+        }
     </style>
 </head>
 <body class="pb-24">
@@ -33,7 +143,7 @@
             <button class="w-10 h-10 bg-[#171A9E]/60 flex items-center justify-center rounded-[16px] border border-white/10 shadow-sm">
                 <i class="fa-solid fa-bars text-white text-base"></i>
             </button>
-            
+
             <!-- Telegram Icon & Title -->
             <div class="flex items-center gap-2.5">
                 <div class="w-9 h-9 bg-[#20A9E8] rounded-full flex items-center justify-center shadow-md">
@@ -59,8 +169,10 @@
         <div class="card-blue p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
             <div class="flex justify-between items-start mb-1">
                 <span class="text-[11px] opacity-90 font-medium">আজকের আয়</span>
-                <div class="w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#1A4EE8] text-xs shadow-sm">
-                    <i class="fa-solid fa-wallet"></i>
+                <div class="premium-card-icon wallet-premium">
+                    <span class="coin-two"></span>
+                    <span class="coin"></span>
+                    <i class="fa-solid fa-wallet text-[#1A4EE8] text-xs"></i>
                 </div>
             </div>
             <p class="text-base font-extrabold mb-2">₹142.50</p>
@@ -73,8 +185,8 @@
         <div class="card-orange p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
             <div class="flex justify-between items-start mb-1">
                 <span class="text-[11px] opacity-90 font-medium">আজকের টাস্ক</span>
-                <div class="w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#FF8C00] text-xs shadow-sm">
-                    <i class="fa-solid fa-clipboard-list"></i>
+                <div class="premium-card-icon">
+                    <i class="fa-solid fa-clipboard-list text-[#FF8C00] text-xs"></i>
                 </div>
             </div>
             <p class="text-base font-extrabold mb-2">8/15</p>
@@ -87,8 +199,8 @@
         <div class="card-green p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
             <div class="flex justify-between items-start mb-1">
                 <span class="text-[11px] opacity-90 font-medium">সাকসেস রেট</span>
-                <div class="w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#08B052] text-xs shadow-sm">
-                    <i class="fa-solid fa-chart-line"></i>
+                <div class="premium-card-icon">
+                    <i class="fa-solid fa-chart-line chart-premium"></i>
                 </div>
             </div>
             <p class="text-base font-extrabold mb-2">92%</p>
@@ -98,22 +210,22 @@
         </div>
     </div>
 
-    <!-- 🔥 3. Streak / ধারাবাহিকতা Section (100% Reference Match Layout) -->
+    <!-- 🔥 3. Streak / ধারাবাহিকতা Section -->
     <div class="bg-white mx-4 mt-4 p-4 rounded-[24px] custom-shadow border border-gray-100/50">
         <div class="flex items-center justify-between gap-2">
             <!-- Left Side: Flame + Details + Button -->
             <div class="flex flex-col justify-between h-full">
                 <div class="flex items-center gap-2.5 mb-2">
-                    <!-- 3D Flame Icon -->
-                    <div class="w-10 h-10 rounded-2xl bg-[#FFF3E6] flex items-center justify-center shadow-inner flex-shrink-0">
-                        <svg class="w-6 h-6 drop-shadow" viewBox="0 0 24 24" fill="none">
+                    <!-- Premium 3D Flame Box -->
+                    <div class="streak-flame-box">
+                        <svg class="streak-flame" viewBox="0 0 24 24" fill="none">
                             <path d="M12 2C10 5 7.5 7 7.5 10.5C7.5 13 9.5 14.5 12 14.5C14.5 14.5 16.5 13 16.5 10.5C16.5 7 14 5 12 2Z" fill="#FF3D00"/>
                             <path d="M12 6.5C9.5 9 6 12 6 16C6 19.5 8.7 22.5 12 22.5C15.3 22.5 18 19.5 18 16C18 12 14.5 9 12 6.5Z" fill="#FF6D00"/>
                             <path d="M12 13.5C10.8 14.8 10 16 10 17.3C10 18.5 10.9 19.5 12 19.5C13.1 19.5 14 18.5 14 17.3C14 16 13.2 14.8 12 13.5Z" fill="#FFC107"/>
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xs font-extrabold text-[#11145B] leading-tight">ধারাবাহিকতা বজায় রাখুন!</h3>
+                        <h3 class="text-xs streak-title leading-tight">ধারাবাহিকতা বজায় রাখুন!</h3>
                         <p class="text-[9px] text-[#8C8CA5]">টানা ৭ দিন লগইন করুন</p>
                         <p class="text-[9px] text-[#8C8CA5]">আর পান বিশেষ বোনাস</p>
                     </div>
@@ -128,38 +240,38 @@
 
             <!-- Right Side: Header + 1-7 Days Streak Bar -->
             <div class="flex-1 pl-1">
-                <span class="text-[10px] font-extrabold text-[#11145B] block mb-2">আজ আপনি আছেন</span>
-                <div class="flex justify-between items-center text-center">
+                <span class="text-[10px] streak-title block mb-2">আজ আপনি আছেন</span>
+                <div class="flex justify-between items-center text-center streak-days">
                     <!-- Days 1-5 -->
                     <div class="flex flex-col items-center gap-1">
                         <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <span class="text-[8px] text-[#8C8CA5]">১ দিন</span>
+                        <span class="text-[8px] streak-day-label">১ দিন</span>
                     </div>
                     <div class="flex flex-col items-center gap-1">
                         <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <span class="text-[8px] text-[#8C8CA5]">২ দিন</span>
+                        <span class="text-[8px] streak-day-label">২ দিন</span>
                     </div>
                     <div class="flex flex-col items-center gap-1">
                         <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <span class="text-[8px] text-[#8C8CA5]">৩ দিন</span>
+                        <span class="text-[8px] streak-day-label">৩ দিন</span>
                     </div>
                     <div class="flex flex-col items-center gap-1">
                         <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <span class="text-[8px] text-[#8C8CA5]">৪ দিন</span>
+                        <span class="text-[8px] streak-day-label">৪ দিন</span>
                     </div>
                     <div class="flex flex-col items-center gap-1">
                         <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <span class="text-[8px] text-[#8C8CA5]">৫ দিন</span>
+                        <span class="text-[8px] streak-day-label">৫ দিন</span>
                     </div>
 
                     <!-- Day 6 Active -->
@@ -167,18 +279,18 @@
                         <div class="w-6 h-6 rounded-full bg-white border-2 border-[#4B22E8] text-[#4B22E8] flex items-center justify-center text-[10px] font-black shadow-sm">
                             6
                         </div>
-                        <span class="text-[8px] font-extrabold text-[#11145B]">৬ দিন</span>
+                        <span class="text-[8px] streak-title">৬ দিন</span>
                     </div>
 
-                    <!-- Day 7 Flame -->
+                    <!-- Day 7 Premium Flame -->
                     <div class="flex flex-col items-center gap-1">
-                        <div class="w-6 h-6 rounded-full bg-[#FFF1D8] border border-orange-300 flex items-center justify-center shadow-sm">
-                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none">
+                        <div class="day-seven-flame">
+                            <svg viewBox="0 0 24 24" fill="none">
                                 <path d="M12 6.5C9.5 9 6 12 6 16C6 19.5 8.7 22.5 12 22.5C15.3 22.5 18 19.5 18 16C18 12 14.5 9 12 6.5Z" fill="#FF6D00"/>
                                 <path d="M12 13.5C10.8 14.8 10 16 10 17.3C10 18.5 10.9 19.5 12 19.5C13.1 19.5 14 18.5 14 17.3C14 16 13.2 14.8 12 13.5Z" fill="#FFC107"/>
                             </svg>
                         </div>
-                        <span class="text-[8px] text-[#8C8CA5]">৭ দিন</span>
+                        <span class="text-[8px] streak-day-label">৭ দিন</span>
                     </div>
                 </div>
             </div>
@@ -224,7 +336,7 @@
         </div>
     </div>
 
-    <!-- 🟣 5. Top Tasks Header (Fixed Title) -->
+    <!-- 🟣 5. Top Tasks Header -->
     <div class="flex justify-between items-center mx-4 mt-5 mb-2.5">
         <h2 class="font-extrabold text-[#11145B] text-base">আজকের টাস্ক</h2>
         <a href="#" class="text-xs font-bold text-[#4B27E8] flex items-center gap-1">
@@ -247,7 +359,7 @@
             </div>
             <div class="flex items-center gap-2">
                 <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹8</span>
-                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করন</button>
             </div>
         </div>
 
@@ -264,7 +376,7 @@
             </div>
             <div class="flex items-center gap-2">
                 <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹6</span>
-                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করন</button>
             </div>
         </div>
 
@@ -281,7 +393,7 @@
             </div>
             <div class="flex items-center gap-2">
                 <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹10</span>
-                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করন</button>
             </div>
         </div>
 
@@ -298,21 +410,20 @@
             </div>
             <div class="flex items-center gap-2">
                 <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹4</span>
-                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করুন</button>
+                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করন</button>
             </div>
         </div>
     </div>
 
-    <!-- 👥 7. Referral Banner (High Quality 3D Character Illustration) -->
+    <!-- 👥 7. Referral Banner -->
     <div class="refer-bg mx-4 mt-5 p-4 rounded-[22px] text-white shadow-xl flex items-center justify-between relative overflow-hidden min-h-[115px]">
-        <!-- 3D Characters & Coin Graphics Asset Container -->
+        <!-- 3D Characters Graphics Asset Container -->
         <div class="w-24 h-20 flex-shrink-0 z-10 relative mr-1">
             <svg viewBox="0 0 120 90" class="w-full h-full drop-shadow-xl">
-                <!-- Golden Coin Left Flying -->
+                <!-- Golden Coins -->
                 <circle cx="15" cy="20" r="7" fill="#FFD700" stroke="#FFA500" stroke-width="1.5"/>
                 <text x="15" y="23" font-size="8" font-weight="bold" fill="#B8860B" text-anchor="middle">₹</text>
 
-                <!-- Golden Coin Right Flying -->
                 <circle cx="105" cy="20" r="7" fill="#FFD700" stroke="#FFA500" stroke-width="1.5"/>
                 <text x="105" y="23" font-size="8" font-weight="bold" fill="#B8860B" text-anchor="middle">₹</text>
 
@@ -326,13 +437,13 @@
                 <rect x="57" y="38" width="6" height="35" fill="#FF3B3B" />
                 <path d="M 60 38 C 50 28, 42 35, 57 38 C 70 28, 78 35, 63 38 Z" fill="#FF3B3B"/>
 
-                <!-- Left Boy (Purple Hoodie + Phone) -->
+                <!-- Left Boy -->
                 <circle cx="22" cy="40" r="11" fill="#FFD1B3" />
                 <path d="M 12 36 C 12 24, 32 24, 32 36 Z" fill="#2E1C14" />
                 <path d="M 8 68 C 8 50, 36 50, 36 68 Z" fill="#4B22E8" />
                 <rect x="26" y="52" width="7" height="12" rx="1.5" fill="#FFFFFF" stroke="#333" stroke-width="0.5"/>
 
-                <!-- Right Boy (Blue Hoodie + Phone) -->
+                <!-- Right Boy -->
                 <circle cx="98" cy="40" r="11" fill="#FFD1B3" />
                 <path d="M 88 36 C 88 24, 108 24, 108 36 Z" fill="#1C1B2E" />
                 <path d="M 84 68 C 84 50, 112 50, 112 68 Z" fill="#2133E8" />
@@ -344,7 +455,7 @@
         <div class="z-10 flex-1 px-1">
             <h4 class="font-extrabold text-sm tracking-tight mb-0.5 text-white">বন্ধুকে Refer করুন</h4>
             <p class="text-[10px] text-white/90 leading-tight">
-                বন্ধু ৮০টা টাস্ক কমপ্লিট করলে আপনি পাবেন 
+                বন্ধু ৮০টা টাস্ক কমপ্লিট করলে আপনি পাবেন
                 <span class="text-[#FFD21C] font-extrabold text-xs block mt-0.5">₹50</span>
             </p>
         </div>
@@ -355,7 +466,7 @@
         </button>
     </div>
 
-    <!-- 🏠 8. Bottom Navigation (Fixed Footer) -->
+    <!-- 🏠 8. Bottom Navigation -->
     <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E5E5EE] py-2 px-3 flex justify-around items-center z-50 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]">
         <!-- Home Active -->
         <div class="flex flex-col items-center">
