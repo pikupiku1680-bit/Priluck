@@ -2,500 +2,1856 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PriLuck Premium App UI</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Font: Noto Sans Bengali -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>প্রিলাক — Home</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --purple: #4B20E8;
+            --purple-dark: #291BC7;
+            --blue: #2465F2;
+            --orange: #FF9900;
+            --green: #0CB857;
+            --pink: #EC3F76;
+            --text: #101458;
+            --muted: #8587A5;
+            --page: #F5F5FF;
+            --white: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #F4F4FF;
-            font-family: 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
-            color: #11145B;
-        }
-        .hero-bg { background: linear-gradient(135deg, #1C24D4 0%, #351AE3 50%, #521AE3 100%); }
-        .refer-bg { background: linear-gradient(100deg, #2133E8 0%, #4D1AE8 50%, #9B22EF 100%); }
-        .custom-shadow { box-shadow: 0 8px 24px rgba(30, 30, 100, 0.05); }
-
-        /* ===== Premium Statistics Cards ===== */
-        .card-blue {
-            background: linear-gradient(145deg, #3F7DFF 0%, #2461F2 38%, #1747D9 72%, #1035B8 100%);
-        }
-        .card-orange {
-            background: linear-gradient(145deg, #FFC52B 0%, #FFAD16 42%, #FF9700 72%, #F57C00 100%);
-        }
-        .card-green {
-            background: linear-gradient(145deg, #32DC78 0%, #19CC62 40%, #0EB652 72%, #079A45 100%);
+            min-height: 100vh;
+            background: var(--page);
+            color: var(--text);
+            font-family: "Noto Sans Bengali", sans-serif;
+            padding-bottom: 88px;
+            overflow-x: hidden;
         }
 
-        /* Premium card icon */
-        .premium-card-icon {
-            width: 34px;
-            height: 34px;
+        button,
+        a {
+            font-family: inherit;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+        }
+
+        /* =====================================================
+           TOP HEADER
+        ===================================================== */
+
+        .hero {
+            position: relative;
+            height: 225px;
+            padding: 24px 18px 0;
+            color: white;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 18% 15%, rgba(91, 87, 255, .35), transparent 32%),
+                radial-gradient(circle at 85% 80%, rgba(111, 36, 255, .35), transparent 35%),
+                linear-gradient(135deg, #2423D2 0%, #3121DE 48%, #5520E9 100%);
+            border-radius: 0 0 34px 34px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            right: -70px;
+            top: -80px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.96);
+            background: rgba(255,255,255,.05);
+        }
+
+        .topbar {
+            position: relative;
+            z-index: 3;
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.9);
+            justify-content: space-between;
         }
 
-        /* Coin coming out of wallet */
-        .wallet-premium {
-            position: relative;
-        }
-        .wallet-premium .coin {
-            position: absolute;
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: linear-gradient(135deg,#FFE36A,#FFB300);
-            border: 1px solid #E69500;
-            top: -4px;
-            right: -2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,.25);
-        }
-        .wallet-premium .coin-two {
-            position: absolute;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: linear-gradient(135deg,#FFF176,#FFA000);
-            border: 1px solid #D88900;
-            top: -7px;
-            right: 5px;
-        }
-
-        /* Premium chart icon */
-        .chart-premium {
-            color: #079A45;
-            font-size: 15px;
-            font-weight: 900;
-        }
-
-        /* ===== Premium Streak Flame ===== */
-        .streak-flame-box {
+        .menu-btn {
             width: 48px;
             height: 48px;
-            border-radius: 18px;
-            background: linear-gradient(145deg,#FFF8ED,#FFE9C7);
+            border-radius: 17px;
+            background: rgba(19, 16, 137, .52);
+            border: 1px solid rgba(255,255,255,.13);
+            color: white;
+            font-size: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 12px rgba(255,120,0,.12), inset 0 1px 3px rgba(255,255,255,.9);
-            flex-shrink: 0;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,.08);
         }
 
-        .streak-flame {
-            width: 32px;
-            height: 32px;
-            filter: drop-shadow(0 2px 2px rgba(255,80,0,.25)) drop-shadow(0 0 3px rgba(255,145,0,.25));
+        .brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 22px;
         }
 
-        /* Streak text */
-        .streak-title {
+        .brand-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .telegram-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #26B9F4, #159BE0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 7px 18px rgba(0,0,0,.16),
+                inset 0 1px 2px rgba(255,255,255,.35);
+        }
+
+        .telegram-logo i {
+            font-size: 25px;
+            transform: translate(-1px, 1px);
+        }
+
+        .brand-title {
+            font-size: 29px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .brand-subtitle {
+            margin-top: 7px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: .92;
+        }
+
+        .notification {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: transparent;
+            font-size: 24px;
+        }
+
+        .notification-badge {
+            position: absolute;
+            right: 2px;
+            top: 0px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #FF3E45;
+            border: 2px solid #3422D9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .page {
+            position: relative;
+            z-index: 4;
+            max-width: 900px;
+            margin: -48px auto 0;
+            padding: 0 15px;
+        }
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .stat-card {
+            position: relative;
+            min-height: 188px;
+            padding: 15px 13px 13px;
+            border-radius: 23px;
+            color: white;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.45);
+            box-shadow:
+                0 12px 24px rgba(30,30,100,.15),
+                inset 0 1px 1px rgba(255,255,255,.28);
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            right: -55px;
+            top: -55px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.10);
+        }
+
+        .blue-card {
+            background:
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,.18), transparent 28%),
+                linear-gradient(145deg, #4384FF 0%, #2865F4 40%, #1547D2 100%);
+        }
+
+        .orange-card {
+            background:
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,.2), transparent 28%),
+                linear-gradient(145deg, #FFC832 0%, #FFAD17 42%, #F57D00 100%);
+        }
+
+        .green-card {
+            background:
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,.18), transparent 28%),
+                linear-gradient(145deg, #42DF83 0%, #19C965 42%, #079B46 100%);
+        }
+
+        .stat-top {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .stat-title {
+            font-size: 12px;
+            font-weight: 600;
+            opacity: .96;
             white-space: nowrap;
-            color: #11145B;
+        }
+
+        .stat-icon {
+            position: relative;
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,.96);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 5px 13px rgba(0,0,0,.13),
+                inset 0 1px 3px rgba(255,255,255,.95);
+        }
+
+        .stat-icon i {
+            font-size: 17px;
+        }
+
+        .blue-card .stat-icon i {
+            color: #1752DE;
+        }
+
+        .orange-card .stat-icon i {
+            color: #F18A00;
+        }
+
+        .green-card .stat-icon i {
+            color: #079A45;
+        }
+
+        /* Coins */
+        .coin {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #FFE96B, #FFA800);
+            border: 1px solid #D99100;
+            box-shadow: 0 2px 4px rgba(0,0,0,.25);
+        }
+
+        .coin.one {
+            width: 12px;
+            height: 12px;
+            right: -3px;
+            top: -3px;
+        }
+
+        .coin.two {
+            width: 9px;
+            height: 9px;
+            right: 6px;
+            top: -9px;
+        }
+
+        .coin.three {
+            width: 6px;
+            height: 6px;
+            right: -7px;
+            top: 8px;
+        }
+
+        .stat-value {
+            position: relative;
+            z-index: 2;
+            margin-top: 13px;
+            font-size: 27px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -.5px;
+        }
+
+        .stat-action {
+            position: absolute;
+            z-index: 3;
+            left: 12px;
+            right: 12px;
+            bottom: 13px;
+            height: 36px;
+            border-radius: 18px;
+            color: white;
+            background: rgba(255,255,255,.18);
+            border: 1px solid rgba(255,255,255,.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            font-size: 11px;
+            font-weight: 700;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-action i {
+            font-size: 9px;
+        }
+
+        /* =====================================================
+           GENERIC WHITE CARD
+        ===================================================== */
+
+        .white-card {
+            background: rgba(255,255,255,.98);
+            border: 1px solid rgba(229,229,242,.75);
+            box-shadow: 0 8px 24px rgba(30,30,100,.065);
+            border-radius: 24px;
+        }
+
+        /* =====================================================
+           STREAK
+        ===================================================== */
+
+        .streak-card {
+            margin-top: 14px;
+            padding: 17px 15px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-height: 150px;
+        }
+
+        .streak-left {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .streak-intro {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .flame-box {
+            width: 54px;
+            height: 54px;
+            flex-shrink: 0;
+            border-radius: 19px;
+            background: linear-gradient(145deg, #FFF9EE, #FFE9C7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 6px 14px rgba(255,120,0,.12),
+                inset 0 1px 3px rgba(255,255,255,.95);
+        }
+
+        .flame {
+            font-size: 34px;
+            filter:
+                drop-shadow(0 3px 3px rgba(255,80,0,.22))
+                drop-shadow(0 0 4px rgba(255,145,0,.18));
+        }
+
+        .streak-title {
+            font-size: 13px;
+            line-height: 1.35;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .streak-copy {
+            margin-top: 3px;
+            font-size: 9px;
+            line-height: 1.55;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .streak-button {
+            margin-top: 11px;
+            height: 31px;
+            padding: 0 14px;
+            border-radius: 18px;
+            color: white;
+            background: linear-gradient(135deg, #5429ED, #3C20D6);
+            box-shadow: 0 5px 11px rgba(75,34,232,.18);
+            font-size: 9px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .streak-button i {
+            font-size: 8px;
+        }
+
+        .streak-divider {
+            width: 1px;
+            height: 91px;
+            background: #ECECF4;
+        }
+
+        .streak-right {
+            flex: 1.35;
+            min-width: 0;
+        }
+
+        .streak-heading {
+            margin-bottom: 10px;
+            font-size: 11px;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .days {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-width: 25px;
+        }
+
+        .day-circle {
+            width: 27px;
+            height: 27px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
             font-weight: 900;
         }
 
-        /* Day labels */
-        .streak-day-label {
-            color: #11145B !important;
+        .day.completed .day-circle {
+            color: white;
+            background: linear-gradient(145deg, #5C2BF2, #401ED5);
+            box-shadow: 0 3px 7px rgba(75,34,232,.16);
+        }
+
+        .day.active .day-circle {
+            color: #4B22E8;
+            background: white;
+            border: 2px solid #4B22E8;
+        }
+
+        .day.reward .day-circle {
+            background: linear-gradient(145deg, #FFF8E8, #FFE7B4);
+            border: 1.5px solid #F0B43B;
+            font-size: 15px;
+            box-shadow: 0 3px 7px rgba(255,145,0,.15);
+        }
+
+        .day-label {
+            font-size: 8px;
+            color: #777993;
             font-weight: 700;
             white-space: nowrap;
         }
 
-        /* More spacing between streak counters */
-        .streak-days {
-            gap: 7px;
+        .day.active .day-label {
+            color: var(--text);
+            font-weight: 900;
         }
 
-        /* Day 7 premium flame */
-        .day-seven-flame {
-            width: 27px;
-            height: 27px;
+        /* =====================================================
+           FEATURES
+        ===================================================== */
+
+        .features {
+            margin-top: 14px;
+            padding: 16px 7px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .feature {
+            min-width: 0;
+            padding: 0 9px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature + .feature {
+            border-left: 1px solid #ECECF4;
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background: linear-gradient(145deg,#FFF8E8,#FFE7B5);
-            border: 1.5px solid #F4B33A;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 3px 7px rgba(255,145,0,.18), inset 0 1px 2px rgba(255,255,255,.9);
+            font-size: 19px;
+            margin-bottom: 7px;
+            box-shadow: 0 4px 10px rgba(0,0,0,.04);
         }
-        .day-seven-flame svg {
-            width: 14px;
-            height: 14px;
+
+        .pink-icon {
+            color: #E92769;
+            background: #FFE5EF;
+        }
+
+        .blue-icon {
+            color: #286DF2;
+            background: #E4F0FF;
+        }
+
+        .orange-icon {
+            color: #FF9415;
+            background: #FFF0D6;
+        }
+
+        .feature-title {
+            font-size: 11px;
+            font-weight: 900;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .feature-desc {
+            margin-top: 4px;
+            min-height: 30px;
+            font-size: 8px;
+            line-height: 1.55;
+            color: var(--muted);
+        }
+
+        .feature-arrow {
+            margin-top: 7px;
+            width: 28px;
+            height: 23px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .pink-arrow {
+            color: #E92769;
+            background: #FFE1EC;
+        }
+
+        .blue-arrow {
+            color: #286DF2;
+            background: #E4F0FF;
+        }
+
+        .orange-arrow {
+            color: #FF9415;
+            background: #FFF0D6;
+        }
+
+        /* =====================================================
+           TASK HEADER
+        ===================================================== */
+
+        .section-header {
+            margin: 18px 6px 9px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .see-all {
+            text-decoration: none;
+            color: var(--purple);
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .see-all i {
+            font-size: 8px;
+        }
+
+        /* =====================================================
+           TASK LIST
+        ===================================================== */
+
+        .task-list {
+            overflow: hidden;
+        }
+
+        .task {
+            min-height: 62px;
+            padding: 9px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task + .task {
+            border-top: 1px solid #EEEEF4;
+        }
+
+        .task-icon {
+            width: 39px;
+            height: 39px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: #FAFAFD;
+            border: 1px solid #ECECF3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .google {
+            color: #4285F4;
+        }
+
+        .youtube {
+            color: #FF0000;
+        }
+
+        .app {
+            color: #4256D9;
+        }
+
+        .instagram {
+            color: #E1306C;
+        }
+
+        .task-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .task-title {
+            font-size: 11px;
+            line-height: 1.3;
+            font-weight: 900;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .task-meta {
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 8px;
+            white-space: nowrap;
+        }
+
+        .task-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .reward {
+            min-width: 48px;
+            height: 27px;
+            padding: 0 9px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #199B50;
+            background: #E9F8EE;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .start-btn {
+            height: 31px;
+            min-width: 82px;
+            padding: 0 11px;
+            border-radius: 17px;
+            color: white;
+            background: linear-gradient(135deg, #5827EE, #3D1CD3);
+            box-shadow: 0 4px 9px rgba(75,34,232,.15);
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        /* =====================================================
+           REFERRAL
+        ===================================================== */
+
+        .referral {
+            position: relative;
+            min-height: 118px;
+            margin-top: 15px;
+            padding: 12px 13px;
+            border-radius: 23px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            background:
+                radial-gradient(circle at 10% 80%, rgba(255,255,255,.12), transparent 24%),
+                radial-gradient(circle at 75% 10%, rgba(255,255,255,.13), transparent 25%),
+                linear-gradient(105deg, #3B20E0, #5820EA 55%, #9829ED);
+            box-shadow: 0 10px 22px rgba(75,30,220,.18);
+        }
+
+        .referral-art {
+            width: 118px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .referral-art svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 6px 6px rgba(0,0,0,.16));
+        }
+
+        .referral-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .referral-title {
+            font-size: 16px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .referral-text {
+            margin-top: 4px;
+            font-size: 9px;
+            line-height: 1.4;
+            color: rgba(255,255,255,.9);
+        }
+
+        .referral-amount {
+            display: block;
+            margin-top: 1px;
+            color: #FFD21C;
+            font-size: 22px;
+            line-height: 1;
+            font-weight: 900;
+        }
+
+        .referral-btn {
+            flex-shrink: 0;
+            min-height: 36px;
+            padding: 0 13px;
+            border-radius: 20px;
+            color: #4A20DE;
+            background: white;
+            font-size: 9px;
+            font-weight: 900;
+            box-shadow: 0 5px 12px rgba(0,0,0,.12);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .referral-btn i {
+            font-size: 8px;
+        }
+
+        /* =====================================================
+           BOTTOM NAV
+        ===================================================== */
+
+        .bottom-nav {
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 900px;
+            height: 76px;
+            padding: 7px 10px 9px;
+            background: rgba(255,255,255,.97);
+            border-top: 1px solid #E7E7F0;
+            box-shadow: 0 -7px 20px rgba(0,0,0,.07);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-item {
+            color: #4C4C78;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            width: 44px;
+            height: 30px;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .nav-item.active {
+            color: var(--purple);
+            font-weight: 900;
+        }
+
+        .nav-item.active .nav-icon {
+            color: white;
+            background: linear-gradient(135deg, #5929EE, #3C1DD4);
+            box-shadow: 0 5px 11px rgba(75,34,232,.18);
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 430px) {
+
+            .hero {
+                height: 216px;
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .page {
+                padding: 0 12px;
+                margin-top: -43px;
+            }
+
+            .stats {
+                gap: 8px;
+            }
+
+            .stat-card {
+                min-height: 174px;
+                padding: 13px 10px;
+                border-radius: 20px;
+            }
+
+            .stat-title {
+                font-size: 10px;
+            }
+
+            .stat-icon {
+                width: 38px;
+                height: 38px;
+            }
+
+            .stat-icon i {
+                font-size: 15px;
+            }
+
+            .stat-value {
+                font-size: 23px;
+                margin-top: 12px;
+            }
+
+            .stat-action {
+                left: 9px;
+                right: 9px;
+                bottom: 10px;
+                height: 32px;
+                font-size: 9px;
+            }
+
+            .brand-title {
+                font-size: 25px;
+            }
+
+            .brand-subtitle {
+                font-size: 10px;
+            }
+
+            .telegram-logo {
+                width: 43px;
+                height: 43px;
+            }
+
+            .streak-card {
+                padding: 14px 11px;
+                gap: 9px;
+            }
+
+            .streak-title {
+                font-size: 11px;
+            }
+
+            .streak-copy {
+                font-size: 8px;
+            }
+
+            .flame-box {
+                width: 47px;
+                height: 47px;
+            }
+
+            .flame {
+                font-size: 29px;
+            }
+
+            .streak-button {
+                margin-top: 8px;
+                padding: 0 11px;
+                font-size: 8px;
+            }
+
+            .streak-divider {
+                height: 82px;
+            }
+
+            .streak-heading {
+                font-size: 9px;
+            }
+
+            .day-circle {
+                width: 24px;
+                height: 24px;
+                font-size: 9px;
+            }
+
+            .day.reward .day-circle {
+                font-size: 13px;
+            }
+
+            .day-label {
+                font-size: 7px;
+            }
+
+            .features {
+                padding: 14px 3px;
+            }
+
+            .feature {
+                padding: 0 5px;
+            }
+
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 17px;
+            }
+
+            .feature-title {
+                font-size: 9px;
+            }
+
+            .feature-desc {
+                font-size: 7px;
+            }
+
+            .section-title {
+                font-size: 15px;
+            }
+
+            .task {
+                padding: 8px 9px;
+                gap: 8px;
+            }
+
+            .task-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                font-size: 18px;
+            }
+
+            .task-title {
+                font-size: 10px;
+            }
+
+            .task-meta {
+                font-size: 7px;
+            }
+
+            .task-right {
+                gap: 5px;
+            }
+
+            .reward {
+                min-width: 42px;
+                height: 25px;
+                font-size: 10px;
+            }
+
+            .start-btn {
+                min-width: 72px;
+                height: 29px;
+                font-size: 8px;
+                padding: 0 8px;
+            }
+
+            .referral {
+                min-height: 105px;
+                padding: 9px;
+            }
+
+            .referral-art {
+                width: 90px;
+            }
+
+            .referral-title {
+                font-size: 13px;
+            }
+
+            .referral-text {
+                font-size: 8px;
+            }
+
+            .referral-amount {
+                font-size: 19px;
+            }
+
+            .referral-btn {
+                padding: 0 9px;
+                min-height: 32px;
+                font-size: 8px;
+            }
+
+            .bottom-nav {
+                height: 72px;
+            }
+
+            .nav-icon {
+                width: 40px;
+                height: 27px;
+                font-size: 15px;
+            }
+
+            .nav-item {
+                font-size: 8px;
+            }
+        }
+
+        @media (max-width: 360px) {
+
+            .brand {
+                margin-left: 10px;
+            }
+
+            .brand-title {
+                font-size: 22px;
+            }
+
+            .telegram-logo {
+                width: 39px;
+                height: 39px;
+            }
+
+            .stat-card {
+                min-height: 162px;
+            }
+
+            .stat-title {
+                font-size: 9px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+
+            .stat-action {
+                font-size: 8px;
+            }
+
+            .streak-right {
+                flex: 1.2;
+            }
+
+            .referral-art {
+                width: 72px;
+            }
+
+            .referral-btn {
+                padding: 0 7px;
+            }
         }
     </style>
 </head>
-<body class="pb-24">
 
-    <!-- 🟣 1. Header / Hero Section -->
-    <div class="hero-bg text-white px-5 pt-6 pb-20 rounded-b-[2.2rem] shadow-xl">
-        <div class="flex justify-between items-center">
-            <!-- Menu Button -->
-            <button class="w-10 h-10 bg-[#171A9E]/60 flex items-center justify-center rounded-[16px] border border-white/10 shadow-sm">
-                <i class="fa-solid fa-bars text-white text-base"></i>
+<body>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="hero">
+
+        <div class="topbar">
+
+            <button class="menu-btn">
+                <i class="fa-solid fa-bars"></i>
             </button>
 
-            <!-- Telegram Icon & Title -->
-            <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 bg-[#20A9E8] rounded-full flex items-center justify-center shadow-md">
-                    <i class="fa-brands fa-telegram text-white text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-extrabold tracking-tight leading-none text-white">প্রিলাক</h1>
-                    <p class="text-[11px] text-white/90 font-medium">Task করুন, Earn করুন</p>
-                </div>
-            </div>
+            <div class="brand">
 
-            <!-- Notification Button with Badge -->
-            <button class="w-10 h-10 relative flex items-center justify-center">
-                <i class="fa-regular fa-bell text-white text-xl"></i>
-                <span class="absolute top-2 right-2 w-4 h-4 bg-[#FF3B3B] text-white text-[9px] font-bold rounded-full flex items-center justify-center ring-2 ring-[#351AE3]">3</span>
-            </button>
-        </div>
-    </div>
+                <div class="brand-main">
 
-    <!-- 🟦🟧🟩 2. Three Statistics Cards -->
-    <div class="grid grid-cols-3 gap-2.5 px-4 -mt-14">
-        <!-- Card 1: আজকের আয় -->
-        <div class="card-blue p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
-            <div class="flex justify-between items-start mb-1">
-                <span class="text-[11px] opacity-90 font-medium">আজকের আয়</span>
-                <div class="premium-card-icon wallet-premium">
-                    <span class="coin-two"></span>
-                    <span class="coin"></span>
-                    <i class="fa-solid fa-wallet text-[#1A4EE8] text-xs"></i>
-                </div>
-            </div>
-            <p class="text-base font-extrabold mb-2">₹142.50</p>
-            <button class="bg-white/20 border border-white/30 rounded-full text-[9px] py-1 px-2 text-center font-semibold text-white flex items-center justify-center gap-1">
-                ওয়ালেট দেখুন <i class="fa-solid fa-chevron-right text-[7px]"></i>
-            </button>
-        </div>
-
-        <!-- Card 2: আজকের টাস্ক -->
-        <div class="card-orange p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
-            <div class="flex justify-between items-start mb-1">
-                <span class="text-[11px] opacity-90 font-medium">আজকের টাস্ক</span>
-                <div class="premium-card-icon">
-                    <i class="fa-solid fa-clipboard-list text-[#FF8C00] text-xs"></i>
-                </div>
-            </div>
-            <p class="text-base font-extrabold mb-2">8/15</p>
-            <button class="bg-white/20 border border-white/30 rounded-full text-[9px] py-1 px-2 text-center font-semibold text-white flex items-center justify-center gap-1">
-                সব টাস্ক দেখুন <i class="fa-solid fa-chevron-right text-[7px]"></i>
-            </button>
-        </div>
-
-        <!-- Card 3: সাকসেস রেট -->
-        <div class="card-green p-3.5 rounded-2xl text-white shadow-lg border border-white/30 flex flex-col justify-between">
-            <div class="flex justify-between items-start mb-1">
-                <span class="text-[11px] opacity-90 font-medium">সাকসেস রেট</span>
-                <div class="premium-card-icon">
-                    <i class="fa-solid fa-chart-line chart-premium"></i>
-                </div>
-            </div>
-            <p class="text-base font-extrabold mb-2">92%</p>
-            <button class="bg-white/20 border border-white/30 rounded-full text-[9px] py-1 px-2 text-center font-semibold text-white flex items-center justify-center gap-1">
-                ডিটেইলস দেখুন <i class="fa-solid fa-chevron-right text-[7px]"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- 🔥 3. Streak / ধারাবাহিকতা Section -->
-    <div class="bg-white mx-4 mt-4 p-4 rounded-[24px] custom-shadow border border-gray-100/50">
-        <div class="flex items-center justify-between gap-2">
-            <!-- Left Side: Flame + Details + Button -->
-            <div class="flex flex-col justify-between h-full">
-                <div class="flex items-center gap-2.5 mb-2">
-                    <!-- Premium 3D Flame Box -->
-                    <div class="streak-flame-box">
-                        <svg class="streak-flame" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2C10 5 7.5 7 7.5 10.5C7.5 13 9.5 14.5 12 14.5C14.5 14.5 16.5 13 16.5 10.5C16.5 7 14 5 12 2Z" fill="#FF3D00"/>
-                            <path d="M12 6.5C9.5 9 6 12 6 16C6 19.5 8.7 22.5 12 22.5C15.3 22.5 18 19.5 18 16C18 12 14.5 9 12 6.5Z" fill="#FF6D00"/>
-                            <path d="M12 13.5C10.8 14.8 10 16 10 17.3C10 18.5 10.9 19.5 12 19.5C13.1 19.5 14 18.5 14 17.3C14 16 13.2 14.8 12 13.5Z" fill="#FFC107"/>
-                        </svg>
+                    <div class="telegram-logo">
+                        <i class="fa-brands fa-telegram"></i>
                     </div>
+
                     <div>
-                        <h3 class="text-xs streak-title leading-tight">ধারাবাহিকতা বজায় রাখুন!</h3>
-                        <p class="text-[9px] text-[#8C8CA5]">টানা ৭ দিন লগইন করুন</p>
-                        <p class="text-[9px] text-[#8C8CA5]">আর পান বিশেষ বোনাস</p>
+                        <div class="brand-title">প্রিলাক</div>
+                        <div class="brand-subtitle">Task করুন, Earn করুন</div>
                     </div>
+
                 </div>
-                <button class="bg-[#4B27E8] text-white text-[9px] font-bold px-3 py-1.5 rounded-full shadow-md w-fit flex items-center gap-1">
-                    স্ট্রিক দেখুন <i class="fa-solid fa-chevron-right text-[7px]"></i>
-                </button>
+
             </div>
 
-            <!-- Divider -->
-            <div class="w-[1px] h-20 bg-[#EEEEF5]"></div>
+            <button class="notification">
 
-            <!-- Right Side: Header + 1-7 Days Streak Bar -->
-            <div class="flex-1 pl-1">
-                <span class="text-[10px] streak-title block mb-2">আজ আপনি আছেন</span>
-                <div class="flex justify-between items-center text-center streak-days">
-                    <!-- Days 1-5 -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <span class="text-[8px] streak-day-label">১ দিন</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <span class="text-[8px] streak-day-label">২ দিন</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <span class="text-[8px] streak-day-label">৩ দিন</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <span class="text-[8px] streak-day-label">৪ দিন</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-6 h-6 rounded-full bg-[#4B22E8] text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <span class="text-[8px] streak-day-label">৫ দিন</span>
+                <i class="fa-regular fa-bell"></i>
+
+                <span class="notification-badge">3</span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="page">
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats">
+
+            <!-- BLUE -->
+            <div class="stat-card blue-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-title">আজকের আয়</span>
+
+                    <div class="stat-icon">
+
+                        <span class="coin two"></span>
+                        <span class="coin one"></span>
+                        <span class="coin three"></span>
+
+                        <i class="fa-solid fa-wallet"></i>
+
                     </div>
 
-                    <!-- Day 6 Active -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="w-6 h-6 rounded-full bg-white border-2 border-[#4B22E8] text-[#4B22E8] flex items-center justify-center text-[10px] font-black shadow-sm">
+                </div>
+
+                <div class="stat-value">
+                    ₹142.50
+                </div>
+
+                <button class="stat-action">
+                    ওয়ালেট দেখুন
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+            </div>
+
+
+            <!-- ORANGE -->
+            <div class="stat-card orange-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-title">আজকের টাস্ক</span>
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </div>
+
+                </div>
+
+                <div class="stat-value">
+                    8/15
+                </div>
+
+                <button class="stat-action">
+                    সব টাস্ক দেখুন
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+            </div>
+
+
+            <!-- GREEN -->
+            <div class="stat-card green-card">
+
+                <div class="stat-top">
+
+                    <span class="stat-title">সাকসেস রেট</span>
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+
+                </div>
+
+                <div class="stat-value">
+                    92%
+                </div>
+
+                <button class="stat-action">
+                    ডিটেইলস দেখুন
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STREAK
+        ================================================== -->
+
+        <section class="white-card streak-card">
+
+            <div class="streak-left">
+
+                <div class="streak-intro">
+
+                    <div class="flame-box">
+                        <span class="flame">🔥</span>
+                    </div>
+
+                    <div>
+
+                        <div class="streak-title">
+                            ধারাবাহিকতা বজায় রাখুন!
+                        </div>
+
+                        <div class="streak-copy">
+                            টানা ৭ দিন লগইন করুন<br>
+                            আর পান বিশেষ বোনাস
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button class="streak-button">
+                    স্ট্রিক দেখুন
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+            </div>
+
+
+            <div class="streak-divider"></div>
+
+
+            <div class="streak-right">
+
+                <div class="streak-heading">
+                    আজ আপনি আছেন
+                </div>
+
+                <div class="days">
+
+                    <div class="day completed">
+                        <div class="day-circle">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="day-label">১ দিন</span>
+                    </div>
+
+                    <div class="day completed">
+                        <div class="day-circle">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="day-label">২ দিন</span>
+                    </div>
+
+                    <div class="day completed">
+                        <div class="day-circle">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="day-label">৩ দিন</span>
+                    </div>
+
+                    <div class="day completed">
+                        <div class="day-circle">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="day-label">৪ দিন</span>
+                    </div>
+
+                    <div class="day completed">
+                        <div class="day-circle">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="day-label">৫ দিন</span>
+                    </div>
+
+                    <div class="day active">
+                        <div class="day-circle">
                             6
                         </div>
-                        <span class="text-[8px] streak-title">৬ দিন</span>
+                        <span class="day-label">৬ দিন</span>
                     </div>
 
-                    <!-- Day 7 Premium Flame -->
-                    <div class="flex flex-col items-center gap-1">
-                        <div class="day-seven-flame">
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M12 6.5C9.5 9 6 12 6 16C6 19.5 8.7 22.5 12 22.5C15.3 22.5 18 19.5 18 16C18 12 14.5 9 12 6.5Z" fill="#FF6D00"/>
-                                <path d="M12 13.5C10.8 14.8 10 16 10 17.3C10 18.5 10.9 19.5 12 19.5C13.1 19.5 14 18.5 14 17.3C14 16 13.2 14.8 12 13.5Z" fill="#FFC107"/>
-                            </svg>
+                    <div class="day reward">
+                        <div class="day-circle">
+                            🔥
                         </div>
-                        <span class="text-[8px] streak-day-label">৭ দিন</span>
+                        <span class="day-label">৭ দিন</span>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 🎁 4. Three Feature Columns -->
-    <div class="bg-white mx-4 mt-4 p-3.5 rounded-[24px] custom-shadow grid grid-cols-3 divide-x divide-[#EEEEF5] border border-gray-100/50">
-        <!-- Column 1 -->
-        <div class="flex flex-col items-center text-center px-1">
-            <div class="w-9 h-9 rounded-full bg-[#FFE5EF] flex items-center justify-center text-[#E91E63] text-sm mb-1 shadow-sm">
-                <i class="fa-solid fa-gift"></i>
+                </div>
+
             </div>
-            <p class="text-[10px] font-bold text-[#11145B]">অফার ও বোনাস</p>
-            <p class="text-[8px] text-[#8C8CA5] leading-tight mb-2">দারুণ সব অফার ও বোনাস দেখুন</p>
-            <div class="w-4 h-4 rounded-full bg-[#FFE0EB] flex items-center justify-center text-[#E91E63] text-[8px]">
+
+        </section>
+
+
+        <!-- =================================================
+             FEATURES
+        ================================================== -->
+
+        <section class="white-card features">
+
+            <div class="feature">
+
+                <div class="feature-icon pink-icon">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+
+                <div class="feature-title">
+                    অফার ও বোনাস
+                </div>
+
+                <div class="feature-desc">
+                    দারুণ সব অফার<br>
+                    ও বোনাস দেখুন
+                </div>
+
+                <div class="feature-arrow pink-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon blue-icon">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+
+                <div class="feature-title">
+                    আমার পারফরম্যান্স
+                </div>
+
+                <div class="feature-desc">
+                    আপনার মোট আয়, টাস্ক<br>
+                    ও সাকসেস দেখুন
+                </div>
+
+                <div class="feature-arrow blue-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon orange-icon">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+
+                <div class="feature-title">
+                    আজকের স্ট্রিক
+                </div>
+
+                <div class="feature-desc">
+                    স্ট্রিক ধরে রাখুন এবং<br>
+                    বোনাস জিতুন
+                </div>
+
+                <div class="feature-arrow orange-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TASK HEADER
+        ================================================== -->
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                আজকের টাস্ক
+            </h2>
+
+            <a href="#" class="see-all">
+                সব দেখুন
                 <i class="fa-solid fa-chevron-right"></i>
-            </div>
+            </a>
+
         </div>
 
-        <!-- Column 2 -->
-        <div class="flex flex-col items-center text-center px-1">
-            <div class="w-9 h-9 rounded-full bg-[#E5F0FF] flex items-center justify-center text-[#3478F6] text-sm mb-1 shadow-sm">
-                <i class="fa-solid fa-chart-pie"></i>
-            </div>
-            <p class="text-[10px] font-bold text-[#11145B]">আমার পারফরম্যান্স</p>
-            <p class="text-[8px] text-[#8C8CA5] leading-tight mb-2">আপনার মোট আয়, টাস্ক ও সাকসেস দেখুন</p>
-            <div class="w-4 h-4 rounded-full bg-[#E5F0FF] flex items-center justify-center text-[#3478F6] text-[8px]">
-                <i class="fa-solid fa-chevron-right"></i>
-            </div>
-        </div>
 
-        <!-- Column 3 -->
-        <div class="flex flex-col items-center text-center px-1">
-            <div class="w-9 h-9 rounded-full bg-[#FFF1D8] flex items-center justify-center text-[#FF9415] text-sm mb-1 shadow-sm">
-                <i class="fa-solid fa-fire"></i>
-            </div>
-            <p class="text-[10px] font-bold text-[#11145B]">আজকের স্ট্রিক</p>
-            <p class="text-[8px] text-[#8C8CA5] leading-tight mb-2">স্ট্রিক ধরে রাখুন এবং বোনাস জিতুন</p>
-            <div class="w-4 h-4 rounded-full bg-[#FFF1D8] flex items-center justify-center text-[#FF9415] text-[8px]">
-                <i class="fa-solid fa-chevron-right"></i>
-            </div>
-        </div>
-    </div>
+        <!-- =================================================
+             TASK LIST
+        ================================================== -->
 
-    <!-- 🟣 5. Top Tasks Header -->
-    <div class="flex justify-between items-center mx-4 mt-5 mb-2.5">
-        <h2 class="font-extrabold text-[#11145B] text-base">আজকের টাস্ক</h2>
-        <a href="#" class="text-xs font-bold text-[#4B27E8] flex items-center gap-1">
-            সব দেখুন <i class="fa-solid fa-chevron-right text-[9px]"></i>
-        </a>
-    </div>
+        <section class="white-card task-list">
 
-    <!-- 📋 6. Task List Card (Compact Rows) -->
-    <div class="bg-white mx-4 rounded-[22px] custom-shadow divide-y divide-[#EEEEF5] border border-gray-100/50">
-        <!-- Task 1: Google -->
-        <div class="p-3 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-lg shadow-sm">
-                    <i class="fa-brands fa-google text-blue-600"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-bold text-[#11145B] leading-snug">গুগল সার্চ করুন</p>
-                    <p class="text-[9px] text-[#8C8CA5]">২ মিনিট • CPX Research</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹8</span>
-                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করন</button>
-            </div>
-        </div>
 
-        <!-- Task 2: YouTube -->
-        <div class="p-3 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-lg shadow-sm">
-                    <i class="fa-brands fa-youtube text-red-600"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-bold text-[#11145B] leading-snug">ইউটিউব ভিডিও দেখুন</p>
-                    <p class="text-[9px] text-[#8C8CA5]">২ মিনিট • CPX Research</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹6</span>
-                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করন</button>
-            </div>
-        </div>
+            <!-- GOOGLE -->
 
-        <!-- Task 3: App Install -->
-        <div class="p-3 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-lg shadow-sm text-indigo-600">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                </div>
-                <div>
-                    <p class="text-xs font-bold text-[#11145B] leading-snug">অ্যাপ ইনস্টল ও খুলুন</p>
-                    <p class="text-[9px] text-[#8C8CA5]">৩ মিনিট • RevenueWall</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹10</span>
-                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করন</button>
-            </div>
-        </div>
+            <div class="task">
 
-        <!-- Task 4: Instagram -->
-        <div class="p-3 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-lg shadow-sm text-pink-600">
+                <div class="task-icon google">
+                    <i class="fa-brands fa-google"></i>
+                </div>
+
+                <div class="task-info">
+
+                    <div class="task-title">
+                        গুগল সার্চ করুন
+                    </div>
+
+                    <div class="task-meta">
+                        ২ মিনিট • CPX Research
+                    </div>
+
+                </div>
+
+                <div class="task-right">
+
+                    <div class="reward">
+                        ₹8
+                    </div>
+
+                    <button class="start-btn">
+                        শুরু করুন
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- YOUTUBE -->
+
+            <div class="task">
+
+                <div class="task-icon youtube">
+                    <i class="fa-brands fa-youtube"></i>
+                </div>
+
+                <div class="task-info">
+
+                    <div class="task-title">
+                        ইউটিউব ভিডিও দেখুন
+                    </div>
+
+                    <div class="task-meta">
+                        ২ মিনিট • CPX Research
+                    </div>
+
+                </div>
+
+                <div class="task-right">
+
+                    <div class="reward">
+                        ₹6
+                    </div>
+
+                    <button class="start-btn">
+                        শুরু করুন
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- APP -->
+
+            <div class="task">
+
+                <div class="task-icon app">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+
+                <div class="task-info">
+
+                    <div class="task-title">
+                        অ্যাপ ইনস্টল ও খুলুন
+                    </div>
+
+                    <div class="task-meta">
+                        ৩ মিনিট • RevenueWall
+                    </div>
+
+                </div>
+
+                <div class="task-right">
+
+                    <div class="reward">
+                        ₹10
+                    </div>
+
+                    <button class="start-btn">
+                        শুরু করুন
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- INSTAGRAM -->
+
+            <div class="task">
+
+                <div class="task-icon instagram">
                     <i class="fa-brands fa-instagram"></i>
                 </div>
-                <div>
-                    <p class="text-xs font-bold text-[#11145B] leading-snug">ইনস্টাগ্রাম পোস্ট লাইক করুন</p>
-                    <p class="text-[9px] text-[#8C8CA5]">২ মিনিট • CPX Research</p>
+
+                <div class="task-info">
+
+                    <div class="task-title">
+                        ইনস্টাগ্রাম পোস্ট লাইক করুন
+                    </div>
+
+                    <div class="task-meta">
+                        ২ মিনিট • CPX Research
+                    </div>
+
                 </div>
+
+                <div class="task-right">
+
+                    <div class="reward">
+                        ₹4
+                    </div>
+
+                    <button class="start-btn">
+                        শুরু করুন
+                    </button>
+
+                </div>
+
             </div>
-            <div class="flex items-center gap-2">
-                <span class="bg-[#E8F8EE] text-[#1B9B50] font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">₹4</span>
-                <button class="bg-[#4B22E8] text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow-sm">শুরু করন</button>
+
+        </section>
+
+
+        <!-- =================================================
+             REFERRAL
+        ================================================== -->
+
+        <section class="referral">
+
+            <div class="referral-art">
+
+                <svg viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+
+                    <!-- Coins -->
+
+                    <circle cx="22" cy="18" r="9"
+                            fill="#FFD72A"
+                            stroke="#E99C00"
+                            stroke-width="2"/>
+
+                    <text x="22" y="22"
+                          text-anchor="middle"
+                          font-size="10"
+                          font-weight="900"
+                          fill="#B57900">₹</text>
+
+
+                    <circle cx="158" cy="18" r="9"
+                            fill="#FFD72A"
+                            stroke="#E99C00"
+                            stroke-width="2"/>
+
+                    <text x="158" y="22"
+                          text-anchor="middle"
+                          font-size="10"
+                          font-weight="900"
+                          fill="#B57900">₹</text>
+
+
+                    <!-- Dotted paths -->
+
+                    <path d="M30 20 Q55 5 83 34"
+                          fill="none"
+                          stroke="#FFE77D"
+                          stroke-width="2"
+                          stroke-dasharray="3 3"/>
+
+                    <path d="M150 20 Q125 5 97 34"
+                          fill="none"
+                          stroke="#FFE77D"
+                          stroke-width="2"
+                          stroke-dasharray="3 3"/>
+
+
+                    <!-- Gift -->
+
+                    <rect x="66" y="48"
+                          width="48"
+                          height="36"
+                          rx="5"
+                          fill="#FFD21C"/>
+
+                    <rect x="61" y="40"
+                          width="58"
+                          height="11"
+                          rx="3"
+                          fill="#FFE36A"/>
+
+                    <rect x="86" y="40"
+                          width="8"
+                          height="44"
+                          fill="#F63B43"/>
+
+                    <path d="M90 40
+                             C77 27 65 37 87 42
+                             C103 27 117 36 94 42Z"
+                          fill="#F63B43"/>
+
+
+                    <!-- Left character -->
+
+                    <circle cx="32" cy="47"
+                            r="14"
+                            fill="#FFD1B3"/>
+
+                    <path d="M18 43
+                             C18 27 46 27 46 43Z"
+                          fill="#25191A"/>
+
+                    <path d="M13 91
+                             C13 64 51 64 51 91Z"
+                          fill="#5A22E8"/>
+
+                    <rect x="37" y="63"
+                          width="9"
+                          height="17"
+                          rx="2"
+                          fill="#FFFFFF"
+                          stroke="#333"
+                          stroke-width="1"/>
+
+
+                    <!-- Right character -->
+
+                    <circle cx="148" cy="47"
+                            r="14"
+                            fill="#FFD1B3"/>
+
+                    <path d="M134 43
+                             C134 27 162 27 162 43Z"
+                          fill="#1C1B2E"/>
+
+                    <path d="M129 91
+                             C129 64 167 64 167 91Z"
+                          fill="#2435E5"/>
+
+                    <rect x="135" y="63"
+                          width="9"
+                          height="17"
+                          rx="2"
+                          fill="#FFFFFF"
+                          stroke="#333"
+                          stroke-width="1"/>
+
+                </svg>
+
             </div>
-        </div>
-    </div>
 
-    <!-- 👥 7. Referral Banner -->
-    <div class="refer-bg mx-4 mt-5 p-4 rounded-[22px] text-white shadow-xl flex items-center justify-between relative overflow-hidden min-h-[115px]">
-        <!-- 3D Characters Graphics Asset Container -->
-        <div class="w-24 h-20 flex-shrink-0 z-10 relative mr-1">
-            <svg viewBox="0 0 120 90" class="w-full h-full drop-shadow-xl">
-                <!-- Golden Coins -->
-                <circle cx="15" cy="20" r="7" fill="#FFD700" stroke="#FFA500" stroke-width="1.5"/>
-                <text x="15" y="23" font-size="8" font-weight="bold" fill="#B8860B" text-anchor="middle">₹</text>
 
-                <circle cx="105" cy="20" r="7" fill="#FFD700" stroke="#FFA500" stroke-width="1.5"/>
-                <text x="105" y="23" font-size="8" font-weight="bold" fill="#B8860B" text-anchor="middle">₹</text>
+            <div class="referral-content">
 
-                <!-- Dotted Coin Path -->
-                <path d="M 22 23 Q 40 10, 60 30" fill="none" stroke="#FFE57F" stroke-width="1.5" stroke-dasharray="2,2"/>
-                <path d="M 98 23 Q 80 10, 60 30" fill="none" stroke="#FFE57F" stroke-width="1.5" stroke-dasharray="2,2"/>
+                <div class="referral-title">
+                    বন্ধুকে Refer করুন
+                </div>
 
-                <!-- 3D Gift Box -->
-                <rect x="42" y="45" width="36" height="28" rx="4" fill="#FFD21C" />
-                <rect x="38" y="38" width="44" height="8" rx="2" fill="#FFE066" />
-                <rect x="57" y="38" width="6" height="35" fill="#FF3B3B" />
-                <path d="M 60 38 C 50 28, 42 35, 57 38 C 70 28, 78 35, 63 38 Z" fill="#FF3B3B"/>
+                <div class="referral-text">
+                    বন্ধু ৮০টা টাস্ক কমপ্লিট করলে<br>
+                    আপনি পাবেন
+                </div>
 
-                <!-- Left Boy -->
-                <circle cx="22" cy="40" r="11" fill="#FFD1B3" />
-                <path d="M 12 36 C 12 24, 32 24, 32 36 Z" fill="#2E1C14" />
-                <path d="M 8 68 C 8 50, 36 50, 36 68 Z" fill="#4B22E8" />
-                <rect x="26" y="52" width="7" height="12" rx="1.5" fill="#FFFFFF" stroke="#333" stroke-width="0.5"/>
+                <span class="referral-amount">
+                    ₹50
+                </span>
 
-                <!-- Right Boy -->
-                <circle cx="98" cy="40" r="11" fill="#FFD1B3" />
-                <path d="M 88 36 C 88 24, 108 24, 108 36 Z" fill="#1C1B2E" />
-                <path d="M 84 68 C 84 50, 112 50, 112 68 Z" fill="#2133E8" />
-                <rect x="87" y="52" width="7" height="12" rx="1.5" fill="#FFFFFF" stroke="#333" stroke-width="0.5"/>
-            </svg>
-        </div>
+            </div>
 
-        <!-- Banner Content -->
-        <div class="z-10 flex-1 px-1">
-            <h4 class="font-extrabold text-sm tracking-tight mb-0.5 text-white">বন্ধুকে Refer করুন</h4>
-            <p class="text-[10px] text-white/90 leading-tight">
-                বন্ধু ৮০টা টাস্ক কমপ্লিট করলে আপনি পাবেন
-                <span class="text-[#FFD21C] font-extrabold text-xs block mt-0.5">₹50</span>
-            </p>
-        </div>
 
-        <!-- Button -->
-        <button class="z-10 bg-white text-[#4B22E8] font-extrabold text-[10px] px-3 py-2 rounded-full shadow-md flex items-center gap-1 flex-shrink-0">
-            এখনই Refer করুন <i class="fa-solid fa-chevron-right text-[8px]"></i>
-        </button>
-    </div>
+            <button class="referral-btn">
+                এখনই Refer করুন
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
 
-    <!-- 🏠 8. Bottom Navigation -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E5E5EE] py-2 px-3 flex justify-around items-center z-50 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]">
-        <!-- Home Active -->
-        <div class="flex flex-col items-center">
-            <div class="w-10 h-6 bg-[#4B22E8] rounded-full flex items-center justify-center text-white text-xs mb-0.5 shadow-sm">
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         BOTTOM NAVIGATION
+    ====================================================== -->
+
+    <nav class="bottom-nav">
+
+        <a href="#" class="nav-item active">
+
+            <div class="nav-icon">
                 <i class="fa-solid fa-house"></i>
             </div>
-            <span class="text-[10px] font-bold text-[#4B22E8]">হোম</span>
-        </div>
-        <!-- Leaderboard -->
-        <div class="flex flex-col items-center text-[#353568]">
-            <i class="fa-solid fa-trophy text-sm mb-1"></i>
-            <span class="text-[10px] font-medium">লিডারবোর্ড</span>
-        </div>
-        <!-- Wallet -->
-        <div class="flex flex-col items-center text-[#353568]">
-            <i class="fa-solid fa-wallet text-sm mb-1"></i>
-            <span class="text-[10px] font-medium">ওয়ালেট</span>
-        </div>
-        <!-- Refer -->
-        <div class="flex flex-col items-center text-[#353568]">
-            <i class="fa-solid fa-user-group text-sm mb-1"></i>
-            <span class="text-[10px] font-medium">রেফার</span>
-        </div>
-        <!-- Profile -->
-        <div class="flex flex-col items-center text-[#353568]">
-            <i class="fa-solid fa-user text-sm mb-1"></i>
-            <span class="text-[10px] font-medium">প্রোফাইল</span>
-        </div>
-    </div>
+
+            <span>হোম</span>
+
+        </a>
+
+
+        <a href="#" class="nav-item">
+
+            <div class="nav-icon">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+
+            <span>লিডারবোর্ড</span>
+
+        </a>
+
+
+        <a href="#" class="nav-item">
+
+            <div class="nav-icon">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
+
+            <span>ওয়ালেট</span>
+
+        </a>
+
+
+        <a href="#" class="nav-item">
+
+            <div class="nav-icon">
+                <i class="fa-solid fa-user-group"></i>
+            </div>
+
+            <span>রেফার</span>
+
+        </a>
+
+
+        <a href="#" class="nav-item">
+
+            <div class="nav-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <span>প্রোফাইল</span>
+
+        </a>
+
+    </nav>
+
 
 </body>
 </html>
