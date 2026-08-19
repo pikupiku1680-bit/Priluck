@@ -12,8 +12,8 @@
 
 <style>
   :root{
-    --bg-deep:#2a1163;
-    --bg-mid:#3a2f8f;
+    --bg-deep:#6a3df0;
+    --bg-mid:#7c4dff;
     --bg-light:#f5f1fb;
     --blue-card-1:#3a6df0;
     --blue-card-2:#2451d6;
@@ -35,12 +35,12 @@
   body{
     font-family:'Hind Siliguri', sans-serif;
     background:
-      radial-gradient(circle at 15% 0%, rgba(255,255,255,.06) 0%, transparent 40%),
+      radial-gradient(circle at 15% 0%, rgba(255,255,255,.10) 0%, transparent 40%),
       radial-gradient(circle at 75% 60%, rgba(122,90,220,.10) 0%, transparent 45%),
       linear-gradient(180deg,
         var(--bg-deep) 0%,
-        var(--bg-deep) 24%,
-        var(--bg-light) 32%,
+        var(--bg-deep) 30%,
+        var(--bg-light) 40%,
         var(--bg-light) 100%
       );
     min-height:100vh;
@@ -57,7 +57,7 @@
     display:flex; align-items:center; justify-content:center;
     border:none; color:#fff; position:relative; cursor:pointer;
   }
-  .brand{display:flex; align-items:center; gap:10px; flex-direction:column;}
+  .brand{display:flex; align-items:center; gap:10px; flex-direction:column; flex:1; min-width:0;}
   .brand-row{display:flex; align-items:center; gap:8px;}
   .brand-logo{
     width:34px; height:34px; border-radius:50%;
@@ -98,8 +98,8 @@
     background:var(--panel); color:var(--panel-text);
     border-radius:22px; padding:18px; margin-bottom:16px;
   }
-  .streak-row{display:flex; align-items:flex-start; gap:16px;}
-  .streak-left{flex:0 0 40%;}
+  .streak-row{display:flex; align-items:flex-start; gap:12px;}
+  .streak-left{flex:0 0 38%; min-width:0;}
   .streak-right{flex:1; min-width:0;}
 
   .streak-flame{
@@ -115,11 +115,12 @@
   }
 
   .streak-days{font-size:12px; font-weight:600; color:var(--panel-sub); margin-bottom:12px;}
-  .day-track{display:flex; justify-content:space-between; gap:4px;}
-  .day{display:flex; flex-direction:column; align-items:center; gap:6px; font-size:10px; color:var(--panel-sub); font-weight:500;}
+  .day-track{display:flex; justify-content:space-between; gap:3px;}
+  .day{display:flex; flex-direction:column; align-items:center; gap:5px; font-size:9px; color:var(--panel-sub); font-weight:500; flex:1; min-width:0;}
   .day-dot{
-    width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    font-size:13px; flex:0 0 auto;
+    width:100%; max-width:30px; aspect-ratio:1; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(9px, 3.2vw, 13px);
   }
   .day-dot.done{background:var(--purple-accent); color:#fff;}
   .day-dot.today{border:2px solid var(--purple-accent); color:var(--purple-accent); font-weight:700;}
