@@ -28,7 +28,7 @@
     --panel-text: #1b1440;
     --panel-sub: #6b6486;
     --money: #1fae5c;
-    --border-color: #eeeaf5;
+    --border-color: #eeeaf5; 
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -139,12 +139,25 @@
   .refer-sub { font-size: 11px; color: rgba(255,255,255,.9); line-height: 1.5; flex: 1; min-width: 130px; }
   .refer-btn { background: #fff; color: #7a2fd6; border: none; font-size: 11.5px; font-weight: 700; padding: 8px 12px; border-radius: 10px; cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
 
-
   .podium-container {
     position: relative; display: flex; align-items: flex-end; justify-content: center;
     gap: 12px; padding-top: 40px; margin-bottom: 20px;
   }
   
+  .podium-container::before {
+    content: ''; 
+    position: absolute;
+    top: -5px;
+    bottom: -15px;
+    left: -6px; 
+    right: -6px;
+    background: rgba(56, 17, 130, 0.45);
+    border: 1.5px solid rgba(167, 139, 250, 0.7);
+    border-radius: 24px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 5px 20px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+
   .sunburst {
     position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
     width: 320px; height: 320px; border-radius: 50%;
@@ -174,7 +187,8 @@
   .c14 { top: 95%; left: 20%; color: #b388ff; font-size: 14px; }
   .c15 { top: 88%; left: 45%; color: #ff9100; font-size: 16px; transform: rotate(45deg); }
 
-  .podium-col { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; }
+  .podium-col { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; padding-bottom: 5px; }
+  
   .avatar-wrap { position: relative; z-index: 10; margin-bottom: -15px; } 
   .avatar-img { border-radius: 50%; object-fit: cover; background: #fff; box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
   
@@ -216,11 +230,29 @@
   .col-3rd .pedestal-top { background: #ffebe6; }
   .col-3rd .pedestal-body { background: linear-gradient(to right, #d99a93 0%, #d99a93 12%, #fff0eb 12%, #fad0c8 88%, #c08078 88%, #c08078 100%); }
 
-  .p-name { font-size: 13px; font-weight: 700; color: #1b1440; margin-bottom: 6px; white-space: nowrap; text-shadow: 0 1px 2px rgba(255,255,255,0.8); }
-  .col-1st .p-name { font-size: 15px; margin-top: 5px; }
+  .p-name { 
+    font-size: 13px; font-weight: 700; margin-bottom: 8px; white-space: nowrap; 
+    border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    color: #ffffff;
+    padding: 3px 12px;
+  }
+  
+  .col-1st .p-name { 
+    font-size: 14.5px; margin-top: 4px; padding: 4px 16px; margin-bottom: 8px;
+    background: #3c1e7a;
+    border: 1px solid rgba(255, 215, 0, 0.7);
+  }
+  .col-2nd .p-name { 
+    background: #194488;
+    border: 1px solid rgba(135, 191, 255, 0.5); 
+  }
+  .col-3rd .p-name { 
+    background: #8e2b21;
+    border: 1px solid rgba(255, 175, 155, 0.5); 
+  }
+
   .p-earn { background: rgba(0,0,0,0.15); color: #1b1440; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 700; border: 1px solid rgba(255,255,255,0.4); }
   .col-1st .p-earn { font-size: 13px; padding: 5px 16px; }
-
 
   .stats-panel { background: #fff; border-radius: 20px; padding: 16px 8px; display: flex; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
   .stat-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; border-right: 1px solid var(--border-color); padding: 0 4px; }
