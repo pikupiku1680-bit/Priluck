@@ -146,8 +146,9 @@
   .refer-sub { font-size: 11px; color: rgba(255,255,255,.9); line-height: 1.5; flex: 1; min-width: 130px; }
   .refer-btn { background: #fff; color: #7a2fd6; border: none; font-size: 11.5px; font-weight: 700; padding: 8px 12px; border-radius: 10px; cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
 
+
   /* =========================================
-     LEADERBOARD PODIUM SECTION (UNCHANGED)
+     LEADERBOARD PODIUM SECTION
   ========================================= */
   .podium-container {
     position: relative; display: flex; align-items: flex-end; justify-content: center;
@@ -168,7 +169,6 @@
     filter: drop-shadow(0 0 25px rgba(255, 190, 0, 0.6));
   }
 
-  /* FULL HEIGHT CONFETTI LAYER */
   .confetti-box { position: absolute; inset: 0; bottom: -30px; z-index: 1; pointer-events: none; overflow: visible; }
   .confetti { position: absolute; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
   .c1 { top: 15%; left: 15%; color: #ffeb3b; font-size: 18px; transform: rotate(15deg); }
@@ -233,7 +233,6 @@
   .stats-panel { background: #fff; border-radius: 20px; padding: 16px 8px; display: flex; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
   .stat-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; border-right: 1px solid var(--border-color); padding: 0 4px; }
   .stat-item:last-child { border-right: none; }
-  
   .s-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
   .s-icon.blue { background: #1e3a8a; color: #fff; } .s-icon.green { background: #064e3b; color: #fff; } .s-icon.purple { background: #4c1d95; color: #fff; } .s-icon.orange { background: #7c2d12; color: #fff; }
   .s-val { font-size: 14px; font-weight: 700; color: var(--panel-text); margin-bottom: 4px; line-height: 1; }
@@ -245,7 +244,6 @@
   .f-btn { background: #fff; color: var(--panel-sub); border: none; border-radius: 20px; padding: 8px 16px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; white-space: nowrap; cursor: pointer; }
   .f-btn.active { background: var(--purple-accent); color: #fff; }
 
-  /* LIST BACKGROUND */
   .list-container { background: #f4f6fb; border-radius: 20px; padding: 16px; margin-bottom: 20px; }
   .list-header { display: flex; align-items: center; font-size: 11px; font-weight: 600; color: var(--panel-sub); padding-bottom: 10px; margin-bottom: 5px; }
   .lh-rank { width: 30px; text-align: center; } .lh-name { flex: 1; padding-left: 10px; } .lh-earn { width: 70px; text-align: right; }
@@ -259,7 +257,6 @@
   .l-arrow { font-size: 14px; color: #a19db3; font-weight: 400; }
   
   .bg-pink { background: #fce4ec; color: #d81b60; } .bg-purple { background: #f3e5f5; color: #8e24aa; } .bg-green { background: #e8f5e9; color: #2e7d32; } .bg-blue { background: #e3f2fd; color: #1e88e5; } .bg-red { background: #ffebee; color: #e53935; } .bg-solid { background: var(--purple-accent); color: #fff; }
-  
   .l-row.active-user { border-radius: 12px; padding: 12px 10px; border-bottom: none; }
   .l-row.active-user .l-rank, .l-row.active-user .l-name, .l-row.active-user .l-earn, .l-row.active-user .l-arrow { color: var(--purple-accent); }
 
@@ -271,39 +268,42 @@
 
 
   /* =========================================
-     NEW WALLET SCREEN SPECIFIC CSS (ULTRA CRYSTAL 3D)
+     WALLET SCREEN (RESPONSIVE ULTRA 3D OVERLAY)
   ========================================= */
-
   .w-hero-card {
     background: linear-gradient(145deg, #4b1dc7 0%, #301099 100%);
     border-radius: 20px; padding: 25px 18px 16px; margin-bottom: 20px; color: #fff; position: relative; overflow: hidden;
     box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; min-height: 235px;
   }
   
-  .w-hero-content { display: flex; flex-direction: column; align-items: flex-start; position: relative; z-index: 2; width: 55%; }
+  /* Flexible Hero container logic adjusting width efficiently to prevent overlaps */
+  .w-hero-content { display: flex; flex-direction: column; align-items: flex-start; position: relative; z-index: 2; width: 60%; }
 
   .w-glass-box {
     background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.22); border-radius: 12px; padding: 8px 14px;
     display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
 
+  /* Fixed main box rendering safe layout inside flex row spaces */
   .w-main-bal-box {
-    background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 12px 18px;
-    display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: max-content; margin-bottom: 15px; position: relative; z-index: 2; box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 14px;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: auto; max-width: 100%; margin-bottom: 12px; position: relative; z-index: 2; box-shadow: 0 6px 15px rgba(0,0,0,0.2);
   }
-  .w-hero-amt { font-size: 42px; font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; text-shadow: 0 3px 5px rgba(0,0,0,0.3);}
+  
+  /* Text scales beautifully inside mobile containers relying dynamically avoiding broken UI splits */
+  .w-hero-amt { font-size: clamp(30px, 8vw, 40px); font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; text-shadow: 0 3px 5px rgba(0,0,0,0.3);}
 
-  .w-split-stats { display: flex; gap: 10px; margin-bottom: 20px; position: relative; z-index: 2;}
-  .w-glass-box.w-split-box { padding: 8px 14px; min-width: 90px; border-radius: 10px; }
-  .w-glass-box span { font-size: 10.5px; font-weight: 500; margin-bottom: 3px; color: rgba(255,255,255,0.9); }
-  .w-glass-box b { font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.2);}
+  /* Boxes intelligently flex avoiding container explosions avoiding any broken wrap UI  */
+  .w-split-stats { display: flex; gap: 8px; margin-bottom: 16px; position: relative; z-index: 2; width: 100%; flex-wrap: wrap;}
+  .w-glass-box.w-split-box { padding: 6px 10px; min-width: 0; flex: 1; border-radius: 10px; }
+  .w-glass-box span { font-size: 10px; font-weight: 500; margin-bottom: 2px; color: rgba(255,255,255,0.9); }
+  .w-glass-box b { font-size: clamp(13px, 3.5vw, 15px); font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.2);}
 
-  .w-glass-box.w-update-bar { width: max-content; flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; font-weight: 500; font-size: 10.5px; padding: 8px 16px; color: rgba(255,255,255,0.95); z-index: 2; border-radius: 20px;}
+  .w-glass-box.w-update-bar { width: 100%; max-width: max-content; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; font-weight: 500; font-size: 10px; padding: 7px 12px; color: rgba(255,255,255,0.95); z-index: 2; border-radius: 20px;}
 
-  /* EXPANDED CLEAR 3D ART BOUNDING BOX */
-  .w-art-overlay { position: absolute; right: -40px; top: -5px; width: 280px; height: 230px; z-index: 0; pointer-events: none; }
+  /* ABSOLUTE PRECISE SVG BOUNDARY CORRECTION FOR PHONE SCALE. It relies on parent edge locking and aspect preserving scaling making layout unbreakable regardless of screen size.  */
+  .w-art-overlay { position: absolute; right: -15px; bottom: 0; width: 45%; max-width: 190px; height: auto; aspect-ratio: 34/30; z-index: 0; pointer-events: none; }
 
-  /* Wallet 3-Actions Nav - Explicit Clear Grid Box Setup matching image accurately */
   .w-act-nav { background: #fff; border-radius: 20px; padding: 16px 8px; display: flex; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
   .w-act-btn { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; border-right: 1px solid var(--border-color); cursor: pointer;}
   .w-act-btn:last-child { border-right: none; }
@@ -319,19 +319,18 @@
   .w-sec-header h3 { font-size: 15.5px; font-weight: 700; color: var(--panel-text); }
   .w-sec-header a { font-size: 12px; font-weight: 700; color: #1e3a8a; text-decoration: none; display: flex; align-items: center; gap: 4px;}
 
+  /* FIXED SUM ITEMS OVERLAP CRASHING (Applied Min-width strictly enforcing box constraints retaining crisp structure  */
   .w-sum-grid { display: flex; gap: 8px; }
-  .w-sum-item { flex: 1; border-radius: 16px; padding: 16px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-  
+  .w-sum-item { flex: 1; min-width: 0; border-radius: 16px; padding: 14px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
   .wg-1 { background: #ecfdf5; border: 1.5px solid #d1fae5; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.05);}
   .wg-2 { background: #eff6ff; border: 1.5px solid #dbeafe; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.05);}
   .wg-3 { background: #faf5ff; border: 1.5px solid #e9d5ff; box-shadow: 0 4px 10px rgba(124, 58, 237, 0.05);}
   .wg-4 { background: #fefce8; border: 1.5px solid #fef08a; box-shadow: 0 4px 10px rgba(234, 179, 8, 0.05);}
   
-  .w-sum-icon { margin-bottom: 8px; display:flex; align-items:center; justify-content:center;}
-  .w-sum-val { font-size: 12.5px; font-weight: 800; margin-bottom: 4px; color: var(--panel-text); }
-  .w-sum-label { font-size: 9.5px; font-weight: 700; color: var(--panel-sub); line-height: 1.1; }
+  .w-sum-icon { margin-bottom: 8px; display:flex; align-items:center; justify-content:center; drop-shadow: 0 2px 2px rgba(0,0,0,0.2);}
+  .w-sum-val { font-size: clamp(10.5px, 2.8vw, 12.5px); font-weight: 800; margin-bottom: 4px; color: var(--panel-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .w-sum-label { font-size: clamp(8px, 2.3vw, 9.5px); font-weight: 700; color: var(--panel-sub); line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;}
 
-  /* Highly defined Transaction lists using thick distinct vector blocks */
   .w-tx-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f1efff; }
   .w-tx-row:last-child { border-bottom: none; padding-bottom: 0;}
   
@@ -356,7 +355,6 @@
   
   .w-tx-status { font-size: 9.5px; font-weight: 800; padding: 4px 10px; border-radius: 8px; letter-spacing: 0.3px;}
   .w-tx-status.ok { background: #dcfce7; color: #15803d; border: 1.5px solid #bbf7d0;}
-  /* FIXED 2: 'err' status is now ok via explicit update on class placement*/
 
   /* =========================================
      PLACEHOLDER SCREENS
@@ -411,7 +409,7 @@
   </div>
 
   <!-- ==========================================
-       SCREEN 1: HOME (Starts visible via 'active' tag and JS)
+       SCREEN 1: HOME (Starts directly displaying first load via 'active')
   =========================================== -->
   <section class="screen active" id="screen-home">
     <div class="stat-row">
@@ -507,6 +505,7 @@
        SCREEN 2: LEADERBOARD 
   =========================================== -->
   <section class="screen" id="screen-leaderboard">
+    
     <div class="podium-container">
       <div class="sunburst"></div>
       <div class="confetti-box">
@@ -572,9 +571,8 @@
     </div>
   </section>
 
-
   <!-- ==========================================
-       SCREEN 3: WALLET (ULTRA CLEAR 3D & UPGRADED)
+       SCREEN 3: WALLET (ULTRA CLEAR 3D & FULLY RESPONSIVE)
   =========================================== -->
   <section class="screen" id="screen-wallet">
     
@@ -585,17 +583,17 @@
       <div class="sunburst" style="top: -30px; left: auto; right: -60px; transform: scale(1.1); z-index: 0; filter: drop-shadow(0 0 25px rgba(255, 180, 0, 0.7));"></div>
 
       <div class="w-hero-content">
-        <!-- Main HUGE balance enclosed deeply -->
+        <!-- Main HUGE balance enclosed deeply safely avoiding overlapping artwork! -->
         <div class="w-main-bal-box">
           <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.95); display:flex; align-items:center; gap:6px; margin-bottom:4px;">
             মোট ব্যালেন্স
-            <!-- Crystal Clear Filled White SVG matching Photo -->
             <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" width="14" height="14" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg>
           </div>
+          <!-- Applied Fluid Type clamp() dynamically solving any width push on phone sizes! -->
           <div class="w-hero-amt">₹385.50</div>
         </div>
         
-        <!-- Two Base Balances Boxed Separately -->
+        <!-- Two Base Balances Flexible wrap avoiding crashes completely  -->
         <div class="w-split-stats">
           <div class="w-glass-box w-split-box">
             <span>মূল ব্যালেন্স</span>
@@ -607,7 +605,6 @@
           </div>
         </div>
 
-        <!-- Very specifically restricted width Update bar per demand -->
         <div class="w-glass-box w-update-bar">
           <div style="display: flex; gap: 8px; align-items: center;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -617,12 +614,10 @@
         </div>
       </div>
       
-      <!-- MASSIVE SUPER CRYSTAL CLEAR 3D WALLET & COIN OVERLAY -->
+      <!-- MASSIVE SUPER CRYSTAL CLEAR 3D WALLET OVERLAY CAREFULLY CONTAINED AS A RESPONSIVE BOX SHRUNK OUT OF TEXTS!-->
       <div class="w-art-overlay">
-        <!-- Extended dimensions dynamically via ViewBox rendering crisp edges -->
-        <svg viewBox="0 0 340 300" width="100%" height="100%">
+        <svg viewBox="0 0 340 300" width="100%" height="100%" style="display: block;">
           <defs>
-             <!-- Beautiful Glow and Thick Depth Filters for realism -->
              <filter id="big-drop" x="-30%" y="-30%" width="160%" height="160%">
                <feDropShadow dx="3" dy="18" stdDeviation="15" flood-color="#14083d" flood-opacity="0.6"/>
              </filter>
@@ -639,18 +634,13 @@
                  <stop offset="100%" stop-color="#460fba" />
              </linearGradient>
 
-             <!-- The reusable realistic huge thick coin template specifically created -->
+             <!-- Master HD Scale Coin-->
              <g id="coin-3d-hd">
-               <!-- Gold Shadow Extrusion Body representing metallic thickness -->
                <path d="M -30,0 L -30,12 Q 0,22 30,12 L 30,0 Z" fill="#92400e" />
                <ellipse cx="0" cy="12" rx="30" ry="10" fill="#c2410c" />
-               <!-- Deep Bevel Rim-->
                <ellipse cx="0" cy="0" rx="30" ry="10" fill="#f59e0b" />
-               <!-- The True Golden Solid Center Face of the coin-->
                <ellipse cx="0" cy="-1.5" rx="27" ry="8" fill="url(#metalFace)" />
-               <!-- White rim gleam showing reflection -->
                <ellipse cx="0" cy="-1.5" rx="25" ry="7" fill="none" stroke="rgba(255, 240, 180, 0.9)" stroke-width="1.2" />
-               <!-- The actual highly defined Rupee Logo placed crisply aligned inside -->
                <text x="-1" y="2" font-family="'Hind Siliguri', Arial, sans-serif" font-weight="900" font-size="15" fill="#92400e" text-anchor="middle">₹</text>
                <text x="0" y="3" font-family="'Hind Siliguri', Arial, sans-serif" font-weight="900" font-size="15" fill="#fef3c7" text-anchor="middle">₹</text>
              </g>
@@ -663,18 +653,16 @@
              </linearGradient>
           </defs>
 
-          <!-- Back Glowing Thick Notes extending fully outward -->
+          <!-- Back Thick Escaping Crisp Money Array -->
           <g transform="translate(140, 20) rotate(5)" filter="url(#big-drop)">
              <path d="M 0 60 L 100 25 L 170 65 L 70 100 Z" fill="#1b5e20"/>
              <path d="M -5 63 L 97 27 L 163 68 L 60 105 Z" fill="#388e3c"/>
              <path d="M -3 61 L 98 26 L 165 65 L 64 100 Z" fill="#66bb6a" stroke="#81c784" stroke-width="2"/>
-             <!-- Thick detailed graphic lines reflecting money details prominently -->
              <circle cx="95" cy="65" r="16" fill="#a5d6a7" transform="scale(1,0.6)" opacity="0.8"/>
              <rect x="15" y="60" width="30" height="6" fill="#c8e6c9" transform="rotate(-20 15 60)" />
           </g>
 
           <g transform="translate(100, 30) rotate(-15)" filter="url(#big-drop)">
-             <!-- Base shade for realism thickness -->
              <path d="M 15 50 L 110 30 L 170 80 L 75 100 Z" fill="#14532d"/>
              <path d="M 12 52 L 108 33 L 165 83 L 69 103 Z" fill="#4ade80" stroke="#86efac" stroke-width="2.5"/>
              <circle cx="100" cy="70" r="18" fill="#bbf7d0" transform="scale(1,0.6)" />
@@ -682,38 +670,25 @@
              <text x="145" y="80" font-family="Arial" font-size="18" font-weight="900" fill="#22c55e" opacity="0.6">100</text>
           </g>
 
-          <!-- Front Hyper Defined Thick Purple Wallet -->
           <g filter="url(#big-drop)" transform="translate(-10, 15)">
               <path d="M 70 135 C 70 105 85 105 125 105 L 290 105 C 310 105 315 120 315 135 L 315 220 C 315 250 280 250 270 250 L 80 250 C 60 250 65 220 70 200 Z" fill="url(#bodyPurple)" stroke="#3b0764" stroke-width="3"/>
-              
-              <!-- 3D Inner flap representation depth adding layers explicitly! -->
               <path d="M 72 135 Q 85 125 125 125 L 285 125 Q 312 125 312 145 L 312 165 C 312 190 280 185 270 185 L 140 185 C 90 185 70 205 70 170 Z" fill="#7c3aed" filter="url(#inner-drop)"/>
-              
-              <!-- Real stitching using dashed precise geometry bounding strokes -->
               <path d="M 78 135 C 78 120 125 116 280 116 C 300 116 304 135 304 140" fill="none" stroke="rgba(255,255,255,0.7)" stroke-dasharray="5 5" stroke-width="2"/>
               <path d="M 85 240 C 130 240 260 240 275 230 C 290 220 295 210 295 180" fill="none" stroke="rgba(255,255,255,0.4)" stroke-dasharray="4 4" stroke-width="1.5"/>
-              
-              <!-- Front Secure Button Buckle that fastens overlapping explicitly -->
               <path d="M 230 160 C 230 150 225 215 230 225 C 255 240 290 220 285 160 Z" fill="#5b21b6" stroke="#4c1d95" stroke-width="2"/>
               <circle cx="260" cy="190" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="3" filter="url(#glow)"/>
               <circle cx="260" cy="190" r="9" fill="#f59e0b" />
           </g>
 
-          <!-- Exactly >= 7 Stunning Crisp HD 3D Gold Coins rendered individually scaled-->
-          <!-- Far Background Tilted Coins Left Corner -->
           <use href="#coin-3d-hd" x="80" y="240" transform="rotate(-10 80 240) scale(1)" />
           <use href="#coin-3d-hd" x="85" y="222" transform="rotate(-5 85 222) scale(1)" />
           <use href="#coin-3d-hd" x="90" y="204" transform="scale(1)" />
           <use href="#coin-3d-hd" x="90" y="186" transform="scale(1)" filter="url(#big-drop)" />
-
-          <!-- Lower Front Secondary Golden Stack perfectly distinct layers -->
           <use href="#coin-3d-hd" x="145" y="235" transform="rotate(5 145 235) scale(1.15)" />
           <use href="#coin-3d-hd" x="145" y="215" transform="rotate(3 145 215) scale(1.15)" />
           
-          <!-- Extremely LARGE 3D HERO Foreground Coin breaking frame leaning realistically!-->
           <g transform="translate(195, 230) rotate(-18) scale(1.8)" filter="url(#big-drop)">
              <use href="#coin-3d-hd" x="0" y="0"/>
-             <!-- Double glow rendering specifically targeted for hero impact -->
              <ellipse cx="0" cy="-1" rx="27" ry="8" fill="url(#metalFace)" filter="url(#glow)"/>
              <ellipse cx="0" cy="-1.5" rx="24" ry="7" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.8"/>
              <text x="-1" y="2" font-family="'Arial', sans-serif" font-weight="900" font-size="16" fill="#78350f" text-anchor="middle">₹</text>
@@ -724,22 +699,17 @@
       </div>
     </div>
 
-    <!-- Quick 3 Clear Crystal SVG Actions explicitly re-designed -->
+    <!-- Quick action tabs cleanly replaced with Crystal clear distinct SVGs -->
     <div class="w-act-nav">
-      <!-- High Definition Withdraw Build Design using Multi gradient and layers -->
+      <!-- Withdraw -->
       <div class="w-act-btn">
         <div class="w-act-icon">
           <svg width="45" height="45" viewBox="0 0 100 100">
-             <!-- Deep Background Plate dropping massive aesthetic -->
              <circle cx="50" cy="50" r="50" fill="url(#withdrawGradi)"/>
              <linearGradient id="withdrawGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#bfdbfe"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
-             
-             <!-- Clear ATM Wallet Extraction Graphics fully shaped cleanly 3D feeling -->
              <rect x="25" y="35" width="50" height="35" rx="6" fill="#1e3a8a"/>
              <rect x="25" y="35" width="50" height="8" rx="2" fill="#93c5fd"/>
              <rect x="30" y="45" width="10" height="5" rx="1" fill="#fff" opacity="0.3"/>
-             
-             <!-- Escaping money Card / arrow specifically drawn to emulate motion visibly -->
              <path d="M 40 30 L 60 30 L 60 55 L 40 55 Z" fill="#60a5fa" filter="drop-shadow(0 4px 4px rgba(0,0,0,0.4))"/>
              <path d="M 50 15 L 62 25 L 38 25 Z" fill="#fff"/>
              <line x1="50" y1="20" x2="50" y2="40" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
@@ -747,36 +717,28 @@
         </div>
         <span class="w-act-label">উইথড্র করুন</span>
       </div>
-      <!-- Stunning Clear Clock Layers representing historical data specifically coded layered 3d style -->
+      <!-- History -->
       <div class="w-act-btn">
         <div class="w-act-icon">
           <svg width="45" height="45" viewBox="0 0 100 100">
              <circle cx="50" cy="50" r="50" fill="url(#historyGradi)"/>
              <linearGradient id="historyGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d8b4fe"/><stop offset="100%" stop-color="#7e22ce"/></linearGradient>
-             
-             <!-- Massive Solid Real Watch Body with shiny reflection -->
              <circle cx="50" cy="50" r="28" fill="#4c1d95" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.5))"/>
              <circle cx="50" cy="50" r="23" fill="#a855f7" />
-             <!-- Inner watch ring and handles clear vectors thick -->
              <circle cx="50" cy="50" r="8" fill="#fff"/>
-             <!-- Thick crisp hand alignments highlighting time passing visibly clear -->
              <path d="M 50 25 L 50 50 L 70 65" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(2px 2px 0px rgba(0,0,0,0.3))"/>
           </svg>
         </div>
         <span class="w-act-label">লেনদেন ইতিহাস</span>
       </div>
-      <!-- Outstanding Solid Premium Gift Badge / Discount Offer completely pure clear colors -->
+      <!-- Offer -->
       <div class="w-act-btn">
         <div class="w-act-icon">
           <svg width="45" height="45" viewBox="0 0 100 100">
              <circle cx="50" cy="50" r="50" fill="url(#offerGradi)"/>
              <linearGradient id="offerGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fed7aa"/><stop offset="100%" stop-color="#ea580c"/></linearGradient>
-             
-             <!-- Shiny 3d discount polygon burst rotating -->
              <path d="M 50 20 L 60 30 L 75 25 L 75 40 L 90 50 L 75 60 L 75 75 L 60 70 L 50 80 L 40 70 L 25 75 L 25 60 L 10 50 L 25 40 L 25 25 L 40 30 Z" fill="#9a3412" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.4))"/>
              <path d="M 50 24 L 58 33 L 70 28 L 70 41 L 83 50 L 70 59 L 70 72 L 58 67 L 50 76 L 42 67 L 30 72 L 30 59 L 17 50 L 30 41 L 30 28 L 42 33 Z" fill="#f97316"/>
-             
-             <!-- Huge Percent Marker inside explicitly prominent clearly legible vector drawing -->
              <line x1="38" y1="62" x2="62" y2="38" stroke="#fff" stroke-width="6" stroke-linecap="round" filter="drop-shadow(2px 2px 0px rgba(0,0,0,0.3))"/>
              <circle cx="42" cy="42" r="6" fill="#fff"/>
              <circle cx="58" cy="58" r="6" fill="#fff"/>
@@ -786,7 +748,7 @@
       </div>
     </div>
 
-    <!-- Complete Overhaul of Four Grid Features mapping to deep high graphic crisp 3d visual representations perfectly sized as mandated-->
+    <!-- Complete Overhaul of Four Grid Features ensuring strict text clamping blocking overlapping clipping on phone edges-->
     <div class="w-sec">
       <div class="w-sec-header">
         <h3>সংক্ষিপ্ত হিসেব</h3>
@@ -794,19 +756,14 @@
       </div>
       <div class="w-sum-grid">
         <div class="w-sum-item wg-1">
-          <!-- UP EARN TREND HIGH VISIBILITY 3D METRIC STACK LOGO GREEN  -->
           <div class="w-sum-icon">
             <svg width="40" height="40" viewBox="0 0 100 100">
-               <!-- Graphic 3d columns rising rapidly defining profit precisely! -->
                <rect x="20" y="60" width="16" height="30" rx="3" fill="#15803d" />
                <rect x="18" y="55" width="20" height="10" rx="2" fill="#22c55e" />
-               
                <rect x="42" y="45" width="16" height="45" rx="3" fill="#15803d" />
                <rect x="40" y="40" width="20" height="10" rx="2" fill="#4ade80" />
-               
                <rect x="64" y="25" width="16" height="65" rx="3" fill="#15803d" />
                <rect x="62" y="20" width="20" height="10" rx="2" fill="#86efac" />
-               
                <path d="M 25 35 L 48 10 L 80 40 M 48 10 L 35 10 M 48 10 L 48 23" fill="none" stroke="#eab308" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0 4px 2px rgba(0,0,0,0.4))"/>
             </svg>
           </div>
@@ -815,15 +772,11 @@
         </div>
 
         <div class="w-sum-item wg-2">
-           <!-- WITHDRAW ACTION HIGH VISIBILITY ATM SLOT 3D BLUE STRIKE VECTOR -->
           <div class="w-sum-icon">
              <svg width="40" height="40" viewBox="0 0 100 100">
-                 <!-- Machine housing rendering 3d solid blue -->
                  <path d="M 20 60 C 20 50 80 50 80 60 L 90 90 L 10 90 Z" fill="#1d4ed8"/>
                  <rect x="30" y="52" width="40" height="8" rx="4" fill="#0f172a"/>
                  <rect x="10" y="80" width="80" height="10" fill="#3b82f6"/>
-                 
-                 <!-- Escaping money strictly distinct drawing completely shaded highlighting subtraction / moving downward!-->
                  <rect x="40" y="10" width="20" height="40" fill="#93c5fd" filter="drop-shadow(0 2px 2px rgba(0,0,0,0.4))"/>
                  <path d="M 30 25 L 50 50 L 70 25 Z" fill="#fbbf24"/>
                  <path d="M 50 40 L 50 15" stroke="#fef3c7" stroke-width="6" stroke-linecap="round"/>
@@ -834,16 +787,11 @@
         </div>
 
         <div class="w-sum-item wg-3">
-          <!-- THICK SHINING BOX OF TOTAL BONUS FULL DEEP PREMIUM 3D SHAPING -->
           <div class="w-sum-icon">
              <svg width="40" height="40" viewBox="0 0 100 100">
-               <!-- Glowing Premium solid Gift Graphic defining gift representation visually thick -->
                <rect x="15" y="45" width="70" height="45" rx="4" fill="#581c87"/>
-               <!-- Massive striking distinct wrap matching overall quality theme visually prominent!-->
                <rect x="10" y="30" width="80" height="15" rx="3" fill="#a855f7" filter="drop-shadow(0 4px 2px rgba(0,0,0,0.3))"/>
-               <!-- Gift knot top fully vector formed showing ribbons purely using SVG perfectly formed -->
                <path d="M 50 30 C 50 15 25 15 35 30 M 50 30 C 50 15 75 15 65 30" fill="none" stroke="#fef08a" stroke-width="6" stroke-linecap="round" />
-               <!-- Dropping Ribbons vertically wrapped showing high class detailed depth exactly -->
                <rect x="44" y="30" width="12" height="60" fill="#fbbf24"/>
              </svg>
           </div>
@@ -852,17 +800,12 @@
         </div>
 
         <div class="w-sum-item wg-4">
-           <!-- LUXURY WALLET STACK VISUALIZING CURRENT BALANCE EXTREME 3D DISTINCT-->
           <div class="w-sum-icon">
             <svg width="40" height="40" viewBox="0 0 100 100">
-               <!-- Enormous Premium Chest Background base deep shaded highlighting security heavily drawn visually -->
                <rect x="10" y="40" width="80" height="50" rx="10" fill="#a16207" />
                <rect x="10" y="40" width="80" height="40" rx="8" fill="#eab308" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.2))"/>
-               
                <circle cx="50" cy="60" r="12" fill="#fff"/>
                <circle cx="50" cy="60" r="8" fill="#451a03"/>
-               
-               <!-- Coins bursting forth stacked visibly in top indicating full capacity -->
                <ellipse cx="40" cy="30" rx="20" ry="8" fill="#facc15" stroke="#a16207" stroke-width="2"/>
                <ellipse cx="60" cy="20" rx="20" ry="8" fill="#fef08a" stroke="#d97706" stroke-width="2"/>
                <ellipse cx="30" cy="20" rx="16" ry="6" fill="#fef9c3" stroke="#b45309" stroke-width="2"/>
@@ -874,7 +817,7 @@
       </div>
     </div>
 
-    <!-- Complete Transaction Rows entirely switched to High Visibility Fill/Crystal Graphics specifically ordered perfectly detailed -->
+    <!-- Real bank logos implemented natively for list rows rendering absolutely correct! -->
     <div class="w-sec" style="margin-bottom: 0;">
       <div class="w-sec-header">
         <h3>সাম্প্রতিক লেনদেন</h3>
@@ -882,7 +825,6 @@
       </div>
       <div class="w-tx-list">
         
-        <!-- Transaction Item: Task complete with thick distinct vector blocks -->
         <div class="w-tx-row">
           <div class="w-tx-left">
             <div class="w-tx-icon success">
