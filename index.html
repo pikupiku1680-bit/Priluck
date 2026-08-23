@@ -145,27 +145,16 @@
   }
   
   .podium-container::before {
-    content: ''; 
-    position: absolute;
-    top: -5px;
-    bottom: -15px;
-    left: -6px; 
-    right: -6px;
-    background: rgba(56, 17, 130, 0.45);
-    border: 1.5px solid rgba(167, 139, 250, 0.7);
-    border-radius: 24px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 5px 20px rgba(0, 0, 0, 0.4);
-    z-index: 1;
+    content: ''; position: absolute; top: -5px; bottom: -15px; left: -6px; right: -6px;
+    background: rgba(56, 17, 130, 0.45); border: 1.5px solid rgba(167, 139, 250, 0.7); 
+    border-radius: 24px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 5px 20px rgba(0, 0, 0, 0.4); 
+    z-index: 1; 
   }
 
   .sunburst {
-    position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
-    width: 320px; height: 320px; border-radius: 50%;
-    background: 
-      radial-gradient(circle at center, rgba(255, 215, 0, 0.75) 0%, rgba(255, 140, 0, 0.4) 35%, transparent 65%),
-      repeating-conic-gradient(from 0deg, rgba(255, 215, 0, 0.25) 0deg 15deg, transparent 15deg 30deg);
-    -webkit-mask-image: radial-gradient(circle, black 25%, transparent 70%);
-    z-index: 0; pointer-events: none;
+    position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 320px; height: 320px; border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.75) 0%, rgba(255, 140, 0, 0.4) 35%, transparent 65%), repeating-conic-gradient(from 0deg, rgba(255, 215, 0, 0.25) 0deg 15deg, transparent 15deg 30deg);
+    -webkit-mask-image: radial-gradient(circle, black 25%, transparent 70%); z-index: 0; pointer-events: none;
     filter: drop-shadow(0 0 25px rgba(255, 190, 0, 0.6));
   }
 
@@ -188,7 +177,6 @@
   .c15 { top: 88%; left: 45%; color: #ff9100; font-size: 16px; transform: rotate(45deg); }
 
   .podium-col { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; padding-bottom: 5px; }
-  
   .avatar-wrap { position: relative; z-index: 10; margin-bottom: -15px; } 
   .avatar-img { border-radius: 50%; object-fit: cover; background: #fff; box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
   
@@ -197,25 +185,14 @@
   .col-3rd .avatar-img { width: 62px; height: 62px; border: 4px solid #fad0c8; }
   .crown { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); font-size: 32px; z-index: 6; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
 
-  .rank-badge {
-    position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
-    color: #fff; border-radius: 50%; border: 2px solid #fff; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; z-index: 6;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  }
+  .rank-badge { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); color: #fff; border-radius: 50%; border: 2px solid #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 6; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
   .col-2nd .rank-badge { width: 22px; height: 22px; font-size: 11px; background: #9eaec3; }
   .col-1st .rank-badge { width: 26px; height: 26px; font-size: 14px; background: #c9a759; bottom: -12px; }
   .col-3rd .rank-badge { width: 22px; height: 22px; font-size: 11px; background: #c08078; }
 
   .pedestal-wrapper { width: 100%; position: relative; z-index: 5; margin-top: -10px; }
-  .pedestal-top {
-    position: absolute; top: 0; left: 0; width: 100%; height: 28px;
-    clip-path: polygon(12% 0%, 88% 0%, 100% 50%, 88% 100%, 12% 100%, 0% 50%); z-index: 3;
-  }
-  .pedestal-body {
-    position: absolute; top: 14px; left: 0; width: 100%; bottom: 0;
-    clip-path: polygon(0% 0%, 12% 14px, 88% 14px, 100% 0%, 100% calc(100% - 14px), 88% 100%, 12% 100%, 0% calc(100% - 14px)); z-index: 2;
-  }
+  .pedestal-top { position: absolute; top: 0; left: 0; width: 100%; height: 28px; clip-path: polygon(12% 0%, 88% 0%, 100% 50%, 88% 100%, 12% 100%, 0% 50%); z-index: 3; }
+  .pedestal-body { position: absolute; top: 14px; left: 0; width: 100%; bottom: 0; clip-path: polygon(0% 0%, 12% 14px, 88% 14px, 100% 0%, 100% calc(100% - 14px), 88% 100%, 12% 100%, 0% calc(100% - 14px)); z-index: 2; }
   .pedestal-content { position: relative; z-index: 4; margin: 0 auto; width: 75%; height: 100%; padding-top: 36px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
 
   .col-1st .pedestal-wrapper { height: 155px; }
@@ -230,26 +207,10 @@
   .col-3rd .pedestal-top { background: #ffebe6; }
   .col-3rd .pedestal-body { background: linear-gradient(to right, #d99a93 0%, #d99a93 12%, #fff0eb 12%, #fad0c8 88%, #c08078 88%, #c08078 100%); }
 
-  .p-name { 
-    font-size: 13px; font-weight: 700; margin-bottom: 8px; white-space: nowrap; 
-    border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.25);
-    color: #ffffff;
-    padding: 3px 12px;
-  }
-  
-  .col-1st .p-name { 
-    font-size: 14.5px; margin-top: 4px; padding: 4px 16px; margin-bottom: 8px;
-    background: #3c1e7a;
-    border: 1px solid rgba(255, 215, 0, 0.7);
-  }
-  .col-2nd .p-name { 
-    background: #194488;
-    border: 1px solid rgba(135, 191, 255, 0.5); 
-  }
-  .col-3rd .p-name { 
-    background: #8e2b21;
-    border: 1px solid rgba(255, 175, 155, 0.5); 
-  }
+  .p-name { font-size: 13px; font-weight: 700; margin-bottom: 8px; white-space: nowrap; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.25); color: #ffffff; padding: 3px 12px; }
+  .col-1st .p-name { font-size: 14.5px; margin-top: 4px; padding: 4px 16px; margin-bottom: 8px; background: #3c1e7a; border: 1px solid rgba(255, 215, 0, 0.7); }
+  .col-2nd .p-name { background: #194488; border: 1px solid rgba(135, 191, 255, 0.5); }
+  .col-3rd .p-name { background: #8e2b21; border: 1px solid rgba(255, 175, 155, 0.5); }
 
   .p-earn { background: rgba(0,0,0,0.15); color: #1b1440; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 700; border: 1px solid rgba(255,255,255,0.4); }
   .col-1st .p-earn { font-size: 13px; padding: 5px 16px; }
@@ -259,11 +220,7 @@
   .stat-item:last-child { border-right: none; }
   
   .s-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
-  .s-icon.blue { background: #1e3a8a; color: #fff; } 
-  .s-icon.green { background: #064e3b; color: #fff; } 
-  .s-icon.purple { background: #4c1d95; color: #fff; } 
-  .s-icon.orange { background: #7c2d12; color: #fff; }
-  
+  .s-icon.blue { background: #1e3a8a; color: #fff; } .s-icon.green { background: #064e3b; color: #fff; } .s-icon.purple { background: #4c1d95; color: #fff; } .s-icon.orange { background: #7c2d12; color: #fff; }
   .s-val { font-size: 14px; font-weight: 700; color: var(--panel-text); margin-bottom: 4px; line-height: 1; }
   .s-label { font-size: 9px; color: var(--panel-sub); font-weight: 600; line-height: 1.2; }
   .stat-item.earn-green .s-val, .stat-item.earn-green .s-label { color: #1fae5c; }
@@ -295,6 +252,86 @@
   .ac-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; color: #fff; }
   .ac-text h4 { font-size: 11.5px; font-weight: 700; color: var(--panel-text); margin-bottom: 2px; }
   .ac-text p { font-size: 9px; color: var(--panel-sub); line-height: 1.2; }
+
+  .w-hero-card {
+    background: linear-gradient(145deg, #4b1dc7 0%, #301099 100%);
+    border-radius: 20px; padding: 25px 18px 16px; margin-bottom: 20px; color: #fff; position: relative; overflow: hidden;
+    box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; min-height: 235px;
+  }
+  
+  .w-hero-content { display: flex; flex-direction: column; align-items: flex-start; position: relative; z-index: 2; width: 55%; }
+
+  .w-glass-box {
+    background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.22); border-radius: 12px; padding: 8px 14px;
+    display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .w-main-bal-box {
+    background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 12px 18px;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: max-content; margin-bottom: 15px; position: relative; z-index: 2; box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+  .w-hero-amt { font-size: 42px; font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; text-shadow: 0 3px 5px rgba(0,0,0,0.3);}
+
+  .w-split-stats { display: flex; gap: 10px; margin-bottom: 20px; position: relative; z-index: 2;}
+  .w-glass-box.w-split-box { padding: 8px 14px; min-width: 90px; border-radius: 10px; }
+  .w-glass-box span { font-size: 10.5px; font-weight: 500; margin-bottom: 3px; color: rgba(255,255,255,0.9); }
+  .w-glass-box b { font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.2);}
+
+  .w-glass-box.w-update-bar { width: max-content; flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; font-weight: 500; font-size: 10.5px; padding: 8px 16px; color: rgba(255,255,255,0.95); z-index: 2; border-radius: 20px;}
+
+  .w-art-overlay { position: absolute; right: -40px; top: -5px; width: 280px; height: 230px; z-index: 0; pointer-events: none; }
+
+  .w-act-nav { background: #fff; border-radius: 20px; padding: 16px 8px; display: flex; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+  .w-act-btn { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; border-right: 1px solid var(--border-color); cursor: pointer;}
+  .w-act-btn:last-child { border-right: none; }
+  .w-act-icon { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);}
+  
+  .w-act-icon.blue-bg { background: #e0f2fe; }
+  .w-act-icon.purp-bg { background: #f3e8ff; }
+  .w-act-icon.org-bg  { background: #ffedd5; }
+  .w-act-label { font-size: 11px; font-weight: 700; color: var(--panel-text); }
+
+  .w-sec { background: #fff; border-radius: 20px; padding: 18px 16px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+  .w-sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .w-sec-header h3 { font-size: 15.5px; font-weight: 700; color: var(--panel-text); }
+  .w-sec-header a { font-size: 12px; font-weight: 700; color: #1e3a8a; text-decoration: none; display: flex; align-items: center; gap: 4px;}
+
+  .w-sum-grid { display: flex; gap: 8px; }
+  .w-sum-item { flex: 1; border-radius: 16px; padding: 16px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  
+  .wg-1 { background: #ecfdf5; border: 1.5px solid #d1fae5; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.05);}
+  .wg-2 { background: #eff6ff; border: 1.5px solid #dbeafe; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.05);}
+  .wg-3 { background: #faf5ff; border: 1.5px solid #e9d5ff; box-shadow: 0 4px 10px rgba(124, 58, 237, 0.05);}
+  .wg-4 { background: #fefce8; border: 1.5px solid #fef08a; box-shadow: 0 4px 10px rgba(234, 179, 8, 0.05);}
+  
+  .w-sum-icon { margin-bottom: 8px; display:flex; align-items:center; justify-content:center;}
+  .w-sum-val { font-size: 12.5px; font-weight: 800; margin-bottom: 4px; color: var(--panel-text); }
+  .w-sum-label { font-size: 9.5px; font-weight: 700; color: var(--panel-sub); line-height: 1.1; }
+
+  .w-tx-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f1efff; }
+  .w-tx-row:last-child { border-bottom: none; padding-bottom: 0;}
+  
+  .w-tx-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0;}
+  .w-tx-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+  .w-tx-icon.success { background: linear-gradient(135deg, #4ade80, #16a34a); } 
+  .w-tx-icon.gift    { background: linear-gradient(135deg, #a855f7, #7c3aed); }   
+  .w-tx-icon.bank    { background: linear-gradient(135deg, #60a5fa, #2563eb); }    
+  .w-tx-icon.orange  { background: linear-gradient(135deg, #fb923c, #ea580c); }  
+  
+  .w-tx-details { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .w-tx-title { font-size: 14px; font-weight: 700; color: var(--panel-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px;}
+  .w-tx-sub { font-size: 11px; color: var(--panel-sub); font-weight: 500;}
+  
+  .w-tx-middle { text-align: center; padding: 0 10px;}
+  .w-tx-time { font-size: 10.5px; font-weight: 600; color: #9aa2b5;}
+
+  .w-tx-right { display: flex; flex-direction: column; align-items: flex-end; min-width: 75px;}
+  .w-tx-amt { font-size: 14.5px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.2px;}
+  .w-tx-amt.plus { color: #15803d; }  
+  .w-tx-amt.minus { color: #b91c1c; }
+  
+  .w-tx-status { font-size: 9.5px; font-weight: 800; padding: 4px 10px; border-radius: 8px; letter-spacing: 0.3px;}
+  .w-tx-status.ok { background: #dcfce7; color: #15803d; border: 1.5px solid #bbf7d0;}
 
   .placeholder-panel { background: var(--panel); color: var(--panel-text); border-radius: 22px; padding: 40px 20px; text-align: center; margin-top: 20px; }
   .placeholder-panel .big { font-size: 34px; margin-bottom: 10px; }
@@ -415,268 +452,395 @@
     <div class="refer-banner">
       <div class="refer-illustration">
         <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">
-          <g class="refer-coin c1">
-            <circle cx="34" cy="20" r="12" fill="#ffd166" stroke="#e8a53a" stroke-width="2"/>
-            <text x="34" y="25" font-size="13" font-weight="700" fill="#a06a10" text-anchor="middle">₹</text>
-          </g>
-          <g class="refer-coin c2">
-            <circle cx="188" cy="26" r="10" fill="#ffd166" stroke="#e8a53a" stroke-width="2"/>
-            <text x="188" y="30" font-size="11" font-weight="700" fill="#a06a10" text-anchor="middle">₹</text>
-          </g>
-          <g>
-            <rect x="26" y="90" width="9" height="28" rx="3" fill="#241458"/>
-            <rect x="44" y="90" width="9" height="28" rx="3" fill="#241458"/>
-            <rect x="18" y="52" width="44" height="46" rx="16" fill="#7c4dff"/>
-            <circle cx="40" cy="40" r="16" fill="#ffcfa3"/>
-            <path d="M24 36a16 16 0 0 1 32 0c0-12-7-20-16-20s-16 8-16 20Z" fill="#3a2a1a"/>
-            <rect x="55" y="64" width="16" height="10" rx="4" fill="#ffcfa3"/>
-            <rect x="66" y="58" width="16" height="24" rx="3" fill="#fff" stroke="#ddd" stroke-width="1.5"/>
-            <circle cx="74" cy="70" r="3" fill="#7c4dff"/>
-          </g>
-          <g>
-            <rect x="167" y="90" width="9" height="28" rx="3" fill="#5c2c0d"/>
-            <rect x="185" y="90" width="9" height="28" rx="3" fill="#5c2c0d"/>
-            <rect x="159" y="52" width="44" height="46" rx="16" fill="#ff8a3d"/>
-            <circle cx="181" cy="40" r="16" fill="#f2b98a"/>
-            <path d="M165 36a16 16 0 0 1 32 0c0-12-7-20-16-20s-16 8-16 20Z" fill="#241458"/>
-            <rect x="149" y="64" width="16" height="10" rx="4" fill="#f2b98a"/>
-            <rect x="138" y="58" width="16" height="24" rx="3" fill="#fff" stroke="#ddd" stroke-width="1.5"/>
-            <circle cx="146" cy="70" r="3" fill="#ff8a3d"/>
-          </g>
-          <g>
-            <rect x="90" y="96" width="40" height="26" rx="3" fill="#ffd166"/>
-            <rect x="90" y="96" width="40" height="8" fill="#ff8a3d"/>
-            <rect x="106" y="96" width="8" height="26" fill="#ff8a3d"/>
-            <path d="M104 96c-10-14 4-20 6-8" fill="none" stroke="#ff8a3d" stroke-width="4" stroke-linecap="round"/>
-            <path d="M116 96c10-14-4-20-6-8" fill="none" stroke="#ff8a3d" stroke-width="4" stroke-linecap="round"/>
-          </g>
+          <g class="refer-coin c1"><circle cx="34" cy="20" r="12" fill="#ffd166" stroke="#e8a53a" stroke-width="2"/><text x="34" y="25" font-size="13" font-weight="700" fill="#a06a10" text-anchor="middle">₹</text></g>
+          <g class="refer-coin c2"><circle cx="188" cy="26" r="10" fill="#ffd166" stroke="#e8a53a" stroke-width="2"/><text x="188" y="30" font-size="11" font-weight="700" fill="#a06a10" text-anchor="middle">₹</text></g>
+          <g><rect x="26" y="90" width="9" height="28" rx="3" fill="#241458"/><rect x="44" y="90" width="9" height="28" rx="3" fill="#241458"/><rect x="18" y="52" width="44" height="46" rx="16" fill="#7c4dff"/><circle cx="40" cy="40" r="16" fill="#ffcfa3"/><path d="M24 36a16 16 0 0 1 32 0c0-12-7-20-16-20s-16 8-16 20Z" fill="#3a2a1a"/><rect x="55" y="64" width="16" height="10" rx="4" fill="#ffcfa3"/><rect x="66" y="58" width="16" height="24" rx="3" fill="#fff" stroke="#ddd" stroke-width="1.5"/><circle cx="74" cy="70" r="3" fill="#7c4dff"/></g>
+          <g><rect x="167" y="90" width="9" height="28" rx="3" fill="#5c2c0d"/><rect x="185" y="90" width="9" height="28" rx="3" fill="#5c2c0d"/><rect x="159" y="52" width="44" height="46" rx="16" fill="#ff8a3d"/><circle cx="181" cy="40" r="16" fill="#f2b98a"/><path d="M165 36a16 16 0 0 1 32 0c0-12-7-20-16-20s-16 8-16 20Z" fill="#241458"/><rect x="149" y="64" width="16" height="10" rx="4" fill="#f2b98a"/><rect x="138" y="58" width="16" height="24" rx="3" fill="#fff" stroke="#ddd" stroke-width="1.5"/><circle cx="146" cy="70" r="3" fill="#ff8a3d"/></g>
+          <g><rect x="90" y="96" width="40" height="26" rx="3" fill="#ffd166"/><rect x="90" y="96" width="40" height="8" fill="#ff8a3d"/><rect x="106" y="96" width="8" height="26" fill="#ff8a3d"/><path d="M104 96c-10-14 4-20 6-8" fill="none" stroke="#ff8a3d" stroke-width="4" stroke-linecap="round"/><path d="M116 96c10-14-4-20-6-8" fill="none" stroke="#ff8a3d" stroke-width="4" stroke-linecap="round"/></g>
         </svg>
       </div>
       <div class="refer-content">
         <div class="refer-title">বন্ধুকে Refer করুন</div>
-        <div class="refer-row">
-          <div class="refer-sub">বন্ধু ৮০টি টাস্ক কমপ্লিট করলে আপনি পাবেন ₹50</div>
-          <button class="refer-btn">এখনই Refer করুন ›</button>
-        </div>
+        <div class="refer-row"><div class="refer-sub">বন্ধু ৮০টি টাস্ক কমপ্লিট করলে আপনি পাবেন ₹50</div><button class="refer-btn">এখনই Refer করুন ›</button></div>
       </div>
     </div>
   </section>
 
   <section class="screen" id="screen-leaderboard">
-    
     <div class="podium-container">
-      
       <div class="sunburst"></div>
-
       <div class="confetti-box">
-        <div class="confetti c1">✦</div>
-        <div class="confetti c2">●</div>
-        <div class="confetti c3">✷</div>
-        <div class="confetti c4">✦</div>
-        <div class="confetti c5">●</div>
-        <div class="confetti c6">✷</div>
-        <div class="confetti c7">♦</div>
-        <div class="confetti c8">✦</div>
-        <div class="confetti c9">●</div>
-        <div class="confetti c10">✦</div>
-        <div class="confetti c11">✷</div>
-        <div class="confetti c12">♦</div>
-        <div class="confetti c13">✦</div>
-        <div class="confetti c14">●</div>
-        <div class="confetti c15">✷</div>
+        <div class="confetti c1">✦</div><div class="confetti c2">●</div><div class="confetti c3">✷</div><div class="confetti c4">✦</div><div class="confetti c5">●</div><div class="confetti c6">✷</div><div class="confetti c7">♦</div><div class="confetti c8">✦</div>
+        <div class="confetti c9">●</div><div class="confetti c10">✦</div><div class="confetti c11">✷</div><div class="confetti c12">♦</div><div class="confetti c13">✦</div><div class="confetti c14">●</div><div class="confetti c15">✷</div>
       </div>
       
       <div class="podium-col col-2nd">
-        <div class="avatar-wrap">
-          <img src="https://i.pravatar.cc/150?img=11" alt="2nd" class="avatar-img">
-          <div class="rank-badge">2</div>
-        </div>
+        <div class="avatar-wrap"><img src="https://i.pravatar.cc/150?img=11" alt="2nd" class="avatar-img"><div class="rank-badge">2</div></div>
         <div class="pedestal-wrapper">
-          <div class="pedestal-top"></div>
-          <div class="pedestal-body"></div>
-          <div class="pedestal-content">
-            <div class="p-name">Sohel R.</div>
-            <div class="p-earn">₹2152</div>
-          </div>
+          <div class="pedestal-top"></div><div class="pedestal-body"></div>
+          <div class="pedestal-content"><div class="p-name">Sohel R.</div><div class="p-earn">₹2152</div></div>
         </div>
       </div>
 
       <div class="podium-col col-1st">
-        <div class="crown">👑</div>
-        <div class="avatar-wrap">
-          <img src="https://i.pravatar.cc/150?img=68" alt="1st" class="avatar-img">
-          <div class="rank-badge">1</div>
-        </div>
+        <div class="crown">👑</div><div class="avatar-wrap"><img src="https://i.pravatar.cc/150?img=68" alt="1st" class="avatar-img"><div class="rank-badge">1</div></div>
         <div class="pedestal-wrapper">
-          <div class="pedestal-top"></div>
-          <div class="pedestal-body"></div>
-          <div class="pedestal-content">
-            <div class="p-name">Anik D.</div>
-            <div class="p-earn">₹2650</div>
-          </div>
+          <div class="pedestal-top"></div><div class="pedestal-body"></div>
+          <div class="pedestal-content"><div class="p-name">Anik D.</div><div class="p-earn">₹2650</div></div>
         </div>
       </div>
 
       <div class="podium-col col-3rd">
-        <div class="avatar-wrap">
-          <img src="https://i.pravatar.cc/150?img=60" alt="3rd" class="avatar-img">
-          <div class="rank-badge">3</div>
-        </div>
+        <div class="avatar-wrap"><img src="https://i.pravatar.cc/150?img=60" alt="3rd" class="avatar-img"><div class="rank-badge">3</div></div>
         <div class="pedestal-wrapper">
-          <div class="pedestal-top"></div>
-          <div class="pedestal-body"></div>
-          <div class="pedestal-content">
-            <div class="p-name">Piyal B.</div>
-            <div class="p-earn">₹2008</div>
-          </div>
+          <div class="pedestal-top"></div><div class="pedestal-body"></div>
+          <div class="pedestal-content"><div class="p-name">Piyal B.</div><div class="p-earn">₹2008</div></div>
         </div>
       </div>
     </div>
 
     <div class="stats-panel">
-      <div class="stat-item">
-        <div class="s-icon blue">👥</div>
-        <div class="s-val">1,287</div>
-        <div class="s-label">মোট অংশগ্রহণকারী</div>
-      </div>
+      <div class="stat-item"><div class="s-icon blue">👥</div><div class="s-val">1,287</div><div class="s-label">মোট অংশগ্রহণকারী</div></div>
       <div class="stat-item earn-green">
-        <div class="s-icon green">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
-            <path d="M12 18V6"></path>
-          </svg>
-        </div>
-        <div class="s-val">₹45,280</div>
-        <div class="s-label">মোট আয় (সবাই মিলিয়ে)</div>
+        <div class="s-icon green"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg></div>
+        <div class="s-val">₹45,280</div><div class="s-label">মোট আয় (সবাই মিলিয়ে)</div>
       </div>
-      <div class="stat-item">
-        <div class="s-icon purple">📋</div>
-        <div class="s-val">15,632</div>
-        <div class="s-label">মোট কাজ সম্পন্ন</div>
-      </div>
-      <div class="stat-item">
-        <div class="s-icon orange">🔥</div>
-        <div class="s-val">42</div>
-        <div class="s-label">লগইন স্ট্রিক সর্বোচ্চ</div>
-      </div>
+      <div class="stat-item"><div class="s-icon purple">📋</div><div class="s-val">15,632</div><div class="s-label">মোট কাজ সম্পন্ন</div></div>
+      <div class="stat-item"><div class="s-icon orange">🔥</div><div class="s-val">42</div><div class="s-label">লগইন স্ট্রিক সর্বোচ্চ</div></div>
     </div>
 
     <div class="filter-tabs">
-      <button class="f-btn active"><span>🏆</span> সবাই</button>
-      <button class="f-btn"><span>👥</span> বন্ধু</button>
-      <button class="f-btn"><span>📅</span> আজকের</button>
-      <button class="f-btn"><span>📆</span> এই সপ্তাহে</button>
-      <button class="f-btn"><span>🗓</span> এই মাসে</button>
+      <button class="f-btn active"><span>🏆</span> সবাই</button><button class="f-btn"><span>👥</span> বন্ধু</button><button class="f-btn"><span>📅</span> আজকের</button><button class="f-btn"><span>📆</span> এই সপ্তাহে</button><button class="f-btn"><span>🗓</span> এই মাসে</button>
     </div>
 
     <div class="list-container">
-      <div class="list-header">
-        <div class="lh-rank">#</div>
-        <div class="lh-name">ব্যবহারকারীর নাম</div>
-        <div class="lh-earn">মোট আয়</div>
-      </div>
-      
-      <div class="l-row" style="background: #fff0f5;">
-        <div class="l-rank">4</div>
-        <div class="l-user">
-          <div class="l-avatar bg-pink">MK</div>
-          <div class="l-name">Mehedi K.</div>
-        </div>
-        <div class="l-earn">₹1830 <span class="l-arrow">›</span></div>
-      </div>
-      <div class="l-row" style="background: #f0f8ff;">
-        <div class="l-rank">5</div>
-        <div class="l-user">
-          <div class="l-avatar bg-purple">SR</div>
-          <div class="l-name">Sakib R.</div>
-        </div>
-        <div class="l-earn">₹1532 <span class="l-arrow">›</span></div>
-      </div>
-      <div class="l-row" style="background: #f5fffa;">
-        <div class="l-rank">6</div>
-        <div class="l-user">
-          <div class="l-avatar bg-green">AT</div>
-          <div class="l-name">Arif T.</div>
-        </div>
-        <div class="l-earn">₹1250 <span class="l-arrow">›</span></div>
-      </div>
-      <div class="l-row" style="background: #fff8dc;">
-        <div class="l-rank">7</div>
-        <div class="l-user">
-          <div class="l-avatar bg-blue">PB</div>
-          <div class="l-name">Pritam B.</div>
-        </div>
-        <div class="l-earn">₹1100 <span class="l-arrow">›</span></div>
-      </div>
-      <div class="l-row" style="background: #fdf5e6;">
-        <div class="l-rank">8</div>
-        <div class="l-user">
-          <div class="l-avatar bg-purple">RT</div>
-          <div class="l-name">Riya T.</div>
-        </div>
-        <div class="l-earn">₹1008 <span class="l-arrow">›</span></div>
-      </div>
-      <div class="l-row" style="background: #f0fff0;">
-        <div class="l-rank">9</div>
-        <div class="l-user">
-          <div class="l-avatar bg-red">AB</div>
-          <div class="l-name">Alim B.</div>
-        </div>
-        <div class="l-earn">₹982 <span class="l-arrow">›</span></div>
-      </div>
-
-      <div class="l-row active-user" style="background: #eaddff;">
-        <div class="l-rank">18</div>
-        <div class="l-user">
-          <div class="l-avatar bg-solid">RH</div>
-          <div class="l-name">Rahul H. (আপনি)</div>
-        </div>
-        <div class="l-earn">₹142.50 <span class="l-arrow">›</span></div>
-      </div>
+      <div class="list-header"><div class="lh-rank">#</div><div class="lh-name">ব্যবহারকারীর নাম</div><div class="lh-earn">মোট আয়</div></div>
+      <div class="l-row" style="background: #fff0f5;"><div class="l-rank">4</div><div class="l-user"><div class="l-avatar bg-pink">MK</div><div class="l-name">Mehedi K.</div></div><div class="l-earn">₹1830 <span class="l-arrow">›</span></div></div>
+      <div class="l-row" style="background: #f0f8ff;"><div class="l-rank">5</div><div class="l-user"><div class="l-avatar bg-purple">SR</div><div class="l-name">Sakib R.</div></div><div class="l-earn">₹1532 <span class="l-arrow">›</span></div></div>
+      <div class="l-row" style="background: #f5fffa;"><div class="l-rank">6</div><div class="l-user"><div class="l-avatar bg-green">AT</div><div class="l-name">Arif T.</div></div><div class="l-earn">₹1250 <span class="l-arrow">›</span></div></div>
+      <div class="l-row" style="background: #fff8dc;"><div class="l-rank">7</div><div class="l-user"><div class="l-avatar bg-blue">PB</div><div class="l-name">Pritam B.</div></div><div class="l-earn">₹1100 <span class="l-arrow">›</span></div></div>
+      <div class="l-row" style="background: #fdf5e6;"><div class="l-rank">8</div><div class="l-user"><div class="l-avatar bg-purple">RT</div><div class="l-name">Riya T.</div></div><div class="l-earn">₹1008 <span class="l-arrow">›</span></div></div>
+      <div class="l-row" style="background: #f0fff0;"><div class="l-rank">9</div><div class="l-user"><div class="l-avatar bg-red">AB</div><div class="l-name">Alim B.</div></div><div class="l-earn">₹982 <span class="l-arrow">›</span></div></div>
+      <div class="l-row active-user" style="background: #eaddff;"><div class="l-rank">18</div><div class="l-user"><div class="l-avatar bg-solid">RH</div><div class="l-name">Rahul H. (আপনি)</div></div><div class="l-earn">₹142.50 <span class="l-arrow">›</span></div></div>
     </div>
 
     <div class="action-scroll">
-      <div class="action-card" style="background: #f3e8ff;">
-        <div class="ac-icon" style="background:#6a3df0;">👤+</div>
-        <div class="ac-text">
-          <h4>বন্ধুদের আমন্ত্রণ</h4>
-          <p>বন্ধু আনুন বোনাস পান</p>
-        </div>
-      </div>
-      <div class="action-card" style="background: #dcfce7;">
-        <div class="ac-icon" style="background:#1fae5c;">
-          <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24">
-            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/>
-          </svg>
-        </div>
-        <div class="ac-text">
-          <h4>শেয়ার করুন</h4>
-          <p>আপনার র‍্যাঙ্ক শেয়ার করুন</p>
-        </div>
-      </div>
-      <div class="action-card" style="background: #e0f2fe;">
-        <div class="ac-icon" style="background:#3a6df0;">⭐</div>
-        <div class="ac-text">
-          <h4>লিডারবোর্ড নিয়ম</h4>
-          <p>নিয়ম ও শর্ত জানুন</p>
-        </div>
-      </div>
-      <div class="action-card" style="background: #fef3c7;">
-        <div class="ac-icon" style="background:#ffb648;">🏆</div>
-        <div class="ac-text">
-          <h4>পূর্বের বিজয়ী</h4>
-          <p>পূর্বের মাসের বিজয়ীরা দেখুন</p>
-        </div>
-      </div>
+      <div class="action-card" style="background: #f3e8ff;"><div class="ac-icon" style="background:#6a3df0;">👤+</div><div class="ac-text"><h4>বন্ধুদের আমন্ত্রণ</h4><p>বন্ধু আনুন বোনাস পান</p></div></div>
+      <div class="action-card" style="background: #dcfce7;"><div class="ac-icon" style="background:#1fae5c;"><svg width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg></div><div class="ac-text"><h4>শেয়ার করুন</h4><p>আপনার র‍্যাঙ্ক শেয়ার করুন</p></div></div>
+      <div class="action-card" style="background: #e0f2fe;"><div class="ac-icon" style="background:#3a6df0;">⭐</div><div class="ac-text"><h4>লিডারবোর্ড নিয়ম</h4><p>নিয়ম ও শর্ত জানুন</p></div></div>
+      <div class="action-card" style="background: #fef3c7;"><div class="ac-icon" style="background:#ffb648;">🏆</div><div class="ac-text"><h4>পূর্বের বিজয়ী</h4><p>পূর্বের মাসের বিজয়ীরা দেখুন</p></div></div>
     </div>
   </section>
 
   <section class="screen" id="screen-wallet">
-    <div class="placeholder-panel">
-      <div class="big">💳</div>
-      <h3>ওয়ালেট</h3>
-      <p>ব্যালেন্স, উইথড্র হিস্ট্রি ও পেমেন্ট মেথড এখানে দেখানো হবে।</p>
+    
+    <div class="w-hero-card">
+      
+      <div class="sunburst" style="top: -30px; left: auto; right: -60px; transform: scale(1.1); z-index: 0; filter: drop-shadow(0 0 25px rgba(255, 180, 0, 0.7));"></div>
+
+      <div class="w-hero-content">
+        <div class="w-main-bal-box">
+          <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.95); display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+            মোট ব্যালেন্স
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" width="14" height="14" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg>
+          </div>
+          <div class="w-hero-amt">₹385.50</div>
+        </div>
+        
+        <div class="w-split-stats">
+          <div class="w-glass-box w-split-box">
+            <span>মূল ব্যালেন্স</span>
+            <b>₹285.50</b>
+          </div>
+          <div class="w-glass-box w-split-box">
+            <span>বোনাস</span>
+            <b>₹100.00</b>
+          </div>
+        </div>
+
+        <div class="w-glass-box w-update-bar">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <span>শেষ আপডেট: আজ 09:40 AM</span>
+          </div>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+        </div>
+      </div>
+      
+      <div class="w-art-overlay">
+        <svg viewBox="0 0 340 300" width="100%" height="100%">
+          <defs>
+             <filter id="big-drop" x="-30%" y="-30%" width="160%" height="160%">
+               <feDropShadow dx="3" dy="18" stdDeviation="15" flood-color="#14083d" flood-opacity="0.6"/>
+             </filter>
+             <filter id="inner-drop">
+               <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#2a0063" flood-opacity="0.8"/>
+             </filter>
+             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+               <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#fbbf24" flood-opacity="0.8"/>
+             </filter>
+
+             <linearGradient id="bodyPurple" x1="0" y1="0" x2="0" y2="1">
+                 <stop offset="0%" stop-color="#b084f4" />
+                 <stop offset="35%" stop-color="#803bea" />
+                 <stop offset="100%" stop-color="#460fba" />
+             </linearGradient>
+
+             <g id="coin-3d-hd">
+               <path d="M -30,0 L -30,12 Q 0,22 30,12 L 30,0 Z" fill="#92400e" />
+               <ellipse cx="0" cy="12" rx="30" ry="10" fill="#c2410c" />
+               <ellipse cx="0" cy="0" rx="30" ry="10" fill="#f59e0b" />
+               <ellipse cx="0" cy="-1.5" rx="27" ry="8" fill="url(#metalFace)" />
+               <ellipse cx="0" cy="-1.5" rx="25" ry="7" fill="none" stroke="rgba(255, 240, 180, 0.9)" stroke-width="1.2" />
+               <text x="-1" y="2" font-family="'Hind Siliguri', Arial, sans-serif" font-weight="900" font-size="15" fill="#92400e" text-anchor="middle">₹</text>
+               <text x="0" y="3" font-family="'Hind Siliguri', Arial, sans-serif" font-weight="900" font-size="15" fill="#fef3c7" text-anchor="middle">₹</text>
+             </g>
+
+             <linearGradient id="metalFace" x1="0" y1="0" x2="1" y2="1">
+                 <stop offset="0%" stop-color="#fff176" />
+                 <stop offset="25%" stop-color="#ffb300" />
+                 <stop offset="60%" stop-color="#f57f17" />
+                 <stop offset="100%" stop-color="#ffb300" />
+             </linearGradient>
+          </defs>
+
+          <g transform="translate(140, 20) rotate(5)" filter="url(#big-drop)">
+             <path d="M 0 60 L 100 25 L 170 65 L 70 100 Z" fill="#1b5e20"/>
+             <path d="M -5 63 L 97 27 L 163 68 L 60 105 Z" fill="#388e3c"/>
+             <path d="M -3 61 L 98 26 L 165 65 L 64 100 Z" fill="#66bb6a" stroke="#81c784" stroke-width="2"/>
+             <circle cx="95" cy="65" r="16" fill="#a5d6a7" transform="scale(1,0.6)" opacity="0.8"/>
+             <rect x="15" y="60" width="30" height="6" fill="#c8e6c9" transform="rotate(-20 15 60)" />
+          </g>
+
+          <g transform="translate(100, 30) rotate(-15)" filter="url(#big-drop)">
+             <path d="M 15 50 L 110 30 L 170 80 L 75 100 Z" fill="#14532d"/>
+             <path d="M 12 52 L 108 33 L 165 83 L 69 103 Z" fill="#4ade80" stroke="#86efac" stroke-width="2.5"/>
+             <circle cx="100" cy="70" r="18" fill="#bbf7d0" transform="scale(1,0.6)" />
+             <path d="M 25 58 L 50 50 M 27 65 L 52 57" stroke="#16a34a" stroke-width="3" fill="none"/>
+             <text x="145" y="80" font-family="Arial" font-size="18" font-weight="900" fill="#22c55e" opacity="0.6">100</text>
+          </g>
+
+          <g filter="url(#big-drop)" transform="translate(-10, 15)">
+              <path d="M 70 135 C 70 105 85 105 125 105 L 290 105 C 310 105 315 120 315 135 L 315 220 C 315 250 280 250 270 250 L 80 250 C 60 250 65 220 70 200 Z" fill="url(#bodyPurple)" stroke="#3b0764" stroke-width="3"/>
+              <path d="M 72 135 Q 85 125 125 125 L 285 125 Q 312 125 312 145 L 312 165 C 312 190 280 185 270 185 L 140 185 C 90 185 70 205 70 170 Z" fill="#7c3aed" filter="url(#inner-drop)"/>
+              <path d="M 78 135 C 78 120 125 116 280 116 C 300 116 304 135 304 140" fill="none" stroke="rgba(255,255,255,0.7)" stroke-dasharray="5 5" stroke-width="2"/>
+              <path d="M 85 240 C 130 240 260 240 275 230 C 290 220 295 210 295 180" fill="none" stroke="rgba(255,255,255,0.4)" stroke-dasharray="4 4" stroke-width="1.5"/>
+              <path d="M 230 160 C 230 150 225 215 230 225 C 255 240 290 220 285 160 Z" fill="#5b21b6" stroke="#4c1d95" stroke-width="2"/>
+              <circle cx="260" cy="190" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="3" filter="url(#glow)"/>
+              <circle cx="260" cy="190" r="9" fill="#f59e0b" />
+          </g>
+
+          <use href="#coin-3d-hd" x="80" y="240" transform="rotate(-10 80 240) scale(1)" />
+          <use href="#coin-3d-hd" x="85" y="222" transform="rotate(-5 85 222) scale(1)" />
+          <use href="#coin-3d-hd" x="90" y="204" transform="scale(1)" />
+          <use href="#coin-3d-hd" x="90" y="186" transform="scale(1)" filter="url(#big-drop)" />
+
+          <use href="#coin-3d-hd" x="145" y="235" transform="rotate(5 145 235) scale(1.15)" />
+          <use href="#coin-3d-hd" x="145" y="215" transform="rotate(3 145 215) scale(1.15)" />
+          
+          <g transform="translate(195, 230) rotate(-18) scale(1.8)" filter="url(#big-drop)">
+             <use href="#coin-3d-hd" x="0" y="0"/>
+             <ellipse cx="0" cy="-1" rx="27" ry="8" fill="url(#metalFace)" filter="url(#glow)"/>
+             <ellipse cx="0" cy="-1.5" rx="24" ry="7" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.8"/>
+             <text x="-1" y="2" font-family="'Arial', sans-serif" font-weight="900" font-size="16" fill="#78350f" text-anchor="middle">₹</text>
+             <text x="0" y="3" font-family="'Arial', sans-serif" font-weight="900" font-size="16" fill="#fff" text-anchor="middle">₹</text>
+          </g>
+          
+        </svg>
+      </div>
+    </div>
+
+    <div class="w-act-nav">
+      <div class="w-act-btn">
+        <div class="w-act-icon">
+          <svg width="45" height="45" viewBox="0 0 100 100">
+             <circle cx="50" cy="50" r="50" fill="url(#withdrawGradi)"/>
+             <linearGradient id="withdrawGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#bfdbfe"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+             <rect x="25" y="35" width="50" height="35" rx="6" fill="#1e3a8a"/>
+             <rect x="25" y="35" width="50" height="8" rx="2" fill="#93c5fd"/>
+             <rect x="30" y="45" width="10" height="5" rx="1" fill="#fff" opacity="0.3"/>
+             <path d="M 40 30 L 60 30 L 60 55 L 40 55 Z" fill="#60a5fa" filter="drop-shadow(0 4px 4px rgba(0,0,0,0.4))"/>
+             <path d="M 50 15 L 62 25 L 38 25 Z" fill="#fff"/>
+             <line x1="50" y1="20" x2="50" y2="40" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="w-act-label">উইথড্র করুন</span>
+      </div>
+      <div class="w-act-btn">
+        <div class="w-act-icon">
+          <svg width="45" height="45" viewBox="0 0 100 100">
+             <circle cx="50" cy="50" r="50" fill="url(#historyGradi)"/>
+             <linearGradient id="historyGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d8b4fe"/><stop offset="100%" stop-color="#7e22ce"/></linearGradient>
+             <circle cx="50" cy="50" r="28" fill="#4c1d95" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.5))"/>
+             <circle cx="50" cy="50" r="23" fill="#a855f7" />
+             <circle cx="50" cy="50" r="8" fill="#fff"/>
+             <path d="M 50 25 L 50 50 L 70 65" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(2px 2px 0px rgba(0,0,0,0.3))"/>
+          </svg>
+        </div>
+        <span class="w-act-label">লেনদেন ইতিহাস</span>
+      </div>
+      <div class="w-act-btn">
+        <div class="w-act-icon">
+          <svg width="45" height="45" viewBox="0 0 100 100">
+             <circle cx="50" cy="50" r="50" fill="url(#offerGradi)"/>
+             <linearGradient id="offerGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fed7aa"/><stop offset="100%" stop-color="#ea580c"/></linearGradient>
+             <path d="M 50 20 L 60 30 L 75 25 L 75 40 L 90 50 L 75 60 L 75 75 L 60 70 L 50 80 L 40 70 L 25 75 L 25 60 L 10 50 L 25 40 L 25 25 L 40 30 Z" fill="#9a3412" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.4))"/>
+             <path d="M 50 24 L 58 33 L 70 28 L 70 41 L 83 50 L 70 59 L 70 72 L 58 67 L 50 76 L 42 67 L 30 72 L 30 59 L 17 50 L 30 41 L 30 28 L 42 33 Z" fill="#f97316"/>
+             <line x1="38" y1="62" x2="62" y2="38" stroke="#fff" stroke-width="6" stroke-linecap="round" filter="drop-shadow(2px 2px 0px rgba(0,0,0,0.3))"/>
+             <circle cx="42" cy="42" r="6" fill="#fff"/>
+             <circle cx="58" cy="58" r="6" fill="#fff"/>
+          </svg>
+        </div>
+        <span class="w-act-label">অফার ও বোনাস</span>
+      </div>
+    </div>
+
+    <div class="w-sec">
+      <div class="w-sec-header">
+        <h3>সংক্ষিপ্ত হিসেব</h3>
+        <a href="#">সব দেখুন ›</a>
+      </div>
+      <div class="w-sum-grid">
+        <div class="w-sum-item wg-1">
+          <div class="w-sum-icon">
+            <svg width="40" height="40" viewBox="0 0 100 100">
+               <rect x="20" y="60" width="16" height="30" rx="3" fill="#15803d" />
+               <rect x="18" y="55" width="20" height="10" rx="2" fill="#22c55e" />
+               <rect x="42" y="45" width="16" height="45" rx="3" fill="#15803d" />
+               <rect x="40" y="40" width="20" height="10" rx="2" fill="#4ade80" />
+               <rect x="64" y="25" width="16" height="65" rx="3" fill="#15803d" />
+               <rect x="62" y="20" width="20" height="10" rx="2" fill="#86efac" />
+               <path d="M 25 35 L 48 10 L 80 40 M 48 10 L 35 10 M 48 10 L 48 23" fill="none" stroke="#eab308" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0 4px 2px rgba(0,0,0,0.4))"/>
+            </svg>
+          </div>
+          <div class="w-sum-val">₹2,450</div>
+          <div class="w-sum-label">মোট উপার্জন</div>
+        </div>
+
+        <div class="w-sum-item wg-2">
+          <div class="w-sum-icon">
+             <svg width="40" height="40" viewBox="0 0 100 100">
+                 <path d="M 20 60 C 20 50 80 50 80 60 L 90 90 L 10 90 Z" fill="#1d4ed8"/>
+                 <rect x="30" y="52" width="40" height="8" rx="4" fill="#0f172a"/>
+                 <rect x="10" y="80" width="80" height="10" fill="#3b82f6"/>
+                 <rect x="40" y="10" width="20" height="40" fill="#93c5fd" filter="drop-shadow(0 2px 2px rgba(0,0,0,0.4))"/>
+                 <path d="M 30 25 L 50 50 L 70 25 Z" fill="#fbbf24"/>
+                 <path d="M 50 40 L 50 15" stroke="#fef3c7" stroke-width="6" stroke-linecap="round"/>
+             </svg>
+          </div>
+          <div class="w-sum-val">₹2,064.50</div>
+          <div class="w-sum-label">মোট উত্তোলন</div>
+        </div>
+
+        <div class="w-sum-item wg-3">
+          <div class="w-sum-icon">
+             <svg width="40" height="40" viewBox="0 0 100 100">
+               <rect x="15" y="45" width="70" height="45" rx="4" fill="#581c87"/>
+               <rect x="10" y="30" width="80" height="15" rx="3" fill="#a855f7" filter="drop-shadow(0 4px 2px rgba(0,0,0,0.3))"/>
+               <path d="M 50 30 C 50 15 25 15 35 30 M 50 30 C 50 15 75 15 65 30" fill="none" stroke="#fef08a" stroke-width="6" stroke-linecap="round" />
+               <rect x="44" y="30" width="12" height="60" fill="#fbbf24"/>
+             </svg>
+          </div>
+          <div class="w-sum-val">₹100.00</div>
+          <div class="w-sum-label">মোট বোনাস</div>
+        </div>
+
+        <div class="w-sum-item wg-4">
+          <div class="w-sum-icon">
+            <svg width="40" height="40" viewBox="0 0 100 100">
+               <rect x="10" y="40" width="80" height="50" rx="10" fill="#a16207" />
+               <rect x="10" y="40" width="80" height="40" rx="8" fill="#eab308" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.2))"/>
+               <circle cx="50" cy="60" r="12" fill="#fff"/>
+               <circle cx="50" cy="60" r="8" fill="#451a03"/>
+               <ellipse cx="40" cy="30" rx="20" ry="8" fill="#facc15" stroke="#a16207" stroke-width="2"/>
+               <ellipse cx="60" cy="20" rx="20" ry="8" fill="#fef08a" stroke="#d97706" stroke-width="2"/>
+               <ellipse cx="30" cy="20" rx="16" ry="6" fill="#fef9c3" stroke="#b45309" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="w-sum-val">₹385.50</div>
+          <div class="w-sum-label">বর্তমান ব্যালেন্স</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-sec" style="margin-bottom: 0;">
+      <div class="w-sec-header">
+        <h3>সাম্প্রতিক লেনদেন</h3>
+        <a href="#">সব দেখুন ›</a>
+      </div>
+      <div class="w-tx-list">
+        
+        <div class="w-tx-row">
+          <div class="w-tx-left">
+            <div class="w-tx-icon success">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div class="w-tx-details">
+              <span class="w-tx-title">টাস্ক কমপ্লিট বোনাস</span>
+              <span class="w-tx-sub">40 টি টাস্ক কমপ্লিট</span>
+            </div>
+          </div>
+          <div class="w-tx-middle"><span class="w-tx-time">আজ 09:35 AM</span></div>
+          <div class="w-tx-right"><span class="w-tx-amt plus">+ ₹50.00</span><span class="w-tx-status ok">সফল</span></div>
+        </div>
+
+        <div class="w-tx-row">
+          <div class="w-tx-left">
+            <div class="w-tx-icon gift">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="1"></rect><line x1="12" y1="8" x2="12" y2="20"></line><path d="M12 8c0-3-4-3-4-3c4 0 4 3 4 3z"></path><path d="M12 8c0-3 4-3 4-3c-4 0-4 3-4 3z"></path></svg>
+            </div>
+            <div class="w-tx-details">
+              <span class="w-tx-title">রেফার বোনাস</span>
+              <span class="w-tx-sub">বন্ধু আমন্ত্রণ বোনাস</span>
+            </div>
+          </div>
+          <div class="w-tx-middle"><span class="w-tx-time">আজ 08:12 AM</span></div>
+          <div class="w-tx-right"><span class="w-tx-amt plus">+ ₹25.00</span><span class="w-tx-status ok">সফল</span></div>
+        </div>
+
+        <div class="w-tx-row">
+          <div class="w-tx-left">
+            <div class="w-tx-icon bank">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 1L2 6v2h20V6L12 1z"></path><path d="M5 10h3v7H5v-7zM10.5 10h3v7h-3v-7zM16 10h3v7h-3v-7zM2 19h20v3H2v-3z"></path></svg>
+            </div>
+            <div class="w-tx-details">
+              <span class="w-tx-title">উইথড্র</span>
+              <span class="w-tx-sub">ব্যাংক ট্রান্সফার</span>
+            </div>
+          </div>
+          <div class="w-tx-middle"><span class="w-tx-time">গতকাল 07:45 PM</span></div>
+          <div class="w-tx-right"><span class="w-tx-amt minus">- ₹500.00</span><span class="w-tx-status ok">সফল</span></div>
+        </div>
+
+        <div class="w-tx-row">
+          <div class="w-tx-left">
+            <div class="w-tx-icon orange">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div class="w-tx-details">
+              <span class="w-tx-title">টাস্ক কমপ্লিট</span>
+              <span class="w-tx-sub">15 টি টাস্ক কমপ্লিট</span>
+            </div>
+          </div>
+          <div class="w-tx-middle"><span class="w-tx-time">গতকাল 06:30 PM</span></div>
+          <div class="w-tx-right"><span class="w-tx-amt plus">+ ₹15.00</span><span class="w-tx-status ok">সফল</span></div>
+        </div>
+
+        <div class="w-tx-row">
+          <div class="w-tx-left">
+            <div class="w-tx-icon success">
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div class="w-tx-details">
+              <span class="w-tx-title">ডেইলি লগইন বোনাস</span>
+              <span class="w-tx-sub">দিন 5</span>
+            </div>
+          </div>
+          <div class="w-tx-middle"><span class="w-tx-time">গতকাল 06:15 PM</span></div>
+          <div class="w-tx-right"><span class="w-tx-amt plus">+ ₹5.00</span><span class="w-tx-status ok">সফল</span></div>
+        </div>
+
+      </div>
     </div>
   </section>
 
