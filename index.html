@@ -38,12 +38,7 @@
     background:
       radial-gradient(circle at 15% 0%, rgba(255,255,255,.10) 0%, transparent 40%),
       radial-gradient(circle at 75% 60%, rgba(122,90,220,.10) 0%, transparent 45%),
-      linear-gradient(180deg,
-        var(--bg-deep) 0%,
-        var(--bg-deep) 30%,
-        var(--bg-light) 40%,
-        var(--bg-light) 100%
-      );
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-deep) 30%, var(--bg-light) 40%, var(--bg-light) 100%);
     min-height: 100vh;
     color: var(--ink);
     padding-bottom: 86px;
@@ -52,39 +47,22 @@
 
   .wrap { max-width: 480px; margin: 0 auto; padding: 18px 16px 0; }
 
-  /* =========================================
-     GLOBAL TOPBAR
-  ========================================= */
+  /* GLOBAL TOPBAR */
   .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-  .icon-btn {
-    width: 44px; height: 44px; border-radius: 14px;
-    background: rgba(255,255,255,.10); display: flex; align-items: center; justify-content: center;
-    border: none; color: #fff; position: relative; cursor: pointer; font-size: 18px;
-  }
+  .icon-btn { width: 44px; height: 44px; border-radius: 14px; background: rgba(255,255,255,.10); display: flex; align-items: center; justify-content: center; border: none; color: #fff; position: relative; cursor: pointer; font-size: 18px; }
   .brand { display: flex; align-items: center; gap: 10px; flex-direction: column; flex: 1; min-width: 0; }
   .brand-row { display: flex; align-items: center; gap: 8px; }
-  .brand-logo {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: linear-gradient(135deg,#4fc3f7,#1e9ce8);
-    display: flex; align-items: center; justify-content: center;
-  }
+  .brand-logo { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg,#4fc3f7,#1e9ce8); display: flex; align-items: center; justify-content: center; }
   .brand-logo svg { width: 19px; height: 19px; }
   .brand-title { font-size: 22px; font-weight: 700; color: #fff; }
   .brand-sub { font-size: 12px; color: var(--ink-dim); margin-top: 2px; }
-  .badge {
-    position: absolute; top: -4px; right: -4px; background: #ff3b5c;
-    font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px;
-    display: flex; align-items: center; justify-content: center; padding: 0 4px;
-  }
+  .badge { position: absolute; top: -4px; right: -4px; background: #ff3b5c; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
 
-  /* Screen Switcher */
   .screen { display: none; }
   .screen.active { display: block; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* =========================================
-     HOME SCREEN
-  ========================================= */
+  /* HOME SCREEN */
   .stat-row { display: flex; gap: 10px; margin-bottom: 18px; }
   .stat-card { flex: 1; min-width: 0; border-radius: 18px; padding: 14px 10px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 24px -8px rgba(0,0,0,.35); }
   .stat-card.blue { background: linear-gradient(160deg, var(--blue-card-1), var(--blue-card-2)); }
@@ -112,13 +90,13 @@
   .day-dot.future { background: #fff0e2; }
 
   .feature-panel { background: var(--panel); color: var(--panel-text); border-radius: 22px; padding: 20px 8px; margin-bottom: 22px; display: flex; }
-  .feature { flex: 1; min-width: 0; text-align: center; padding: 0 6px; position: relative; }
+  .feature { flex: 1; min-width: 0; display: flex; flex-direction: column; text-align: center; padding: 0 4px; position: relative; }
   .feature + .feature::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: #ece9f7; }
-  .feature-icon { width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .feature-icon { width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
   .feature-icon.pink { background: #ffe1ea; } .feature-icon.blue { background: #dfeaff; } .feature-icon.orange { background: #ffe6d2; }
-  .feature-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; overflow-wrap: anywhere; }
-  .feature-sub { font-size: 11px; color: var(--panel-sub); line-height: 1.5; margin-bottom: 10px; overflow-wrap: anywhere; }
-  .feature-arrow { width: 30px; height: 30px; border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+  .feature-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; word-break: break-word; }
+  .feature-sub { font-size: 11px; color: var(--panel-sub); line-height: 1.4; margin-bottom: 10px; word-break: break-word; flex-grow: 1; }
+  .feature-arrow { width: 30px; height: 30px; border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
   .feature-arrow.pink { background: #ffd6e3; color: #e6467a; } .feature-arrow.blue { background: #cfe0ff; color: #2451d6; } .feature-arrow.orange { background: #ffd9b3; color: #ff7a1e; }
 
   .section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
@@ -146,90 +124,35 @@
   .refer-sub { font-size: 11px; color: rgba(255,255,255,.9); line-height: 1.5; flex: 1; min-width: 130px; }
   .refer-btn { background: #fff; color: #7a2fd6; border: none; font-size: 11.5px; font-weight: 700; padding: 8px 12px; border-radius: 10px; cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
 
-
-  /* =========================================
-     LEADERBOARD PODIUM SECTION
-  ========================================= */
-  .podium-container {
-    position: relative; display: flex; align-items: flex-end; justify-content: center;
-    gap: 12px; padding-top: 40px; margin-bottom: 20px;
-  }
-  
-  .podium-container::before {
-    content: ''; position: absolute; top: -5px; bottom: -15px; left: -6px; right: -6px;
-    background: rgba(56, 17, 130, 0.45); border: 1.5px solid rgba(167, 139, 250, 0.7); 
-    border-radius: 24px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 5px 20px rgba(0, 0, 0, 0.4); 
-    z-index: 1; 
-  }
-
-  .sunburst {
-    position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 320px; height: 320px; border-radius: 50%;
-    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.75) 0%, rgba(255, 140, 0, 0.4) 35%, transparent 65%), repeating-conic-gradient(from 0deg, rgba(255, 215, 0, 0.25) 0deg 15deg, transparent 15deg 30deg);
-    -webkit-mask-image: radial-gradient(circle, black 25%, transparent 70%); z-index: 0; pointer-events: none;
-    filter: drop-shadow(0 0 25px rgba(255, 190, 0, 0.6));
-  }
-
+  /* LEADERBOARD PODIUM SECTION */
+  .podium-container { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 12px; padding-top: 40px; margin-bottom: 20px; }
+  .podium-container::before { content: ''; position: absolute; top: -5px; bottom: -15px; left: -6px; right: -6px; background: rgba(56, 17, 130, 0.45); border: 1.5px solid rgba(167, 139, 250, 0.7); border-radius: 24px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 5px 20px rgba(0, 0, 0, 0.4); z-index: 1; }
+  .sunburst { position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle at center, rgba(255, 215, 0, 0.75) 0%, rgba(255, 140, 0, 0.4) 35%, transparent 65%), repeating-conic-gradient(from 0deg, rgba(255, 215, 0, 0.25) 0deg 15deg, transparent 15deg 30deg); -webkit-mask-image: radial-gradient(circle, black 25%, transparent 70%); z-index: 0; pointer-events: none; filter: drop-shadow(0 0 25px rgba(255, 190, 0, 0.6)); }
   .confetti-box { position: absolute; inset: 0; bottom: -30px; z-index: 1; pointer-events: none; overflow: visible; }
   .confetti { position: absolute; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
-  .c1 { top: 15%; left: 15%; color: #ffeb3b; font-size: 18px; transform: rotate(15deg); }
-  .c2 { top: 35%; left: 5%; color: #00e5ff; font-size: 12px; }
-  .c3 { top: 20%; right: 15%; color: #ff4081; font-size: 20px; transform: rotate(45deg); }
-  .c4 { top: 45%; right: 8%; color: #69f0ae; font-size: 14px; transform: rotate(-10deg); }
-  .c5 { top: 55%; left: 18%; color: #ffca28; font-size: 14px; }
-  .c6 { top: 8%; left: 60%; color: #b388ff; font-size: 16px; }
-  .c7 { top: 30%; right: 28%; color: #ff9100; font-size: 12px; transform: rotate(25deg); }
-  .c8 { top: 65%; right: 20%; color: #40c4ff; font-size: 18px; transform: rotate(60deg); }
-  .c9 { top: 75%; left: 10%; color: #ffeb3b; font-size: 14px; }
-  .c10 { top: 85%; right: 15%; color: #00e5ff; font-size: 16px; transform: rotate(20deg); }
-  .c11 { top: 80%; left: 30%; color: #ff4081; font-size: 12px; transform: rotate(-25deg); }
-  .c12 { top: 92%; right: 35%; color: #69f0ae; font-size: 15px; }
-  .c13 { top: 78%; right: 5%; color: #ffca28; font-size: 18px; transform: rotate(10deg); }
-  .c14 { top: 95%; left: 20%; color: #b388ff; font-size: 14px; }
-  .c15 { top: 88%; left: 45%; color: #ff9100; font-size: 16px; transform: rotate(45deg); }
-
+  .c1 { top: 15%; left: 15%; color: #ffeb3b; font-size: 18px; transform: rotate(15deg); } .c2 { top: 35%; left: 5%; color: #00e5ff; font-size: 12px; } .c3 { top: 20%; right: 15%; color: #ff4081; font-size: 20px; transform: rotate(45deg); } .c4 { top: 45%; right: 8%; color: #69f0ae; font-size: 14px; transform: rotate(-10deg); } .c5 { top: 55%; left: 18%; color: #ffca28; font-size: 14px; } .c6 { top: 8%; left: 60%; color: #b388ff; font-size: 16px; } .c7 { top: 30%; right: 28%; color: #ff9100; font-size: 12px; transform: rotate(25deg); } .c8 { top: 65%; right: 20%; color: #40c4ff; font-size: 18px; transform: rotate(60deg); } .c9 { top: 75%; left: 10%; color: #ffeb3b; font-size: 14px; } .c10 { top: 85%; right: 15%; color: #00e5ff; font-size: 16px; transform: rotate(20deg); } .c11 { top: 80%; left: 30%; color: #ff4081; font-size: 12px; transform: rotate(-25deg); } .c12 { top: 92%; right: 35%; color: #69f0ae; font-size: 15px; } .c13 { top: 78%; right: 5%; color: #ffca28; font-size: 18px; transform: rotate(10deg); } .c14 { top: 95%; left: 20%; color: #b388ff; font-size: 14px; } .c15 { top: 88%; left: 45%; color: #ff9100; font-size: 16px; transform: rotate(45deg); }
   .podium-col { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; padding-bottom: 5px; }
   .avatar-wrap { position: relative; z-index: 10; margin-bottom: -15px; } 
   .avatar-img { border-radius: 50%; object-fit: cover; background: #fff; box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
-  
-  .col-2nd .avatar-img { width: 62px; height: 62px; border: 4px solid #b4c6db; }
-  .col-1st .avatar-img { width: 80px; height: 80px; border: 5px solid #fce99f; }
-  .col-3rd .avatar-img { width: 62px; height: 62px; border: 4px solid #fad0c8; }
+  .col-2nd .avatar-img { width: 62px; height: 62px; border: 4px solid #b4c6db; } .col-1st .avatar-img { width: 80px; height: 80px; border: 5px solid #fce99f; } .col-3rd .avatar-img { width: 62px; height: 62px; border: 4px solid #fad0c8; }
   .crown { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); font-size: 32px; z-index: 6; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
-
   .rank-badge { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); color: #fff; border-radius: 50%; border: 2px solid #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 6; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-  .col-2nd .rank-badge { width: 22px; height: 22px; font-size: 11px; background: #9eaec3; }
-  .col-1st .rank-badge { width: 26px; height: 26px; font-size: 14px; background: #c9a759; bottom: -12px; }
-  .col-3rd .rank-badge { width: 22px; height: 22px; font-size: 11px; background: #c08078; }
-
-  /* 3D HEXAGON BLOCK */
+  .col-2nd .rank-badge { width: 22px; height: 22px; font-size: 11px; background: #9eaec3; } .col-1st .rank-badge { width: 26px; height: 26px; font-size: 14px; background: #c9a759; bottom: -12px; } .col-3rd .rank-badge { width: 22px; height: 22px; font-size: 11px; background: #c08078; }
   .pedestal-wrapper { width: 100%; position: relative; z-index: 5; margin-top: -10px; }
   .pedestal-top { position: absolute; top: 0; left: 0; width: 100%; height: 28px; clip-path: polygon(12% 0%, 88% 0%, 100% 50%, 88% 100%, 12% 100%, 0% 50%); z-index: 3; }
   .pedestal-body { position: absolute; top: 14px; left: 0; width: 100%; bottom: 0; clip-path: polygon(0% 0%, 12% 14px, 88% 14px, 100% 0%, 100% calc(100% - 14px), 88% 100%, 12% 100%, 0% calc(100% - 14px)); z-index: 2; }
   .pedestal-content { position: relative; z-index: 4; margin: 0 auto; width: 75%; height: 100%; padding-top: 36px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
-
-  .col-1st .pedestal-wrapper { height: 155px; }
-  .col-1st .pedestal-top { background: #fff1c2; } 
-  .col-1st .pedestal-body { background: linear-gradient(to right, #dfc072 0%, #dfc072 12%, #fff9e6 12%, #fce99f 88%, #c9a759 88%, #c9a759 100%); }
-
-  .col-2nd .pedestal-wrapper { height: 120px; }
-  .col-2nd .pedestal-top { background: #f2f8fc; }
-  .col-2nd .pedestal-body { background: linear-gradient(to right, #b4c6db 0%, #b4c6db 12%, #ffffff 12%, #e5f1fb 88%, #9eaec3 88%, #9eaec3 100%); }
-
-  .col-3rd .pedestal-wrapper { height: 100px; }
-  .col-3rd .pedestal-top { background: #ffebe6; }
-  .col-3rd .pedestal-body { background: linear-gradient(to right, #d99a93 0%, #d99a93 12%, #fff0eb 12%, #fad0c8 88%, #c08078 88%, #c08078 100%); }
-
+  .col-1st .pedestal-wrapper { height: 155px; } .col-1st .pedestal-top { background: #fff1c2; } .col-1st .pedestal-body { background: linear-gradient(to right, #dfc072 0%, #dfc072 12%, #fff9e6 12%, #fce99f 88%, #c9a759 88%, #c9a759 100%); }
+  .col-2nd .pedestal-wrapper { height: 120px; } .col-2nd .pedestal-top { background: #f2f8fc; } .col-2nd .pedestal-body { background: linear-gradient(to right, #b4c6db 0%, #b4c6db 12%, #ffffff 12%, #e5f1fb 88%, #9eaec3 88%, #9eaec3 100%); }
+  .col-3rd .pedestal-wrapper { height: 100px; } .col-3rd .pedestal-top { background: #ffebe6; } .col-3rd .pedestal-body { background: linear-gradient(to right, #d99a93 0%, #d99a93 12%, #fff0eb 12%, #fad0c8 88%, #c08078 88%, #c08078 100%); }
   .p-name { font-size: 13px; font-weight: 700; margin-bottom: 8px; white-space: nowrap; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.25); color: #ffffff; padding: 3px 12px; }
   .col-1st .p-name { font-size: 14.5px; margin-top: 4px; padding: 4px 16px; margin-bottom: 8px; background: #3c1e7a; border: 1px solid rgba(255, 215, 0, 0.7); }
   .col-2nd .p-name { background: #194488; border: 1px solid rgba(135, 191, 255, 0.5); }
   .col-3rd .p-name { background: #8e2b21; border: 1px solid rgba(255, 175, 155, 0.5); }
-
   .p-earn { background: rgba(0,0,0,0.15); color: #1b1440; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 700; border: 1px solid rgba(255,255,255,0.4); }
   .col-1st .p-earn { font-size: 13px; padding: 5px 16px; }
 
-  /* =========================================
-     LEADERBOARD - STATS, FILTERS, LIST
-  ========================================= */
+  /* LEADERBOARD STATS & LIST */
   .stats-panel { background: #fff; border-radius: 20px; padding: 16px 8px; display: flex; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
   .stat-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; border-right: 1px solid var(--border-color); padding: 0 4px; }
   .stat-item:last-child { border-right: none; }
@@ -238,16 +161,13 @@
   .s-val { font-size: 14px; font-weight: 700; color: var(--panel-text); margin-bottom: 4px; line-height: 1; }
   .s-label { font-size: 9px; color: var(--panel-sub); font-weight: 600; line-height: 1.2; }
   .stat-item.earn-green .s-val, .stat-item.earn-green .s-label { color: #1fae5c; }
-
   .filter-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 16px; scrollbar-width: none; }
   .filter-tabs::-webkit-scrollbar { display: none; }
   .f-btn { background: #fff; color: var(--panel-sub); border: none; border-radius: 20px; padding: 8px 16px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; white-space: nowrap; cursor: pointer; }
   .f-btn.active { background: var(--purple-accent); color: #fff; }
-
   .list-container { background: #f4f6fb; border-radius: 20px; padding: 16px; margin-bottom: 20px; }
   .list-header { display: flex; align-items: center; font-size: 11px; font-weight: 600; color: var(--panel-sub); padding-bottom: 10px; margin-bottom: 5px; }
   .lh-rank { width: 30px; text-align: center; } .lh-name { flex: 1; padding-left: 10px; } .lh-earn { width: 70px; text-align: right; }
-  
   .l-row { display: flex; align-items: center; padding: 12px 10px; margin-bottom: 8px; border-radius: 12px; border: none; }
   .l-rank { width: 30px; text-align: center; font-size: 13px; font-weight: 700; color: var(--panel-text); }
   .l-user { flex: 1; display: flex; align-items: center; gap: 10px; padding-left: 10px; }
@@ -255,128 +175,117 @@
   .l-name { font-size: 13px; font-weight: 600; color: var(--panel-text); }
   .l-earn { width: 70px; text-align: right; font-size: 13px; font-weight: 700; color: var(--money); display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
   .l-arrow { font-size: 14px; color: #a19db3; font-weight: 400; }
-  
   .bg-pink { background: #fce4ec; color: #d81b60; } .bg-purple { background: #f3e5f5; color: #8e24aa; } .bg-green { background: #e8f5e9; color: #2e7d32; } .bg-blue { background: #e3f2fd; color: #1e88e5; } .bg-red { background: #ffebee; color: #e53935; } .bg-solid { background: var(--purple-accent); color: #fff; }
   .l-row.active-user { border-radius: 12px; padding: 12px 10px; border-bottom: none; }
   .l-row.active-user .l-rank, .l-row.active-user .l-name, .l-row.active-user .l-earn, .l-row.active-user .l-arrow { color: var(--purple-accent); }
-
   .action-scroll { display: flex; gap: 10px; padding-bottom: 20px; }
   .action-card { flex: 1; min-width: 0; border-radius: 16px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; }
   .ac-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; color: #fff; }
   .ac-text h4 { font-size: 11.5px; font-weight: 700; color: var(--panel-text); margin-bottom: 2px; }
   .ac-text p { font-size: 9px; color: var(--panel-sub); line-height: 1.2; }
 
-
-  /* =========================================
-     WALLET SCREEN (RESPONSIVE ULTRA 3D OVERLAY)
-  ========================================= */
-  .w-hero-card {
-    background: linear-gradient(145deg, #4b1dc7 0%, #301099 100%);
-    border-radius: 20px; padding: 25px 18px 16px; margin-bottom: 20px; color: #fff; position: relative; overflow: hidden;
-    box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; min-height: 235px;
-  }
-  
-  /* Flexible Hero container logic adjusting width efficiently to prevent overlaps */
+  /* WALLET SCREEN */
+  .w-hero-card { background: linear-gradient(145deg, #4b1dc7 0%, #301099 100%); border-radius: 20px; padding: 25px 18px 16px; margin-bottom: 20px; color: #fff; position: relative; overflow: hidden; box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; min-height: 235px; }
   .w-hero-content { display: flex; flex-direction: column; align-items: flex-start; position: relative; z-index: 2; width: 60%; }
-
-  .w-glass-box {
-    background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.22); border-radius: 12px; padding: 8px 14px;
-    display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-
-  /* Fixed main box rendering safe layout inside flex row spaces */
-  .w-main-bal-box {
-    background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 14px;
-    display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: auto; max-width: 100%; margin-bottom: 12px; position: relative; z-index: 2; box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-  }
-  
-  /* Text scales beautifully inside mobile containers relying dynamically avoiding broken UI splits */
+  .w-glass-box { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.22); border-radius: 12px; padding: 8px 14px; display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+  .w-main-bal-box { background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 10px 14px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: auto; max-width: 100%; margin-bottom: 12px; position: relative; z-index: 2; box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
   .w-hero-amt { font-size: clamp(30px, 8vw, 40px); font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; text-shadow: 0 3px 5px rgba(0,0,0,0.3);}
-
-  /* Boxes intelligently flex avoiding container explosions avoiding any broken wrap UI  */
   .w-split-stats { display: flex; gap: 8px; margin-bottom: 16px; position: relative; z-index: 2; width: 100%; flex-wrap: wrap;}
   .w-glass-box.w-split-box { padding: 6px 10px; min-width: 0; flex: 1; border-radius: 10px; }
   .w-glass-box span { font-size: 10px; font-weight: 500; margin-bottom: 2px; color: rgba(255,255,255,0.9); }
   .w-glass-box b { font-size: clamp(13px, 3.5vw, 15px); font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.2);}
-
   .w-glass-box.w-update-bar { width: 100%; max-width: max-content; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; font-weight: 500; font-size: 10px; padding: 7px 12px; color: rgba(255,255,255,0.95); z-index: 2; border-radius: 20px;}
-
-  /* ABSOLUTE PRECISE SVG BOUNDARY CORRECTION FOR PHONE SCALE. It relies on parent edge locking and aspect preserving scaling making layout unbreakable regardless of screen size.  */
   .w-art-overlay { position: absolute; right: -15px; bottom: 0; width: 45%; max-width: 190px; height: auto; aspect-ratio: 34/30; z-index: 0; pointer-events: none; }
-
   .w-act-nav { background: #fff; border-radius: 20px; padding: 16px 8px; display: flex; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
   .w-act-btn { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; border-right: 1px solid var(--border-color); cursor: pointer;}
   .w-act-btn:last-child { border-right: none; }
   .w-act-icon { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);}
-  
-  .w-act-icon.blue-bg { background: #e0f2fe; }
-  .w-act-icon.purp-bg { background: #f3e8ff; }
-  .w-act-icon.org-bg  { background: #ffedd5; }
+  .w-act-icon.blue-bg { background: #e0f2fe; } .w-act-icon.purp-bg { background: #f3e8ff; } .w-act-icon.org-bg  { background: #ffedd5; }
   .w-act-label { font-size: 11px; font-weight: 700; color: var(--panel-text); }
-
   .w-sec { background: #fff; border-radius: 20px; padding: 18px 16px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
   .w-sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
   .w-sec-header h3 { font-size: 15.5px; font-weight: 700; color: var(--panel-text); }
   .w-sec-header a { font-size: 12px; font-weight: 700; color: #1e3a8a; text-decoration: none; display: flex; align-items: center; gap: 4px;}
-
-  /* FIXED SUM ITEMS OVERLAP CRASHING (Applied Min-width strictly enforcing box constraints retaining crisp structure  */
   .w-sum-grid { display: flex; gap: 8px; }
   .w-sum-item { flex: 1; min-width: 0; border-radius: 16px; padding: 14px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-  .wg-1 { background: #ecfdf5; border: 1.5px solid #d1fae5; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.05);}
-  .wg-2 { background: #eff6ff; border: 1.5px solid #dbeafe; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.05);}
-  .wg-3 { background: #faf5ff; border: 1.5px solid #e9d5ff; box-shadow: 0 4px 10px rgba(124, 58, 237, 0.05);}
-  .wg-4 { background: #fefce8; border: 1.5px solid #fef08a; box-shadow: 0 4px 10px rgba(234, 179, 8, 0.05);}
-  
+  .wg-1 { background: #ecfdf5; border: 1.5px solid #d1fae5; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.05);} .wg-2 { background: #eff6ff; border: 1.5px solid #dbeafe; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.05);} .wg-3 { background: #faf5ff; border: 1.5px solid #e9d5ff; box-shadow: 0 4px 10px rgba(124, 58, 237, 0.05);} .wg-4 { background: #fefce8; border: 1.5px solid #fef08a; box-shadow: 0 4px 10px rgba(234, 179, 8, 0.05);}
   .w-sum-icon { margin-bottom: 8px; display:flex; align-items:center; justify-content:center; drop-shadow: 0 2px 2px rgba(0,0,0,0.2);}
   .w-sum-val { font-size: clamp(10.5px, 2.8vw, 12.5px); font-weight: 800; margin-bottom: 4px; color: var(--panel-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
   .w-sum-label { font-size: clamp(8px, 2.3vw, 9.5px); font-weight: 700; color: var(--panel-sub); line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;}
-
   .w-tx-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f1efff; }
   .w-tx-row:last-child { border-bottom: none; padding-bottom: 0;}
-  
   .w-tx-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0;}
   .w-tx-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-  .w-tx-icon.success { background: linear-gradient(135deg, #4ade80, #16a34a); } 
-  .w-tx-icon.gift    { background: linear-gradient(135deg, #a855f7, #7c3aed); }   
-  .w-tx-icon.bank    { background: linear-gradient(135deg, #60a5fa, #2563eb); }    
-  .w-tx-icon.orange  { background: linear-gradient(135deg, #fb923c, #ea580c); }  
-  
+  .w-tx-icon.success { background: linear-gradient(135deg, #4ade80, #16a34a); } .w-tx-icon.gift { background: linear-gradient(135deg, #a855f7, #7c3aed); } .w-tx-icon.bank { background: linear-gradient(135deg, #60a5fa, #2563eb); } .w-tx-icon.orange { background: linear-gradient(135deg, #fb923c, #ea580c); }  
   .w-tx-details { flex: 1; min-width: 0; display: flex; flex-direction: column; }
   .w-tx-title { font-size: 14px; font-weight: 700; color: var(--panel-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px;}
   .w-tx-sub { font-size: 11px; color: var(--panel-sub); font-weight: 500;}
-  
   .w-tx-middle { text-align: center; padding: 0 10px;}
   .w-tx-time { font-size: 10.5px; font-weight: 600; color: #9aa2b5;}
-
   .w-tx-right { display: flex; flex-direction: column; align-items: flex-end; min-width: 75px;}
   .w-tx-amt { font-size: 14.5px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.2px;}
-  .w-tx-amt.plus { color: #15803d; }  
-  .w-tx-amt.minus { color: #b91c1c; }
-  
+  .w-tx-amt.plus { color: #15803d; } .w-tx-amt.minus { color: #b91c1c; }
   .w-tx-status { font-size: 9.5px; font-weight: 800; padding: 4px 10px; border-radius: 8px; letter-spacing: 0.3px;}
   .w-tx-status.ok { background: #dcfce7; color: #15803d; border: 1.5px solid #bbf7d0;}
 
-  /* =========================================
-     PLACEHOLDER SCREENS
-  ========================================= */
+  /* PLACEHOLDER */
   .placeholder-panel { background: var(--panel); color: var(--panel-text); border-radius: 22px; padding: 40px 20px; text-align: center; margin-top: 20px; }
   .placeholder-panel .big { font-size: 34px; margin-bottom: 10px; }
   .placeholder-panel h3 { font-size: 16px; margin-bottom: 6px; }
   .placeholder-panel p { font-size: 12.5px; color: var(--panel-sub); line-height: 1.6; }
 
-  /* =========================================
-     BOTTOM NAVIGATION
-  ========================================= */
-  .bottom-nav {
-    position: fixed; left: 0; right: 0; bottom: 0;
-    background: #ffffff; border-top: 1px solid #eee;
-    display: flex; justify-content: space-around; align-items: center;
-    padding: 10px 6px 12px; z-index: 20;
-  }
-  .nav-item {
-    background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px;
-    color: #9992b5; font-size: 10.5px; font-weight: 600; cursor: pointer; padding: 4px 6px;
-  }
+  /* REFER SCREEN STYLES */
+  .rf-banner-container { width: 100%; margin-bottom: 20px; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 20px rgba(91, 61, 240, 0.15); background: var(--bg-deep); display: flex; align-items: center; justify-content: center; }
+  .rf-banner-image { width: 100%; height: auto; display: block; object-fit: cover; max-width: 100%; }
+  .rf-card-code { background: #fdf4ff; } .rf-card-stats { background: #f0fdfa; } .rf-card-steps { background: #fff7ed; } .rf-card-list { background: #eff6ff; } 
+  .rf-card { border-radius: 20px; padding: 16px; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); box-sizing: border-box; width: 100%; }
+  .rf-code-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; width: 100%; }
+  .rf-code-col, .rf-link-col { flex: 1 1 100%; min-width: 0; }
+  @media (min-width: 360px) { .rf-code-col, .rf-link-col { flex: 1; } }
+  .rf-label { font-size: clamp(10px, 3vw, 12px); font-weight: 700; color: var(--panel-sub); margin-bottom: 6px; display: block; }
+  .rf-input-box { display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); width: 100%; box-sizing: border-box; }
+  .rf-value { font-size: clamp(12px, 3.5vw, 14px); font-weight: 800; color: var(--purple-accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+  .rf-link-col .rf-value { color: var(--panel-text); font-weight: 600; }
+  .rf-copy-btn { background: none; border: none; color: var(--panel-sub); font-size: 16px; cursor: pointer; flex-shrink: 0; margin-left: 8px; }
+  .rf-share-btn { width: 100%; background: var(--purple-accent); color: #fff; border: none; border-radius: 12px; padding: 14px; font-size: clamp(13px, 4vw, 15px); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; box-shadow: 0 6px 16px rgba(91, 61, 240, 0.3); box-sizing: border-box; transition: transform 0.2s; }
+  .rf-stats-grid { display: flex; flex-wrap: nowrap; border-radius: 20px; padding: 16px 8px; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); overflow-x: auto; scrollbar-width: none; }
+  .rf-stat-item { flex: 1; min-width: 70px; display: flex; flex-direction: column; align-items: center; text-align: center; border-right: 1px solid rgba(0,0,0,0.05); padding: 0 6px; }
+  .rf-stat-item:last-child { border-right: none; }
+  .rf-stat-img { width: 38px; height: 38px; margin-bottom: 8px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.15)); }
+  .rf-stat-label { font-size: clamp(8.5px, 2.5vw, 10px); font-weight: 700; color: var(--panel-sub); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .rf-stat-val { font-size: clamp(14px, 4vw, 16px); font-weight: 800; color: var(--panel-text); }
+  .rf-section-head { font-size: 15px; font-weight: 800; color: var(--panel-text); margin-bottom: 16px; }
+  .rf-steps { display: flex; align-items: flex-start; justify-content: space-between; position: relative; flex-wrap: nowrap; gap: 4px; }
+  .rf-step { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 2; }
+  .rf-step-icon-wrap { width: 48px; height: 48px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.06); }
+  .rf-step-img { width: 30px; height: 30px; filter: drop-shadow(0 3px 3px rgba(0,0,0,0.2)); }
+  .rf-step-badge { position: absolute; bottom: -4px; width: 18px; height: 18px; background: var(--purple-accent); color: #fff; border-radius: 50%; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+  .rf-step-text { font-size: clamp(9px, 2.5vw, 11px); font-weight: 700; color: var(--panel-text); line-height: 1.3; margin-top: 6px; word-break: break-word; }
+  .rf-arrow { flex: 0 0 auto; color: #cbd5e1; font-size: 16px; font-weight: 800; margin-top: 15px; }
+  .rf-list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 4px; }
+  .rf-see-all { font-size: 12px; font-weight: 800; color: var(--purple-accent); text-decoration: none; }
+  .rf-table-wrap { border-radius: 20px; padding: 16px 0; overflow-x: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.04); -webkit-overflow-scrolling: touch; width: 100%; }
+  .rf-table { width: 100%; min-width: 480px; border-collapse: collapse; }
+  .rf-th { text-align: left; font-size: 11px; font-weight: 700; color: var(--panel-sub); padding: 0 16px 12px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .rf-td { padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 12.5px; font-weight: 700; color: var(--panel-text); vertical-align: middle; }
+  .rf-tr:last-child .rf-td { border-bottom: none; padding-bottom: 4px; }
+  .rf-user-col { display: flex; align-items: center; gap: 8px; }
+  .rf-real-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.15); border: 2px solid #fff; flex-shrink: 0; background: #f1f5f9; }
+  .rf-initial-badge { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .rf-name-box { padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .rf-status { font-size: 11.5px; font-weight: 800; }
+  .rf-status.complete { color: #16a34a; } .rf-status.ongoing { color: #2563eb; } .rf-status.ongoing-org { color: #ea580c; } .rf-status.not-started { color: #dc2626; }
+  .rf-prog-wrap { width: 75px; }
+  .rf-prog-text { font-size: 10.5px; font-weight: 800; margin-bottom: 4px; color: var(--panel-text); }
+  .rf-prog-bar { height: 5px; background: rgba(0,0,0,0.08); border-radius: 3px; overflow: hidden; }
+  .rf-prog-fill { height: 100%; border-radius: 3px; }
+  .rf-date { font-size: 11.5px; color: var(--panel-sub); font-weight: 700; }
+  .rf-earn { text-align: right; font-weight: 800; font-size: 13.5px; }
+  .rf-earn.plus { color: #16a34a; } .rf-earn.none { color: #94a3b8; }
+
+  /* BOTTOM NAVIGATION */
+  .bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; background: #ffffff; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; padding: 10px 6px 12px; z-index: 20; }
+  .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px; color: #9992b5; font-size: 10.5px; font-weight: 600; cursor: pointer; padding: 4px 6px; }
   .nav-item .nav-icon { font-size: 19px; }
   .nav-item.active { color: var(--purple-accent); }
 </style>
@@ -409,7 +318,7 @@
   </div>
 
   <!-- ==========================================
-       SCREEN 1: HOME (Starts directly displaying first load via 'active')
+       SCREEN 1: HOME
   =========================================== -->
   <section class="screen active" id="screen-home">
     <div class="stat-row">
@@ -576,35 +485,20 @@
   =========================================== -->
   <section class="screen" id="screen-wallet">
     
-    <!-- Hero Main Wallet Card -->
     <div class="w-hero-card">
-      
-      <!-- ADDED DEEP GOLDEN SUNBURST GLOW FOR WALLET EXACTLY LIKE LEADERBOARD -->
       <div class="sunburst" style="top: -30px; left: auto; right: -60px; transform: scale(1.1); z-index: 0; filter: drop-shadow(0 0 25px rgba(255, 180, 0, 0.7));"></div>
-
       <div class="w-hero-content">
-        <!-- Main HUGE balance enclosed deeply safely avoiding overlapping artwork! -->
         <div class="w-main-bal-box">
           <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.95); display:flex; align-items:center; gap:6px; margin-bottom:4px;">
             মোট ব্যালেন্স
             <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" width="14" height="14" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg>
           </div>
-          <!-- Applied Fluid Type clamp() dynamically solving any width push on phone sizes! -->
           <div class="w-hero-amt">₹385.50</div>
         </div>
-        
-        <!-- Two Base Balances Flexible wrap avoiding crashes completely  -->
         <div class="w-split-stats">
-          <div class="w-glass-box w-split-box">
-            <span>মূল ব্যালেন্স</span>
-            <b>₹285.50</b>
-          </div>
-          <div class="w-glass-box w-split-box">
-            <span>বোনাস</span>
-            <b>₹100.00</b>
-          </div>
+          <div class="w-glass-box w-split-box"><span>মূল ব্যালেন্স</span><b>₹285.50</b></div>
+          <div class="w-glass-box w-split-box"><span>বোনাস</span><b>₹100.00</b></div>
         </div>
-
         <div class="w-glass-box w-update-bar">
           <div style="display: flex; gap: 8px; align-items: center;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -613,288 +507,100 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
         </div>
       </div>
-      
-      <!-- MASSIVE SUPER CRYSTAL CLEAR 3D WALLET OVERLAY CAREFULLY CONTAINED AS A RESPONSIVE BOX SHRUNK OUT OF TEXTS!-->
       <div class="w-art-overlay">
         <svg viewBox="0 0 340 300" width="100%" height="100%" style="display: block;">
           <defs>
-             <filter id="big-drop" x="-30%" y="-30%" width="160%" height="160%">
-               <feDropShadow dx="3" dy="18" stdDeviation="15" flood-color="#14083d" flood-opacity="0.6"/>
-             </filter>
-             <filter id="inner-drop">
-               <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#2a0063" flood-opacity="0.8"/>
-             </filter>
-             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-               <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#fbbf24" flood-opacity="0.8"/>
-             </filter>
-
-             <linearGradient id="bodyPurple" x1="0" y1="0" x2="0" y2="1">
-                 <stop offset="0%" stop-color="#b084f4" />
-                 <stop offset="35%" stop-color="#803bea" />
-                 <stop offset="100%" stop-color="#460fba" />
-             </linearGradient>
-
-             <!-- Master HD Scale Coin-->
-             <g id="coin-3d-hd">
-               <path d="M -30,0 L -30,12 Q 0,22 30,12 L 30,0 Z" fill="#92400e" />
-               <ellipse cx="0" cy="12" rx="30" ry="10" fill="#c2410c" />
-               <ellipse cx="0" cy="0" rx="30" ry="10" fill="#f59e0b" />
-               <ellipse cx="0" cy="-1.5" rx="27" ry="8" fill="url(#metalFace)" />
-               <ellipse cx="0" cy="-1.5" rx="25" ry="7" fill="none" stroke="rgba(255, 240, 180, 0.9)" stroke-width="1.2" />
-               <text x="-1" y="2" font-family="'Hind Siliguri', Arial, sans-serif" font-weight="900" font-size="15" fill="#92400e" text-anchor="middle">₹</text>
-               <text x="0" y="3" font-family="'Hind Siliguri', Arial, sans-serif" font-weight="900" font-size="15" fill="#fef3c7" text-anchor="middle">₹</text>
-             </g>
-
-             <linearGradient id="metalFace" x1="0" y1="0" x2="1" y2="1">
-                 <stop offset="0%" stop-color="#fff176" />
-                 <stop offset="25%" stop-color="#ffb300" />
-                 <stop offset="60%" stop-color="#f57f17" />
-                 <stop offset="100%" stop-color="#ffb300" />
-             </linearGradient>
+             <filter id="big-drop" x="-30%" y="-30%" width="160%" height="160%"> <feDropShadow dx="3" dy="18" stdDeviation="15" flood-color="#14083d" flood-opacity="0.6"/> </filter>
+             <filter id="inner-drop"> <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#2a0063" flood-opacity="0.8"/> </filter>
+             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"> <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#fbbf24" flood-opacity="0.8"/> </filter>
+             <linearGradient id="bodyPurple" x1="0" y1="0" x2="0" y2="1"> <stop offset="0%" stop-color="#b084f4" /> <stop offset="35%" stop-color="#803bea" /> <stop offset="100%" stop-color="#460fba" /> </linearGradient>
+             <g id="coin-3d-hd"> <path d="M -30,0 L -30,12 Q 0,22 30,12 L 30,0 Z" fill="#92400e" /> <ellipse cx="0" cy="12" rx="30" ry="10" fill="#c2410c" /> <ellipse cx="0" cy="0" rx="30" ry="10" fill="#f59e0b" /> <ellipse cx="0" cy="-1.5" rx="27" ry="8" fill="url(#metalFace)" /> <ellipse cx="0" cy="-1.5" rx="25" ry="7" fill="none" stroke="rgba(255, 240, 180, 0.9)" stroke-width="1.2" /> <text x="-1" y="2" font-family="'Hind Siliguri', Arial, sans-serif" font-weight="900" font-size="15" fill="#92400e" text-anchor="middle">₹</text> <text x="0" y="3" font-family="'Hind Siliguri', Arial, sans-serif" font-weight="900" font-size="15" fill="#fef3c7" text-anchor="middle">₹</text> </g>
+             <linearGradient id="metalFace" x1="0" y1="0" x2="1" y2="1"> <stop offset="0%" stop-color="#fff176" /> <stop offset="25%" stop-color="#ffb300" /> <stop offset="60%" stop-color="#f57f17" /> <stop offset="100%" stop-color="#ffb300" /> </linearGradient>
           </defs>
-
-          <!-- Back Thick Escaping Crisp Money Array -->
-          <g transform="translate(140, 20) rotate(5)" filter="url(#big-drop)">
-             <path d="M 0 60 L 100 25 L 170 65 L 70 100 Z" fill="#1b5e20"/>
-             <path d="M -5 63 L 97 27 L 163 68 L 60 105 Z" fill="#388e3c"/>
-             <path d="M -3 61 L 98 26 L 165 65 L 64 100 Z" fill="#66bb6a" stroke="#81c784" stroke-width="2"/>
-             <circle cx="95" cy="65" r="16" fill="#a5d6a7" transform="scale(1,0.6)" opacity="0.8"/>
-             <rect x="15" y="60" width="30" height="6" fill="#c8e6c9" transform="rotate(-20 15 60)" />
-          </g>
-
-          <g transform="translate(100, 30) rotate(-15)" filter="url(#big-drop)">
-             <path d="M 15 50 L 110 30 L 170 80 L 75 100 Z" fill="#14532d"/>
-             <path d="M 12 52 L 108 33 L 165 83 L 69 103 Z" fill="#4ade80" stroke="#86efac" stroke-width="2.5"/>
-             <circle cx="100" cy="70" r="18" fill="#bbf7d0" transform="scale(1,0.6)" />
-             <path d="M 25 58 L 50 50 M 27 65 L 52 57" stroke="#16a34a" stroke-width="3" fill="none"/>
-             <text x="145" y="80" font-family="Arial" font-size="18" font-weight="900" fill="#22c55e" opacity="0.6">100</text>
-          </g>
-
-          <g filter="url(#big-drop)" transform="translate(-10, 15)">
-              <path d="M 70 135 C 70 105 85 105 125 105 L 290 105 C 310 105 315 120 315 135 L 315 220 C 315 250 280 250 270 250 L 80 250 C 60 250 65 220 70 200 Z" fill="url(#bodyPurple)" stroke="#3b0764" stroke-width="3"/>
-              <path d="M 72 135 Q 85 125 125 125 L 285 125 Q 312 125 312 145 L 312 165 C 312 190 280 185 270 185 L 140 185 C 90 185 70 205 70 170 Z" fill="#7c3aed" filter="url(#inner-drop)"/>
-              <path d="M 78 135 C 78 120 125 116 280 116 C 300 116 304 135 304 140" fill="none" stroke="rgba(255,255,255,0.7)" stroke-dasharray="5 5" stroke-width="2"/>
-              <path d="M 85 240 C 130 240 260 240 275 230 C 290 220 295 210 295 180" fill="none" stroke="rgba(255,255,255,0.4)" stroke-dasharray="4 4" stroke-width="1.5"/>
-              <path d="M 230 160 C 230 150 225 215 230 225 C 255 240 290 220 285 160 Z" fill="#5b21b6" stroke="#4c1d95" stroke-width="2"/>
-              <circle cx="260" cy="190" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="3" filter="url(#glow)"/>
-              <circle cx="260" cy="190" r="9" fill="#f59e0b" />
-          </g>
-
-          <use href="#coin-3d-hd" x="80" y="240" transform="rotate(-10 80 240) scale(1)" />
-          <use href="#coin-3d-hd" x="85" y="222" transform="rotate(-5 85 222) scale(1)" />
-          <use href="#coin-3d-hd" x="90" y="204" transform="scale(1)" />
-          <use href="#coin-3d-hd" x="90" y="186" transform="scale(1)" filter="url(#big-drop)" />
-          <use href="#coin-3d-hd" x="145" y="235" transform="rotate(5 145 235) scale(1.15)" />
-          <use href="#coin-3d-hd" x="145" y="215" transform="rotate(3 145 215) scale(1.15)" />
-          
-          <g transform="translate(195, 230) rotate(-18) scale(1.8)" filter="url(#big-drop)">
-             <use href="#coin-3d-hd" x="0" y="0"/>
-             <ellipse cx="0" cy="-1" rx="27" ry="8" fill="url(#metalFace)" filter="url(#glow)"/>
-             <ellipse cx="0" cy="-1.5" rx="24" ry="7" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.8"/>
-             <text x="-1" y="2" font-family="'Arial', sans-serif" font-weight="900" font-size="16" fill="#78350f" text-anchor="middle">₹</text>
-             <text x="0" y="3" font-family="'Arial', sans-serif" font-weight="900" font-size="16" fill="#fff" text-anchor="middle">₹</text>
-          </g>
-          
+          <g transform="translate(140, 20) rotate(5)" filter="url(#big-drop)"> <path d="M 0 60 L 100 25 L 170 65 L 70 100 Z" fill="#1b5e20"/> <path d="M -5 63 L 97 27 L 163 68 L 60 105 Z" fill="#388e3c"/> <path d="M -3 61 L 98 26 L 165 65 L 64 100 Z" fill="#66bb6a" stroke="#81c784" stroke-width="2"/> <circle cx="95" cy="65" r="16" fill="#a5d6a7" transform="scale(1,0.6)" opacity="0.8"/> <rect x="15" y="60" width="30" height="6" fill="#c8e6c9" transform="rotate(-20 15 60)" /> </g>
+          <g transform="translate(100, 30) rotate(-15)" filter="url(#big-drop)"> <path d="M 15 50 L 110 30 L 170 80 L 75 100 Z" fill="#14532d"/> <path d="M 12 52 L 108 33 L 165 83 L 69 103 Z" fill="#4ade80" stroke="#86efac" stroke-width="2.5"/> <circle cx="100" cy="70" r="18" fill="#bbf7d0" transform="scale(1,0.6)" /> <path d="M 25 58 L 50 50 M 27 65 L 52 57" stroke="#16a34a" stroke-width="3" fill="none"/> <text x="145" y="80" font-family="Arial" font-size="18" font-weight="900" fill="#22c55e" opacity="0.6">100</text> </g>
+          <g filter="url(#big-drop)" transform="translate(-10, 15)"> <path d="M 70 135 C 70 105 85 105 125 105 L 290 105 C 310 105 315 120 315 135 L 315 220 C 315 250 280 250 270 250 L 80 250 C 60 250 65 220 70 200 Z" fill="url(#bodyPurple)" stroke="#3b0764" stroke-width="3"/> <path d="M 72 135 Q 85 125 125 125 L 285 125 Q 312 125 312 145 L 312 165 C 312 190 280 185 270 185 L 140 185 C 90 185 70 205 70 170 Z" fill="#7c3aed" filter="url(#inner-drop)"/> <path d="M 78 135 C 78 120 125 116 280 116 C 300 116 304 135 304 140" fill="none" stroke="rgba(255,255,255,0.7)" stroke-dasharray="5 5" stroke-width="2"/> <path d="M 85 240 C 130 240 260 240 275 230 C 290 220 295 210 295 180" fill="none" stroke="rgba(255,255,255,0.4)" stroke-dasharray="4 4" stroke-width="1.5"/> <path d="M 230 160 C 230 150 225 215 230 225 C 255 240 290 220 285 160 Z" fill="#5b21b6" stroke="#4c1d95" stroke-width="2"/> <circle cx="260" cy="190" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="3" filter="url(#glow)"/> <circle cx="260" cy="190" r="9" fill="#f59e0b" /> </g>
+          <use href="#coin-3d-hd" x="80" y="240" transform="rotate(-10 80 240) scale(1)" /> <use href="#coin-3d-hd" x="85" y="222" transform="rotate(-5 85 222) scale(1)" /> <use href="#coin-3d-hd" x="90" y="204" transform="scale(1)" /> <use href="#coin-3d-hd" x="90" y="186" transform="scale(1)" filter="url(#big-drop)" /> <use href="#coin-3d-hd" x="145" y="235" transform="rotate(5 145 235) scale(1.15)" /> <use href="#coin-3d-hd" x="145" y="215" transform="rotate(3 145 215) scale(1.15)" />
+          <g transform="translate(195, 230) rotate(-18) scale(1.8)" filter="url(#big-drop)"> <use href="#coin-3d-hd" x="0" y="0"/> <ellipse cx="0" cy="-1" rx="27" ry="8" fill="url(#metalFace)" filter="url(#glow)"/> <ellipse cx="0" cy="-1.5" rx="24" ry="7" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.8"/> <text x="-1" y="2" font-family="'Arial', sans-serif" font-weight="900" font-size="16" fill="#78350f" text-anchor="middle">₹</text> <text x="0" y="3" font-family="'Arial', sans-serif" font-weight="900" font-size="16" fill="#fff" text-anchor="middle">₹</text> </g>
         </svg>
       </div>
     </div>
 
-    <!-- Quick action tabs cleanly replaced with Crystal clear distinct SVGs -->
     <div class="w-act-nav">
-      <!-- Withdraw -->
       <div class="w-act-btn">
         <div class="w-act-icon">
           <svg width="45" height="45" viewBox="0 0 100 100">
-             <circle cx="50" cy="50" r="50" fill="url(#withdrawGradi)"/>
-             <linearGradient id="withdrawGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#bfdbfe"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
-             <rect x="25" y="35" width="50" height="35" rx="6" fill="#1e3a8a"/>
-             <rect x="25" y="35" width="50" height="8" rx="2" fill="#93c5fd"/>
-             <rect x="30" y="45" width="10" height="5" rx="1" fill="#fff" opacity="0.3"/>
-             <path d="M 40 30 L 60 30 L 60 55 L 40 55 Z" fill="#60a5fa" filter="drop-shadow(0 4px 4px rgba(0,0,0,0.4))"/>
-             <path d="M 50 15 L 62 25 L 38 25 Z" fill="#fff"/>
-             <line x1="50" y1="20" x2="50" y2="40" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+             <circle cx="50" cy="50" r="50" fill="url(#withdrawGradi)"/> <linearGradient id="withdrawGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#bfdbfe"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+             <rect x="25" y="35" width="50" height="35" rx="6" fill="#1e3a8a"/> <rect x="25" y="35" width="50" height="8" rx="2" fill="#93c5fd"/> <rect x="30" y="45" width="10" height="5" rx="1" fill="#fff" opacity="0.3"/> <path d="M 40 30 L 60 30 L 60 55 L 40 55 Z" fill="#60a5fa" filter="drop-shadow(0 4px 4px rgba(0,0,0,0.4))"/> <path d="M 50 15 L 62 25 L 38 25 Z" fill="#fff"/> <line x1="50" y1="20" x2="50" y2="40" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
           </svg>
         </div>
         <span class="w-act-label">উইথড্র করুন</span>
       </div>
-      <!-- History -->
       <div class="w-act-btn">
         <div class="w-act-icon">
           <svg width="45" height="45" viewBox="0 0 100 100">
-             <circle cx="50" cy="50" r="50" fill="url(#historyGradi)"/>
-             <linearGradient id="historyGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d8b4fe"/><stop offset="100%" stop-color="#7e22ce"/></linearGradient>
-             <circle cx="50" cy="50" r="28" fill="#4c1d95" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.5))"/>
-             <circle cx="50" cy="50" r="23" fill="#a855f7" />
-             <circle cx="50" cy="50" r="8" fill="#fff"/>
-             <path d="M 50 25 L 50 50 L 70 65" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(2px 2px 0px rgba(0,0,0,0.3))"/>
+             <circle cx="50" cy="50" r="50" fill="url(#historyGradi)"/> <linearGradient id="historyGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d8b4fe"/><stop offset="100%" stop-color="#7e22ce"/></linearGradient>
+             <circle cx="50" cy="50" r="28" fill="#4c1d95" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.5))"/> <circle cx="50" cy="50" r="23" fill="#a855f7" /> <circle cx="50" cy="50" r="8" fill="#fff"/> <path d="M 50 25 L 50 50 L 70 65" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(2px 2px 0px rgba(0,0,0,0.3))"/>
           </svg>
         </div>
         <span class="w-act-label">লেনদেন ইতিহাস</span>
       </div>
-      <!-- Offer -->
       <div class="w-act-btn">
         <div class="w-act-icon">
           <svg width="45" height="45" viewBox="0 0 100 100">
-             <circle cx="50" cy="50" r="50" fill="url(#offerGradi)"/>
-             <linearGradient id="offerGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fed7aa"/><stop offset="100%" stop-color="#ea580c"/></linearGradient>
-             <path d="M 50 20 L 60 30 L 75 25 L 75 40 L 90 50 L 75 60 L 75 75 L 60 70 L 50 80 L 40 70 L 25 75 L 25 60 L 10 50 L 25 40 L 25 25 L 40 30 Z" fill="#9a3412" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.4))"/>
-             <path d="M 50 24 L 58 33 L 70 28 L 70 41 L 83 50 L 70 59 L 70 72 L 58 67 L 50 76 L 42 67 L 30 72 L 30 59 L 17 50 L 30 41 L 30 28 L 42 33 Z" fill="#f97316"/>
-             <line x1="38" y1="62" x2="62" y2="38" stroke="#fff" stroke-width="6" stroke-linecap="round" filter="drop-shadow(2px 2px 0px rgba(0,0,0,0.3))"/>
-             <circle cx="42" cy="42" r="6" fill="#fff"/>
-             <circle cx="58" cy="58" r="6" fill="#fff"/>
+             <circle cx="50" cy="50" r="50" fill="url(#offerGradi)"/> <linearGradient id="offerGradi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fed7aa"/><stop offset="100%" stop-color="#ea580c"/></linearGradient>
+             <path d="M 50 20 L 60 30 L 75 25 L 75 40 L 90 50 L 75 60 L 75 75 L 60 70 L 50 80 L 40 70 L 25 75 L 25 60 L 10 50 L 25 40 L 25 25 L 40 30 Z" fill="#9a3412" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.4))"/> <path d="M 50 24 L 58 33 L 70 28 L 70 41 L 83 50 L 70 59 L 70 72 L 58 67 L 50 76 L 42 67 L 30 72 L 30 59 L 17 50 L 30 41 L 30 28 L 42 33 Z" fill="#f97316"/> <line x1="38" y1="62" x2="62" y2="38" stroke="#fff" stroke-width="6" stroke-linecap="round" filter="drop-shadow(2px 2px 0px rgba(0,0,0,0.3))"/> <circle cx="42" cy="42" r="6" fill="#fff"/> <circle cx="58" cy="58" r="6" fill="#fff"/>
           </svg>
         </div>
         <span class="w-act-label">অফার ও বোনাস</span>
       </div>
     </div>
 
-    <!-- Complete Overhaul of Four Grid Features ensuring strict text clamping blocking overlapping clipping on phone edges-->
     <div class="w-sec">
-      <div class="w-sec-header">
-        <h3>সংক্ষিপ্ত হিসেব</h3>
-        <a href="#">সব দেখুন ›</a>
-      </div>
+      <div class="w-sec-header"><h3>সংক্ষিপ্ত হিসেব</h3><a href="#">সব দেখুন ›</a></div>
       <div class="w-sum-grid">
         <div class="w-sum-item wg-1">
-          <div class="w-sum-icon">
-            <svg width="40" height="40" viewBox="0 0 100 100">
-               <rect x="20" y="60" width="16" height="30" rx="3" fill="#15803d" />
-               <rect x="18" y="55" width="20" height="10" rx="2" fill="#22c55e" />
-               <rect x="42" y="45" width="16" height="45" rx="3" fill="#15803d" />
-               <rect x="40" y="40" width="20" height="10" rx="2" fill="#4ade80" />
-               <rect x="64" y="25" width="16" height="65" rx="3" fill="#15803d" />
-               <rect x="62" y="20" width="20" height="10" rx="2" fill="#86efac" />
-               <path d="M 25 35 L 48 10 L 80 40 M 48 10 L 35 10 M 48 10 L 48 23" fill="none" stroke="#eab308" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0 4px 2px rgba(0,0,0,0.4))"/>
-            </svg>
-          </div>
-          <div class="w-sum-val">₹2,450</div>
-          <div class="w-sum-label">মোট উপার্জন</div>
+          <div class="w-sum-icon"> <svg width="40" height="40" viewBox="0 0 100 100"> <rect x="20" y="60" width="16" height="30" rx="3" fill="#15803d" /> <rect x="18" y="55" width="20" height="10" rx="2" fill="#22c55e" /> <rect x="42" y="45" width="16" height="45" rx="3" fill="#15803d" /> <rect x="40" y="40" width="20" height="10" rx="2" fill="#4ade80" /> <rect x="64" y="25" width="16" height="65" rx="3" fill="#15803d" /> <rect x="62" y="20" width="20" height="10" rx="2" fill="#86efac" /> <path d="M 25 35 L 48 10 L 80 40 M 48 10 L 35 10 M 48 10 L 48 23" fill="none" stroke="#eab308" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0 4px 2px rgba(0,0,0,0.4))"/> </svg> </div>
+          <div class="w-sum-val">₹2,450</div><div class="w-sum-label">মোট উপার্জন</div>
         </div>
-
         <div class="w-sum-item wg-2">
-          <div class="w-sum-icon">
-             <svg width="40" height="40" viewBox="0 0 100 100">
-                 <path d="M 20 60 C 20 50 80 50 80 60 L 90 90 L 10 90 Z" fill="#1d4ed8"/>
-                 <rect x="30" y="52" width="40" height="8" rx="4" fill="#0f172a"/>
-                 <rect x="10" y="80" width="80" height="10" fill="#3b82f6"/>
-                 <rect x="40" y="10" width="20" height="40" fill="#93c5fd" filter="drop-shadow(0 2px 2px rgba(0,0,0,0.4))"/>
-                 <path d="M 30 25 L 50 50 L 70 25 Z" fill="#fbbf24"/>
-                 <path d="M 50 40 L 50 15" stroke="#fef3c7" stroke-width="6" stroke-linecap="round"/>
-             </svg>
-          </div>
-          <div class="w-sum-val">₹2,064.50</div>
-          <div class="w-sum-label">মোট উত্তোলন</div>
+          <div class="w-sum-icon"> <svg width="40" height="40" viewBox="0 0 100 100"> <path d="M 20 60 C 20 50 80 50 80 60 L 90 90 L 10 90 Z" fill="#1d4ed8"/> <rect x="30" y="52" width="40" height="8" rx="4" fill="#0f172a"/> <rect x="10" y="80" width="80" height="10" fill="#3b82f6"/> <rect x="40" y="10" width="20" height="40" fill="#93c5fd" filter="drop-shadow(0 2px 2px rgba(0,0,0,0.4))"/> <path d="M 30 25 L 50 50 L 70 25 Z" fill="#fbbf24"/> <path d="M 50 40 L 50 15" stroke="#fef3c7" stroke-width="6" stroke-linecap="round"/> </svg> </div>
+          <div class="w-sum-val">₹2,064.50</div><div class="w-sum-label">মোট উত্তোলন</div>
         </div>
-
         <div class="w-sum-item wg-3">
-          <div class="w-sum-icon">
-             <svg width="40" height="40" viewBox="0 0 100 100">
-               <rect x="15" y="45" width="70" height="45" rx="4" fill="#581c87"/>
-               <rect x="10" y="30" width="80" height="15" rx="3" fill="#a855f7" filter="drop-shadow(0 4px 2px rgba(0,0,0,0.3))"/>
-               <path d="M 50 30 C 50 15 25 15 35 30 M 50 30 C 50 15 75 15 65 30" fill="none" stroke="#fef08a" stroke-width="6" stroke-linecap="round" />
-               <rect x="44" y="30" width="12" height="60" fill="#fbbf24"/>
-             </svg>
-          </div>
-          <div class="w-sum-val">₹100.00</div>
-          <div class="w-sum-label">মোট বোনাস</div>
+          <div class="w-sum-icon"> <svg width="40" height="40" viewBox="0 0 100 100"> <rect x="15" y="45" width="70" height="45" rx="4" fill="#581c87"/> <rect x="10" y="30" width="80" height="15" rx="3" fill="#a855f7" filter="drop-shadow(0 4px 2px rgba(0,0,0,0.3))"/> <path d="M 50 30 C 50 15 25 15 35 30 M 50 30 C 50 15 75 15 65 30" fill="none" stroke="#fef08a" stroke-width="6" stroke-linecap="round" /> <rect x="44" y="30" width="12" height="60" fill="#fbbf24"/> </svg> </div>
+          <div class="w-sum-val">₹100.00</div><div class="w-sum-label">মোট বোনাস</div>
         </div>
-
         <div class="w-sum-item wg-4">
-          <div class="w-sum-icon">
-            <svg width="40" height="40" viewBox="0 0 100 100">
-               <rect x="10" y="40" width="80" height="50" rx="10" fill="#a16207" />
-               <rect x="10" y="40" width="80" height="40" rx="8" fill="#eab308" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.2))"/>
-               <circle cx="50" cy="60" r="12" fill="#fff"/>
-               <circle cx="50" cy="60" r="8" fill="#451a03"/>
-               <ellipse cx="40" cy="30" rx="20" ry="8" fill="#facc15" stroke="#a16207" stroke-width="2"/>
-               <ellipse cx="60" cy="20" rx="20" ry="8" fill="#fef08a" stroke="#d97706" stroke-width="2"/>
-               <ellipse cx="30" cy="20" rx="16" ry="6" fill="#fef9c3" stroke="#b45309" stroke-width="2"/>
-            </svg>
-          </div>
-          <div class="w-sum-val">₹385.50</div>
-          <div class="w-sum-label">বর্তমান ব্যালেন্স</div>
+          <div class="w-sum-icon"> <svg width="40" height="40" viewBox="0 0 100 100"> <rect x="10" y="40" width="80" height="50" rx="10" fill="#a16207" /> <rect x="10" y="40" width="80" height="40" rx="8" fill="#eab308" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.2))"/> <circle cx="50" cy="60" r="12" fill="#fff"/> <circle cx="50" cy="60" r="8" fill="#451a03"/> <ellipse cx="40" cy="30" rx="20" ry="8" fill="#facc15" stroke="#a16207" stroke-width="2"/> <ellipse cx="60" cy="20" rx="20" ry="8" fill="#fef08a" stroke="#d97706" stroke-width="2"/> <ellipse cx="30" cy="20" rx="16" ry="6" fill="#fef9c3" stroke="#b45309" stroke-width="2"/> </svg> </div>
+          <div class="w-sum-val">₹385.50</div><div class="w-sum-label">বর্তমান ব্যালেন্স</div>
         </div>
       </div>
     </div>
 
-    <!-- Real bank logos implemented natively for list rows rendering absolutely correct! -->
     <div class="w-sec" style="margin-bottom: 0;">
-      <div class="w-sec-header">
-        <h3>সাম্প্রতিক লেনদেন</h3>
-        <a href="#">সব দেখুন ›</a>
-      </div>
+      <div class="w-sec-header"><h3>সাম্প্রতিক লেনদেন</h3><a href="#">সব দেখুন ›</a></div>
       <div class="w-tx-list">
-        
         <div class="w-tx-row">
-          <div class="w-tx-left">
-            <div class="w-tx-icon success">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <div class="w-tx-details">
-              <span class="w-tx-title">টাস্ক কমপ্লিট বোনাস</span>
-              <span class="w-tx-sub">40 টি টাস্ক কমপ্লিট</span>
-            </div>
-          </div>
+          <div class="w-tx-left"><div class="w-tx-icon success"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div><div class="w-tx-details"><span class="w-tx-title">টাস্ক কমপ্লিট বোনাস</span><span class="w-tx-sub">40 টি টাস্ক কমপ্লিট</span></div></div>
           <div class="w-tx-middle"><span class="w-tx-time">আজ 09:35 AM</span></div>
           <div class="w-tx-right"><span class="w-tx-amt plus">+ ₹50.00</span><span class="w-tx-status ok">সফল</span></div>
         </div>
-
         <div class="w-tx-row">
-          <div class="w-tx-left">
-            <div class="w-tx-icon gift">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="1"></rect><line x1="12" y1="8" x2="12" y2="20"></line><path d="M12 8c0-3-4-3-4-3c4 0 4 3 4 3z"></path><path d="M12 8c0-3 4-3 4-3c-4 0-4 3-4 3z"></path></svg>
-            </div>
-            <div class="w-tx-details">
-              <span class="w-tx-title">রেফার বোনাস</span>
-              <span class="w-tx-sub">বন্ধু আমন্ত্রণ বোনাস</span>
-            </div>
-          </div>
+          <div class="w-tx-left"><div class="w-tx-icon gift"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="1"></rect><line x1="12" y1="8" x2="12" y2="20"></line><path d="M12 8c0-3-4-3-4-3c4 0 4 3 4 3z"></path><path d="M12 8c0-3-4-3 4-3c-4 0-4 3-4 3z"></path></svg></div><div class="w-tx-details"><span class="w-tx-title">রেফার বোনাস</span><span class="w-tx-sub">বন্ধু আমন্ত্রণ বোনাস</span></div></div>
           <div class="w-tx-middle"><span class="w-tx-time">আজ 08:12 AM</span></div>
           <div class="w-tx-right"><span class="w-tx-amt plus">+ ₹25.00</span><span class="w-tx-status ok">সফল</span></div>
         </div>
-
         <div class="w-tx-row">
-          <div class="w-tx-left">
-            <div class="w-tx-icon bank">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 1L2 6v2h20V6L12 1z"></path><path d="M5 10h3v7H5v-7zM10.5 10h3v7h-3v-7zM16 10h3v7h-3v-7zM2 19h20v3H2v-3z"></path></svg>
-            </div>
-            <div class="w-tx-details">
-              <span class="w-tx-title">উইথড্র</span>
-              <span class="w-tx-sub">ব্যাংক ট্রান্সফার</span>
-            </div>
-          </div>
+          <div class="w-tx-left"><div class="w-tx-icon bank"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 1L2 6v2h20V6L12 1z"></path><path d="M5 10h3v7H5v-7zM10.5 10h3v7h-3v-7zM16 10h3v7h-3v-7zM2 19h20v3H2v-3z"></path></svg></div><div class="w-tx-details"><span class="w-tx-title">উইথড্র</span><span class="w-tx-sub">ব্যাংক ট্রান্সফার</span></div></div>
           <div class="w-tx-middle"><span class="w-tx-time">গতকাল 07:45 PM</span></div>
           <div class="w-tx-right"><span class="w-tx-amt minus">- ₹500.00</span><span class="w-tx-status ok">সফল</span></div>
         </div>
-
         <div class="w-tx-row">
-          <div class="w-tx-left">
-            <div class="w-tx-icon orange">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <div class="w-tx-details">
-              <span class="w-tx-title">টাস্ক কমপ্লিট</span>
-              <span class="w-tx-sub">15 টি টাস্ক কমপ্লিট</span>
-            </div>
-          </div>
+          <div class="w-tx-left"><div class="w-tx-icon orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div><div class="w-tx-details"><span class="w-tx-title">টাস্ক কমপ্লিট</span><span class="w-tx-sub">15 টি টাস্ক কমপ্লিট</span></div></div>
           <div class="w-tx-middle"><span class="w-tx-time">গতকাল 06:30 PM</span></div>
           <div class="w-tx-right"><span class="w-tx-amt plus">+ ₹15.00</span><span class="w-tx-status ok">সফল</span></div>
         </div>
-
-        <div class="w-tx-row">
-          <div class="w-tx-left">
-            <div class="w-tx-icon success">
-               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <div class="w-tx-details">
-              <span class="w-tx-title">ডেইলি লগইন বোনাস</span>
-              <span class="w-tx-sub">দিন 5</span>
-            </div>
-          </div>
-          <div class="w-tx-middle"><span class="w-tx-time">গতকাল 06:15 PM</span></div>
-          <div class="w-tx-right"><span class="w-tx-amt plus">+ ₹5.00</span><span class="w-tx-status ok">সফল</span></div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -903,8 +609,227 @@
        SCREEN 4: REFER 
   =========================================== -->
   <section class="screen" id="screen-refer">
-    <div class="refer-page">
-      <img src="assets/referral-banner.png" alt="Referral Banner" style="width:100%; display:block; border-radius:20px;">
+
+    <!-- Hero Banner with Direct Uploaded Image -->
+    <div class="rf-banner-container">
+      <img src="assets/referral-banner.png" alt="Priluck Refer Banner" class="rf-banner-image">
+    </div>
+
+    <!-- Code and Link Card -->
+    <div class="rf-card rf-card-code">
+      <div class="rf-code-grid">
+        <div class="rf-code-col">
+          <div class="rf-label">আপনার রেফার কোড</div>
+          <div class="rf-input-box">
+            <span class="rf-value">RAHUL2K26</span>
+            <button class="rf-copy-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+        </div>
+        <div class="rf-link-col">
+          <div class="rf-label">আপনার রেফার লিংক</div>
+          <div class="rf-input-box">
+            <span class="rf-value">https://t.me/EarnTasks_bot?start=RAHUL2K26</span>
+            <button class="rf-copy-btn">
+               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="rf-share-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+        রেফার লিংক শেয়ার করুন
+      </button>
+    </div>
+
+    <!-- Stats Grid (With Deep Real 3D Logos) -->
+    <div class="rf-stats-grid rf-card-stats">
+      <div class="rf-stat-item">
+        <img src="https://img.icons8.com/3d-fluency/250/group.png" class="rf-stat-img" alt="Share">
+        <div class="rf-stat-label">মোট শেয়ার</div>
+        <div class="rf-stat-val">24</div>
+      </div>
+      
+      <div class="rf-stat-item">
+        <img src="https://img.icons8.com/3d-fluency/250/ok.png" class="rf-stat-img" alt="Success">
+        <div class="rf-stat-label">সাকসেস রেফার</div>
+        <div class="rf-stat-val">11</div>
+      </div>
+
+      <div class="rf-stat-item">
+        <img src="https://img.icons8.com/3d-fluency/250/money-bag.png" class="rf-stat-img" alt="Money">
+        <div class="rf-stat-label">মোট আয়</div>
+        <div class="rf-stat-val">₹550</div>
+      </div>
+
+      <div class="rf-stat-item">
+        <img src="https://img.icons8.com/3d-fluency/250/bank-cards.png" class="rf-stat-img" alt="Payment">
+        <div class="rf-stat-label">পেমেন্ট পেয়েছেন</div>
+        <div class="rf-stat-val">₹550</div>
+      </div>
+    </div>
+
+    <!-- How it works (With Deep Real 3D Logos) -->
+    <div class="rf-card rf-card-steps">
+      <div class="rf-section-head">কিভাবে কাজ করে?</div>
+      <div class="rf-steps">
+        <div class="rf-step">
+          <div class="rf-step-icon-wrap">
+            <img src="https://img.icons8.com/3d-fluency/250/link.png" class="rf-step-img" alt="Link">
+            <div class="rf-step-badge">1</div>
+          </div>
+          <div class="rf-step-text">রেফার লিংক<br>শেয়ার করুন</div>
+        </div>
+        <div class="rf-arrow">→</div>
+        
+        <div class="rf-step">
+          <div class="rf-step-icon-wrap">
+            <img src="https://img.icons8.com/3d-fluency/250/add-user-male.png" class="rf-step-img" alt="Join">
+            <div class="rf-step-badge">2</div>
+          </div>
+          <div class="rf-step-text">বন্ধু লিংক থেকে<br>জয়েন করবে</div>
+        </div>
+        <div class="rf-arrow">→</div>
+
+        <div class="rf-step">
+          <div class="rf-step-icon-wrap">
+            <img src="https://img.icons8.com/3d-fluency/250/test-passed.png" class="rf-step-img" alt="Tasks">
+            <div class="rf-step-badge" style="background:#16a34a;">3</div>
+          </div>
+          <div class="rf-step-text">বন্ধু ৮০টা টাস্ক<br>সম্পূর্ণ করবে</div>
+        </div>
+        <div class="rf-arrow">→</div>
+
+        <div class="rf-step">
+          <div class="rf-step-icon-wrap">
+            <img src="https://img.icons8.com/3d-fluency/250/wallet.png" class="rf-step-img" alt="Reward">
+            <div class="rf-step-badge">4</div>
+          </div>
+          <div class="rf-step-text">আপনি পাবেন<br>₹50</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Referral List -->
+    <div class="rf-list-header">
+      <div class="rf-section-head" style="margin-bottom:0;">আপনি যাদের রেফার করেছেন</div>
+      <a href="#" class="rf-see-all">সব দেখুন ›</a>
+    </div>
+    
+    <div class="rf-table-wrap rf-card-list">
+      <table class="rf-table">
+        <thead>
+          <tr>
+            <th class="rf-th">নাম</th>
+            <th class="rf-th">অবস্থা</th>
+            <th class="rf-th">প্রগতি</th>
+            <th class="rf-th">জয়েন তারিখ</th>
+            <th class="rf-th" style="text-align: right;">আপনার আয়</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Row 1 -->
+          <tr class="rf-tr">
+            <td class="rf-td">
+              <div class="rf-user-col">
+                <img src="https://i.pravatar.cc/150?img=11" alt="Avatar" class="rf-real-avatar">
+                <span class="rf-initial-badge" style="background: #e0e7ff; color: #3730a3;">S</span>
+                <span class="rf-name-box" style="background: #dbeafe; color: #1e3a8a;">Sohel Rana</span>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-status complete">কমপ্লিট</span></td>
+            <td class="rf-td">
+              <div class="rf-prog-wrap">
+                <div class="rf-prog-text">80/80 টাস্ক</div>
+                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 100%; background: #16a34a;"></div></div>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-date">20 মে, 2025</span></td>
+            <td class="rf-td rf-earn plus">+ ₹50</td>
+          </tr>
+          
+          <!-- Row 2 -->
+          <tr class="rf-tr">
+            <td class="rf-td">
+              <div class="rf-user-col">
+                <img src="https://i.pravatar.cc/150?img=68" alt="Avatar" class="rf-real-avatar">
+                <span class="rf-initial-badge" style="background: #ffedd5; color: #9a3412;">A</span>
+                <span class="rf-name-box" style="background: #ffedd5; color: #9a3412;">Anik Das</span>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-status complete">কমপ্লিট</span></td>
+            <td class="rf-td">
+              <div class="rf-prog-wrap">
+                <div class="rf-prog-text">80/80 টাস্ক</div>
+                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 100%; background: #16a34a;"></div></div>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-date">18 মে, 2025</span></td>
+            <td class="rf-td rf-earn plus">+ ₹50</td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr class="rf-tr">
+            <td class="rf-td">
+              <div class="rf-user-col">
+                <img src="https://i.pravatar.cc/150?img=60" alt="Avatar" class="rf-real-avatar">
+                <span class="rf-initial-badge" style="background: #dcfce7; color: #166534;">P</span>
+                <span class="rf-name-box" style="background: #dcfce7; color: #166534;">Piyal Barman</span>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-status ongoing">চলছে</span></td>
+            <td class="rf-td">
+              <div class="rf-prog-wrap">
+                <div class="rf-prog-text">45/80 টাস্ক</div>
+                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 56%; background: #2563eb;"></div></div>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-date">16 মে, 2025</span></td>
+            <td class="rf-td rf-earn none">—</td>
+          </tr>
+
+          <!-- Row 4 -->
+          <tr class="rf-tr">
+            <td class="rf-td">
+              <div class="rf-user-col">
+                <img src="https://i.pravatar.cc/150?img=33" alt="Avatar" class="rf-real-avatar">
+                <span class="rf-initial-badge" style="background: #f3e8ff; color: #6b21a8;">M</span>
+                <span class="rf-name-box" style="background: #f3e8ff; color: #6b21a8;">Mehedi Khan</span>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-status ongoing-org">চলছে</span></td>
+            <td class="rf-td">
+              <div class="rf-prog-wrap">
+                <div class="rf-prog-text">22/80 টাস্ক</div>
+                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 27%; background: #ea580c;"></div></div>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-date">14 মে, 2025</span></td>
+            <td class="rf-td rf-earn none">—</td>
+          </tr>
+
+          <!-- Row 5 -->
+          <tr class="rf-tr">
+            <td class="rf-td">
+              <div class="rf-user-col">
+                <img src="https://i.pravatar.cc/150?img=47" alt="Avatar" class="rf-real-avatar">
+                <span class="rf-initial-badge" style="background: #fee2e2; color: #991b1b;">R</span>
+                <span class="rf-name-box" style="background: #fee2e2; color: #991b1b;">Riya Tiwari</span>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-status not-started">শুরু করেনি</span></td>
+            <td class="rf-td">
+              <div class="rf-prog-wrap">
+                <div class="rf-prog-text" style="color: #64748b;">0/80 টাস্ক</div>
+                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 0%;"></div></div>
+              </div>
+            </td>
+            <td class="rf-td"><span class="rf-date">12 মে, 2025</span></td>
+            <td class="rf-td rf-earn none">—</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -915,7 +840,7 @@
     <div class="placeholder-panel">
       <div class="big">👤</div>
       <h3>প্রোফাইল</h3>
-      <p>ইউজারের নাম, ছবি, সেটিংস ও লগআউট অপশন এখানে থাকবে।</p>
+      <p>ইউজারের নাম, ছবি, সেটিংস ও লগআউট অপশন এখানে থাকবে.</p>
     </div>
   </section>
 
