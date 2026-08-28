@@ -63,15 +63,16 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   /* HOME SCREEN */
-  .stat-row { display: flex; gap: 10px; margin-bottom: 18px; }
-  .stat-card { flex: 1; min-width: 0; border-radius: 18px; padding: 14px 10px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 24px -8px rgba(0,0,0,.35); }
+  /* 🔴 FIX: Added slightly deeper purple background box for the 3 cards */
+  .stat-row { display: flex; gap: 8px; margin-bottom: 18px; background: rgba(30, 0, 90, 0.2); padding: 12px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); }
+  .stat-card { flex: 1; min-width: 0; border-radius: 18px; padding: 14px 8px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 10px 24px -8px rgba(0,0,0,.35); }
   .stat-card.blue { background: linear-gradient(160deg, var(--blue-card-1), var(--blue-card-2)); }
   .stat-card.orange { background: linear-gradient(160deg, var(--orange-card-1), var(--orange-card-2)); }
   .stat-card.green { background: linear-gradient(160deg, var(--green-card-1), var(--green-card-2)); }
   .stat-icon { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; font-size: 16px; color: #333; }
   .stat-label { font-size: 11px; color: rgba(255,255,255,.9); font-weight: 500; }
   .stat-value { font-size: 18px; font-weight: 700; color: #fff; }
-  .stat-btn { margin-top: 2px; background: rgba(255,255,255,.22); border: none; color: #fff; font-size: 10.5px; font-weight: 600; padding: 7px 8px; border-radius: 9px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+  .stat-btn { margin-top: 2px; background: rgba(255,255,255,.22); border: none; color: #fff; font-size: 10.5px; font-weight: 600; padding: 7px 6px; border-radius: 9px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
 
   .panel { background: var(--panel); color: var(--panel-text); border-radius: 22px; padding: 18px; margin-bottom: 16px; }
   .streak-row { display: flex; align-items: flex-start; gap: 12px; }
@@ -228,12 +229,6 @@
   .w-tx-status { font-size: 9.5px; font-weight: 800; padding: 4px 10px; border-radius: 8px; letter-spacing: 0.3px;}
   .w-tx-status.ok { background: #dcfce7; color: #15803d; border: 1.5px solid #bbf7d0;}
 
-  /* PLACEHOLDER */
-  .placeholder-panel { background: var(--panel); color: var(--panel-text); border-radius: 22px; padding: 40px 20px; text-align: center; margin-top: 20px; }
-  .placeholder-panel .big { font-size: 34px; margin-bottom: 10px; }
-  .placeholder-panel h3 { font-size: 16px; margin-bottom: 6px; }
-  .placeholder-panel p { font-size: 12.5px; color: var(--panel-sub); line-height: 1.6; }
-
   /* REFER SCREEN STYLES */
   .rf-banner-container { width: 100%; margin-bottom: 20px; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 20px rgba(91, 61, 240, 0.15); background: var(--bg-deep); display: flex; align-items: center; justify-content: center; }
   .rf-banner-image { width: 100%; height: auto; display: block; object-fit: cover; max-width: 100%; }
@@ -282,6 +277,31 @@
   .rf-date { font-size: 11.5px; color: var(--panel-sub); font-weight: 700; }
   .rf-earn { text-align: right; font-weight: 800; font-size: 13.5px; }
   .rf-earn.plus { color: #16a34a; } .rf-earn.none { color: #94a3b8; }
+
+  /* =========================================
+     PROFILE SCREEN
+  ========================================= */
+  .pf-header-card { background: linear-gradient(145deg, #1e0b4b 0%, #11052b 100%); border: 1.5px solid rgba(139, 92, 246, 0.4); border-radius: 20px; padding: 18px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; color: #fff; box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.4); position: relative; overflow: hidden; }
+  .pf-header-card::before { content: ""; position: absolute; width: 120px; height: 120px; background: radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 70%); top: -20px; left: -10px; pointer-events: none; }
+  .pf-avatar-container { position: relative; flex-shrink: 0; z-index: 1; }
+  .pf-avatar { width: 72px; height: 72px; border-radius: 50%; border: 2.5px solid #8b5cf6; object-fit: cover; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+  .pf-cam-btn { position: absolute; bottom: 0; right: -4px; width: 24px; height: 24px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; border: 2px solid #1e0b4b; cursor: pointer; }
+  .pf-info { flex: 1; min-width: 0; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
+  .pf-name { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
+  .pf-level { background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.4); color: #eaddff; font-size: 10.5px; font-weight: 600; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 12px; width: fit-content; }
+  .pf-bot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .pf-userid { font-size: 11.5px; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 6px; }
+  .pf-copy { cursor: pointer; color: #a78bfa; }
+  .pf-edit-btn { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.4); color: #eaddff; font-size: 11px; font-weight: 600; padding: 6px 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+
+  .pf-menu { display: flex; flex-direction: column; gap: 12px; padding-bottom: 10px; }
+  .pf-menu-item { border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); cursor: pointer; }
+  .pf-icon-wrap { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.08); background: #ffffff; }
+  .pf-3d-icon { width: 26px; height: 26px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+  .pf-item-text { flex: 1; min-width: 0; }
+  .pf-item-title { font-size: 14px; font-weight: 700; color: var(--panel-text); margin-bottom: 3px; }
+  .pf-item-sub { font-size: 11px; color: var(--panel-sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pf-item-arrow { color: #cbd5e1; font-weight: 700; font-size: 18px; flex-shrink: 0; margin-left: 5px; }
 
   /* BOTTOM NAVIGATION */
   .bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; background: #ffffff; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; padding: 10px 6px 12px; z-index: 20; }
@@ -609,224 +629,72 @@
        SCREEN 4: REFER 
   =========================================== -->
   <section class="screen" id="screen-refer">
-
-    <!-- Hero Banner with Direct Uploaded Image -->
     <div class="rf-banner-container">
       <img src="assets/referral-banner.png" alt="Priluck Refer Banner" class="rf-banner-image">
     </div>
 
-    <!-- Code and Link Card -->
     <div class="rf-card rf-card-code">
       <div class="rf-code-grid">
         <div class="rf-code-col">
           <div class="rf-label">আপনার রেফার কোড</div>
           <div class="rf-input-box">
             <span class="rf-value">RAHUL2K26</span>
-            <button class="rf-copy-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
+            <button class="rf-copy-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
         </div>
         <div class="rf-link-col">
           <div class="rf-label">আপনার রেফার লিংক</div>
           <div class="rf-input-box">
             <span class="rf-value">https://t.me/EarnTasks_bot?start=RAHUL2K26</span>
-            <button class="rf-copy-btn">
-               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
+            <button class="rf-copy-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
           </div>
         </div>
       </div>
-      <button class="rf-share-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-        রেফার লিংক শেয়ার করুন
-      </button>
+      <button class="rf-share-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> রেফার লিংক শেয়ার করুন</button>
     </div>
 
-    <!-- Stats Grid (With Deep Real 3D Logos) -->
     <div class="rf-stats-grid rf-card-stats">
-      <div class="rf-stat-item">
-        <img src="https://img.icons8.com/3d-fluency/250/group.png" class="rf-stat-img" alt="Share">
-        <div class="rf-stat-label">মোট শেয়ার</div>
-        <div class="rf-stat-val">24</div>
-      </div>
-      
-      <div class="rf-stat-item">
-        <img src="https://img.icons8.com/3d-fluency/250/ok.png" class="rf-stat-img" alt="Success">
-        <div class="rf-stat-label">সাকসেস রেফার</div>
-        <div class="rf-stat-val">11</div>
-      </div>
-
-      <div class="rf-stat-item">
-        <img src="https://img.icons8.com/3d-fluency/250/money-bag.png" class="rf-stat-img" alt="Money">
-        <div class="rf-stat-label">মোট আয়</div>
-        <div class="rf-stat-val">₹550</div>
-      </div>
-
-      <div class="rf-stat-item">
-        <img src="https://img.icons8.com/3d-fluency/250/bank-cards.png" class="rf-stat-img" alt="Payment">
-        <div class="rf-stat-label">পেমেন্ট পেয়েছেন</div>
-        <div class="rf-stat-val">₹550</div>
-      </div>
+      <div class="rf-stat-item"><img src="https://img.icons8.com/3d-fluency/250/group.png" class="rf-stat-img" alt="Share"><div class="rf-stat-label">মোট শেয়ার</div><div class="rf-stat-val">24</div></div>
+      <div class="rf-stat-item"><img src="https://img.icons8.com/3d-fluency/250/ok.png" class="rf-stat-img" alt="Success"><div class="rf-stat-label">সাকসেস রেফার</div><div class="rf-stat-val">11</div></div>
+      <div class="rf-stat-item"><img src="https://img.icons8.com/3d-fluency/250/money-bag.png" class="rf-stat-img" alt="Money"><div class="rf-stat-label">মোট আয়</div><div class="rf-stat-val">₹550</div></div>
+      <div class="rf-stat-item"><img src="https://img.icons8.com/3d-fluency/250/bank-cards.png" class="rf-stat-img" alt="Payment"><div class="rf-stat-label">পেমেন্ট পেয়েছেন</div><div class="rf-stat-val">₹550</div></div>
     </div>
 
-    <!-- How it works (With Deep Real 3D Logos) -->
     <div class="rf-card rf-card-steps">
       <div class="rf-section-head">কিভাবে কাজ করে?</div>
       <div class="rf-steps">
-        <div class="rf-step">
-          <div class="rf-step-icon-wrap">
-            <img src="https://img.icons8.com/3d-fluency/250/link.png" class="rf-step-img" alt="Link">
-            <div class="rf-step-badge">1</div>
-          </div>
-          <div class="rf-step-text">রেফার লিংক<br>শেয়ার করুন</div>
-        </div>
-        <div class="rf-arrow">→</div>
-        
-        <div class="rf-step">
-          <div class="rf-step-icon-wrap">
-            <img src="https://img.icons8.com/3d-fluency/250/add-user-male.png" class="rf-step-img" alt="Join">
-            <div class="rf-step-badge">2</div>
-          </div>
-          <div class="rf-step-text">বন্ধু লিংক থেকে<br>জয়েন করবে</div>
-        </div>
-        <div class="rf-arrow">→</div>
-
-        <div class="rf-step">
-          <div class="rf-step-icon-wrap">
-            <img src="https://img.icons8.com/3d-fluency/250/test-passed.png" class="rf-step-img" alt="Tasks">
-            <div class="rf-step-badge" style="background:#16a34a;">3</div>
-          </div>
-          <div class="rf-step-text">বন্ধু ৮০টা টাস্ক<br>সম্পূর্ণ করবে</div>
-        </div>
-        <div class="rf-arrow">→</div>
-
-        <div class="rf-step">
-          <div class="rf-step-icon-wrap">
-            <img src="https://img.icons8.com/3d-fluency/250/wallet.png" class="rf-step-img" alt="Reward">
-            <div class="rf-step-badge">4</div>
-          </div>
-          <div class="rf-step-text">আপনি পাবেন<br>₹50</div>
-        </div>
+        <div class="rf-step"><div class="rf-step-icon-wrap"><img src="https://img.icons8.com/3d-fluency/250/link.png" class="rf-step-img" alt="Link"><div class="rf-step-badge">1</div></div><div class="rf-step-text">রেফার লিংক<br>শেয়ার করুন</div></div><div class="rf-arrow">→</div>
+        <div class="rf-step"><div class="rf-step-icon-wrap"><img src="https://img.icons8.com/3d-fluency/250/add-user-male.png" class="rf-step-img" alt="Join"><div class="rf-step-badge">2</div></div><div class="rf-step-text">বন্ধু লিংক থেকে<br>জয়েন করবে</div></div><div class="rf-arrow">→</div>
+        <div class="rf-step"><div class="rf-step-icon-wrap"><img src="https://img.icons8.com/3d-fluency/250/test-passed.png" class="rf-step-img" alt="Tasks"><div class="rf-step-badge" style="background:#16a34a;">3</div></div><div class="rf-step-text">বন্ধু ৮০টা টাস্ক<br>সম্পূর্ণ করবে</div></div><div class="rf-arrow">→</div>
+        <div class="rf-step"><div class="rf-step-icon-wrap"><img src="https://img.icons8.com/3d-fluency/250/wallet.png" class="rf-step-img" alt="Reward"><div class="rf-step-badge">4</div></div><div class="rf-step-text">আপনি পাবেন<br>₹50</div></div>
       </div>
     </div>
 
-    <!-- Referral List -->
-    <div class="rf-list-header">
-      <div class="rf-section-head" style="margin-bottom:0;">আপনি যাদের রেফার করেছেন</div>
-      <a href="#" class="rf-see-all">সব দেখুন ›</a>
-    </div>
+    <div class="rf-list-header"><div class="rf-section-head" style="margin-bottom:0;">আপনি যাদের রেফার করেছেন</div><a href="#" class="rf-see-all">সব দেখুন ›</a></div>
     
     <div class="rf-table-wrap rf-card-list">
       <table class="rf-table">
-        <thead>
-          <tr>
-            <th class="rf-th">নাম</th>
-            <th class="rf-th">অবস্থা</th>
-            <th class="rf-th">প্রগতি</th>
-            <th class="rf-th">জয়েন তারিখ</th>
-            <th class="rf-th" style="text-align: right;">আপনার আয়</th>
-          </tr>
-        </thead>
+        <thead><tr><th class="rf-th">নাম</th><th class="rf-th">অবস্থা</th><th class="rf-th">প্রগতি</th><th class="rf-th">জয়েন তারিখ</th><th class="rf-th" style="text-align: right;">আপনার আয়</th></tr></thead>
         <tbody>
-          <!-- Row 1 -->
           <tr class="rf-tr">
-            <td class="rf-td">
-              <div class="rf-user-col">
-                <img src="https://i.pravatar.cc/150?img=11" alt="Avatar" class="rf-real-avatar">
-                <span class="rf-initial-badge" style="background: #e0e7ff; color: #3730a3;">S</span>
-                <span class="rf-name-box" style="background: #dbeafe; color: #1e3a8a;">Sohel Rana</span>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-status complete">কমপ্লিট</span></td>
-            <td class="rf-td">
-              <div class="rf-prog-wrap">
-                <div class="rf-prog-text">80/80 টাস্ক</div>
-                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 100%; background: #16a34a;"></div></div>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-date">20 মে, 2025</span></td>
-            <td class="rf-td rf-earn plus">+ ₹50</td>
+            <td class="rf-td"><div class="rf-user-col"><img src="https://i.pravatar.cc/150?img=11" alt="Avatar" class="rf-real-avatar"><span class="rf-initial-badge" style="background: #e0e7ff; color: #3730a3;">S</span><span class="rf-name-box" style="background: #dbeafe; color: #1e3a8a;">Sohel Rana</span></div></td>
+            <td class="rf-td"><span class="rf-status complete">কমপ্লিট</span></td><td class="rf-td"><div class="rf-prog-wrap"><div class="rf-prog-text">80/80 টাস্ক</div><div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 100%; background: #16a34a;"></div></div></div></td><td class="rf-td"><span class="rf-date">20 মে, 2025</span></td><td class="rf-td rf-earn plus">+ ₹50</td>
           </tr>
-          
-          <!-- Row 2 -->
           <tr class="rf-tr">
-            <td class="rf-td">
-              <div class="rf-user-col">
-                <img src="https://i.pravatar.cc/150?img=68" alt="Avatar" class="rf-real-avatar">
-                <span class="rf-initial-badge" style="background: #ffedd5; color: #9a3412;">A</span>
-                <span class="rf-name-box" style="background: #ffedd5; color: #9a3412;">Anik Das</span>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-status complete">কমপ্লিট</span></td>
-            <td class="rf-td">
-              <div class="rf-prog-wrap">
-                <div class="rf-prog-text">80/80 টাস্ক</div>
-                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 100%; background: #16a34a;"></div></div>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-date">18 মে, 2025</span></td>
-            <td class="rf-td rf-earn plus">+ ₹50</td>
+            <td class="rf-td"><div class="rf-user-col"><img src="https://i.pravatar.cc/150?img=68" alt="Avatar" class="rf-real-avatar"><span class="rf-initial-badge" style="background: #ffedd5; color: #9a3412;">A</span><span class="rf-name-box" style="background: #ffedd5; color: #9a3412;">Anik Das</span></div></td>
+            <td class="rf-td"><span class="rf-status complete">কমপ্লিট</span></td><td class="rf-td"><div class="rf-prog-wrap"><div class="rf-prog-text">80/80 টাস্ক</div><div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 100%; background: #16a34a;"></div></div></div></td><td class="rf-td"><span class="rf-date">18 মে, 2025</span></td><td class="rf-td rf-earn plus">+ ₹50</td>
           </tr>
-
-          <!-- Row 3 -->
           <tr class="rf-tr">
-            <td class="rf-td">
-              <div class="rf-user-col">
-                <img src="https://i.pravatar.cc/150?img=60" alt="Avatar" class="rf-real-avatar">
-                <span class="rf-initial-badge" style="background: #dcfce7; color: #166534;">P</span>
-                <span class="rf-name-box" style="background: #dcfce7; color: #166534;">Piyal Barman</span>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-status ongoing">চলছে</span></td>
-            <td class="rf-td">
-              <div class="rf-prog-wrap">
-                <div class="rf-prog-text">45/80 টাস্ক</div>
-                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 56%; background: #2563eb;"></div></div>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-date">16 মে, 2025</span></td>
-            <td class="rf-td rf-earn none">—</td>
+            <td class="rf-td"><div class="rf-user-col"><img src="https://i.pravatar.cc/150?img=60" alt="Avatar" class="rf-real-avatar"><span class="rf-initial-badge" style="background: #dcfce7; color: #166534;">P</span><span class="rf-name-box" style="background: #dcfce7; color: #166534;">Piyal Barman</span></div></td>
+            <td class="rf-td"><span class="rf-status ongoing">চলছে</span></td><td class="rf-td"><div class="rf-prog-wrap"><div class="rf-prog-text">45/80 টাস্ক</div><div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 56%; background: #2563eb;"></div></div></div></td><td class="rf-td"><span class="rf-date">16 মে, 2025</span></td><td class="rf-td rf-earn none">—</td>
           </tr>
-
-          <!-- Row 4 -->
           <tr class="rf-tr">
-            <td class="rf-td">
-              <div class="rf-user-col">
-                <img src="https://i.pravatar.cc/150?img=33" alt="Avatar" class="rf-real-avatar">
-                <span class="rf-initial-badge" style="background: #f3e8ff; color: #6b21a8;">M</span>
-                <span class="rf-name-box" style="background: #f3e8ff; color: #6b21a8;">Mehedi Khan</span>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-status ongoing-org">চলছে</span></td>
-            <td class="rf-td">
-              <div class="rf-prog-wrap">
-                <div class="rf-prog-text">22/80 টাস্ক</div>
-                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 27%; background: #ea580c;"></div></div>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-date">14 মে, 2025</span></td>
-            <td class="rf-td rf-earn none">—</td>
+            <td class="rf-td"><div class="rf-user-col"><img src="https://i.pravatar.cc/150?img=33" alt="Avatar" class="rf-real-avatar"><span class="rf-initial-badge" style="background: #f3e8ff; color: #6b21a8;">M</span><span class="rf-name-box" style="background: #f3e8ff; color: #6b21a8;">Mehedi Khan</span></div></td>
+            <td class="rf-td"><span class="rf-status ongoing-org">চলছে</span></td><td class="rf-td"><div class="rf-prog-wrap"><div class="rf-prog-text">22/80 টাস্ক</div><div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 27%; background: #ea580c;"></div></div></div></td><td class="rf-td"><span class="rf-date">14 মে, 2025</span></td><td class="rf-td rf-earn none">—</td>
           </tr>
-
-          <!-- Row 5 -->
           <tr class="rf-tr">
-            <td class="rf-td">
-              <div class="rf-user-col">
-                <img src="https://i.pravatar.cc/150?img=47" alt="Avatar" class="rf-real-avatar">
-                <span class="rf-initial-badge" style="background: #fee2e2; color: #991b1b;">R</span>
-                <span class="rf-name-box" style="background: #fee2e2; color: #991b1b;">Riya Tiwari</span>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-status not-started">শুরু করেনি</span></td>
-            <td class="rf-td">
-              <div class="rf-prog-wrap">
-                <div class="rf-prog-text" style="color: #64748b;">0/80 টাস্ক</div>
-                <div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 0%;"></div></div>
-              </div>
-            </td>
-            <td class="rf-td"><span class="rf-date">12 মে, 2025</span></td>
-            <td class="rf-td rf-earn none">—</td>
+            <td class="rf-td"><div class="rf-user-col"><img src="https://i.pravatar.cc/150?img=47" alt="Avatar" class="rf-real-avatar"><span class="rf-initial-badge" style="background: #fee2e2; color: #991b1b;">R</span><span class="rf-name-box" style="background: #fee2e2; color: #991b1b;">Riya Tiwari</span></div></td>
+            <td class="rf-td"><span class="rf-status not-started">শুরু করেনি</span></td><td class="rf-td"><div class="rf-prog-wrap"><div class="rf-prog-text" style="color: #64748b;">0/80 টাস্ক</div><div class="rf-prog-bar"><div class="rf-prog-fill" style="width: 0%;"></div></div></div></td><td class="rf-td"><span class="rf-date">12 মে, 2025</span></td><td class="rf-td rf-earn none">—</td>
           </tr>
         </tbody>
       </table>
@@ -837,10 +705,118 @@
        SCREEN 5: PROFILE
   =========================================== -->
   <section class="screen" id="screen-profile">
-    <div class="placeholder-panel">
-      <div class="big">👤</div>
-      <h3>প্রোফাইল</h3>
-      <p>ইউজারের নাম, ছবি, সেটিংস ও লগআউট অপশন এখানে থাকবে.</p>
+    
+    <div class="pf-header-card">
+      <div class="pf-avatar-container">
+        <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg" alt="Profile" class="pf-avatar">
+        <div class="pf-cam-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        </div>
+      </div>
+      <div class="pf-info">
+        <div class="pf-name">Pritam Gayen</div>
+        <div class="pf-level">
+          <svg width="10" height="10" fill="#fff" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> 
+          Level 3
+        </div>
+        <div class="pf-bot-row">
+          <div class="pf-userid">User ID: PRILUCK6324 <svg class="pf-copy" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></div>
+          <div class="pf-edit-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> প্রোফাইল এডিট</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Menu List -->
+    <div class="pf-menu">
+      
+      <!-- 1. Personal Info -->
+      <!-- 🔴 FIX: Added distinct light background colors -->
+      <div class="pf-menu-item" style="background: #faf5ff;">
+        <div class="pf-icon-wrap" style="background:#f3e8ff;"><img src="https://img.icons8.com/3d-fluency/250/user-male-circle.png" alt="Info" class="pf-3d-icon"></div>
+        <div class="pf-item-text">
+          <div class="pf-item-title">ব্যক্তিগত তথ্য</div>
+          <div class="pf-item-sub">নাম, মোবাইল, ইমেইল ও অন্যান্য তথ্য দেখুন ও পরিবর্তন করুন</div>
+        </div>
+        <div class="pf-item-arrow">›</div>
+      </div>
+
+      <!-- 2. Payment Method -->
+      <!-- 🔴 FIX: Added distinct light background colors -->
+      <div class="pf-menu-item" style="background: #f0fdf4;">
+        <div class="pf-icon-wrap" style="background:#dcfce7;"><img src="https://img.icons8.com/3d-fluency/250/bank-cards.png" alt="Payment" class="pf-3d-icon"></div>
+        <div class="pf-item-text">
+          <div class="pf-item-title">পেমেন্ট মেথড</div>
+          <div class="pf-item-sub">আপনার UPI / ব্যাংক অ্যাকাউন্ট যোগ করুন ও পরিচালনা করুন</div>
+        </div>
+        <div class="pf-item-arrow">›</div>
+      </div>
+
+      <!-- 3. Security -->
+      <!-- 🔴 FIX: Added distinct light background colors -->
+      <div class="pf-menu-item" style="background: #eff6ff;">
+        <div class="pf-icon-wrap" style="background:#e0f2fe;"><img src="https://img.icons8.com/3d-fluency/250/shield.png" alt="Security" class="pf-3d-icon"></div>
+        <div class="pf-item-text">
+          <div class="pf-item-title">সিকিউরিটি</div>
+          <div class="pf-item-sub">পাসওয়ার্ড, টু-স্টেপ ভেরিফিকেশন ও নিরাপত্তা সেটিংস</div>
+        </div>
+        <div class="pf-item-arrow">›</div>
+      </div>
+
+      <!-- 4. Notifications -->
+      <!-- 🔴 FIX: Added distinct light background colors -->
+      <div class="pf-menu-item" style="background: #fdf2f8;">
+        <div class="pf-icon-wrap" style="background:#fce7f3;"><img src="https://img.icons8.com/3d-fluency/250/bell.png" alt="Notification" class="pf-3d-icon"></div>
+        <div class="pf-item-text">
+          <div class="pf-item-title">নোটিফিকেশন সেটিংস</div>
+          <div class="pf-item-sub">কোন নোটিফিকেশন পাবেন সেটি নির্ধারণ করুন</div>
+        </div>
+        <div class="pf-item-arrow">›</div>
+      </div>
+
+      <!-- 5. Support & Help -->
+      <!-- 🔴 FIX: Added distinct light background colors -->
+      <div class="pf-menu-item" style="background: #f0fdfa;">
+        <div class="pf-icon-wrap" style="background:#ccfbf1;"><img src="https://img.icons8.com/3d-fluency/250/headset.png" alt="Support" class="pf-3d-icon"></div>
+        <div class="pf-item-text">
+          <div class="pf-item-title">সাপোর্ট ও সাহায্য</div>
+          <div class="pf-item-sub">FAQ, সমস্যা সমাধান ও আমাদের সাথে যোগাযোগ করুন</div>
+        </div>
+        <div class="pf-item-arrow">›</div>
+      </div>
+
+      <!-- 6. About App -->
+      <!-- 🔴 FIX: Added distinct light background colors -->
+      <div class="pf-menu-item" style="background: #eef2ff;">
+        <div class="pf-icon-wrap" style="background:#e0e7ff;"><img src="https://img.icons8.com/3d-fluency/250/info.png" alt="About" class="pf-3d-icon"></div>
+        <div class="pf-item-text">
+          <div class="pf-item-title">অ্যাপ সম্পর্কে</div>
+          <div class="pf-item-sub">Priluck সম্পর্কে জানুন, ভার্সন ও অন্যান্য তথ্য</div>
+        </div>
+        <div class="pf-item-arrow">›</div>
+      </div>
+
+      <!-- 7. Rate Us -->
+      <!-- 🔴 FIX: Added distinct light background colors -->
+      <div class="pf-menu-item" style="background: #fefce8;">
+        <div class="pf-icon-wrap" style="background:#fef9c3;"><img src="https://img.icons8.com/3d-fluency/250/star.png" alt="Rate" class="pf-3d-icon"></div>
+        <div class="pf-item-text">
+          <div class="pf-item-title">রেট দিন</div>
+          <div class="pf-item-sub">আমাদের অ্যাপটি রেট করে উৎসাহিত করুন</div>
+        </div>
+        <div class="pf-item-arrow">›</div>
+      </div>
+
+      <!-- 8. Log Out -->
+      <!-- 🔴 FIX: Added distinct light background colors -->
+      <div class="pf-menu-item" style="background: #fef2f2;">
+        <div class="pf-icon-wrap" style="background:#fee2e2;"><img src="https://img.icons8.com/3d-fluency/250/shutdown.png" alt="Logout" class="pf-3d-icon"></div>
+        <div class="pf-item-text">
+          <div class="pf-item-title" style="color: #dc2626;">লগ আউট</div>
+          <div class="pf-item-sub">অ্যাকাউন্ট থেকে বের হয়ে যান</div>
+        </div>
+        <div class="pf-item-arrow">›</div>
+      </div>
+
     </div>
   </section>
 
