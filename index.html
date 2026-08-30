@@ -58,6 +58,44 @@
   .brand-sub { font-size: 12px; color: var(--ink-dim); margin-top: 2px; }
   .badge { position: absolute; top: -4px; right: -4px; background: #ff3b5c; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
 
+  /* ALL TASKS SCREEN */
+  .all-tasks-screen .all-tasks-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 0 4px;
+  }
+
+  .all-tasks-back {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255,255,255,.10);
+    color: #fff;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex: 0 0 40px;
+  }
+
+  .all-tasks-header .section-title {
+    margin-left: 2px;
+    flex: 1;
+  }
+
+  .all-tasks-header .section-link {
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  body:has(#screen-all-tasks.active) .topbar {
+    display: none;
+  }
+
   .screen { display: none; }
   .screen.active { display: block; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -826,9 +864,15 @@
 <!-- =========================================
      SCREEN: ALL TASKS
 ========================================= -->
-<section class="screen" id="screen-all-tasks">
+<section class="screen all-tasks-screen" id="screen-all-tasks">
 
-  <div class="section-head">
+  <div class="all-tasks-header">
+    <button class="all-tasks-back" data-screen="home">←</button>
+    <div class="section-title">সব টাস্ক</div>
+    <div class="section-link">উপলব্ধ টাস্ক</div>
+  </div>
+
+  <div class="section-head" style="display:none;">
     <div class="section-title">সব টাস্ক</div>
     <div class="section-link">উপলব্ধ টাস্ক</div>
   </div>
