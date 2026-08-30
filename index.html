@@ -352,7 +352,7 @@
         <div class="stat-icon">📋</div>
         <div class="stat-label">আজকের টাস্ক</div>
         <div class="stat-value">8/15</div>
-        <button class="stat-btn" onclick="document.getElementById('taskList').scrollIntoView({behavior:'smooth', block:'start'})">সব টাস্ক দেখুন <span>›</span></button>
+        <button class="stat-btn" data-screen="all-tasks">সব টাস্ক দেখুন <span>›</span></button>
       </div>
       <div class="stat-card green">
         <div class="stat-icon">📈</div>
@@ -408,7 +408,7 @@
 
     <div class="section-head">
       <div class="section-title">আজকের টাস্ক</div>
-      <div class="section-link">সব দেখুন ›</div>
+      <div class="section-link" data-screen="all-tasks">সব দেখুন ›</div>
     </div>
 
     <div class="task-panel" id="taskList"></div>
@@ -823,6 +823,20 @@
 </div>
 
 <!-- =========================================
+<!-- =========================================
+     SCREEN: ALL TASKS
+========================================= -->
+<section class="screen" id="screen-all-tasks">
+
+  <div class="section-head">
+    <div class="section-title">সব টাস্ক</div>
+    <div class="section-link">উপলব্ধ টাস্ক</div>
+  </div>
+
+  <div class="task-panel" id="allTaskList"></div>
+
+</section>
+
      BOTTOM NAVIGATION 
 ========================================= -->
 <div class="bottom-nav">
@@ -873,6 +887,32 @@
     {icon:'📲', name:'অ্যাপ ইনস্টল ও খুলুন',     meta:'3 মিনিট • RevenueWall', price:'₹10'},
     {icon:'📷', name:'ইনস্টাগ্রাম পোস্ট লাইক করুন', meta:'2 মিনিট • CPX Research', price:'₹4'},
   ];
+
+  const allTaskList = document.getElementById('allTaskList');
+
+  if(allTaskList){
+      taskData.forEach(t => {
+        const row = document.createElement('div');
+        row.className = 'task-row';
+        row.innerHTML = `
+          <div class="task-icon">${t.icon}</div>
+          <div class="task-info">
+            <div class="task-name">${t.name}</div>
+            <div class="task-meta">${t.meta}</div>
+          </div>
+          <div class="task-price">${t.price}</div>
+          <button class="task-start">শুরু করুন</button>
+        `;
+        allTaskList.appendChild(row);
+      });
+
+      allTaskList.addEventListener('click', (e) => {
+        if (e.target.classList.contains('task-start')) {
+          const name = e.target.closest('.task-row').querySelector('.task-name').textContent;
+          alert('টাস্ক শুরু হচ্ছে: ' + name);
+        }
+      });
+  }
 
   const taskList = document.getElementById('taskList');
   if(taskList){
