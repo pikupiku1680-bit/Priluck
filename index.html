@@ -886,6 +886,13 @@
     {icon:'▶️', name:'ইউটিউব ভিডিও দেখুন',      meta:'2 মিনিট • CPX Research', price:'₹6'},
     {icon:'📲', name:'অ্যাপ ইনস্টল ও খুলুন',     meta:'3 মিনিট • RevenueWall', price:'₹10'},
     {icon:'📷', name:'ইনস্টাগ্রাম পোস্ট লাইক করুন', meta:'2 মিনিট • CPX Research', price:'₹4'},
+    {icon:'🌐', name:'ওয়েবসাইট ভিজিট করুন', meta:'2 মিনিট • CPX Research', price:'₹5'},
+    {icon:'👍', name:'পোস্টে লাইক দিন', meta:'1 মিনিট • RevenueWall', price:'₹3'},
+    {icon:'📱', name:'অ্যাপ ওপেন করুন', meta:'2 মিনিট • CPX Research', price:'₹7'},
+    {icon:'🎬', name:'শর্ট ভিডিও দেখুন', meta:'3 মিনিট • RevenueWall', price:'₹6'},
+    {icon:'⭐', name:'রিভিউ দিন', meta:'2 মিনিট • CPX Research', price:'₹5'},
+    {icon:'🔗', name:'লিংকে ক্লিক করুন', meta:'1 মিনিট • RevenueWall', price:'₹4'},
+    {icon:'📝', name:'ছোট সার্ভে সম্পূর্ণ করুন', meta:'4 মিনিট • CPX Research', price:'₹9'},
   ];
 
   const allTaskList = document.getElementById('allTaskList');
@@ -915,50 +922,55 @@
   }
 
   const taskList = document.getElementById('taskList');
-  if(taskList){
-      taskData.forEach(t => {
-        const row = document.createElement('div');
-        row.className = 'task-row';
-        row.innerHTML = `
-          <div class="task-icon">${t.icon}</div>
-          <div class="task-info">
-            <div class="task-name">${t.name}</div>
-            <div class="task-meta">${t.meta}</div>
-          </div>
-          <div class="task-price">${t.price}</div>
-          <button class="task-start">শুরু করুন</button>
-        `;
-        taskList.appendChild(row);
-      });
 
-      taskList.addEventListener('click', (e) => {
-        if (e.target.classList.contains('task-start')) {
-          const name = e.target.closest('.task-row').querySelector('.task-name').textContent;
-          alert('টাস্ক শুরু হচ্ছে: ' + name);
-        }
-      });
+  // Home shows only 4 tasks at a time
+  let homeTaskStart = 0;
+
+  function renderHomeTasks() {
+    if (!taskList) return;
+
+    taskList.innerHTML = '';
+
+    const visibleTasks = taskData.slice(homeTaskStart, homeTaskStart + 4);
+
+    visibleTasks.forEach((t, visibleIndex) => {
+      const row = document.createElement('div');
+      row.className = 'task-row';
+      row.innerHTML = `
+        <div class="task-icon">${t.icon}</div>
+        <div class="task-info">
+          <div class="task-name">${t.name}</div>
+          <div class="task-meta">${t.meta}</div>
+        </div>
+        <div class="task-price">${t.price}</div>
+        <button class="task-start">শুরু করুন</button>
+      `;
+
+      taskList.appendChild(row);
+    });
   }
 
-  // Home screen button navigation
-  document.querySelectorAll('[data-screen]:not(.nav-item)').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.getAttribute('data-screen');
-      if (!target) return;
+  if (taskList) {
+    renderHomeTasks();
 
-      screens.forEach(s => s.classList.remove('active'));
-      navButtons.forEach(b => b.classList.remove('active'));
+    taskList.addEventListener('click', (e) => {
+      if (e.target.classList.contains('task-start')) {
+        const row = e.target.closest('.task-row');
+        const name = row.querySelector('.task-name').textContent;
 
-      const targetScreen = document.getElementById('screen-' + target);
-      if (targetScreen) {
-        targetScreen.classList.add('active');
+        alert('টাস্ক সম্পূর্ণ হয়েছে: ' + name);
+
+        homeTaskStart++;
+
+        if (homeTaskStart < taskData.length) {
+          renderHomeTasks();
+        } else {
+          taskList.innerHTML = '<div style="text-align:center;padding:25px;font-weight:700;">🎉 সব টাস্ক সম্পূর্ণ হয়েছে!</div>';
+        }
       }
-
-      const matchingNav = document.querySelector('.nav-item[data-screen="' + target + '"]');
-      if (matchingNav) matchingNav.classList.add('active');
-
-      window.scrollTo({top: 0, behavior: 'smooth'});
     });
-  });
+  }
+
 </script>
 
 </body>
