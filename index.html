@@ -880,6 +880,27 @@
     });
   });
 
+  // Home / section buttons with data-screen navigation
+  document.querySelectorAll('[data-screen]:not(.nav-item)').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-screen');
+      if (!target) return;
+
+      const targetScreen = document.getElementById('screen-' + target);
+      if (!targetScreen) return;
+
+      screens.forEach(screen => screen.classList.remove('active'));
+      navButtons.forEach(nav => nav.classList.remove('active'));
+
+      targetScreen.classList.add('active');
+
+      const matchingNav = document.querySelector('.nav-item[data-screen="' + target + '"]');
+      if (matchingNav) matchingNav.classList.add('active');
+
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+
   // Home Screen Task List Data
   const taskData = [
     {icon:'🔍', name:'গুগল সার্চ করুন',        meta:'2 মিনিট • CPX Research', price:'₹8'},
