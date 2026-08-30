@@ -346,7 +346,7 @@
         <div class="stat-icon">👛</div>
         <div class="stat-label">আজকের আয়</div>
         <div class="stat-value">₹142.50</div>
-        <button class="stat-btn">ওয়ালেট দেখুন <span>›</span></button>
+        <button class="stat-btn" data-screen="wallet">ওয়ালেট দেখুন <span>›</span></button>
       </div>
       <div class="stat-card orange">
         <div class="stat-icon">📋</div>
@@ -425,7 +425,7 @@
       </div>
       <div class="refer-content">
         <div class="refer-title">বন্ধুকে Refer করুন</div>
-        <div class="refer-row"><div class="refer-sub">বন্ধু ৮০টি টাস্ক কমপ্লিট করলে আপনি পাবেন ₹50</div><button class="refer-btn">এখনই Refer করুন ›</button></div>
+        <div class="refer-row"><div class="refer-sub">বন্ধু ৮০টি টাস্ক কমপ্লিট করলে আপনি পাবেন ₹50</div><button class="refer-btn" data-screen="refer">এখনই Refer করুন ›</button></div>
       </div>
     </div>
   </section>
@@ -898,6 +898,27 @@
         }
       });
   }
+
+  // Home screen button navigation
+  document.querySelectorAll('[data-screen]:not(.nav-item)').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-screen');
+      if (!target) return;
+
+      screens.forEach(s => s.classList.remove('active'));
+      navButtons.forEach(b => b.classList.remove('active'));
+
+      const targetScreen = document.getElementById('screen-' + target);
+      if (targetScreen) {
+        targetScreen.classList.add('active');
+      }
+
+      const matchingNav = document.querySelector('.nav-item[data-screen="' + target + '"]');
+      if (matchingNav) matchingNav.classList.add('active');
+
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
 </script>
 
 </body>
