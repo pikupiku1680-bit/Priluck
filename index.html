@@ -765,6 +765,252 @@
   .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; gap: 4px; color: #9992b5; font-size: 10.5px; font-weight: 600; cursor: pointer; padding: 4px 6px; }
   .nav-item .nav-icon { font-size: 19px; }
   .nav-item.active { color: var(--purple-accent); }
+
+  /* DETAILS SCREEN DESIGN */
+  #screen-details {
+    background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 100%);
+    min-height: 100vh;
+    padding: 18px 14px 30px;
+    box-sizing: border-box;
+  }
+
+  #screen-details .details-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 58px;
+    margin-bottom: 18px;
+  }
+
+  #screen-details .details-back {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    border: none;
+    border-radius: 14px;
+    background: #dbeeff;
+    color: #2563a6;
+    font-size: 28px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  #screen-details .details-title {
+    color: #2563a6;
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  #screen-details .details-summary {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    margin-bottom: 14px;
+    background: #e8f4ff;
+    border: 1px solid #c6e2ff;
+    border-radius: 20px;
+  }
+
+  #screen-details .details-summary-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+  }
+
+  #screen-details .details-summary-label {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+
+  #screen-details .details-summary-value {
+    color: #2563a6;
+    font-size: 30px;
+    font-weight: 900;
+  }
+
+  #screen-details .details-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 17px;
+    box-shadow: 0 4px 16px rgba(37, 99, 166, .07);
+  }
+
+  #screen-details .details-card-title {
+    color: #334155;
+    font-size: 17px;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  #screen-details .details-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 4px;
+    border-bottom: 1px solid #edf2f7;
+  }
+
+  #screen-details .details-row:last-child {
+    border-bottom: none;
+  }
+
+  #screen-details .details-row span {
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  #screen-details .details-row strong {
+    color: #2563a6;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  #screen-details .details-info {
+    margin-top: 14px;
+    padding: 15px;
+    border-radius: 16px;
+    background: #f0fdf4;
+    border: 1px solid #ccebd7;
+    color: #47705a;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+\n
+/* DETAILS SCREEN - 7 POINTS POLISH CSS */
+
+#screen-details {
+  padding-bottom: 110px !important;
+}
+
+#screen-details .details-header {
+  padding: 4px 2px 8px;
+}
+
+#screen-details .details-title {
+  font-size: 21px;
+  line-height: 1.35;
+}
+
+#screen-details .details-summary {
+  min-height: 105px;
+  box-sizing: border-box;
+  box-shadow: 0 6px 20px rgba(37, 99, 166, 0.08);
+}
+
+#screen-details .details-summary-value {
+  font-size: 34px;
+}
+
+#screen-details .details-card {
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.055);
+}
+
+#screen-details .details-card-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+#screen-details .details-row {
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+#screen-details .details-row span {
+  line-height: 1.45;
+  padding-right: 12px;
+}
+
+#screen-details .details-row strong {
+  white-space: nowrap;
+  font-size: 16px;
+}
+
+/* Category performance */
+#screen-details .details-card:nth-of-type(4) .details-row strong {
+  min-width: 52px;
+  text-align: right;
+}
+
+/* Running task progress */
+#screen-details .details-card:nth-of-type(5) .details-row strong {
+  background: #e8f4ff;
+  padding: 6px 11px;
+  border-radius: 20px;
+}
+
+/* Task time */
+#screen-details .details-card:nth-of-type(6) .details-row strong {
+  font-size: 15px;
+}
+
+/* Performance tips */
+#screen-details .details-info {
+  margin-top: 16px;
+  box-shadow: 0 5px 18px rgba(22, 101, 52, 0.06);
+}
+
+#screen-details .details-info > div:first-child {
+  font-size: 17px;
+  color: #356b4d;
+}
+
+#screen-details .details-info > div:not(:first-child) {
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* Mobile polish */
+@media (max-width: 480px) {
+  #screen-details {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  #screen-details .details-title {
+    font-size: 19px;
+  }
+
+  #screen-details .details-summary {
+    padding: 16px;
+  }
+
+  #screen-details .details-summary-value {
+    font-size: 31px;
+  }
+
+  #screen-details .details-card {
+    padding: 16px;
+  }
+
+  #screen-details .details-card-title {
+    font-size: 17px;
+  }
+
+  #screen-details .details-row span {
+    font-size: 14px;
+  }
+
+  #screen-details .details-row strong {
+    font-size: 15px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -815,7 +1061,7 @@
         <div class="stat-icon">📈</div>
         <div class="stat-label">সাকসেস রেট</div>
         <div class="stat-value">92%</div>
-        <button class="stat-btn">ডিটেইলস দেখুন <span>›</span></button>
+        <button class="stat-btn" data-screen="details">ডিটেইলস দেখুন <span>›</span></button>
       </div>
     </div>
 
@@ -888,6 +1134,121 @@
   </section>
 
   <!-- ==========================================
+       SCREEN: DETAILS
+========================================== -->
+<section class="screen details-screen" id="screen-details">
+
+  <div class="details-header">
+    <button class="details-back" data-screen="home">←</button>
+    <div class="details-title">সাকসেস রেটের বিস্তারিত</div>
+  </div>
+
+  <!-- 1. Success Rate -->
+  <div class="details-summary">
+    <div class="details-summary-icon">📈</div>
+    <div>
+      <div class="details-summary-label">আপনার সাকসেস রেট</div>
+      <div class="details-summary-value">92%</div>
+    </div>
+  </div>
+
+  <!-- 2. Completed Tasks -->
+  <div class="details-card">
+    <div class="details-card-title">✅ সম্পন্ন করা টাস্ক</div>
+    <div class="details-row">
+      <span>মোট সফলভাবে সম্পন্ন</span>
+      <strong>46টি</strong>
+    </div>
+    <div class="details-row">
+      <span>আজ সম্পন্ন</span>
+      <strong>8টি</strong>
+    </div>
+  </div>
+
+  <!-- 3. Incomplete / Cancelled Tasks -->
+  <div class="details-card">
+    <div class="details-card-title">❌ অসম্পূর্ণ বা বাতিল টাস্ক</div>
+    <div class="details-row">
+      <span>অসম্পূর্ণ টাস্ক</span>
+      <strong>3টি</strong>
+    </div>
+    <div class="details-row">
+      <span>বাতিল টাস্ক</span>
+      <strong>1টি</strong>
+    </div>
+  </div>
+
+  <!-- 4. Category Performance -->
+  <div class="details-card">
+    <div class="details-card-title">📊 ক্যাটাগরিভিত্তিক পারফরম্যান্স</div>
+
+    <div class="details-row">
+      <span>🔍 Google Search</span>
+      <strong>95%</strong>
+    </div>
+
+    <div class="details-row">
+      <span>▶️ YouTube</span>
+      <strong>91%</strong>
+    </div>
+
+    <div class="details-row">
+      <span>📱 App Install</span>
+      <strong>88%</strong>
+    </div>
+
+    <div class="details-row">
+      <span>🌐 Website Visit</span>
+      <strong>94%</strong>
+    </div>
+  </div>
+
+  <!-- 5. Running Task Progress -->
+  <div class="details-card">
+    <div class="details-card-title">⏳ চলমান টাস্কের প্রোগ্রেস</div>
+
+    <div class="details-row">
+      <span>🔍 Google Search Task</span>
+      <strong>75%</strong>
+    </div>
+
+    <div class="details-row">
+      <span>▶️ YouTube Task</span>
+      <strong>40%</strong>
+    </div>
+
+    <div class="details-row">
+      <span>📱 App Task</span>
+      <strong>20%</strong>
+    </div>
+  </div>
+
+  <!-- 6. Average Task Time -->
+  <div class="details-card">
+    <div class="details-card-title">⏱️ টাস্ক টাইম</div>
+
+    <div class="details-row">
+      <span>গড়ে একটি টাস্ক সম্পন্ন করতে</span>
+      <strong>2 মিনিট 18 সেকেন্ড</strong>
+    </div>
+
+    <div class="details-row">
+      <span>সবচেয়ে দ্রুত টাস্ক</span>
+      <strong>58 সেকেন্ড</strong>
+    </div>
+  </div>
+
+  <!-- 7. Performance Tips -->
+  <div class="details-info">
+    <div style="font-weight:900; margin-bottom:6px;">💡 পারফরম্যান্স টিপস</div>
+    <div>• টাস্ক শুরু করার আগে নির্দেশনাগুলো ভালোভাবে পড়ুন।</div>
+    <div>• নির্ধারিত সময়ের মধ্যে টাস্ক সম্পূর্ণ করুন।</div>
+    <div>• ভুল বা অসম্পূর্ণ টাস্ক কমালে আপনার সাকসেস রেট আরও বাড়বে।</div>
+  </div>
+
+</section>
+
+<!-- ==========================================
        SCREEN 2: LEADERBOARD 
   =========================================== -->
   <section class="screen" id="screen-leaderboard">
