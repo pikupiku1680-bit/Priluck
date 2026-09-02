@@ -2546,6 +2546,9 @@ let streakDate =
 let streakClaimed =
   localStorage.getItem('priluck_streak_claimed') === 'true';
 
+let streakClaimedDate =
+  localStorage.getItem('priluck_streak_claimed_date') || null;
+
 let megaClaimed =
   localStorage.getItem('priluck_mega_bonus_claimed') === 'true';
 
@@ -2582,6 +2585,13 @@ function saveStreakState() {
     streakClaimed ? 'true' : 'false'
   );
 
+  if (streakClaimedDate) {
+    localStorage.setItem(
+      'priluck_streak_claimed_date',
+      streakClaimedDate
+    );
+  }
+
   localStorage.setItem(
     'priluck_mega_bonus_claimed',
     megaClaimed ? 'true' : 'false'
@@ -2590,6 +2600,13 @@ function saveStreakState() {
 
 function checkDailyStreak() {
   const today = getTodayDateKey();
+  streakClaimedDate =
+    localStorage.getItem('priluck_streak_claimed_date') || null;
+
+  // A saved claim for TODAY always wins over a stale false flag.
+  if (streakClaimedDate === today) {
+    streakClaimed = true;
+  }
 
   if (!streakDate) {
     currentStreakDay = 1;
@@ -2612,6 +2629,8 @@ function checkDailyStreak() {
 
       streakDate = today;
       streakClaimed = false;
+      streakClaimedDate = null;
+      localStorage.removeItem('priluck_streak_claimed_date');
 
       if (currentStreakDay < 7) {
         megaClaimed = false;
@@ -2788,7 +2807,17 @@ function renderBonusHistory() {
 }
 
 function claimTodayStreak() {
-  if (streakClaimed) {
+  const today = getTodayDateKey();
+  const claimedDate = localStorage.getItem('priluck_streak_claimed_date');
+
+  // STRICT SAME-DAY LOCK
+  // Once today's bonus has been claimed, it can never be claimed again today.
+  if (claimedDate === today || streakClaimed) {
+    streakClaimed = true;
+    streakDate = today;
+    localStorage.setItem('priluck_streak_claimed_date', today);
+    saveStreakState();
+    updateStreakDayUI();
     return;
   }
 
@@ -2800,6 +2829,8 @@ function claimTodayStreak() {
   }
 
   streakClaimed = true;
+  streakDate = today;
+  localStorage.setItem('priluck_streak_claimed_date', today);
 
   let history = [];
   try {
@@ -2808,15 +2839,20 @@ function claimTodayStreak() {
   } catch (e) {
     history = [];
   }
-  if (!history.some(item => item.day === currentStreakDay)) {
-    history.push({day: currentStreakDay, reward: reward});
+
+  if (!history.some(item => item.day === currentStreakDay && item.date === today)) {
+    history.push({
+      day: currentStreakDay,
+      reward: reward,
+      date: today
+    });
     localStorage.setItem('priluck_bonus_history', JSON.stringify(history));
   }
+
   renderBonusHistory();
 
   if (currentStreakDay === 7) {
     megaClaimed = true;
-
     localStorage.setItem(
       'priluck_mega_bonus_claimed',
       'true'
@@ -2826,10 +2862,8 @@ function claimTodayStreak() {
   saveStreakState();
   updateStreakDayUI();
 
-  alert(
-    '🎉 ₹' + reward +
-    ' বোনাস সফলভাবে Wallet-এ যোগ হয়েছে!'
-  );
+  // PREMIUM SUCCESS POPUP
+  showBonusSuccessPopup(reward);
 }
 
 if (streakClaim) {
