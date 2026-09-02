@@ -1011,6 +1011,422 @@
   }
 }
 
+
+/* STREAK SCREEN DESIGN */
+#screen-streak {
+  background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 100%);
+  min-height: 100vh;
+  padding: 16px 14px 110px;
+  box-sizing: border-box;
+}
+
+#screen-streak .streak-page-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  margin-bottom: 16px;
+}
+
+#screen-streak .streak-page-back {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border: none;
+  border-radius: 14px;
+  background: #dbeeff;
+  color: #2563a6;
+  font-size: 28px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#screen-streak .streak-page-title {
+  color: #2563a6;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+#screen-streak .streak-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 17px;
+  margin-bottom: 14px;
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.055);
+  box-sizing: border-box;
+}
+
+#screen-streak .streak-card-title {
+  color: #334155;
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 13px;
+}
+
+/* Reward Calendar */
+#screen-streak .reward-calendar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+}
+
+#screen-streak .reward-day {
+  min-height: 88px;
+  padding: 10px 5px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#screen-streak .reward-day span {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+#screen-streak .reward-day strong {
+  color: #2563a6;
+  font-size: 18px;
+  font-weight: 900;
+  margin: 5px 0;
+}
+
+#screen-streak .reward-day small {
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+#screen-streak .reward-day.claimed {
+  background: #f0fdf4;
+  border-color: #ccebd7;
+}
+
+#screen-streak .reward-day.claimed strong {
+  color: #16834a;
+}
+
+#screen-streak .reward-day.today {
+  background: #fff7ed;
+  border: 2px solid #ff8a3d;
+  transform: translateY(-2px);
+}
+
+#screen-streak .reward-day.today strong {
+  color: #e56b18;
+}
+
+/* Today's Status */
+#screen-streak .streak-status-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 20px;
+  padding: 17px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+
+#screen-streak .streak-status-icon {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  border-radius: 17px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+}
+
+#screen-streak .streak-status-label {
+  color: #9a6a42;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+#screen-streak .streak-status-value {
+  color: #e56b18;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+#screen-streak .streak-status-sub {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Claim Bonus */
+#screen-streak .claim-card {
+  text-align: center;
+  background: linear-gradient(135deg, #fff7ed, #ffffff);
+}
+
+#screen-streak .claim-reward {
+  color: #e56b18;
+  font-size: 38px;
+  font-weight: 900;
+  margin: 4px 0;
+}
+
+#screen-streak .claim-sub {
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+#screen-streak .streak-claim-btn {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: #ff8a3d;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255, 138, 61, 0.22);
+}
+
+/* Countdown */
+#screen-streak .countdown-card {
+  text-align: center;
+}
+
+#screen-streak .countdown-value {
+  color: #2563a6;
+  font-size: 31px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 8px 0;
+}
+
+#screen-streak .countdown-sub {
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* Warning */
+#screen-streak .streak-warning {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  margin-bottom: 14px;
+  border-radius: 18px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #7c4a20;
+  box-sizing: border-box;
+}
+
+#screen-streak .warning-icon {
+  font-size: 24px;
+}
+
+#screen-streak .streak-warning strong {
+  font-size: 15px;
+}
+
+#screen-streak .streak-warning p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* Bonus History */
+#screen-streak .bonus-history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 10px 3px;
+  border-bottom: 1px solid #edf2f7;
+  box-sizing: border-box;
+}
+
+#screen-streak .bonus-history-row:last-child {
+  border-bottom: none;
+}
+
+#screen-streak .bonus-history-row span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+#screen-streak .bonus-history-row strong {
+  color: #16834a;
+  font-size: 12px;
+}
+
+/* Mega Progress */
+#screen-streak .mega-card {
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+}
+
+#screen-streak .mega-progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+
+#screen-streak .mega-progress-head strong {
+  color: #e56b18;
+  font-size: 15px;
+}
+
+#screen-streak .mega-progress {
+  width: 100%;
+  height: 13px;
+  background: #edf2f7;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#screen-streak .mega-progress-fill {
+  height: 100%;
+  background: #ff8a3d;
+  border-radius: 20px;
+}
+
+#screen-streak .mega-progress-sub {
+  color: #64748b;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 9px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  #screen-streak {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  #screen-streak .reward-calendar {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+  }
+
+  #screen-streak .reward-day {
+    min-height: 82px;
+  }
+
+  #screen-streak .reward-day strong {
+    font-size: 16px;
+  }
+
+  #screen-streak .streak-card {
+    padding: 16px;
+  }
+
+  #screen-streak .countdown-value {
+    font-size: 28px;
+  }
+}
+
+/* PREMIUM BONUS SUCCESS POPUP */
+#priluck-bonus-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, .62);
+  backdrop-filter: blur(7px);
+  animation: bonusOverlayIn .25s ease;
+}
+#priluck-bonus-popup .bonus-popup-box {
+  position: relative;
+  width: min(330px, 84vw);
+  padding: 28px 22px 22px;
+  text-align: center;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #ffffff, #f5f7ff);
+  box-shadow: 0 25px 70px rgba(0,0,0,.30), 0 0 35px rgba(255,193,7,.22);
+  border: 2px solid rgba(255,255,255,.9);
+  animation: bonusBoxIn .45s cubic-bezier(.2,1.4,.4,1);
+}
+#priluck-bonus-popup .bonus-popup-icon {
+  font-size: 52px;
+  line-height: 1;
+  margin-bottom: 10px;
+  animation: bonusIconPop .8s ease infinite alternate;
+}
+#priluck-bonus-popup .bonus-popup-title {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: .8px;
+  background: linear-gradient(90deg,#7c3aed,#ec4899,#f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#priluck-bonus-popup .bonus-popup-amount {
+  margin: 10px 0 2px;
+  font-size: 38px;
+  font-weight: 950;
+  color: #16a34a;
+  text-shadow: 0 3px 15px rgba(22,163,74,.22);
+}
+#priluck-bonus-popup .bonus-popup-subtitle {
+  font-size: 12px;
+  font-weight: 900;
+  color: #7c3aed;
+  letter-spacing: 1px;
+}
+#priluck-bonus-popup .bonus-popup-message {
+  margin: 12px 0 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #475569;
+}
+#priluck-bonus-popup .bonus-popup-ok {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 900;
+  color: white;
+  background: linear-gradient(135deg,#7c3aed,#ec4899);
+  box-shadow: 0 8px 20px rgba(124,58,237,.25);
+}
+#priluck-bonus-popup .bonus-sparkles,
+#priluck-bonus-popup .bonus-confetti {
+  position: absolute;
+  pointer-events: none;
+  font-size: 25px;
+}
+#priluck-bonus-popup .bonus-sparkles {
+  top: 16%;
+  animation: sparkleFloat 1.8s ease-in-out infinite;
+}
+#priluck-bonus-popup .bonus-confetti {
+  bottom: 16%;
+  animation: confettiFloat 1.5s ease-in-out infinite;
+}
+@keyframes bonusOverlayIn { from{opacity:0} to{opacity:1} }
+@keyframes bonusBoxIn { from{transform:scale(.72) translateY(20px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
+@keyframes bonusIconPop { from{transform:scale(1) rotate(-4deg)} to{transform:scale(1.12) rotate(4deg)} }
+@keyframes sparkleFloat { 0%,100%{transform:translateY(0) scale(1);opacity:.65} 50%{transform:translateY(-18px) scale(1.3);opacity:1} }
+@keyframes confettiFloat { 0%,100%{transform:translateY(0);opacity:.7} 50%{transform:translateY(15px) rotate(8deg);opacity:1} }
 </style>
 </head>
 <body>
@@ -1071,7 +1487,7 @@
           <div class="streak-flame">🔥</div>
           <div class="streak-title">ধারাবাহিকতা বজায় রাখুন!</div>
           <div class="streak-sub">টানা ৭ দিন লগইন করুন আর পান বিশেষ বোনাস</div>
-          <button class="streak-btn">স্ট্রিক দেখুন ›</button>
+          <button class="streak-btn" data-screen="streak">স্ট্রিক দেখুন ›</button>
         </div>
         <div class="streak-right">
           <div class="streak-days">আজ আপনি আছেন</div>
@@ -1244,6 +1660,125 @@
     <div>• টাস্ক শুরু করার আগে নির্দেশনাগুলো ভালোভাবে পড়ুন।</div>
     <div>• নির্ধারিত সময়ের মধ্যে টাস্ক সম্পূর্ণ করুন।</div>
     <div>• ভুল বা অসম্পূর্ণ টাস্ক কমালে আপনার সাকসেস রেট আরও বাড়বে।</div>
+  </div>
+
+</section>
+
+<!-- ==========================================
+     SCREEN: STREAK
+========================================== -->
+<section class="screen streak-screen" id="screen-streak">
+
+  <div class="streak-page-header">
+    <button class="streak-page-back" data-screen="home">←</button>
+    <div class="streak-page-title">আমার স্ট্রিক</div>
+  </div>
+
+  <!-- 1. 7 Day Reward Calendar -->
+  <div class="streak-card">
+    <div class="streak-card-title">📅 ৭ দিনের রিওয়ার্ড ক্যালেন্ডার</div>
+
+    <div class="reward-calendar">
+      <div class="reward-day claimed">
+        <span>দিন ১</span>
+        <strong>₹5</strong>
+        <small>✓ ক্লেইমড</small>
+      </div>
+
+      <div class="reward-day claimed">
+        <span>দিন ২</span>
+        <strong>₹5</strong>
+        <small>✓ ক্লেইমড</small>
+      </div>
+
+      <div class="reward-day claimed">
+        <span>দিন ৩</span>
+        <strong>₹10</strong>
+        <small>✓ ক্লেইমড</small>
+      </div>
+
+      <div class="reward-day claimed">
+        <span>দিন ৪</span>
+        <strong>₹10</strong>
+        <small>✓ ক্লেইমড</small>
+      </div>
+
+      <div class="reward-day claimed">
+        <span>দিন ৫</span>
+        <strong>₹15</strong>
+        <small>✓ ক্লেইমড</small>
+      </div>
+
+      <div class="reward-day today">
+        <span>দিন ৬</span>
+        <strong>₹20</strong>
+        <small>🎁 আজ</small>
+      </div>
+
+      <div class="reward-day future">
+        <span>দিন ৭</span>
+        <strong>₹50</strong>
+        <small>🏆 Mega</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Today's Streak Status -->
+  <div class="streak-status-card">
+    <div class="streak-status-icon">🔥</div>
+    <div class="streak-status-content">
+      <div class="streak-status-label">আজকের স্ট্রিক</div>
+      <div class="streak-status-value">৬ দিন</div>
+      <div class="streak-status-sub">আজকের বোনাস ক্লেইম করার জন্য প্রস্তুত</div>
+    </div>
+  </div>
+
+  <!-- 3. Claim Bonus -->
+  <div class="streak-card claim-card">
+    <div class="streak-card-title">🎁 আজকের বোনাস</div>
+    <div class="claim-reward">₹20</div>
+    <div class="claim-sub">আজকের Streak Reward</div>
+    <button class="streak-claim-btn">বোনাস ক্লেইম করুন</button>
+  </div>
+
+  <!-- 4. Countdown -->
+  <div class="streak-card countdown-card">
+    <div class="streak-card-title">⏱️ পরবর্তী বোনাস</div>
+    <div class="countdown-value">23:59:59</div>
+    <div class="countdown-sub">আগামী দিনের বোনাস আনলক হবে</div>
+  </div>
+
+  <!-- 5. Streak Warning -->
+  <div class="streak-warning">
+    <div class="warning-icon">⚠️</div>
+    <div>
+      <strong>Streak ভাঙতে দেবেন না!</strong>
+      <p>একদিন অ্যাপে না এলে আপনার Streak আবার ১ দিন থেকে শুরু হবে।</p>
+    </div>
+  </div>
+
+  <!-- 6. Bonus History -->
+  <div class="streak-card">
+    <div class="streak-card-title">📜 বোনাস ক্লেইম হিস্ট্রি</div>
+    <div id="bonus-history-list"></div>
+  </div>
+
+  <!-- 7. Mega Bonus Progress -->
+  <div class="streak-card mega-card">
+    <div class="streak-card-title">🏆 Mega Bonus Progress</div>
+
+    <div class="mega-progress-head">
+      <span>Day 6 / Day 7</span>
+      <strong>86%</strong>
+    </div>
+
+    <div class="mega-progress">
+      <div class="mega-progress-fill" style="width:86%;"></div>
+    </div>
+
+    <div class="mega-progress-sub">
+      আর মাত্র ১ দিন পর ₹50 Mega Bonus!
+    </div>
   </div>
 
 </section>
@@ -1967,7 +2502,415 @@
     });
   });
 
-  // Home Screen Task List Data
+  
+
+// PERMANENT WALLET BALANCE
+function loadPermanentWallet() {
+  const walletTotal = document.querySelector('.w-hero-amt');
+  const walletBoxes = document.querySelectorAll('.w-split-box b');
+
+  if (!walletTotal || walletBoxes.length < 2) return;
+
+  const savedTotal = localStorage.getItem('priluck_wallet_total');
+  const savedBonus = localStorage.getItem('priluck_wallet_bonus');
+
+  if (savedTotal !== null) {
+    walletTotal.textContent = '₹' + parseFloat(savedTotal).toFixed(2);
+  }
+
+  if (savedBonus !== null) {
+    walletBoxes[1].textContent = '₹' + parseFloat(savedBonus).toFixed(2);
+  }
+}
+
+loadPermanentWallet();
+
+// COMPLETE STREAK / LOGIN BONUS SYSTEM
+
+const streakDays = document.querySelectorAll('#screen-streak .reward-day');
+const streakStatusValue = document.querySelector('#screen-streak .streak-status-value');
+const streakClaim = document.querySelector('#screen-streak .streak-claim-btn');
+const streakClaimReward = document.querySelector('#screen-streak .claim-reward');
+const megaFill = document.querySelector('#screen-streak .mega-progress-fill');
+const megaPercent = document.querySelector('#screen-streak .mega-progress-head strong');
+const megaSub = document.querySelector('#screen-streak .mega-progress-sub');
+
+const streakRewards = [5, 5, 5, 5, 5, 5, 20];
+
+let currentStreakDay =
+  parseInt(localStorage.getItem('priluck_streak_day'), 10) || 1;
+
+let streakDate =
+  localStorage.getItem('priluck_streak_date') || null;
+
+let streakClaimed =
+  localStorage.getItem('priluck_streak_claimed') === 'true';
+
+let megaClaimed =
+  localStorage.getItem('priluck_mega_bonus_claimed') === 'true';
+
+function getTodayDateKey() {
+  const now = new Date();
+
+  return now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+    String(now.getDate()).padStart(2, '0');
+}
+
+function getYesterdayDateKey() {
+  const now = new Date();
+  now.setDate(now.getDate() - 1);
+
+  return now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+    String(now.getDate()).padStart(2, '0');
+}
+
+function saveStreakState() {
+  localStorage.setItem(
+    'priluck_streak_day',
+    String(currentStreakDay)
+  );
+
+  localStorage.setItem(
+    'priluck_streak_date',
+    streakDate
+  );
+
+  localStorage.setItem(
+    'priluck_streak_claimed',
+    streakClaimed ? 'true' : 'false'
+  );
+
+  localStorage.setItem(
+    'priluck_mega_bonus_claimed',
+    megaClaimed ? 'true' : 'false'
+  );
+}
+
+function checkDailyStreak() {
+  const today = getTodayDateKey();
+
+  if (!streakDate) {
+    currentStreakDay = 1;
+    streakDate = today;
+    streakClaimed = false;
+
+    saveStreakState();
+    return;
+  }
+
+  if (streakDate === today) {
+    return;
+  }
+
+  if (streakDate === getYesterdayDateKey()) {
+    if (streakClaimed) {
+      if (currentStreakDay < 7) {
+        currentStreakDay += 1;
+      }
+
+      streakDate = today;
+      streakClaimed = false;
+
+      if (currentStreakDay < 7) {
+        megaClaimed = false;
+      }
+
+      saveStreakState();
+      return;
+    }
+
+    currentStreakDay = 1;
+    streakDate = today;
+    streakClaimed = false;
+    megaClaimed = false;
+
+    saveStreakState();
+    return;
+  }
+
+  currentStreakDay = 1;
+  streakDate = today;
+  streakClaimed = false;
+  megaClaimed = false;
+
+  saveStreakState();
+}
+
+function updateStreakDayUI() {
+  if (!streakDays.length) return;
+
+  streakDays.forEach((day, index) => {
+    const dayNumber = index + 1;
+    const small = day.querySelector('small');
+    const strong = day.querySelector('strong');
+
+    day.classList.remove('today', 'claimed', 'future');
+
+    if (strong) {
+      strong.textContent = '₹' + streakRewards[index];
+    }
+
+    if (dayNumber < currentStreakDay) {
+      day.classList.add('claimed');
+
+      if (small) {
+        small.textContent = '✓ সম্পন্ন';
+      }
+
+    } else if (dayNumber === currentStreakDay) {
+      day.classList.add('today');
+
+      if (small) {
+        small.textContent =
+          streakClaimed ? '✓ আজ ক্লেইমড' : '🎁 আজ';
+      }
+
+    } else {
+      day.classList.add('future');
+
+      if (small) {
+        small.textContent =
+          dayNumber === 7 ? '🏆 Mega' : '🔒 পরের দিন';
+      }
+    }
+  });
+
+  if (streakStatusValue) {
+    streakStatusValue.textContent =
+      currentStreakDay + ' দিন';
+  }
+
+  const reward = streakRewards[currentStreakDay - 1] || 5;
+
+  if (streakClaimReward) {
+    streakClaimReward.textContent = '₹' + reward;
+  }
+
+  if (megaFill) {
+    megaFill.style.width =
+      ((currentStreakDay / 7) * 100) + '%';
+  }
+
+  if (megaPercent) {
+    megaPercent.textContent =
+      Math.round((currentStreakDay / 7) * 100) + '%';
+  }
+
+  if (megaSub) {
+    if (currentStreakDay === 7) {
+      megaSub.textContent =
+        megaClaimed
+          ? '✓ ₹50 Mega Bonus Claimed'
+          : '🎉 ৭ দিনের Streak সম্পূর্ণ! ₹50 Mega Bonus প্রস্তুত!';
+    } else {
+      megaSub.textContent =
+        'আর ' + (7 - currentStreakDay) +
+        ' দিন পর ₹50 Mega Bonus আনলক হবে।';
+    }
+  }
+
+  if (streakClaim) {
+    if (streakClaimed) {
+      streakClaim.textContent = '✓ আজকের বোনাস ক্লেইমড';
+      streakClaim.disabled = true;
+    } else {
+      streakClaim.textContent =
+        currentStreakDay === 7
+          ? '🏆 ₹50 Mega Bonus ক্লেইম করুন'
+          : '🎁 ₹' + reward + ' বোনাস ক্লেইম করুন';
+
+      streakClaim.disabled = false;
+    }
+  }
+}
+
+function addStreakRewardToWallet(amount) {
+  const walletTotal =
+    document.querySelector('.w-hero-amt');
+
+  const walletBoxes =
+    document.querySelectorAll('.w-split-box b');
+
+  if (!walletTotal || walletBoxes.length < 2) {
+    alert('⚠️ Wallet পাওয়া যায়নি।');
+    return false;
+  }
+
+  const currentTotal =
+    parseFloat(
+      walletTotal.textContent.replace(/[^0-9.]/g, '')
+    ) || 0;
+
+  const currentBonus =
+    parseFloat(
+      walletBoxes[1].textContent.replace(/[^0-9.]/g, '')
+    ) || 0;
+
+  const newTotal = currentTotal + amount;
+  const newBonus = currentBonus + amount;
+
+  walletTotal.textContent =
+    '₹' + newTotal.toFixed(2);
+
+  walletBoxes[1].textContent =
+    '₹' + newBonus.toFixed(2);
+
+  localStorage.setItem(
+    'priluck_wallet_total',
+    String(newTotal)
+  );
+
+  localStorage.setItem(
+    'priluck_wallet_bonus',
+    String(newBonus)
+  );
+
+  return true;
+}
+
+function renderBonusHistory() {
+  const list = document.getElementById('bonus-history-list');
+  if (!list) return;
+
+  let history = [];
+  try {
+    history = JSON.parse(localStorage.getItem('priluck_bonus_history') || '[]');
+    if (!Array.isArray(history)) history = [];
+  } catch (e) {
+    history = [];
+  }
+
+  list.innerHTML = history.length ? history.slice().reverse().map(item =>
+    '<div class="bonus-history-row"><span>দিন ' + item.day + ' • ₹' + item.reward + '</span><strong>✓ Claimed</strong></div>'
+  ).join('') : '<div class="bonus-history-row"><span>এখনও কোনো বোনাস ক্লেইম করা হয়নি</span><strong>—</strong></div>';
+}
+
+function claimTodayStreak() {
+  if (streakClaimed) {
+    return;
+  }
+
+  const reward =
+    streakRewards[currentStreakDay - 1] || 5;
+
+  if (!addStreakRewardToWallet(reward)) {
+    return;
+  }
+
+  streakClaimed = true;
+
+  let history = [];
+  try {
+    history = JSON.parse(localStorage.getItem('priluck_bonus_history') || '[]');
+    if (!Array.isArray(history)) history = [];
+  } catch (e) {
+    history = [];
+  }
+  if (!history.some(item => item.day === currentStreakDay)) {
+    history.push({day: currentStreakDay, reward: reward});
+    localStorage.setItem('priluck_bonus_history', JSON.stringify(history));
+  }
+  renderBonusHistory();
+
+  if (currentStreakDay === 7) {
+    megaClaimed = true;
+
+    localStorage.setItem(
+      'priluck_mega_bonus_claimed',
+      'true'
+    );
+  }
+
+  saveStreakState();
+  updateStreakDayUI();
+
+  alert(
+    '🎉 ₹' + reward +
+    ' বোনাস সফলভাবে Wallet-এ যোগ হয়েছে!'
+  );
+}
+
+if (streakClaim) {
+  streakClaim.addEventListener(
+    'click',
+    claimTodayStreak
+  );
+}
+
+checkDailyStreak();
+updateStreakDayUI();
+
+if (streakClaimed) {
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem('priluck_bonus_history') || '[]'); } catch (e) { history = []; }
+  if (!Array.isArray(history)) history = [];
+  if (!history.some(item => item.day === currentStreakDay)) {
+    history.push({day: currentStreakDay, reward: streakRewards[currentStreakDay - 1] || 5});
+    localStorage.setItem('priluck_bonus_history', JSON.stringify(history));
+  }
+}
+
+renderBonusHistory();
+
+function showBonusSuccessPopup(amount) {
+  const old = document.getElementById('priluck-bonus-popup');
+  if (old) old.remove();
+
+  const popup = document.createElement('div');
+  popup.id = 'priluck-bonus-popup';
+  popup.innerHTML =
+    '<div class="bonus-sparkles">✦ ✨ ✦</div>' +
+    '<div class="bonus-popup-box">' +
+      '<div class="bonus-popup-icon">🎉</div>' +
+      '<div class="bonus-popup-title">CONGRATULATIONS!</div>' +
+      '<div class="bonus-popup-amount">₹' + amount + '</div>' +
+      '<div class="bonus-popup-subtitle">BONUS CLAIMED SUCCESSFULLY</div>' +
+      '<div class="bonus-popup-message">আপনার বোনাস সফলভাবে Wallet-এ যোগ হয়েছে।</div>' +
+      '<button class="bonus-popup-ok" onclick="document.getElementById(\'priluck-bonus-popup\').remove()">ঠিক আছে</button>' +
+    '</div>' +
+    '<div class="bonus-confetti">🎊 ✨ 🎉 ✨ 🎊</div>';
+  document.body.appendChild(popup);
+
+  setTimeout(() => {
+    if (document.getElementById('priluck-bonus-popup')) {
+      document.getElementById('priluck-bonus-popup').remove();
+    }
+  }, 5000);
+}
+
+// END COMPLETE STREAK / LOGIN BONUS SYSTEM
+
+// STREAK COUNTDOWN TIMER
+const streakCountdown = document.querySelector('.countdown-value');
+
+function updateStreakCountdown() {
+  if (!streakCountdown) return;
+
+  const now = new Date();
+  const tomorrow = new Date(now);
+
+  tomorrow.setDate(now.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
+
+  const diff = tomorrow - now;
+
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  streakCountdown.textContent =
+    String(hours).padStart(2, '0') + ':' +
+    String(minutes).padStart(2, '0') + ':' +
+    String(seconds).padStart(2, '0');
+}
+
+updateStreakCountdown();
+setInterval(updateStreakCountdown, 1000);
+
+
+// Home Screen Task List Data
   const taskData = [
     {icon:'🔍', name:'গুগল সার্চ করুন',        meta:'2 মিনিট • CPX Research', price:'₹8'},
     {icon:'▶️', name:'ইউটিউব ভিডিও দেখুন',      meta:'2 মিনিট • CPX Research', price:'₹6'},
