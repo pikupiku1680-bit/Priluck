@@ -1492,12 +1492,12 @@
         <div class="streak-right">
           <div class="streak-days">আজ আপনি আছেন</div>
           <div class="day-track">
-            <div class="day"><div class="day-dot done">✓</div>১ দিন</div>
-            <div class="day"><div class="day-dot done">✓</div>২ দিন</div>
-            <div class="day"><div class="day-dot done">✓</div>৩ দিন</div>
-            <div class="day"><div class="day-dot done">✓</div>৪ দিন</div>
-            <div class="day"><div class="day-dot done">✓</div>৫ দিন</div>
-            <div class="day"><div class="day-dot today">6</div>৬ দিন</div>
+            <div class="day"><div class="day-dot today">1</div>১ দিন</div>
+            <div class="day"><div class="day-dot future">🔒</div>২ দিন</div>
+            <div class="day"><div class="day-dot future">🔒</div>৩ দিন</div>
+            <div class="day"><div class="day-dot future">🔒</div>৪ দিন</div>
+            <div class="day"><div class="day-dot future">🔒</div>৫ দিন</div>
+            <div class="day"><div class="day-dot future">🔒</div>৬ দিন</div>
             <div class="day"><div class="day-dot future">🔥</div>৭ দিন</div>
           </div>
         </div>
@@ -1691,25 +1691,25 @@
         <small>✓ ক্লেইমড</small>
       </div>
 
-      <div class="reward-day claimed">
+      <div class="reward-day future">
         <span>দিন ৩</span>
         <strong>₹10</strong>
         <small>✓ ক্লেইমড</small>
       </div>
 
-      <div class="reward-day claimed">
+      <div class="reward-day future">
         <span>দিন ৪</span>
         <strong>₹10</strong>
         <small>✓ ক্লেইমড</small>
       </div>
 
-      <div class="reward-day claimed">
+      <div class="reward-day future">
         <span>দিন ৫</span>
         <strong>₹15</strong>
         <small>✓ ক্লেইমড</small>
       </div>
 
-      <div class="reward-day today">
+      <div class="reward-day future">
         <span>দিন ৬</span>
         <strong>₹20</strong>
         <small>🎁 আজ</small>
@@ -1728,7 +1728,7 @@
     <div class="streak-status-icon">🔥</div>
     <div class="streak-status-content">
       <div class="streak-status-label">আজকের স্ট্রিক</div>
-      <div class="streak-status-value">৬ দিন</div>
+      <div class="streak-status-value">১ দিন</div>
       <div class="streak-status-sub">আজকের বোনাস ক্লেইম করার জন্য প্রস্তুত</div>
     </div>
   </div>
@@ -1736,7 +1736,7 @@
   <!-- 3. Claim Bonus -->
   <div class="streak-card claim-card">
     <div class="streak-card-title">🎁 আজকের বোনাস</div>
-    <div class="claim-reward">₹20</div>
+    <div class="claim-reward">₹5</div>
     <div class="claim-sub">আজকের Streak Reward</div>
     <button class="streak-claim-btn">বোনাস ক্লেইম করুন</button>
   </div>
@@ -1768,16 +1768,16 @@
     <div class="streak-card-title">🏆 Mega Bonus Progress</div>
 
     <div class="mega-progress-head">
-      <span>Day 6 / Day 7</span>
-      <strong>86%</strong>
+      <span>Day 1 / Day 7</span>
+      <strong>14%</strong>
     </div>
 
     <div class="mega-progress">
-      <div class="mega-progress-fill" style="width:86%;"></div>
+      <div class="mega-progress-fill" style="width:14%;"></div>
     </div>
 
     <div class="mega-progress-sub">
-      আর মাত্র ১ দিন পর ₹50 Mega Bonus!
+      আর ৬ দিন পর ₹50 Mega Bonus!
     </div>
   </div>
 
@@ -2495,6 +2495,10 @@
 
       targetScreen.classList.add('active');
 
+      if (target === 'home' && typeof updateHomeStreakUI === 'function') {
+        updateHomeStreakUI();
+      }
+
       const matchingNav = document.querySelector('.nav-item[data-screen="' + target + '"]');
       if (matchingNav) matchingNav.classList.add('active');
 
@@ -2525,7 +2529,7 @@ function loadPermanentWallet() {
 
 loadPermanentWallet();
 
-// COMPLETE STREAK / LOGIN BONUS SYSTEM
+// COMPLETE STREAK / LOGIN BONUS SYSTEM — CLEAN V3
 
 const streakDays = document.querySelectorAll('#screen-streak .reward-day');
 const streakStatusValue = document.querySelector('#screen-streak .streak-status-value');
@@ -2534,8 +2538,27 @@ const streakClaimReward = document.querySelector('#screen-streak .claim-reward')
 const megaFill = document.querySelector('#screen-streak .mega-progress-fill');
 const megaPercent = document.querySelector('#screen-streak .mega-progress-head strong');
 const megaSub = document.querySelector('#screen-streak .mega-progress-sub');
+const streakCountdown = document.querySelector('#screen-streak .countdown-value');
 
+// FINAL 7-DAY REWARD PLAN:
+// Day 1 = ₹5, Day 2 = ₹5, Day 3 = ₹10,
+// Day 4 = ₹10, Day 5 = ₹15, Day 6 = ₹20, Day 7 = ₹50 Mega Bonus.
 const streakRewards = [5, 5, 5, 5, 5, 5, 20];
+const STREAK_TASK_REQUIRED = 15;
+const STREAK_SYSTEM_VERSION = 'v3-day1-15tasks';
+
+// Clean start: old test streak state/history is discarded once.
+if (localStorage.getItem('priluck_streak_system_version') !== STREAK_SYSTEM_VERSION) {
+  localStorage.removeItem('priluck_streak_day');
+  localStorage.removeItem('priluck_streak_date');
+  localStorage.removeItem('priluck_streak_claimed');
+  localStorage.removeItem('priluck_streak_claimed_date');
+  localStorage.removeItem('priluck_mega_bonus_claimed');
+  localStorage.removeItem('priluck_bonus_history');
+  localStorage.removeItem('priluck_streak_tasks_completed');
+  localStorage.removeItem('priluck_streak_bonus_balance');
+  localStorage.setItem('priluck_streak_system_version', STREAK_SYSTEM_VERSION);
+}
 
 let currentStreakDay =
   parseInt(localStorage.getItem('priluck_streak_day'), 10) || 1;
@@ -2552,9 +2575,14 @@ let streakClaimedDate =
 let megaClaimed =
   localStorage.getItem('priluck_mega_bonus_claimed') === 'true';
 
+let streakBonusBalance =
+  parseFloat(localStorage.getItem('priluck_streak_bonus_balance') || '0') || 0;
+
+let streakTasksCompleted =
+  parseInt(localStorage.getItem('priluck_streak_tasks_completed'), 10) || 0;
+
 function getTodayDateKey() {
   const now = new Date();
-
   return now.getFullYear() + '-' +
     String(now.getMonth() + 1).padStart(2, '0') + '-' +
     String(now.getDate()).padStart(2, '0');
@@ -2563,98 +2591,120 @@ function getTodayDateKey() {
 function getYesterdayDateKey() {
   const now = new Date();
   now.setDate(now.getDate() - 1);
-
   return now.getFullYear() + '-' +
     String(now.getMonth() + 1).padStart(2, '0') + '-' +
-    String(now.getDate()).padStart(2, '0');
+    String(now.getDate()).padStart(2, '2');
+}
+
+function saveStreakTaskProgress() {
+  localStorage.setItem(
+    'priluck_streak_tasks_completed',
+    String(streakTasksCompleted)
+  );
 }
 
 function saveStreakState() {
-  localStorage.setItem(
-    'priluck_streak_day',
-    String(currentStreakDay)
-  );
-
-  localStorage.setItem(
-    'priluck_streak_date',
-    streakDate
-  );
-
-  localStorage.setItem(
-    'priluck_streak_claimed',
-    streakClaimed ? 'true' : 'false'
-  );
+  localStorage.setItem('priluck_streak_day', String(currentStreakDay));
+  localStorage.setItem('priluck_streak_date', streakDate || '');
+  localStorage.setItem('priluck_streak_claimed', streakClaimed ? 'true' : 'false');
 
   if (streakClaimedDate) {
-    localStorage.setItem(
-      'priluck_streak_claimed_date',
-      streakClaimedDate
-    );
+    localStorage.setItem('priluck_streak_claimed_date', streakClaimedDate);
+  } else {
+    localStorage.removeItem('priluck_streak_claimed_date');
   }
 
   localStorage.setItem(
     'priluck_mega_bonus_claimed',
     megaClaimed ? 'true' : 'false'
   );
+
+  localStorage.setItem(
+    'priluck_streak_bonus_balance',
+    String(streakBonusBalance)
+  );
+
+  saveStreakTaskProgress();
 }
 
 function checkDailyStreak() {
   const today = getTodayDateKey();
-  streakClaimedDate =
-    localStorage.getItem('priluck_streak_claimed_date') || null;
-
-  // A saved claim for TODAY always wins over a stale false flag.
-  if (streakClaimedDate === today) {
-    streakClaimed = true;
-  }
 
   if (!streakDate) {
     currentStreakDay = 1;
     streakDate = today;
     streakClaimed = false;
-
+    streakClaimedDate = null;
+    megaClaimed = false;
+    streakTasksCompleted = 0;
     saveStreakState();
     return;
   }
 
+  // Same calendar day: never advance the streak.
   if (streakDate === today) {
+    streakClaimed = streakClaimedDate === today;
     return;
   }
 
+  // Exactly one day passed.
   if (streakDate === getYesterdayDateKey()) {
-    if (streakClaimed) {
-      if (currentStreakDay < 7) {
-        currentStreakDay += 1;
-      }
-
-      streakDate = today;
-      streakClaimed = false;
-      streakClaimedDate = null;
-      localStorage.removeItem('priluck_streak_claimed_date');
-
-      if (currentStreakDay < 7) {
-        megaClaimed = false;
-      }
-
-      saveStreakState();
-      return;
+    if (streakClaimed && streakClaimedDate === streakDate) {
+      // After Day 7, start a fresh 7-day cycle.
+      currentStreakDay = currentStreakDay >= 7
+        ? 1
+        : currentStreakDay + 1;
+      megaClaimed = false;
+    } else {
+      // Missed yesterday: reset the streak.
+      currentStreakDay = 1;
+      megaClaimed = false;
     }
 
-    currentStreakDay = 1;
     streakDate = today;
     streakClaimed = false;
-    megaClaimed = false;
-
+    streakClaimedDate = null;
+    streakTasksCompleted = 0;
     saveStreakState();
     return;
   }
 
+  // More than one day missed: reset.
   currentStreakDay = 1;
   streakDate = today;
   streakClaimed = false;
+  streakClaimedDate = null;
   megaClaimed = false;
-
+  streakTasksCompleted = 0;
   saveStreakState();
+}
+
+function updateStreakTaskRequirementUI() {
+  if (!streakClaim) return;
+
+  if (streakClaimed) {
+    streakClaim.disabled = true;
+    streakClaim.textContent = '✓ আজকের বোনাস ক্লেইমড';
+    return;
+  }
+
+  const remaining = Math.max(
+    0,
+    STREAK_TASK_REQUIRED - streakTasksCompleted
+  );
+
+  if (streakTasksCompleted < STREAK_TASK_REQUIRED) {
+    streakClaim.disabled = true;
+    streakClaim.textContent = '🔒 আরও ' + remaining + 'টি টাস্ক করুন';
+    return;
+  }
+
+  streakClaim.disabled = false;
+
+  const reward = streakRewards[currentStreakDay - 1];
+  streakClaim.textContent = currentStreakDay === 7
+    ? '🏆 ₹50 Mega Bonus ক্লেইম করুন'
+    : '🎁 ₹' + reward + ' বোনাস ক্লেইম করুন';
 }
 
 function updateStreakDayUI() {
@@ -2673,119 +2723,107 @@ function updateStreakDayUI() {
 
     if (dayNumber < currentStreakDay) {
       day.classList.add('claimed');
-
-      if (small) {
-        small.textContent = '✓ সম্পন্ন';
-      }
-
+      if (small) small.textContent = '✓ ক্লেইমড';
     } else if (dayNumber === currentStreakDay) {
-      day.classList.add('today');
-
-      if (small) {
-        small.textContent =
-          streakClaimed ? '✓ আজ ক্লেইমড' : '🎁 আজ';
+      if (streakClaimed) {
+        day.classList.add('claimed');
+        if (small) small.textContent = '✓ ক্লেইমড';
+      } else {
+        day.classList.add('today');
+        if (small) small.textContent = '🎁 আজ';
       }
-
     } else {
       day.classList.add('future');
-
       if (small) {
-        small.textContent =
-          dayNumber === 7 ? '🏆 Mega' : '🔒 পরের দিন';
+        small.textContent = dayNumber === 7 ? '🏆 Mega' : '🔒 পরের দিন';
       }
     }
   });
 
   if (streakStatusValue) {
-    streakStatusValue.textContent =
-      currentStreakDay + ' দিন';
+    streakStatusValue.textContent = currentStreakDay + ' দিন';
   }
 
-  const reward = streakRewards[currentStreakDay - 1] || 5;
-
+  const reward = streakRewards[currentStreakDay - 1];
   if (streakClaimReward) {
     streakClaimReward.textContent = '₹' + reward;
   }
 
   if (megaFill) {
-    megaFill.style.width =
-      ((currentStreakDay / 7) * 100) + '%';
+    megaFill.style.width = ((currentStreakDay / 7) * 100) + '%';
   }
 
   if (megaPercent) {
-    megaPercent.textContent =
-      Math.round((currentStreakDay / 7) * 100) + '%';
+    megaPercent.textContent = Math.round((currentStreakDay / 7) * 100) + '%';
   }
 
   if (megaSub) {
-    if (currentStreakDay === 7) {
-      megaSub.textContent =
-        megaClaimed
+    megaSub.textContent = currentStreakDay === 7
+      ? (megaClaimed
           ? '✓ ₹50 Mega Bonus Claimed'
-          : '🎉 ৭ দিনের Streak সম্পূর্ণ! ₹50 Mega Bonus প্রস্তুত!';
-    } else {
-      megaSub.textContent =
-        'আর ' + (7 - currentStreakDay) +
-        ' দিন পর ₹50 Mega Bonus আনলক হবে।';
-    }
+          : '🎉 ৭ দিনের Streak সম্পূর্ণ! ₹50 Mega Bonus প্রস্তুত!')
+      : 'আর ' + (7 - currentStreakDay) + ' দিন পর ₹50 Mega Bonus আনলক হবে।';
   }
 
-  if (streakClaim) {
-    if (streakClaimed) {
-      streakClaim.textContent = '✓ আজকের বোনাস ক্লেইমড';
-      streakClaim.disabled = true;
-    } else {
-      streakClaim.textContent =
-        currentStreakDay === 7
-          ? '🏆 ₹50 Mega Bonus ক্লেইম করুন'
-          : '🎁 ₹' + reward + ' বোনাস ক্লেইম করুন';
+  updateStreakTaskRequirementUI();
+}
 
-      streakClaim.disabled = false;
+function updateHomeStreakUI() {
+  const homeTrack = document.querySelector('#screen-home .day-track');
+  if (!homeTrack) return;
+
+  const homeDays = homeTrack.querySelectorAll('.day');
+
+  homeDays.forEach((day, index) => {
+    const dayNumber = index + 1;
+    const dot = day.querySelector('.day-dot');
+    if (!dot) return;
+
+    dot.classList.remove('done', 'today', 'future');
+
+    if (dayNumber < currentStreakDay) {
+      dot.classList.add('done');
+      dot.textContent = '✓';
+    } else if (dayNumber === currentStreakDay) {
+      if (streakClaimed) {
+        dot.classList.add('done');
+        dot.textContent = '✓';
+      } else {
+        dot.classList.add('today');
+        dot.textContent = dayNumber === 7 ? '🔥' : String(dayNumber);
+      }
+    } else {
+      dot.classList.add('future');
+      dot.textContent = dayNumber === 7 ? '🔥' : '🔒';
     }
-  }
+  });
 }
 
 function addStreakRewardToWallet(amount) {
-  const walletTotal =
-    document.querySelector('.w-hero-amt');
-
-  const walletBoxes =
-    document.querySelectorAll('.w-split-box b');
+  const walletTotal = document.querySelector('.w-hero-amt');
+  const walletBoxes = document.querySelectorAll('.w-split-box b');
 
   if (!walletTotal || walletBoxes.length < 2) {
     alert('⚠️ Wallet পাওয়া যায়নি।');
     return false;
   }
 
-  const currentTotal =
-    parseFloat(
-      walletTotal.textContent.replace(/[^0-9.]/g, '')
-    ) || 0;
+  const currentTotal = parseFloat(
+    walletTotal.textContent.replace(/[^0-9.]/g, '')
+  ) || 0;
 
-  const currentBonus =
-    parseFloat(
-      walletBoxes[1].textContent.replace(/[^0-9.]/g, '')
-    ) || 0;
+  const currentBonus = parseFloat(
+    walletBoxes[1].textContent.replace(/[^0-9.]/g, '')
+  ) || 0;
 
   const newTotal = currentTotal + amount;
   const newBonus = currentBonus + amount;
 
-  walletTotal.textContent =
-    '₹' + newTotal.toFixed(2);
+  walletTotal.textContent = '₹' + newTotal.toFixed(2);
+  walletBoxes[1].textContent = '₹' + newBonus.toFixed(2);
 
-  walletBoxes[1].textContent =
-    '₹' + newBonus.toFixed(2);
-
-  localStorage.setItem(
-    'priluck_wallet_total',
-    String(newTotal)
-  );
-
-  localStorage.setItem(
-    'priluck_wallet_bonus',
-    String(newBonus)
-  );
-
+  localStorage.setItem('priluck_wallet_total', String(newTotal));
+  localStorage.setItem('priluck_wallet_bonus', String(newBonus));
   return true;
 }
 
@@ -2795,46 +2833,65 @@ function renderBonusHistory() {
 
   let history = [];
   try {
-    history = JSON.parse(localStorage.getItem('priluck_bonus_history') || '[]');
+    history = JSON.parse(
+      localStorage.getItem('priluck_bonus_history') || '[]'
+    );
     if (!Array.isArray(history)) history = [];
   } catch (e) {
     history = [];
   }
 
-  list.innerHTML = history.length ? history.slice().reverse().map(item =>
-    '<div class="bonus-history-row"><span>দিন ' + item.day + ' • ₹' + item.reward + '</span><strong>✓ Claimed</strong></div>'
-  ).join('') : '<div class="bonus-history-row"><span>এখনও কোনো বোনাস ক্লেইম করা হয়নি</span><strong>—</strong></div>';
+  list.innerHTML = history.length
+    ? history.slice().reverse().map(item =>
+        '<div class="bonus-history-row">' +
+        '<span>দিন ' + item.day + ' • ₹' + item.reward + '</span>' +
+        '<strong>✓ Claimed</strong>' +
+        '</div>'
+      ).join('')
+    : '<div class="bonus-history-row"><span>এখনও কোনো বোনাস ক্লেইম করা হয়নি</span><strong>—</strong></div>';
 }
 
 function claimTodayStreak() {
   const today = getTodayDateKey();
-  const claimedDate = localStorage.getItem('priluck_streak_claimed_date');
 
-  // STRICT SAME-DAY LOCK
-  // Once today's bonus has been claimed, it can never be claimed again today.
-  if (claimedDate === today || streakClaimed) {
-    streakClaimed = true;
-    streakDate = today;
-    localStorage.setItem('priluck_streak_claimed_date', today);
-    saveStreakState();
+  if (streakClaimed && streakClaimedDate === today) {
     updateStreakDayUI();
+    updateHomeStreakUI();
     return;
   }
 
-  const reward =
-    streakRewards[currentStreakDay - 1] || 5;
-
-  if (!addStreakRewardToWallet(reward)) {
+  if (streakTasksCompleted < STREAK_TASK_REQUIRED) {
+    alert(
+      '🔒 আজকের বোনাস ক্লেইম করতে আগে ' +
+      STREAK_TASK_REQUIRED + 'টি টাস্ক সম্পূর্ণ করুন।'
+    );
+    updateStreakTaskRequirementUI();
     return;
   }
+
+  const reward = streakRewards[currentStreakDay - 1];
+
+  if (!addStreakRewardToWallet(reward)) return;
 
   streakClaimed = true;
   streakDate = today;
-  localStorage.setItem('priluck_streak_claimed_date', today);
+  streakClaimedDate = today;
+
+  // Today's 15-task requirement is consumed after claiming.
+  streakTasksCompleted = 0;
+
+  // Track this streak's bonus only.
+  streakBonusBalance += reward;
+
+  if (currentStreakDay === 7) {
+    megaClaimed = true;
+  }
 
   let history = [];
   try {
-    history = JSON.parse(localStorage.getItem('priluck_bonus_history') || '[]');
+    history = JSON.parse(
+      localStorage.getItem('priluck_bonus_history') || '[]'
+    );
     if (!Array.isArray(history)) history = [];
   } catch (e) {
     history = [];
@@ -2849,87 +2906,34 @@ function claimTodayStreak() {
     localStorage.setItem('priluck_bonus_history', JSON.stringify(history));
   }
 
-  renderBonusHistory();
-
-  if (currentStreakDay === 7) {
-    megaClaimed = true;
-    localStorage.setItem(
-      'priluck_mega_bonus_claimed',
-      'true'
-    );
-  }
-
   saveStreakState();
   updateStreakDayUI();
-
-  // PREMIUM SUCCESS POPUP
+  updateHomeStreakUI();
+  renderBonusHistory();
   showBonusSuccessPopup(reward);
 }
 
+function completeStreakTask() {
+  if (streakTasksCompleted >= STREAK_TASK_REQUIRED) return;
+
+  streakTasksCompleted += 1;
+  saveStreakTaskProgress();
+  updateStreakTaskRequirementUI();
+}
+
 if (streakClaim) {
-  streakClaim.addEventListener(
-    'click',
-    claimTodayStreak
-  );
+  streakClaim.addEventListener('click', claimTodayStreak);
 }
-
-checkDailyStreak();
-updateStreakDayUI();
-
-if (streakClaimed) {
-  let history = [];
-  try { history = JSON.parse(localStorage.getItem('priluck_bonus_history') || '[]'); } catch (e) { history = []; }
-  if (!Array.isArray(history)) history = [];
-  if (!history.some(item => item.day === currentStreakDay)) {
-    history.push({day: currentStreakDay, reward: streakRewards[currentStreakDay - 1] || 5});
-    localStorage.setItem('priluck_bonus_history', JSON.stringify(history));
-  }
-}
-
-renderBonusHistory();
-
-function showBonusSuccessPopup(amount) {
-  const old = document.getElementById('priluck-bonus-popup');
-  if (old) old.remove();
-
-  const popup = document.createElement('div');
-  popup.id = 'priluck-bonus-popup';
-  popup.innerHTML =
-    '<div class="bonus-sparkles">✦ ✨ ✦</div>' +
-    '<div class="bonus-popup-box">' +
-      '<div class="bonus-popup-icon">🎉</div>' +
-      '<div class="bonus-popup-title">CONGRATULATIONS!</div>' +
-      '<div class="bonus-popup-amount">₹' + amount + '</div>' +
-      '<div class="bonus-popup-subtitle">BONUS CLAIMED SUCCESSFULLY</div>' +
-      '<div class="bonus-popup-message">আপনার বোনাস সফলভাবে Wallet-এ যোগ হয়েছে।</div>' +
-      '<button class="bonus-popup-ok" onclick="document.getElementById(\'priluck-bonus-popup\').remove()">ঠিক আছে</button>' +
-    '</div>' +
-    '<div class="bonus-confetti">🎊 ✨ 🎉 ✨ 🎊</div>';
-  document.body.appendChild(popup);
-
-  setTimeout(() => {
-    if (document.getElementById('priluck-bonus-popup')) {
-      document.getElementById('priluck-bonus-popup').remove();
-    }
-  }, 5000);
-}
-
-// END COMPLETE STREAK / LOGIN BONUS SYSTEM
-
-// STREAK COUNTDOWN TIMER
-const streakCountdown = document.querySelector('.countdown-value');
 
 function updateStreakCountdown() {
   if (!streakCountdown) return;
 
   const now = new Date();
   const tomorrow = new Date(now);
-
   tomorrow.setDate(now.getDate() + 1);
   tomorrow.setHours(0, 0, 0, 0);
 
-  const diff = tomorrow - now;
-
+  const diff = Math.max(0, tomorrow - now);
   const hours = Math.floor(diff / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -2940,9 +2944,26 @@ function updateStreakCountdown() {
     String(seconds).padStart(2, '0');
 }
 
+checkDailyStreak();
+updateStreakDayUI();
+updateHomeStreakUI();
+renderBonusHistory();
 updateStreakCountdown();
-setInterval(updateStreakCountdown, 1000);
 
+setInterval(() => {
+  const beforeDate = streakDate;
+  checkDailyStreak();
+
+  if (beforeDate !== streakDate) {
+    updateStreakDayUI();
+    updateHomeStreakUI();
+    renderBonusHistory();
+  }
+
+  updateStreakCountdown();
+}, 1000);
+
+// END COMPLETE STREAK / LOGIN BONUS SYSTEM
 
 // Home Screen Task List Data
   const taskData = [
@@ -2957,6 +2978,7 @@ setInterval(updateStreakCountdown, 1000);
     {icon:'⭐', name:'রিভিউ দিন', meta:'2 মিনিট • CPX Research', price:'₹5'},
     {icon:'🔗', name:'লিংকে ক্লিক করুন', meta:'1 মিনিট • RevenueWall', price:'₹4'},
     {icon:'📝', name:'ছোট সার্ভে সম্পূর্ণ করুন', meta:'4 মিনিট • CPX Research', price:'₹9'},
+    {icon:'💬', name:'কমেন্ট করুন', meta:'2 মিনিট • CPX Research', price:'₹5'},
   ];
 
   const allTaskList = document.getElementById('allTaskList');
@@ -3023,6 +3045,8 @@ setInterval(updateStreakCountdown, 1000);
         const name = row.querySelector('.task-name').textContent;
 
         alert('টাস্ক সম্পূর্ণ হয়েছে: ' + name);
+
+        completeStreakTask();
 
         homeTaskStart++;
 
