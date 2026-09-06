@@ -1511,7 +1511,7 @@
         <div class="feature-sub">দারুণ সব অফার ও বোনাস দেখুন</div>
         <div class="feature-arrow pink">→</div>
       </div>
-      <div class="feature">
+      <div class="feature" data-screen="performance">
         <div class="feature-icon blue">📊</div>
         <div class="feature-title">আমার পারফরম্যান্স</div>
         <div class="feature-sub">আপনার মোট আয়, টাস্ক ও সাকসেস দেখুন</div>
@@ -1652,6 +1652,532 @@
       <button disabled style="width:100%;margin-top:10px;padding:12px;border:0;border-radius:12px;background:#e2e8f0;color:#64748b;font-weight:800;">🔒 Bonus Locked</button>
     </div>
   </div>
+
+</section>
+
+<!-- ==========================================
+       SCREEN: PERFORMANCE
+========================================== -->
+<section class="screen performance-screen" id="screen-performance">
+
+<style>
+.performance-screen{
+  background:linear-gradient(180deg,#6d45ef 0%,#8b5cf6 25%,#f5f3ff 58%,#f8fafc 100%);
+  min-height:100vh;
+  padding-bottom:95px;
+  color:#0f172a !important;
+}
+
+.performance-screen .details-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:18px 16px 10px;
+}
+
+.performance-screen .details-back{
+  width:52px !important;
+  height:52px !important;
+  min-width:52px !important;
+  min-height:52px !important;
+  border:0 !important;
+  border-radius:16px !important;
+  background:rgba(255,255,255,.22) !important;
+  color:#fff !important;
+  font-size:32px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+.performance-screen .details-title{
+  color:#fff !important;
+  font-size:25px !important;
+  font-weight:900 !important;
+}
+
+.performance-wrap{
+  padding:12px 16px 20px;
+}
+
+.performance-card{
+  background:#fff;
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 8px 25px rgba(15,23,42,.10);
+  color:#0f172a !important;
+}
+
+.performance-card *{
+  color:inherit;
+}
+
+.performance-card-title{
+  font-size:19px;
+  font-weight:900;
+  color:#0f172a !important;
+}
+
+.performance-muted{
+  font-size:13px;
+  color:#64748b !important;
+  margin-top:6px;
+}
+
+.performance-hero{
+  background:linear-gradient(135deg,#7c3aed,#ec4899);
+  color:#fff !important;
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:16px;
+  box-shadow:0 10px 28px rgba(124,58,237,.25);
+}
+
+.performance-hero *{
+  color:#fff !important;
+}
+
+.performance-score{
+  font-size:48px;
+  font-weight:900;
+  line-height:1.1;
+  margin-top:7px;
+}
+
+.performance-score span{
+  font-size:20px;
+  font-weight:800;
+}
+
+.performance-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:16px;
+}
+
+.performance-stat{
+  background:#f8fafc;
+  border-radius:16px;
+  padding:13px 8px;
+  text-align:center;
+}
+
+.performance-stat-label{
+  font-size:12px;
+  color:#64748b !important;
+}
+
+.performance-stat-value{
+  font-size:17px;
+  font-weight:900;
+  color:#0f172a !important;
+  margin-top:5px;
+}
+
+.performance-progress{
+  height:10px;
+  background:#e2e8f0;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:12px;
+}
+
+.performance-progress > div{
+  height:100%;
+  border-radius:20px;
+}
+
+.performance-chart{
+  position:relative;
+  height:190px;
+  margin-top:18px;
+  padding:10px 5px 25px;
+  border-left:1px solid #cbd5e1;
+  border-bottom:1px solid #cbd5e1;
+  background:
+    linear-gradient(to bottom,transparent 24%,#e2e8f0 25%,transparent 26%),
+    linear-gradient(to bottom,transparent 49%,#e2e8f0 50%,transparent 51%),
+    linear-gradient(to bottom,transparent 74%,#e2e8f0 75%,transparent 76%);
+}
+
+.performance-line{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-around;
+  height:100%;
+  gap:7px;
+}
+
+.performance-bar{
+  flex:1;
+  max-width:30px;
+  border-radius:9px 9px 3px 3px;
+  background:linear-gradient(180deg,#8b5cf6,#6d28d9);
+  position:relative;
+  min-height:12px;
+}
+
+.performance-bar span{
+  position:absolute;
+  bottom:-22px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  color:#64748b !important;
+  white-space:nowrap;
+}
+
+.performance-bar strong{
+  position:absolute;
+  top:-19px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  color:#475569 !important;
+}
+
+.performance-three{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:14px;
+}
+
+.performance-mini{
+  padding:13px 8px;
+  background:#f8fafc;
+  border-radius:15px;
+  text-align:center;
+}
+
+.performance-mini b{
+  display:block;
+  font-size:19px;
+  margin-top:4px;
+  color:#0f172a !important;
+}
+
+.performance-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid #e2e8f0;
+  font-size:14px;
+  color:#334155 !important;
+}
+
+.performance-row:last-child{
+  border-bottom:0;
+}
+
+.performance-row strong{
+  color:#0f172a !important;
+}
+
+.performance-tip{
+  padding:14px;
+  background:#f8fafc;
+  border-radius:15px;
+  margin-top:9px;
+  font-size:13px;
+  line-height:1.55;
+  color:#334155 !important;
+}
+
+.performance-level{
+  font-size:28px;
+  font-weight:900;
+  color:#7c3aed !important;
+  margin-top:5px;
+}
+
+.performance-days{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  height:145px;
+  margin-top:15px;
+  padding:0 5px 24px;
+  border-bottom:1px solid #cbd5e1;
+}
+
+.performance-day{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  height:100%;
+}
+
+.performance-day-bar{
+  width:24px;
+  border-radius:8px 8px 3px 3px;
+  background:#16a34a;
+}
+
+.performance-day-label{
+  font-size:10px;
+  color:#64748b !important;
+  margin-top:7px;
+}
+
+@media(max-width:380px){
+  .performance-stats{
+    gap:7px;
+  }
+  .performance-stat{
+    padding:11px 5px;
+  }
+}
+</style>
+
+<div class="details-header">
+  <button class="details-back" data-screen="home">←</button>
+  <div class="details-title">আমার পারফরম্যান্স</div>
+</div>
+
+<div class="performance-wrap">
+
+  <div class="performance-hero">
+    <div style="font-size:15px;font-weight:800;">🎯 Task Accuracy Score</div>
+    <div class="performance-score">94<span>/100</span></div>
+    <div style="font-size:13px;opacity:.95;margin-top:6px;">
+      আপনার বর্তমান কাজের নির্ভুলতা এবং quality-এর ভিত্তিতে আপনার performance score।
+    </div>
+
+    <div class="performance-progress" style="background:rgba(255,255,255,.25);">
+      <div style="width:94%;background:#fff;"></div>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">⚡ Task Completion Time</div>
+    <div class="performance-muted">আপনি সাধারণত কত দ্রুত একটি task সম্পূর্ণ করেন</div>
+
+    <div class="performance-stats">
+      <div class="performance-stat">
+        <div class="performance-stat-label">Average</div>
+        <div class="performance-stat-value">2m 34s</div>
+      </div>
+      <div class="performance-stat">
+        <div class="performance-stat-label">Fastest</div>
+        <div class="performance-stat-value">48s</div>
+      </div>
+      <div class="performance-stat">
+        <div class="performance-stat-label">Slowest</div>
+        <div class="performance-stat-value">6m 12s</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">📈 ৭ দিনের Performance Trend</div>
+    <div class="performance-muted">গত ৭ দিনে আপনার performance score-এর পরিবর্তন</div>
+
+    <div class="performance-chart">
+      <div class="performance-line">
+        <div class="performance-bar" style="height:65%;"><strong>78</strong><span>দিন ১</span></div>
+        <div class="performance-bar" style="height:70%;"><strong>81</strong><span>দিন ২</span></div>
+        <div class="performance-bar" style="height:73%;"><strong>84</strong><span>দিন ৩</span></div>
+        <div class="performance-bar" style="height:76%;"><strong>87</strong><span>দিন ৪</span></div>
+        <div class="performance-bar" style="height:80%;"><strong>89</strong><span>দিন ৫</span></div>
+        <div class="performance-bar" style="height:84%;"><strong>92</strong><span>দিন ৬</span></div>
+        <div class="performance-bar" style="height:88%;"><strong>94</strong><span>আজ</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">🏅 Skill Level</div>
+    <div class="performance-level">Pro</div>
+    <div class="performance-muted">Expert level-এ যেতে আরও 28% বাকি</div>
+
+    <div class="performance-progress">
+      <div style="width:72%;background:#f59e0b;"></div>
+    </div>
+
+    <div class="performance-three">
+      <div class="performance-mini">
+        <div class="performance-muted">Accuracy</div>
+        <b>94%</b>
+      </div>
+      <div class="performance-mini">
+        <div class="performance-muted">Speed</div>
+        <b>86%</b>
+      </div>
+      <div class="performance-mini">
+        <div class="performance-muted">Quality</div>
+        <b>91%</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">🔥 Consistency Score</div>
+    <div style="font-size:34px;font-weight:900;margin-top:7px;color:#f97316 !important;">87/100</div>
+    <div class="performance-muted">
+      আপনি নিয়মিতভাবে ভালো performance বজায় রাখছেন।
+    </div>
+
+    <div class="performance-progress">
+      <div style="width:87%;background:#f97316;"></div>
+    </div>
+
+    <div class="performance-row">
+      <span>বর্তমান ধারাবাহিকতা</span>
+      <strong>12 দিন</strong>
+    </div>
+    <div class="performance-row">
+      <span>সর্বোচ্চ ধারাবাহিকতা</span>
+      <strong>18 দিন</strong>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">🎯 Quality Breakdown</div>
+    <div class="performance-muted">আপনার task quality-এর সম্পূর্ণ breakdown</div>
+
+    <div style="margin-top:15px;">
+      <div class="performance-row">
+        <span>🟢 Excellent</span>
+        <strong>68%</strong>
+      </div>
+      <div class="performance-progress">
+        <div style="width:68%;background:#16a34a;"></div>
+      </div>
+
+      <div class="performance-row">
+        <span>🟠 Good</span>
+        <strong>21%</strong>
+      </div>
+      <div class="performance-progress">
+        <div style="width:21%;background:#f59e0b;"></div>
+      </div>
+
+      <div class="performance-row">
+        <span>🔴 Needs Improvement</span>
+        <strong>11%</strong>
+      </div>
+      <div class="performance-progress">
+        <div style="width:11%;background:#ef4444;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">🚀 Improvement Suggestions</div>
+
+    <div class="performance-tip">
+      💡 আপনার accuracy ভালো। Completion time আরও কমাতে পারলে performance score আরও বাড়বে।
+    </div>
+
+    <div class="performance-tip">
+      💡 নিয়মিত high-quality task সম্পূর্ণ করলে আপনার Skill Level দ্রুত বাড়বে।
+    </div>
+
+    <div class="performance-tip">
+      💡 প্রতিদিন ধারাবাহিকভাবে task complete করলে Consistency Score আরও উন্নত হবে।
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">🏆 Personal Records</div>
+
+    <div class="performance-row">
+      <span>⚡ Fastest Task</span>
+      <strong>48s</strong>
+    </div>
+    <div class="performance-row">
+      <span>🎯 Best Accuracy Day</span>
+      <strong>98%</strong>
+    </div>
+    <div class="performance-row">
+      <span>🔥 Longest Consistency</span>
+      <strong>18 days</strong>
+    </div>
+    <div class="performance-row">
+      <span>🚀 Best Session</span>
+      <strong>14 tasks</strong>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">📊 Weekly Activity</div>
+    <div class="performance-muted">গত ৭ দিনে আপনার daily performance</div>
+
+    <div class="performance-days">
+      <div class="performance-day">
+        <div class="performance-day-bar" style="height:55%;"></div>
+        <div class="performance-day-label">দিন ১</div>
+      </div>
+      <div class="performance-day">
+        <div class="performance-day-bar" style="height:65%;"></div>
+        <div class="performance-day-label">দিন ২</div>
+      </div>
+      <div class="performance-day">
+        <div class="performance-day-bar" style="height:60%;"></div>
+        <div class="performance-day-label">দিন ৩</div>
+      </div>
+      <div class="performance-day">
+        <div class="performance-day-bar" style="height:75%;"></div>
+        <div class="performance-day-label">দিন ৪</div>
+      </div>
+      <div class="performance-day">
+        <div class="performance-day-bar" style="height:82%;"></div>
+        <div class="performance-day-label">দিন ৫</div>
+      </div>
+      <div class="performance-day">
+        <div class="performance-day-bar" style="height:90%;"></div>
+        <div class="performance-day-label">দিন ৬</div>
+      </div>
+      <div class="performance-day">
+        <div class="performance-day-bar" style="height:96%;"></div>
+        <div class="performance-day-label">আজ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="performance-card-title">📅 Performance History</div>
+    <div class="performance-muted">সাম্প্রতিক দিনের performance record</div>
+
+    <div class="performance-row">
+      <span>আজ</span>
+      <strong>94 Score · 96% Accuracy</strong>
+    </div>
+    <div class="performance-row">
+      <span>গতকাল</span>
+      <strong>91 Score · 93% Accuracy</strong>
+    </div>
+    <div class="performance-row">
+      <span>২ দিন আগে</span>
+      <strong>89 Score · 91% Accuracy</strong>
+    </div>
+    <div class="performance-row">
+      <span>৩ দিন আগে</span>
+      <strong>86 Score · 89% Accuracy</strong>
+    </div>
+    <div class="performance-row">
+      <span>৪ দিন আগে</span>
+      <strong>84 Score · 88% Accuracy</strong>
+    </div>
+    <div class="performance-row">
+      <span>৫ দিন আগে</span>
+      <strong>81 Score · 86% Accuracy</strong>
+    </div>
+    <div class="performance-row">
+      <span>৬ দিন আগে</span>
+      <strong>78 Score · 84% Accuracy</strong>
+    </div>
+  </div>
+
+</div>
 
 </section>
 
