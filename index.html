@@ -1428,6 +1428,234 @@
 @keyframes sparkleFloat { 0%,100%{transform:translateY(0) scale(1);opacity:.65} 50%{transform:translateY(-18px) scale(1.3);opacity:1} }
 @keyframes confettiFloat { 0%,100%{transform:translateY(0);opacity:.7} 50%{transform:translateY(15px) rotate(8deg);opacity:1} }
 </style>
+<style>
+
+/* ==========================================
+   STREAK INSIGHTS UI FIX V1
+   Only #screen-streak-insights is affected.
+   ========================================== */
+
+#screen-streak-insights {
+  display: none;
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  min-height: 100vh;
+  padding: 0 0 110px !important;
+  box-sizing: border-box;
+}
+
+#screen-streak-insights.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+#screen-streak-insights .streak-page-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 62px;
+  padding: 10px 16px;
+  margin: 0 0 4px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-sizing: border-box;
+}
+
+#screen-streak-insights .streak-page-back {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border: none;
+  border-radius: 13px;
+  background: #eef2ff !important;
+  color: #4f46e5 !important;
+  font-size: 27px;
+  line-height: 1;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#screen-streak-insights .streak-page-title {
+  color: #172554 !important;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+#screen-streak-insights > div:last-child {
+  padding: 14px 14px 0 !important;
+}
+
+/* All 8 feature cards */
+#screen-streak-insights .streak-card {
+  border-radius: 20px !important;
+  padding: 16px !important;
+  margin: 0 0 14px !important;
+  box-sizing: border-box;
+  box-shadow: 0 4px 14px rgba(15,23,42,0.06) !important;
+  color: #1e293b !important;
+}
+
+/* 1. Performance Score — light blue */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(1) {
+  background: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+}
+
+/* 2. Growth Graph — light green */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(2) {
+  background: #f0fdf4 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+/* 3. Achievements — light amber */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(3) {
+  background: #fffbeb !important;
+  border: 1px solid #fde68a !important;
+}
+
+/* 4. Next Target — light purple */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(4) {
+  background: #faf5ff !important;
+  border: 1px solid #e9d5ff !important;
+}
+
+/* 5. Current vs Best — light rose */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(5) {
+  background: #fff1f2 !important;
+  border: 1px solid #fecdd3 !important;
+}
+
+/* 6. Weekly Activity — light cyan */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(6) {
+  background: #ecfeff !important;
+  border: 1px solid #a5f3fc !important;
+}
+
+/* 7. Tier / Rank — light gold */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(7) {
+  background: #fffbeb !important;
+  border: 1px solid #fcd34d !important;
+}
+
+/* 8. Tips — light teal */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(8) {
+  background: #f0fdfa !important;
+  border: 1px solid #99f6e4 !important;
+}
+
+/* Titles */
+#screen-streak-insights .streak-card-title {
+  font-size: 17px !important;
+  font-weight: 900 !important;
+  margin-bottom: 12px !important;
+  color: #1e293b !important;
+}
+
+/* Individual title colors */
+#screen-streak-insights > div:last-child > .streak-card:nth-child(1) .streak-card-title {
+  color: #1d4ed8 !important;
+}
+
+#screen-streak-insights > div:last-child > .streak-card:nth-child(2) .streak-card-title {
+  color: #15803d !important;
+}
+
+#screen-streak-insights > div:last-child > .streak-card:nth-child(3) .streak-card-title {
+  color: #b45309 !important;
+}
+
+#screen-streak-insights > div:last-child > .streak-card:nth-child(4) .streak-card-title {
+  color: #7e22ce !important;
+}
+
+#screen-streak-insights > div:last-child > .streak-card:nth-child(5) .streak-card-title {
+  color: #be123c !important;
+}
+
+#screen-streak-insights > div:last-child > .streak-card:nth-child(6) .streak-card-title {
+  color: #0e7490 !important;
+}
+
+#screen-streak-insights > div:last-child > .streak-card:nth-child(7) .streak-card-title {
+  color: #a16207 !important;
+}
+
+#screen-streak-insights > div:last-child > .streak-card:nth-child(8) .streak-card-title {
+  color: #0f766e !important;
+}
+
+/* Make normal text readable */
+#screen-streak-insights .streak-card strong,
+#screen-streak-insights .streak-card span,
+#screen-streak-insights .streak-card div {
+  box-sizing: border-box;
+}
+
+#screen-streak-insights #insight-performance-score {
+  color: #1d4ed8 !important;
+}
+
+#screen-streak-insights #insight-next-target,
+#screen-streak-insights #insight-current-streak,
+#screen-streak-insights #insight-best-streak {
+  color: #1e293b !important;
+}
+
+/* Better graph container */
+#screen-streak-insights #streak-growth-graph {
+  background: rgba(255,255,255,0.55);
+  border-radius: 14px;
+  padding: 10px 8px !important;
+  border-bottom: 1px solid #bbf7d0 !important;
+}
+
+/* Keep achievement rows readable */
+#screen-streak-insights #achievement-3,
+#screen-streak-insights #achievement-7,
+#screen-streak-insights #achievement-14,
+#screen-streak-insights #achievement-30,
+#screen-streak-insights #achievement-60 {
+  color: #334155 !important;
+}
+
+/* Progress bars */
+#screen-streak-insights #insight-next-progress-fill {
+  background: #7c3aed !important;
+}
+
+#screen-streak-insights #insight-tier-fill {
+  background: #f59e0b !important;
+}
+
+/* Tips */
+#screen-streak-insights #insight-tips > div {
+  color: #334155 !important;
+  background: rgba(255,255,255,0.65) !important;
+  border: 1px solid rgba(15,118,110,0.10);
+}
+
+/* Small-screen spacing */
+@media (max-width: 480px) {
+  #screen-streak-insights .streak-card {
+    padding: 15px !important;
+    border-radius: 18px !important;
+  }
+
+  #screen-streak-insights .streak-card-title {
+    font-size: 16px !important;
+  }
+
+  #screen-streak-insights .streak-page-title {
+    font-size: 20px;
+  }
+}
+
+/* END STREAK INSIGHTS UI FIX V1 */
+
+</style>
 </head>
 <body>
 
@@ -1517,7 +1745,7 @@
         <div class="feature-sub">আপনার মোট আয়, টাস্ক ও সাকসেস দেখুন</div>
         <div class="feature-arrow blue">→</div>
       </div>
-      <div class="feature">
+      <div class="feature" data-screen="streak-insights">
         <div class="feature-icon orange">🔥</div>
         <div class="feature-title">আজকের স্ট্রিক</div>
         <div class="feature-sub">স্ট্রিক ধরে রাখুন এবং বোনাস জিতুন</div>
@@ -2418,7 +2646,180 @@
 <!-- ==========================================
        SCREEN 2: LEADERBOARD 
   =========================================== -->
-  <section class="screen" id="screen-leaderboard">
+  <!-- ==========================================
+     SCREEN: STREAK INSIGHTS
+========================================== -->
+<section class="screen streak-insights-screen" id="screen-streak-insights">
+
+  <div class="streak-page-header">
+    <button class="streak-page-back" data-screen="home">←</button>
+    <div class="streak-page-title">আমার পারফরম্যান্স</div>
+  </div>
+
+  <div style="padding:16px;">
+
+    <!-- 1. Performance Score -->
+    <div class="streak-card">
+      <div class="streak-card-title">📊 Performance Score</div>
+      <div id="insight-performance-score"
+           style="font-size:42px;font-weight:900;text-align:center;margin-top:12px;">
+        0
+      </div>
+      <div style="text-align:center;color:#64748b;font-size:13px;margin-top:3px;">
+        আপনার বর্তমান Performance Score
+      </div>
+    </div>
+
+    <!-- 2. Growth Graph -->
+    <div class="streak-card">
+      <div class="streak-card-title">📈 Growth Graph</div>
+
+      <div id="streak-growth-graph"
+           style="height:150px;display:flex;align-items:flex-end;gap:7px;margin-top:18px;padding:8px 2px;border-bottom:1px solid #e2e8f0;">
+      </div>
+
+      <div id="streak-growth-labels"
+           style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:7px;">
+      </div>
+
+      <div style="text-align:center;font-size:12px;color:#64748b;margin-top:10px;">
+        গত ৭ দিনের activity trend
+      </div>
+    </div>
+
+    <!-- 3. Achievements -->
+    <div class="streak-card">
+      <div class="streak-card-title">🏅 Achievements</div>
+
+      <div id="achievement-3" style="margin-top:12px;padding:13px;border-radius:14px;background:#f8fafc;">
+        🔥 <strong>3 Day Starter</strong>
+        <span style="float:right;font-weight:800;">🔒</span>
+      </div>
+
+      <div id="achievement-7" style="margin-top:8px;padding:13px;border-radius:14px;background:#f8fafc;">
+        ⚡ <strong>7 Day Warrior</strong>
+        <span style="float:right;font-weight:800;">🔒</span>
+      </div>
+
+      <div id="achievement-14" style="margin-top:8px;padding:13px;border-radius:14px;background:#f8fafc;">
+        🏆 <strong>14 Day Champion</strong>
+        <span style="float:right;font-weight:800;">🔒</span>
+      </div>
+
+      <div id="achievement-30" style="margin-top:8px;padding:13px;border-radius:14px;background:#f8fafc;">
+        💎 <strong>30 Day Master</strong>
+        <span style="float:right;font-weight:800;">🔒</span>
+      </div>
+
+      <div id="achievement-60" style="margin-top:8px;padding:13px;border-radius:14px;background:#f8fafc;">
+        👑 <strong>60 Day Legend</strong>
+        <span style="float:right;font-weight:800;">🔒</span>
+      </div>
+    </div>
+
+    <!-- 4. Next Target -->
+    <div class="streak-card">
+      <div class="streak-card-title">🎯 Next Achievement Target</div>
+
+      <div id="insight-next-target"
+           style="font-size:24px;font-weight:900;margin-top:10px;">
+        🔥 3 Day Starter
+      </div>
+
+      <div id="insight-next-progress"
+           style="font-size:13px;color:#64748b;margin-top:5px;">
+        Current Streak: 0 / 3 দিন
+      </div>
+
+      <div style="height:10px;border-radius:10px;background:#e2e8f0;margin-top:12px;overflow:hidden;">
+        <div id="insight-next-progress-fill"
+             style="width:0%;height:100%;border-radius:10px;">
+        </div>
+      </div>
+
+      <div id="insight-next-remaining"
+           style="font-size:12px;color:#64748b;margin-top:7px;">
+        আর 3 দিন active থাকতে হবে
+      </div>
+    </div>
+
+    <!-- 5. Current vs Best -->
+    <div class="streak-card">
+      <div class="streak-card-title">🔥 Current vs Best</div>
+
+      <div style="display:flex;gap:10px;margin-top:12px;">
+        <div style="flex:1;padding:15px;border-radius:14px;background:#f8fafc;text-align:center;">
+          <div style="font-size:12px;color:#64748b;">Current Streak</div>
+          <div id="insight-current-streak"
+               style="font-size:27px;font-weight:900;margin-top:5px;">
+            0 দিন
+          </div>
+        </div>
+
+        <div style="flex:1;padding:15px;border-radius:14px;background:#f8fafc;text-align:center;">
+          <div style="font-size:12px;color:#64748b;">Best Streak</div>
+          <div id="insight-best-streak"
+               style="font-size:27px;font-weight:900;margin-top:5px;">
+            0 দিন
+          </div>
+        </div>
+      </div>
+
+      <div id="insight-best-message"
+           style="font-size:13px;color:#64748b;margin-top:10px;text-align:center;">
+      </div>
+    </div>
+
+    <!-- 6. Weekly Activity -->
+    <div class="streak-card">
+      <div class="streak-card-title">📅 Weekly Activity</div>
+
+      <div id="insight-weekly-activity" style="margin-top:10px;">
+      </div>
+
+      <div id="insight-weekly-consistency"
+           style="margin-top:12px;font-size:14px;font-weight:800;">
+        Weekly Consistency: 0%
+      </div>
+    </div>
+
+    <!-- 7. Tier / Rank -->
+    <div class="streak-card">
+      <div class="streak-card-title">💎 Tier / Rank</div>
+
+      <div id="insight-tier"
+           style="font-size:28px;font-weight:900;margin-top:10px;">
+        🥉 Bronze
+      </div>
+
+      <div id="insight-tier-sub"
+           style="font-size:13px;color:#64748b;margin-top:5px;">
+        আপনার বর্তমান Streak Tier
+      </div>
+
+      <div style="height:9px;border-radius:10px;background:#e2e8f0;margin-top:12px;overflow:hidden;">
+        <div id="insight-tier-fill"
+             style="width:0%;height:100%;border-radius:10px;">
+        </div>
+      </div>
+
+      <div id="insight-next-tier"
+           style="font-size:12px;color:#64748b;margin-top:7px;">
+      </div>
+    </div>
+
+    <!-- 8. Tips -->
+    <div class="streak-card">
+      <div class="streak-card-title">💡 Tips</div>
+
+      <div id="insight-tips">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="screen" id="screen-leaderboard">
     
     <div class="podium-container">
       <div class="sunburst"></div>
@@ -3594,6 +3995,399 @@ setInterval(() => {
 
   updateStreakCountdown();
 }, 1000);
+
+
+// ==========================================
+// STREAK INSIGHTS — DYNAMIC LOGIC
+// Existing 7-day reward system is NOT changed.
+// ==========================================
+
+const ACHIEVEMENT_TARGETS = [
+  { days: 3,  name: '🔥 3 Day Starter',  id: 'achievement-3' },
+  { days: 7,  name: '⚡ 7 Day Warrior',  id: 'achievement-7' },
+  { days: 14, name: '🏆 14 Day Champion', id: 'achievement-14' },
+  { days: 30, name: '💎 30 Day Master',   id: 'achievement-30' },
+  { days: 60, name: '👑 60 Day Legend',   id: 'achievement-60' }
+];
+
+let achievementCurrentStreak =
+  parseInt(localStorage.getItem('priluck_achievement_current_streak'), 10) || 0;
+
+let achievementBestStreak =
+  parseInt(localStorage.getItem('priluck_achievement_best_streak'), 10) || 0;
+
+let achievementLastDate =
+  localStorage.getItem('priluck_achievement_last_date') || null;
+
+let achievementHistory = [];
+
+try {
+  achievementHistory = JSON.parse(
+    localStorage.getItem('priluck_achievement_activity') || '[]'
+  );
+  if (!Array.isArray(achievementHistory)) achievementHistory = [];
+} catch (e) {
+  achievementHistory = [];
+}
+
+function saveStreakInsightsState() {
+  localStorage.setItem(
+    'priluck_achievement_current_streak',
+    String(achievementCurrentStreak)
+  );
+
+  localStorage.setItem(
+    'priluck_achievement_best_streak',
+    String(achievementBestStreak)
+  );
+
+  localStorage.setItem(
+    'priluck_achievement_last_date',
+    achievementLastDate || ''
+  );
+
+  localStorage.setItem(
+    'priluck_achievement_activity',
+    JSON.stringify(achievementHistory)
+  );
+}
+
+function insightDateKey(date) {
+  return date.getFullYear() + '-' +
+    String(date.getMonth() + 1).padStart(2, '0') + '-' +
+    String(date.getDate()).padStart(2, '0');
+}
+
+function insightYesterdayKey() {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return insightDateKey(d);
+}
+
+function recordAchievementActivity(dateKey) {
+  if (!achievementHistory.includes(dateKey)) {
+    achievementHistory.push(dateKey);
+  }
+
+  // Keep only the latest 90 days.
+  if (achievementHistory.length > 90) {
+    achievementHistory = achievementHistory.slice(-90);
+  }
+}
+
+function registerStreakInsightDay() {
+  const today = insightDateKey(new Date());
+
+  if (achievementLastDate === today) {
+    return;
+  }
+
+  if (!achievementLastDate) {
+    achievementCurrentStreak = 1;
+  } else if (achievementLastDate === insightYesterdayKey()) {
+    achievementCurrentStreak += 1;
+  } else {
+    achievementCurrentStreak = 1;
+  }
+
+  if (achievementCurrentStreak > achievementBestStreak) {
+    achievementBestStreak = achievementCurrentStreak;
+  }
+
+  achievementLastDate = today;
+  recordAchievementActivity(today);
+  saveStreakInsightsState();
+}
+
+function getAchievementCycleDay() {
+  if (achievementCurrentStreak <= 60) {
+    return achievementCurrentStreak;
+  }
+
+  // After completing 60 days, achievement cycle starts again.
+  return ((achievementCurrentStreak - 1) % 60) + 1;
+}
+
+function getNextAchievement() {
+  const cycleDay = getAchievementCycleDay();
+
+  for (const target of ACHIEVEMENT_TARGETS) {
+    if (cycleDay < target.days) {
+      return target;
+    }
+  }
+
+  // 60 complete → new cycle begins at 1.
+  return ACHIEVEMENT_TARGETS[0];
+}
+
+function updateAchievementCards() {
+  const cycleDay = getAchievementCycleDay();
+
+  ACHIEVEMENT_TARGETS.forEach(target => {
+    const el = document.getElementById(target.id);
+    if (!el) return;
+
+    const unlocked = cycleDay >= target.days;
+
+    el.style.background = unlocked ? '#f0fdf4' : '#f8fafc';
+
+    const status = el.querySelector('span');
+    if (status) {
+      status.textContent = unlocked ? '✓ Unlocked' : '🔒 Locked';
+      status.style.color = unlocked ? '#16a34a' : '#64748b';
+    }
+  });
+}
+
+function updateNextAchievement() {
+  const target = getNextAchievement();
+  const cycleDay = getAchievementCycleDay();
+
+  const title = document.getElementById('insight-next-target');
+  const progress = document.getElementById('insight-next-progress');
+  const fill = document.getElementById('insight-next-progress-fill');
+  const remaining = document.getElementById('insight-next-remaining');
+
+  if (!title || !progress || !fill || !remaining) return;
+
+  const completed = Math.min(cycleDay, target.days);
+  const percent = Math.min(100, Math.round((completed / target.days) * 100));
+  const left = Math.max(0, target.days - cycleDay);
+
+  title.textContent = target.name;
+  progress.textContent =
+    'Current Streak: ' + cycleDay + ' / ' + target.days + ' দিন';
+
+  fill.style.width = percent + '%';
+
+  remaining.textContent =
+    left > 0
+      ? 'আর ' + left + ' দিন active থাকলে Achievement unlock হবে'
+      : '🎉 Achievement সম্পূর্ণ হয়েছে!';
+}
+
+function updateCurrentBest() {
+  const current = document.getElementById('insight-current-streak');
+  const best = document.getElementById('insight-best-streak');
+  const message = document.getElementById('insight-best-message');
+
+  if (current) current.textContent = achievementCurrentStreak + ' দিন';
+  if (best) best.textContent = achievementBestStreak + ' দিন';
+
+  if (message) {
+    const gap = Math.max(
+      0,
+      achievementBestStreak - achievementCurrentStreak
+    );
+
+    if (achievementCurrentStreak >= achievementBestStreak) {
+      message.textContent = '🔥 আপনি আপনার Best Streak-এ আছেন!';
+    } else {
+      message.textContent =
+        'Best Streak ধরতে আরও ' + gap + ' দিন active থাকতে হবে';
+    }
+  }
+}
+
+function updateWeeklyActivity() {
+  const box = document.getElementById('insight-weekly-activity');
+  const consistency = document.getElementById('insight-weekly-consistency');
+
+  if (!box || !consistency) return;
+
+  const today = new Date();
+  let activeCount = 0;
+  let rows = '';
+
+  const labels = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র', 'শনি'];
+
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+
+    const key = insightDateKey(d);
+    const active = achievementHistory.includes(key);
+
+    if (active) activeCount += 1;
+
+    rows +=
+      '<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #e2e8f0;">' +
+        '<span>' + labels[d.getDay()] + '</span>' +
+        '<strong style="color:' + (active ? '#16a34a' : '#94a3b8') + ';">' +
+          (active ? '✓ Active' : '— Inactive') +
+        '</strong>' +
+      '</div>';
+  }
+
+  box.innerHTML = rows;
+
+  consistency.textContent =
+    'Weekly Consistency: ' + Math.round((activeCount / 7) * 100) + '%';
+}
+
+function updateGrowthGraph() {
+  const graph = document.getElementById('streak-growth-graph');
+  const labelsBox = document.getElementById('streak-growth-labels');
+
+  if (!graph || !labelsBox) return;
+
+  const today = new Date();
+  const values = [];
+  const labels = [];
+
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+
+    const key = insightDateKey(d);
+    const active = achievementHistory.includes(key);
+
+    values.push(active ? 100 : 15);
+    labels.push(
+      String(d.getDate()).padStart(2, '0') + '/' +
+      String(d.getMonth() + 1).padStart(2, '0')
+    );
+  }
+
+  graph.innerHTML = values.map(value =>
+    '<div style="flex:1;height:100%;display:flex;align-items:flex-end;">' +
+      '<div style="width:100%;height:' + value + '%;min-height:8px;border-radius:7px 7px 2px 2px;background:#f97316;"></div>' +
+    '</div>'
+  ).join('');
+
+  labelsBox.innerHTML = labels.map(label =>
+    '<span>' + label + '</span>'
+  ).join('');
+}
+
+function updatePerformanceScore() {
+  const el = document.getElementById('insight-performance-score');
+  if (!el) return;
+
+  const current = achievementCurrentStreak;
+  const weekly = achievementHistory.slice(-7).length;
+
+  const streakScore = Math.min(60, current * 2);
+  const activityScore = Math.min(40, weekly * 6);
+
+  const score = Math.min(
+    100,
+    Math.round(streakScore + activityScore)
+  );
+
+  el.textContent = score;
+}
+
+function updateTier() {
+  const tier = document.getElementById('insight-tier');
+  const sub = document.getElementById('insight-tier-sub');
+  const fill = document.getElementById('insight-tier-fill');
+  const next = document.getElementById('insight-next-tier');
+
+  if (!tier || !sub || !fill || !next) return;
+
+  const day = getAchievementCycleDay();
+
+  let name;
+  let nextName;
+  let percent;
+
+  if (day < 7) {
+    name = '🥉 Bronze';
+    nextName = '🥈 Silver';
+    percent = Math.round((day / 7) * 100);
+  } else if (day < 14) {
+    name = '🥈 Silver';
+    nextName = '🥇 Gold';
+    percent = Math.round(((day - 7) / 7) * 100);
+  } else if (day < 30) {
+    name = '🥇 Gold';
+    nextName = '💎 Diamond';
+    percent = Math.round(((day - 14) / 16) * 100);
+  } else if (day < 60) {
+    name = '💎 Diamond';
+    nextName = '👑 Legend';
+    percent = Math.round(((day - 30) / 30) * 100);
+  } else {
+    name = '👑 Legend';
+    nextName = '🔥 New Cycle';
+    percent = 100;
+  }
+
+  tier.textContent = name;
+  sub.textContent = 'আপনার বর্তমান Streak Tier';
+  fill.style.width = Math.min(100, percent) + '%';
+  next.textContent = 'পরবর্তী Tier: ' + nextName;
+}
+
+function updateTips() {
+  const box = document.getElementById('insight-tips');
+  if (!box) return;
+
+  const target = getNextAchievement();
+  const cycleDay = getAchievementCycleDay();
+  const weekly = achievementHistory.slice(-7).length;
+
+  const tips = [];
+
+  if (weekly < 7) {
+    tips.push('📅 প্রতিদিন অন্তত একবার অ্যাপে active থাকুন।');
+  }
+
+  if (cycleDay < target.days) {
+    tips.push(
+      '🎯 আরও ' + (target.days - cycleDay) +
+      ' দিন active থাকলে ' + target.name + ' unlock হবে।'
+    );
+  }
+
+  if (achievementCurrentStreak === achievementBestStreak) {
+    tips.push('🔥 আপনার Current Streak এখন Best Streak-এর সমান। ধরে রাখুন!');
+  } else {
+    tips.push('💪 Best Streak আবার ধরার জন্য নিয়মিত active থাকুন।');
+  }
+
+  box.innerHTML = tips.map(tip =>
+    '<div style="margin-top:8px;padding:12px;border-radius:14px;background:#f8fafc;font-size:13px;">' +
+      tip +
+    '</div>'
+  ).join('');
+}
+
+function updateStreakInsightsUI() {
+  updatePerformanceScore();
+  updateGrowthGraph();
+  updateAchievementCards();
+  updateNextAchievement();
+  updateCurrentBest();
+  updateWeeklyActivity();
+  updateTier();
+  updateTips();
+}
+
+// Register today's activity from the existing daily streak state.
+// This does NOT alter the existing 7-day reward system.
+function syncStreakInsightsWithExistingStreak() {
+  const today = insightDateKey(new Date());
+
+  if (
+    streakClaimed &&
+    streakClaimedDate === today
+  ) {
+    registerStreakInsightDay();
+  }
+}
+
+syncStreakInsightsWithExistingStreak();
+updateStreakInsightsUI();
+
+setInterval(() => {
+  syncStreakInsightsWithExistingStreak();
+  updateStreakInsightsUI();
+}, 1000);
+
+// END STREAK INSIGHTS — DYNAMIC LOGIC
 
 // END COMPLETE STREAK / LOGIN BONUS SYSTEM
 
