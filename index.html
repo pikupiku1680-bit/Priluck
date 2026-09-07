@@ -1656,6 +1656,13 @@
 /* END STREAK INSIGHTS UI FIX V1 */
 
 </style>
+
+<style>
+/* ==========================================
+   STREAK 3 FIXES V1
+   ========================================== */
+</style>
+
 </head>
 <body>
 
@@ -3626,7 +3633,7 @@ function getYesterdayDateKey() {
   now.setDate(now.getDate() - 1);
   return now.getFullYear() + '-' +
     String(now.getMonth() + 1).padStart(2, '0') + '-' +
-    String(now.getDate()).padStart(2, '2');
+    String(now.getDate()).padStart(2, '0');
 }
 
 function saveStreakTaskProgress() {
@@ -4430,8 +4437,18 @@ setInterval(() => {
 
       allTaskList.addEventListener('click', (e) => {
         if (e.target.classList.contains('task-start')) {
-          const name = e.target.closest('.task-row').querySelector('.task-name').textContent;
-          alert('টাস্ক শুরু হচ্ছে: ' + name);
+          const row = e.target.closest('.task-row');
+          const name = row.querySelector('.task-name').textContent;
+
+          alert('টাস্ক সম্পূর্ণ হয়েছে: ' + name);
+
+          // All Tasks screen completion also counts toward
+          // the same 15-task daily streak requirement.
+          completeStreakTask();
+
+          // Prevent the same demo task from being counted again.
+          e.target.disabled = true;
+          e.target.textContent = '✓ সম্পূর্ণ';
         }
       });
   }
