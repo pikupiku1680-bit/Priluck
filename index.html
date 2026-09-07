@@ -1663,6 +1663,7 @@
    ========================================== */
 </style>
 
+<!-- TASK COMPLETION SYNC V2 -->
 </head>
 <body>
 
@@ -4399,6 +4400,84 @@ setInterval(() => {
 // END COMPLETE STREAK / LOGIN BONUS SYSTEM
 
 // Home Screen Task List Data
+
+  // ==========================================
+  // TASK COMPLETION SYNC V2
+  // Home + All Tasks share the same completion state.
+  // Future Real/API tasks can provide their own id.
+  // ==========================================
+
+  const TASK_COMPLETION_KEY = 'priluck_completed_task_ids';
+
+  let completedTaskIds = [];
+
+  try {
+    completedTaskIds = JSON.parse(
+      localStorage.getItem(TASK_COMPLETION_KEY) || '[]'
+    );
+
+    if (!Array.isArray(completedTaskIds)) {
+      completedTaskIds = [];
+    }
+  } catch (e) {
+    completedTaskIds = [];
+  }
+
+  function saveCompletedTaskIds() {
+    localStorage.setItem(
+      TASK_COMPLETION_KEY,
+      JSON.stringify(completedTaskIds)
+    );
+  }
+
+  function getTaskId(task, index) {
+    return task.id || ('demo-task-' + index);
+  }
+
+  function isTaskCompleted(taskId) {
+    return completedTaskIds.includes(taskId);
+  }
+
+  function markTaskCompleted(taskId) {
+    if (isTaskCompleted(taskId)) {
+      return false;
+    }
+
+    completedTaskIds.push(taskId);
+    saveCompletedTaskIds();
+
+    return true;
+  }
+
+  function renderAllTasks() {
+    if (!allTaskList) return;
+
+    allTaskList.innerHTML = '';
+
+    taskData.forEach((t, index) => {
+      const taskId = getTaskId(t, index);
+      const completed = isTaskCompleted(taskId);
+
+      const row = document.createElement('div');
+      row.className = 'task-row';
+      row.dataset.taskId = taskId;
+
+      row.innerHTML = `
+        <div class="task-icon">${t.icon}</div>
+        <div class="task-info">
+          <div class="task-name">${t.name}</div>
+          <div class="task-meta">${t.meta}</div>
+        </div>
+        <div class="task-price">${t.price}</div>
+        <button class="task-start" ${completed ? 'disabled' : ''}>
+          ${completed ? '✓ সম্পূর্ণ' : 'শুরু করুন'}
+        </button>
+      `;
+
+      allTaskList.appendChild(row);
+    });
+  }
+
   const taskData = [
     {icon:'🔍', name:'গুগল সার্চ করুন',        meta:'2 মিনিট • CPX Research', price:'₹8'},
     {icon:'▶️', name:'ইউটিউব ভিডিও দেখুন',      meta:'2 মিনিট • CPX Research', price:'₹6'},
@@ -4420,37 +4499,34 @@ setInterval(() => {
   const allTaskList = document.getElementById('allTaskList');
 
   if(allTaskList){
-      taskData.forEach(t => {
-        const row = document.createElement('div');
-        row.className = 'task-row';
-        row.innerHTML = `
-          <div class="task-icon">${t.icon}</div>
-          <div class="task-info">
-            <div class="task-name">${t.name}</div>
-            <div class="task-meta">${t.meta}</div>
-          </div>
-          <div class="task-price">${t.price}</div>
-          <button class="task-start">শুরু করুন</button>
-        `;
-        allTaskList.appendChild(row);
-      });
+    renderAllTasks();
 
-      allTaskList.addEventListener('click', (e) => {
-        if (e.target.classList.contains('task-start')) {
-          const row = e.target.closest('.task-row');
-          const name = row.querySelector('.task-name').textContent;
+    allTaskList.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('task-start')) return;
 
-          alert('টাস্ক সম্পূর্ণ হয়েছে: ' + name);
+      const row = e.target.closest('.task-row');
+      const taskId = row.dataset.taskId;
+      const name = row.querySelector('.task-name').textContent;
 
-          // All Tasks screen completion also counts toward
-          // the same 15-task daily streak requirement.
-          completeStreakTask();
+      // Prevent duplicate completion.
+      if (!markTaskCompleted(taskId)) {
+        e.target.disabled = true;
+        e.target.textContent = '✓ সম্পূর্ণ';
+        return;
+      }
 
-          // Prevent the same demo task from being counted again.
-          e.target.disabled = true;
-          e.target.textContent = '✓ সম্পূর্ণ';
-        }
-      });
+      alert('টাস্ক সম্পূর্ণ হয়েছে: ' + name);
+
+      // Count toward today's 15-task streak requirement.
+      completeStreakTask();
+
+      e.target.disabled = true;
+      e.target.textContent = '✓ সম্পূর্ণ';
+
+      // Keep Home screen synchronized.
+      renderHomeTasks();
+    });
+
   }
 
   const taskList = document.getElementById('taskList');
@@ -4466,8 +4542,14 @@ setInterval(() => {
     const visibleTasks = taskData.slice(homeTaskStart, homeTaskStart + 4);
 
     visibleTasks.forEach((t, visibleIndex) => {
+      const actualIndex = homeTaskStart + visibleIndex;
+      const taskId = getTaskId(t, actualIndex);
+      const completed = isTaskCompleted(taskId);
+
       const row = document.createElement('div');
       row.className = 'task-row';
+      row.dataset.taskId = taskId;
+
       row.innerHTML = `
         <div class="task-icon">${t.icon}</div>
         <div class="task-info">
@@ -4475,7 +4557,9 @@ setInterval(() => {
           <div class="task-meta">${t.meta}</div>
         </div>
         <div class="task-price">${t.price}</div>
-        <button class="task-start">শুরু করুন</button>
+        <button class="task-start" ${completed ? 'disabled' : ''}>
+          ${completed ? '✓ সম্পূর্ণ' : 'শুরু করুন'}
+        </button>
       `;
 
       taskList.appendChild(row);
@@ -4488,12 +4572,24 @@ setInterval(() => {
     taskList.addEventListener('click', (e) => {
       if (e.target.classList.contains('task-start')) {
         const row = e.target.closest('.task-row');
+        const taskId = row.dataset.taskId;
         const name = row.querySelector('.task-name').textContent;
+
+        // Prevent the same task from being completed twice.
+        if (!markTaskCompleted(taskId)) {
+          e.target.disabled = true;
+          e.target.textContent = '✓ সম্পূর্ণ';
+          return;
+        }
 
         alert('টাস্ক সম্পূর্ণ হয়েছে: ' + name);
 
         completeStreakTask();
 
+        // Keep All Tasks synchronized.
+        renderAllTasks();
+
+        // Move Home forward only after a real completion.
         homeTaskStart++;
 
         if (homeTaskStart < taskData.length) {
