@@ -8,7 +8,135 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js">
+/* ==================================================
+   PREMIUM TASK + STREAK POPUP V1
+   ONLY popup UI/close behaviour.
+   Existing task/wallet/streak logic is untouched.
+   ================================================== */
+
+const PREMIUM_POPUP_AUTO_CLOSE = 2000;
+
+function closePremiumPopup() {
+  const popup = document.getElementById('priluck-premium-popup');
+  if (!popup) return;
+
+  if (popup._autoCloseTimer) {
+    clearTimeout(popup._autoCloseTimer);
+  }
+
+  popup.style.opacity = '0';
+  popup.style.transition = 'opacity .18s ease';
+
+  setTimeout(() => {
+    if (popup && popup.parentNode) popup.parentNode.removeChild(popup);
+  }, 180);
+}
+
+function createPremiumPopup(options) {
+  const oldPopup = document.getElementById('priluck-premium-popup');
+  if (oldPopup) oldPopup.remove();
+
+  const popup = document.createElement('div');
+  popup.id = 'priluck-premium-popup';
+  popup.innerHTML = `
+    <div class="premium-popup-sparkles">
+      <span>✦</span><span>✧</span><span>✦</span><span>✷</span>
+      <span>•</span><span>✦</span><span>◆</span><span>✧</span>
+    </div>
+
+    <div class="premium-popup-confetti">
+      <i>•</i><i>✦</i><i>◆</i><i>•</i><i>✷</i><i>✦</i>
+      <i>•</i><i>◆</i><i>✧</i><i>•</i><i>✦</i><i>✷</i>
+    </div>
+
+    <div class="premium-popup-box" role="dialog" aria-modal="true">
+      <div class="premium-popup-icon">${options.icon}</div>
+      <div class="premium-popup-title">${options.title}</div>
+
+      <div class="premium-popup-amount">
+        +₹${options.amount}
+      </div>
+
+      <div class="premium-popup-subtitle">
+        ${options.subtitle}
+      </div>
+
+      <div class="premium-popup-divider"></div>
+
+      <div class="premium-popup-message">
+        ${options.message}
+      </div>
+
+      <div class="premium-popup-detail">
+        ${options.detail}
+      </div>
+
+      <button type="button" class="premium-popup-ok">
+        ${options.buttonText || 'ঠিক আছে'}
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  const box = popup.querySelector('.premium-popup-box');
+  const okButton = popup.querySelector('.premium-popup-ok');
+
+  okButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closePremiumPopup();
+  });
+
+  // Clicking outside the popup closes it.
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      closePremiumPopup();
+    }
+  });
+
+  // Clicking inside the popup does not close it.
+  box.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+
+  // Automatically close after 2 seconds.
+  popup._autoCloseTimer = setTimeout(() => {
+    closePremiumPopup();
+  }, PREMIUM_POPUP_AUTO_CLOSE);
+
+  return popup;
+}
+
+function showTaskSuccessPopup(taskName, taskAmount) {
+  const amount = String(taskAmount || '0').replace('₹', '');
+
+  createPremiumPopup({
+    icon: '🎉',
+    title: 'CONGRATULATIONS!',
+    amount: amount,
+    subtitle: 'টাস্ক সফলভাবে সম্পূর্ণ হয়েছে',
+    message: 'দারুণ কাজ! আপনার রিওয়ার্ড যোগ হয়েছে।',
+    detail: '📌 ' + taskName + '<br>💰 আপনার আয়: ₹' + amount,
+    buttonText: 'চমৎকার!'
+  });
+}
+
+function showBonusSuccessPopup(reward) {
+  const amount = String(reward || '0').replace('₹', '');
+
+  createPremiumPopup({
+    icon: '🎁',
+    title: 'CONGRATULATIONS!',
+    amount: amount,
+    subtitle: 'আজকের স্ট্রিক বোনাস ক্লেইম হয়েছে',
+    message: 'আপনার আজকের বোনাস সফলভাবে ওয়ালেটে যোগ হয়েছে।',
+    detail: '🔥 Daily Streak Bonus<br>💰 আজকের বোনাস: ₹' + amount,
+    buttonText: 'বোনাস পেয়েছি ✓'
+  });
+}
+
+</script>
 
 <style>
   :root {
@@ -1664,6 +1792,192 @@
 </style>
 
 <!-- TASK COMPLETION SYNC V2 -->
+
+<style id="premium-task-streak-popup-style">
+/* PREMIUM TASK + STREAK POPUP V1 */
+
+#priluck-premium-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+  background: rgba(15,23,42,.66);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  animation: premiumPopupOverlayIn .22s ease;
+}
+
+#priluck-premium-popup .premium-popup-box {
+  position: relative;
+  width: min(340px, 88vw);
+  box-sizing: border-box;
+  padding: 27px 21px 21px;
+  text-align: center;
+  border-radius: 25px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.98), rgba(255,255,255,.94) 48%, #f6f3ff 100%);
+  border: 1px solid rgba(255,255,255,.95);
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.34),
+    0 0 45px rgba(124,58,237,.20);
+  overflow: hidden;
+  animation: premiumPopupBoxIn .42s cubic-bezier(.2,1.35,.35,1);
+}
+
+#priluck-premium-popup .premium-popup-icon {
+  font-size: 52px;
+  line-height: 1;
+  margin-bottom: 9px;
+  filter: drop-shadow(0 5px 12px rgba(0,0,0,.12));
+  animation: premiumPopupIcon .75s ease-in-out infinite alternate;
+}
+
+#priluck-premium-popup .premium-popup-title {
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 950;
+  letter-spacing: .7px;
+  background: linear-gradient(90deg,#6d28d9,#db2777,#f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#priluck-premium-popup .premium-popup-amount {
+  margin-top: 9px;
+  font-size: 40px;
+  line-height: 1.05;
+  font-weight: 950;
+  color: #16a34a;
+  text-shadow: 0 4px 18px rgba(22,163,74,.20);
+}
+
+#priluck-premium-popup .premium-popup-subtitle {
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .8px;
+  color: #7c3aed;
+}
+
+#priluck-premium-popup .premium-popup-divider {
+  width: 58px;
+  height: 3px;
+  margin: 13px auto 11px;
+  border-radius: 99px;
+  background: linear-gradient(90deg,#7c3aed,#ec4899,#f59e0b);
+}
+
+#priluck-premium-popup .premium-popup-message {
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 800;
+  color: #334155;
+}
+
+#priluck-premium-popup .premium-popup-detail {
+  margin-top: 9px;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(124,58,237,.07);
+  color: #475569;
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 750;
+}
+
+#priluck-premium-popup .premium-popup-ok {
+  width: 100%;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 950;
+  color: #fff;
+  background: linear-gradient(135deg,#7c3aed,#ec4899);
+  box-shadow: 0 9px 22px rgba(124,58,237,.28);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#priluck-premium-popup .premium-popup-ok:active {
+  transform: scale(.98);
+}
+
+#priluck-premium-popup .premium-popup-sparkles,
+#priluck-premium-popup .premium-popup-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#priluck-premium-popup .premium-popup-sparkles span {
+  position: absolute;
+  font-size: 22px;
+  animation: premiumSparkle 1.45s ease-in-out infinite;
+}
+
+#priluck-premium-popup .premium-popup-sparkles span:nth-child(1){left:7%;top:17%;animation-delay:.05s}
+#priluck-premium-popup .premium-popup-sparkles span:nth-child(2){left:87%;top:20%;animation-delay:.22s}
+#priluck-premium-popup .premium-popup-sparkles span:nth-child(3){left:13%;top:70%;animation-delay:.38s}
+#priluck-premium-popup .premium-popup-sparkles span:nth-child(4){left:88%;top:66%;animation-delay:.55s}
+#priluck-premium-popup .premium-popup-sparkles span:nth-child(5){left:4%;top:43%;animation-delay:.7s}
+#priluck-premium-popup .premium-popup-sparkles span:nth-child(6){left:94%;top:42%;animation-delay:.85s}
+#priluck-premium-popup .premium-popup-sparkles span:nth-child(7){left:19%;top:9%;animation-delay:1s}
+#priluck-premium-popup .premium-popup-sparkles span:nth-child(8){left:78%;top:9%;animation-delay:1.15s}
+
+#priluck-premium-popup .premium-popup-confetti i {
+  position: absolute;
+  font-style: normal;
+  font-size: 14px;
+  animation: premiumConfetti 1.65s ease-in-out infinite;
+}
+
+#priluck-premium-popup .premium-popup-confetti i:nth-child(1){left:10%;top:8%;animation-delay:.1s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(2){left:22%;top:5%;animation-delay:.25s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(3){left:77%;top:7%;animation-delay:.4s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(4){left:91%;top:31%;animation-delay:.55s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(5){left:5%;top:55%;animation-delay:.7s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(6){left:93%;top:58%;animation-delay:.85s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(7){left:12%;top:84%;animation-delay:1s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(8){left:27%;top:92%;animation-delay:1.15s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(9){left:72%;top:91%;animation-delay:1.3s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(10){left:88%;top:83%;animation-delay:1.45s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(11){left:39%;top:4%;animation-delay:.5s}
+#priluck-premium-popup .premium-popup-confetti i:nth-child(12){left:61%;top:94%;animation-delay:.9s}
+
+@keyframes premiumPopupOverlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes premiumPopupBoxIn {
+  from { transform: scale(.74) translateY(18px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes premiumPopupIcon {
+  from { transform: scale(1) rotate(-4deg); }
+  to { transform: scale(1.1) rotate(4deg); }
+}
+
+@keyframes premiumSparkle {
+  0%,100% { transform: translateY(0) scale(.75) rotate(0deg); opacity:.35; }
+  50% { transform: translateY(-13px) scale(1.25) rotate(18deg); opacity:1; }
+}
+
+@keyframes premiumConfetti {
+  0%,100% { transform: translateY(0) rotate(0deg); opacity:.35; }
+  50% { transform: translateY(12px) rotate(18deg); opacity:1; }
+}
+</style>
+
 </head>
 <body>
 
@@ -4515,7 +4829,10 @@ setInterval(() => {
         return;
       }
 
-      alert('টাস্ক সম্পূর্ণ হয়েছে: ' + name);
+      showTaskSuccessPopup(
+        name,
+        row.querySelector('.task-price').textContent
+      );
 
       // Count toward today's 15-task streak requirement.
       completeStreakTask();
@@ -4582,7 +4899,10 @@ setInterval(() => {
           return;
         }
 
-        alert('টাস্ক সম্পূর্ণ হয়েছে: ' + name);
+        showTaskSuccessPopup(
+        name,
+        row.querySelector('.task-price').textContent
+      );
 
         completeStreakTask();
 
