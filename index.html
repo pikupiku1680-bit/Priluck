@@ -8,7 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://telegram.org/js/telegram-web-app.js">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
 /* ==================================================
    PREMIUM TASK + STREAK POPUP V1
    ONLY popup UI/close behaviour.
@@ -698,6 +699,478 @@ function showBonusSuccessPopup(reward) {
   .task-meta { color: var(--panel-sub); font-size: 11px; margin-top: 2px; }
   .task-price { color: var(--money); font-weight: 700; font-size: 13.5px; flex: 0 0 auto; }
   .task-start { background: var(--purple-accent); color: #fff; border: none; font-size: 11.5px; font-weight: 600; padding: 8px 12px; border-radius: 10px; cursor: pointer; flex: 0 0 auto; }
+
+  /* ============================================================
+     FINAL MASTER — TASK HISTORY PREMIUM UI
+     ============================================================ */
+
+  #screen-task-history {
+    background:
+      linear-gradient(
+        180deg,
+        #f7f5ff 0%,
+        #ffffff 55%,
+        #f8f7ff 100%
+      );
+
+    min-height: 100vh;
+    padding-bottom: 24px;
+  }
+
+  #screen-task-history .task-history-header {
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding:
+      18px
+      16px
+      12px;
+
+    margin-bottom: 0;
+  }
+
+  #screen-task-history .task-history-back {
+
+    width: 54px !important;
+    height: 54px !important;
+
+    min-width: 54px !important;
+    min-height: 54px !important;
+
+    flex: 0 0 54px !important;
+
+    border: 0 !important;
+
+    border-radius: 17px !important;
+
+    background:
+      linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6d3df0
+      ) !important;
+
+    color: #fff !important;
+
+    font-size: 34px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+      0 8px 18px
+      rgba(
+        109,
+        61,
+        240,
+        .24
+      ) !important;
+  }
+
+  #screen-task-history .task-history-title {
+
+    color: #24124d !important;
+
+    font-size: 26px !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: -.3px;
+  }
+
+  #screen-task-history .task-history-body {
+
+    padding:
+      8px
+      16px
+      20px;
+  }
+
+  .task-history-intro {
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 16px;
+
+    margin:
+      0
+      0
+      14px;
+
+    border-radius: 20px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #ffffff,
+        #f2edff
+      );
+
+    border:
+      1px solid
+      #e8ddff;
+
+    box-shadow:
+      0 8px 24px
+      rgba(
+        74,
+        45,
+        140,
+        .08
+      );
+  }
+
+  .task-history-intro-icon {
+
+    width: 48px;
+    height: 48px;
+
+    flex: 0 0 48px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #e9ddff;
+
+    font-size: 23px;
+  }
+
+  .task-history-intro-title {
+
+    color: #25154f;
+
+    font-size: 14px;
+
+    font-weight: 900;
+  }
+
+  .task-history-intro-sub {
+
+    color: #756b8f;
+
+    font-size: 11px;
+
+    line-height: 1.45;
+
+    margin-top: 3px;
+  }
+
+  .task-history-filters {
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(
+        4,
+        minmax(
+          0,
+          1fr
+        )
+      );
+
+    gap: 7px;
+
+    padding: 6px;
+
+    margin-bottom: 14px;
+
+    background: #eeeaff;
+
+    border:
+      1px solid
+      #e2d9ff;
+
+    border-radius: 16px;
+  }
+
+  .task-history-filter-btn {
+
+    min-height: 40px;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    background: transparent;
+
+    color: #6b6280;
+
+    font-size: 11.5px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+  }
+
+  .task-history-filter-btn.active {
+
+    background: #fff;
+
+    color: #6d3df0;
+
+    box-shadow:
+      0 5px 14px
+      rgba(
+        82,
+        52,
+        145,
+        .12
+      );
+  }
+
+  .task-history-empty {
+
+    text-align: center;
+
+    padding:
+      36px
+      20px;
+
+    border-radius: 22px;
+
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        .92
+      );
+
+    border:
+      1px solid
+      #ece7fa;
+
+    box-shadow:
+      0 8px 24px
+      rgba(
+        74,
+        45,
+        140,
+        .06
+      );
+  }
+
+  .task-history-empty-icon {
+
+    width: 62px;
+    height: 62px;
+
+    margin:
+      0
+      auto
+      12px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #f0ebff;
+
+    font-size: 29px;
+  }
+
+  .task-history-empty-title {
+
+    color: #24124d;
+
+    font-size: 15px;
+
+    font-weight: 900;
+  }
+
+  .task-history-empty-sub {
+
+    color: #817892;
+
+    font-size: 11.5px;
+
+    line-height: 1.55;
+
+    margin-top: 6px;
+  }
+
+  .task-history-card {
+
+    padding: 15px;
+
+    margin-bottom: 10px;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    border:
+      1px solid
+      #eeeaf7;
+
+    box-shadow:
+      0 7px 20px
+      rgba(
+        35,
+        20,
+        77,
+        .07
+      );
+  }
+
+  .task-history-card.completed {
+
+    border-left:
+      4px solid
+      #22c55e;
+  }
+
+  .task-history-card.failed {
+
+    border-left:
+      4px solid
+      #ef4444;
+  }
+
+  .task-history-card-top {
+
+    display: flex;
+
+    align-items:
+      flex-start;
+
+    justify-content:
+      space-between;
+
+    gap: 12px;
+  }
+
+  .task-history-card-name {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-width: 0;
+
+    color: #17102c;
+
+    font-size: 13px;
+
+    font-weight: 900;
+  }
+
+  .task-history-card-name >
+  span:last-child {
+
+    overflow: hidden;
+
+    text-overflow:
+      ellipsis;
+
+    white-space:
+      nowrap;
+  }
+
+  .task-history-status-icon {
+
+    width: 25px;
+    height: 25px;
+
+    flex: 0 0 25px;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    font-size: 14px;
+
+    font-weight: 900;
+  }
+
+  .failed
+  .task-history-status-icon {
+
+    background: #fee2e2;
+
+    color: #dc2626;
+  }
+
+  .task-history-reward {
+
+    flex: 0 0 auto;
+
+    color: #16a34a;
+
+    font-size: 13px;
+
+    font-weight: 900;
+  }
+
+  .failed
+  .task-history-reward {
+
+    color: #dc2626;
+  }
+
+  .task-history-card-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+      space-between;
+
+    gap: 10px;
+
+    margin-top: 10px;
+
+    color: #7a718d;
+
+    font-size: 10.5px;
+
+    font-weight: 700;
+  }
+
+  .task-history-card-bottom
+  span:last-child {
+
+    color: #16a34a;
+  }
+
+  .failed
+  .task-history-card-bottom
+  span:last-child {
+
+    color: #dc2626;
+  }
+
 
   .refer-banner { position: relative; background: linear-gradient(135deg, #ff6fae 0%, #8b3df0 55%, #4321a8 100%); border-radius: 22px; padding: 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; overflow: hidden; }
   .refer-banner::before { content: ""; position: absolute; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.35) 0%, transparent 70%); top: -60px; right: -30px; animation: referGlow 4s ease-in-out infinite; }
@@ -2067,10 +2540,10 @@ function showBonusSuccessPopup(reward) {
         <div class="feature-sub">আপনার মোট আয়, টাস্ক ও সাকসেস দেখুন</div>
         <div class="feature-arrow blue">→</div>
       </div>
-      <div class="feature" data-screen="streak-insights">
-        <div class="feature-icon orange">🔥</div>
-        <div class="feature-title">আজকের স্ট্রিক</div>
-        <div class="feature-sub">স্ট্রিক ধরে রাখুন এবং বোনাস জিতুন</div>
+      <div class="feature" data-screen="task-history">
+        <div class="feature-icon orange">📋</div>
+        <div class="feature-title">টাস্ক হিস্ট্রি</div>
+        <div class="feature-sub">আপনার সম্পূর্ণ ও ব্যর্থ টাস্ক দেখুন</div>
         <div class="feature-arrow orange">→</div>
       </div>
     </div>
@@ -3139,6 +3612,86 @@ function showBonusSuccessPopup(reward) {
     </div>
 
   </div>
+</section>
+
+<section class="screen task-history-screen" id="screen-task-history">
+
+  <div class="details-header task-history-header">
+
+    <button
+      class="details-back task-history-back"
+      data-screen="home"
+      aria-label="Back"
+    >←</button>
+
+    <div class="details-title task-history-title">
+      টাস্ক হিস্ট্রি
+    </div>
+
+  </div>
+
+  <div class="task-history-body">
+
+    <div class="task-history-intro">
+
+      <div class="task-history-intro-icon">
+        📊
+      </div>
+
+      <div>
+
+        <div class="task-history-intro-title">
+          আপনার Task Activity
+        </div>
+
+        <div class="task-history-intro-sub">
+          সম্পূর্ণ করা Demo Task-এর রেকর্ড এখানে থাকবে
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="task-history-filters">
+
+      <button
+        type="button"
+        class="task-history-filter-btn active"
+        data-days="7"
+      >
+        ৭ দিন
+      </button>
+
+      <button
+        type="button"
+        class="task-history-filter-btn"
+        data-days="15"
+      >
+        ১৫ দিন
+      </button>
+
+      <button
+        type="button"
+        class="task-history-filter-btn"
+        data-days="30"
+      >
+        ১ মাস
+      </button>
+
+      <button
+        type="button"
+        class="task-history-filter-btn"
+        data-days="60"
+      >
+        ২ মাস
+      </button>
+
+    </div>
+
+    <div id="task-history-list"></div>
+
+  </div>
+
 </section>
 
 <section class="screen" id="screen-leaderboard">
@@ -4713,213 +5266,1838 @@ setInterval(() => {
 
 // END COMPLETE STREAK / LOGIN BONUS SYSTEM
 
-// Home Screen Task List Data
 
-  // ==========================================
-  // TASK COMPLETION SYNC V2
-  // Home + All Tasks share the same completion state.
-  // Future Real/API tasks can provide their own id.
-  // ==========================================
 
-  const TASK_COMPLETION_KEY = 'priluck_completed_task_ids';
 
-  let completedTaskIds = [];
+// ============================================================
+// PRILUCK DEMO TASK SYSTEM — FINAL MASTER FIX V4
+// ============================================================
+// Only Demo Task + Task History logic.
+// Other screens / existing popup / streak / bonus untouched.
+// ============================================================
+
+
+// ============================================================
+// FIRST INSTALL / MASTER RESET
+// ============================================================
+// FINAL MASTER V4:
+// পুরনো demo completion এবং পুরনো demo history
+// একবারের জন্য পরিষ্কার করা হবে।
+// নতুন test শুরু হবে 15টি incomplete task দিয়ে।
+// V4 marker লেখার পরে refresh/server restart-এ
+// নতুন completed task আর clear হবে না।
+// ============================================================
+
+const DEMO_MASTER_RESET_KEY =
+  'priluck_demo_master_reset_v4';
+
+const TASK_COMPLETION_KEY =
+  'priluck_completed_task_ids';
+
+const TASK_COMPLETION_DATE_KEY =
+  'priluck_demo_task_completion_date';
+
+const TASK_HISTORY_KEY =
+  'priluck_task_history';
+
+const MAX_DEMO_TASKS_PER_DAY = 15;
+
+
+// ============================================================
+// CLEAR OLD DEMO TEST STATE — ONLY ONCE
+// ============================================================
+
+if (
+  localStorage.getItem(DEMO_MASTER_RESET_KEY) !== 'done'
+) {
+  localStorage.removeItem(TASK_COMPLETION_KEY);
+  localStorage.removeItem(TASK_COMPLETION_DATE_KEY);
+
+  localStorage.removeItem(TASK_HISTORY_KEY);
+
+  localStorage.setItem(
+    DEMO_MASTER_RESET_KEY,
+    'done'
+  );
+}
+
+
+// ============================================================
+// DAILY DEMO TASK STATE
+// ============================================================
+
+let completedTaskIds = [];
+let demoTaskCompletionDate = '';
+
+function getDemoTodayKey() {
+
+  const now = new Date();
+
+  return (
+    now.getFullYear() +
+    '-' +
+    String(now.getMonth() + 1).padStart(2, '0') +
+    '-' +
+    String(now.getDate()).padStart(2, '0')
+  );
+}
+
+
+// ============================================================
+// LOAD TODAY'S DEMO TASK STATE
+// ============================================================
+
+function loadDemoDailyCompletionState() {
+
+  const todayKey =
+    getDemoTodayKey();
 
   try {
-    completedTaskIds = JSON.parse(
-      localStorage.getItem(TASK_COMPLETION_KEY) || '[]'
-    );
+
+    demoTaskCompletionDate =
+      localStorage.getItem(
+        TASK_COMPLETION_DATE_KEY
+      ) || '';
+
+    completedTaskIds =
+      JSON.parse(
+        localStorage.getItem(
+          TASK_COMPLETION_KEY
+        ) || '[]'
+      );
 
     if (!Array.isArray(completedTaskIds)) {
       completedTaskIds = [];
     }
+
   } catch (e) {
+
     completedTaskIds = [];
+    demoTaskCompletionDate = '';
+
   }
 
-  function saveCompletedTaskIds() {
+
+  // ----------------------------------------------------------
+  // নতুন দিন হলে শুধু Demo Task completion reset হবে।
+  // Task History মুছে যাবে না।
+  // ----------------------------------------------------------
+
+  if (
+    demoTaskCompletionDate !== todayKey
+  ) {
+
+    completedTaskIds = [];
+    demoTaskCompletionDate = todayKey;
+
     localStorage.setItem(
       TASK_COMPLETION_KEY,
-      JSON.stringify(completedTaskIds)
+      JSON.stringify([])
+    );
+
+    localStorage.setItem(
+      TASK_COMPLETION_DATE_KEY,
+      todayKey
     );
   }
+}
 
-  function getTaskId(task, index) {
-    return task.id || ('demo-task-' + index);
+
+// ============================================================
+// SAVE DEMO TASK STATE
+// ============================================================
+
+function saveCompletedTaskIds() {
+
+  localStorage.setItem(
+    TASK_COMPLETION_KEY,
+    JSON.stringify(completedTaskIds)
+  );
+
+  localStorage.setItem(
+    TASK_COMPLETION_DATE_KEY,
+    getDemoTodayKey()
+  );
+}
+
+
+// ============================================================
+// TASK ID
+// ============================================================
+
+function getTaskId(task, index) {
+
+  return (
+    task.id ||
+    ('demo-task-' + index)
+  );
+}
+
+
+// ============================================================
+// CHECK COMPLETION
+// ============================================================
+
+function isTaskCompleted(taskId) {
+
+  return completedTaskIds.includes(taskId);
+}
+
+
+// ============================================================
+// COMPLETED COUNT
+// ============================================================
+
+function getCompletedDemoTaskCount() {
+
+  return completedTaskIds.length;
+}
+
+
+// ============================================================
+// DAILY LIMIT
+// ============================================================
+
+function isDemoDailyLimitReached() {
+
+  return (
+    getCompletedDemoTaskCount() >=
+    MAX_DEMO_TASKS_PER_DAY
+  );
+}
+
+
+// ============================================================
+// MARK TASK COMPLETE
+// ============================================================
+
+function markTaskCompleted(taskId) {
+
+  if (
+    !taskId ||
+    isTaskCompleted(taskId)
+  ) {
+    return false;
   }
 
-  function isTaskCompleted(taskId) {
-    return completedTaskIds.includes(taskId);
+  if (
+    isDemoDailyLimitReached()
+  ) {
+    return false;
   }
 
-  function markTaskCompleted(taskId) {
-    if (isTaskCompleted(taskId)) {
-      return false;
+  completedTaskIds.push(taskId);
+
+  saveCompletedTaskIds();
+
+  return true;
+}
+
+
+// ============================================================
+// MIDNIGHT RESET
+// ============================================================
+
+function scheduleDemoMidnightReset() {
+
+  const now = new Date();
+
+  const nextMidnight =
+    new Date(now);
+
+  nextMidnight.setHours(
+    24,
+    0,
+    0,
+    0
+  );
+
+  const delay =
+    nextMidnight.getTime() -
+    now.getTime();
+
+
+  setTimeout(() => {
+
+    completedTaskIds = [];
+
+    demoTaskCompletionDate =
+      getDemoTodayKey();
+
+    localStorage.setItem(
+      TASK_COMPLETION_KEY,
+      JSON.stringify([])
+    );
+
+    localStorage.setItem(
+      TASK_COMPLETION_DATE_KEY,
+      demoTaskCompletionDate
+    );
+
+
+    // Home নতুন দিনের প্রথম 4 task দেখাবে।
+
+    if (
+      typeof renderHomeTasks ===
+      'function'
+    ) {
+
+      homeTaskStart = 0;
+
+      renderHomeTasks();
     }
 
-    completedTaskIds.push(taskId);
-    saveCompletedTaskIds();
 
-    return true;
+    // All Tasks নতুন দিনের জন্য active হবে।
+
+    if (
+      typeof renderAllTasks ===
+      'function'
+    ) {
+
+      renderAllTasks();
+    }
+
+
+    // পরবর্তী midnight timer।
+
+    scheduleDemoMidnightReset();
+
+  }, Math.max(delay, 1000));
+}
+
+
+// ============================================================
+// LOAD STATE NOW
+// ============================================================
+
+loadDemoDailyCompletionState();
+
+
+// ============================================================
+// TASK HISTORY STATE
+// ============================================================
+
+let taskHistory = [];
+
+try {
+
+  taskHistory =
+    JSON.parse(
+      localStorage.getItem(
+        TASK_HISTORY_KEY
+      ) || '[]'
+    );
+
+  if (!Array.isArray(taskHistory)) {
+    taskHistory = [];
   }
 
-  function renderAllTasks() {
-    if (!allTaskList) return;
+} catch (e) {
 
-    allTaskList.innerHTML = '';
+  taskHistory = [];
 
-    taskData.forEach((t, index) => {
-      const taskId = getTaskId(t, index);
-      const completed = isTaskCompleted(taskId);
+}
 
-      const row = document.createElement('div');
-      row.className = 'task-row';
-      row.dataset.taskId = taskId;
+
+// ============================================================
+// SAVE HISTORY
+// ============================================================
+
+function saveTaskHistory() {
+
+  localStorage.setItem(
+    TASK_HISTORY_KEY,
+    JSON.stringify(taskHistory)
+  );
+}
+
+
+// ============================================================
+// ADD HISTORY
+// ============================================================
+
+function addTaskHistory(record) {
+
+  if (
+    !record ||
+    !record.taskId
+  ) {
+    return;
+  }
+
+  taskHistory.push(record);
+
+  saveTaskHistory();
+}
+
+
+// ============================================================
+// RECORD TASK RESULT
+// ============================================================
+
+function recordTaskResult(
+  taskId,
+  taskName,
+  reward,
+  status
+) {
+
+  if (!taskId) {
+    return;
+  }
+
+  if (
+    status !== 'completed' &&
+    status !== 'failed'
+  ) {
+    return;
+  }
+
+  // একই task একই completion event থেকে
+  // duplicate history তৈরি করবে না।
+
+  const duplicate =
+    taskHistory.some(item =>
+      item &&
+      item.taskId === taskId &&
+      item.status === status &&
+      item.timestamp &&
+      (
+        Date.now() -
+        item.timestamp
+      ) < 1500
+    );
+
+  if (duplicate) {
+    return;
+  }
+
+  addTaskHistory({
+
+    taskId: taskId,
+
+    taskName:
+      taskName || 'টাস্ক',
+
+    status: status,
+
+    reward:
+      reward || '₹—',
+
+    timestamp:
+      Date.now()
+
+  });
+
+
+  if (
+    typeof renderTaskHistory ===
+    'function'
+  ) {
+
+    renderTaskHistory();
+  }
+}
+
+
+// ============================================================
+// TASK HISTORY FILTER
+// ============================================================
+
+let taskHistoryFilterDays = 7;
+
+
+// ============================================================
+// OLD HISTORY CLEANUP
+// ============================================================
+// সর্বোচ্চ 60 দিনের history রাখা হবে।
+// ============================================================
+
+function cleanupOldTaskHistory() {
+
+  const cutoff =
+    Date.now() -
+    (
+      60 *
+      24 *
+      60 *
+      60 *
+      1000
+    );
+
+  taskHistory =
+    taskHistory.filter(item => {
+
+      return (
+        item &&
+        item.timestamp &&
+        item.timestamp >= cutoff
+      );
+
+    });
+
+  saveTaskHistory();
+}
+
+
+// ============================================================
+// RENDER TASK HISTORY
+// ============================================================
+
+function renderTaskHistory() {
+
+  const list =
+    document.getElementById(
+      'task-history-list'
+    );
+
+  if (!list) {
+    return;
+  }
+
+
+  cleanupOldTaskHistory();
+
+
+  const cutoff =
+    Date.now() -
+    (
+      taskHistoryFilterDays *
+      24 *
+      60 *
+      60 *
+      1000
+    );
+
+
+  const filtered =
+    taskHistory
+      .filter(item => {
+
+        return (
+          item &&
+          item.timestamp &&
+          item.timestamp >= cutoff
+        );
+
+      })
+      .sort(
+        (a, b) =>
+          b.timestamp -
+          a.timestamp
+      );
+
+
+  // ----------------------------------------------------------
+  // EMPTY HISTORY
+  // ----------------------------------------------------------
+
+  if (!filtered.length) {
+
+    list.innerHTML = `
+      <div class="priluck-history-empty">
+
+        <div class="priluck-history-empty-icon">
+          📋
+        </div>
+
+        <div class="priluck-history-empty-title">
+          কোনো টাস্ক হিস্ট্রি নেই
+        </div>
+
+        <div class="priluck-history-empty-sub">
+          টাস্ক সম্পূর্ণ করলে এখানে আপনার হিস্ট্রি দেখা যাবে।
+        </div>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  // ----------------------------------------------------------
+  // HISTORY CARDS
+  // ----------------------------------------------------------
+
+  list.innerHTML =
+    filtered
+      .map(item => {
+
+        const date =
+          new Date(
+            item.timestamp
+          );
+
+
+        const dateText =
+          date.toLocaleDateString(
+            'bn-BD',
+            {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            }
+          );
+
+
+        const timeText =
+          date.toLocaleTimeString(
+            'bn-BD',
+            {
+              hour: 'numeric',
+              minute: '2-digit'
+            }
+          );
+
+
+        const isCompleted =
+          item.status ===
+          'completed';
+
+
+        return `
+          <div class="priluck-history-card">
+
+            <div class="priluck-history-icon ${
+              isCompleted
+                ? 'success'
+                : 'failed'
+            }">
+
+              ${
+                isCompleted
+                  ? '✓'
+                  : '✕'
+              }
+
+            </div>
+
+
+            <div class="priluck-history-content">
+
+              <div class="priluck-history-name">
+                ${
+                  item.taskName ||
+                  'টাস্ক'
+                }
+              </div>
+
+              <div class="priluck-history-time">
+                ${dateText} • ${timeText}
+              </div>
+
+              <div class="priluck-history-status ${
+                isCompleted
+                  ? 'success-text'
+                  : 'failed-text'
+              }">
+
+                ${
+                  isCompleted
+                    ? 'সম্পূর্ণ'
+                    : 'ব্যর্থ'
+                }
+
+              </div>
+
+            </div>
+
+
+            <div class="priluck-history-reward ${
+              isCompleted
+                ? 'success-text'
+                : 'failed-text'
+            }">
+
+              ${
+                isCompleted
+                  ? (
+                      item.reward ||
+                      '₹—'
+                    )
+                  : 'FAILED'
+              }
+
+            </div>
+
+          </div>
+        `;
+
+      })
+      .join('');
+}
+
+
+// ============================================================
+// TASK HISTORY SCREEN
+// ============================================================
+
+function setupTaskHistoryScreen() {
+
+  const screen =
+    document.getElementById(
+      'screen-task-history'
+    );
+
+  if (!screen) {
+    return;
+  }
+
+
+  // ----------------------------------------------------------
+  // BACK BUTTON
+  // ----------------------------------------------------------
+
+  const backButton =
+    screen.querySelector(
+      '.details-back'
+    );
+
+  if (backButton) {
+
+    backButton.dataset.screen =
+      'home';
+
+    backButton.setAttribute(
+      'aria-label',
+      'Back'
+    );
+
+  }
+
+
+  // ----------------------------------------------------------
+  // FILTER BUTTONS
+  // Text দেখে button-এর দিন নির্ধারণ করা হচ্ছে।
+  // Index-এর উপর নির্ভর করা হচ্ছে না।
+  // ----------------------------------------------------------
+
+  const buttons =
+    screen.querySelectorAll(
+      'button'
+    );
+
+
+  buttons.forEach(button => {
+
+    if (
+      button.classList.contains(
+        'details-back'
+      )
+    ) {
+      return;
+    }
+
+
+    const text =
+      button.textContent.trim();
+
+
+    let days = 0;
+
+
+    if (
+      text.includes('৭ দিন')
+    ) {
+      days = 7;
+    }
+    else if (
+      text.includes('১৫ দিন')
+    ) {
+      days = 15;
+    }
+    else if (
+      text.includes('১ মাস')
+    ) {
+      days = 30;
+    }
+    else if (
+      text.includes('২ মাস')
+    ) {
+      days = 60;
+    }
+
+
+    if (!days) {
+      return;
+    }
+
+
+    button.dataset.historyDays =
+      String(days);
+
+
+    button.type =
+      'button';
+
+
+    button.onclick =
+      function(e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        taskHistoryFilterDays =
+          days;
+
+
+        // Active filter UI
+
+        buttons.forEach(other => {
+
+          if (
+            other.dataset &&
+            other.dataset.historyDays
+          ) {
+
+            other.classList.remove(
+              'history-filter-active'
+            );
+
+          }
+
+        });
+
+
+        button.classList.add(
+          'history-filter-active'
+        );
+
+
+        renderTaskHistory();
+
+      };
+
+  });
+
+
+  // Default = 7 days
+
+  const defaultButton =
+    screen.querySelector(
+      'button[data-history-days="7"]'
+    );
+
+  if (defaultButton) {
+
+    defaultButton.classList.add(
+      'history-filter-active'
+    );
+
+  }
+
+
+  renderTaskHistory();
+}
+
+
+// ============================================================
+// DEMO TASK DATA
+// ============================================================
+
+const taskData = [
+
+  {
+    icon:'🔍',
+    name:'গুগল সার্চ করুন',
+    meta:'2 মিনিট • CPX Research',
+    price:'₹8'
+  },
+
+  {
+    icon:'▶️',
+    name:'ইউটিউব ভিডিও দেখুন',
+    meta:'2 মিনিট • CPX Research',
+    price:'₹6'
+  },
+
+  {
+    icon:'📲',
+    name:'অ্যাপ ইনস্টল ও খুলুন',
+    meta:'3 মিনিট • RevenueWall',
+    price:'₹10'
+  },
+
+  {
+    icon:'📷',
+    name:'ইনস্টাগ্রাম পোস্ট লাইক করুন',
+    meta:'2 মিনিট • CPX Research',
+    price:'₹4'
+  },
+
+  {
+    icon:'🌐',
+    name:'ওয়েবসাইট ভিজিট করুন',
+    meta:'2 মিনিট • CPX Research',
+    price:'₹5'
+  },
+
+  {
+    icon:'👍',
+    name:'পোস্টে লাইক দিন',
+    meta:'1 মিনিট • RevenueWall',
+    price:'₹3'
+  },
+
+  {
+    icon:'📱',
+    name:'অ্যাপ ওপেন করুন',
+    meta:'2 মিনিট • CPX Research',
+    price:'₹7'
+  },
+
+  {
+    icon:'🎬',
+    name:'শর্ট ভিডিও দেখুন',
+    meta:'3 মিনিট • RevenueWall',
+    price:'₹6'
+  },
+
+  {
+    icon:'⭐',
+    name:'রিভিউ দিন',
+    meta:'2 মিনিট • CPX Research',
+    price:'₹5'
+  },
+
+  {
+    icon:'🔗',
+    name:'লিংকে ক্লিক করুন',
+    meta:'1 মিনিট • RevenueWall',
+    price:'₹4'
+  },
+
+  {
+    icon:'📝',
+    name:'ছোট সার্ভে সম্পূর্ণ করুন',
+    meta:'4 মিনিট • CPX Research',
+    price:'₹9'
+  },
+
+  {
+    icon:'💬',
+    name:'কমেন্ট করুন',
+    meta:'2 মিনিট • CPX Research',
+    price:'₹5'
+  },
+
+  {
+    icon:'🛍️',
+    name:'শপিং অফার সম্পূর্ণ করুন',
+    meta:'3 মিনিট • RevenueWall',
+    price:'₹—'
+  },
+
+  {
+    icon:'📋',
+    name:'প্রোফাইল সার্ভে সম্পূর্ণ করুন',
+    meta:'4 মিনিট • CPX Research',
+    price:'₹—'
+  },
+
+  {
+    icon:'🎯',
+    name:'বিশেষ অফার সম্পূর্ণ করুন',
+    meta:'3 মিনিট • RevenueWall',
+    price:'₹—'
+  }
+
+];
+
+
+// ============================================================
+// ALL TASKS
+// ============================================================
+
+const allTaskList =
+  document.getElementById(
+    'allTaskList'
+  );
+
+
+function renderAllTasks() {
+
+  if (!allTaskList) {
+    return;
+  }
+
+
+  allTaskList.innerHTML = '';
+
+
+  taskData.forEach(
+    (t, index) => {
+
+      const taskId =
+        getTaskId(
+          t,
+          index
+        );
+
+
+      const completed =
+        isTaskCompleted(
+          taskId
+        );
+
+
+      const row =
+        document.createElement(
+          'div'
+        );
+
+
+      row.className =
+        'task-row';
+
+
+      row.dataset.taskId =
+        taskId;
+
 
       row.innerHTML = `
-        <div class="task-icon">${t.icon}</div>
-        <div class="task-info">
-          <div class="task-name">${t.name}</div>
-          <div class="task-meta">${t.meta}</div>
+
+        <div class="task-icon">
+          ${t.icon}
         </div>
-        <div class="task-price">${t.price}</div>
-        <button class="task-start" ${completed ? 'disabled' : ''}>
-          ${completed ? '✓ সম্পূর্ণ' : 'শুরু করুন'}
+
+
+        <div class="task-info">
+
+          <div class="task-name">
+            ${t.name}
+          </div>
+
+          <div class="task-meta">
+            ${t.meta}
+          </div>
+
+        </div>
+
+
+        <div class="task-price">
+          ${t.price}
+        </div>
+
+
+        <button
+          class="task-start"
+          type="button"
+          ${
+            completed ||
+            isDemoDailyLimitReached()
+              ? 'disabled'
+              : ''
+          }
+        >
+
+          ${
+            completed
+              ? '✓ সম্পূর্ণ'
+              : (
+                  isDemoDailyLimitReached()
+                    ? 'আজকের ১৫টি সম্পূর্ণ'
+                    : 'শুরু করুন'
+                )
+          }
+
         </button>
+
       `;
 
-      allTaskList.appendChild(row);
-    });
+
+      allTaskList.appendChild(
+        row
+      );
+
+    }
+  );
+}
+
+
+// ============================================================
+// HOME TASKS
+// ALWAYS SHOW FIRST 4 UNCOMPLETED TASKS
+// ============================================================
+
+const taskList =
+  document.getElementById(
+    'taskList'
+  );
+
+
+let homeTaskStart = 0;
+
+
+function renderHomeTasks() {
+
+  if (!taskList) {
+    return;
   }
 
-  const taskData = [
-    {icon:'🔍', name:'গুগল সার্চ করুন',        meta:'2 মিনিট • CPX Research', price:'₹8'},
-    {icon:'▶️', name:'ইউটিউব ভিডিও দেখুন',      meta:'2 মিনিট • CPX Research', price:'₹6'},
-    {icon:'📲', name:'অ্যাপ ইনস্টল ও খুলুন',     meta:'3 মিনিট • RevenueWall', price:'₹10'},
-    {icon:'📷', name:'ইনস্টাগ্রাম পোস্ট লাইক করুন', meta:'2 মিনিট • CPX Research', price:'₹4'},
-    {icon:'🌐', name:'ওয়েবসাইট ভিজিট করুন', meta:'2 মিনিট • CPX Research', price:'₹5'},
-    {icon:'👍', name:'পোস্টে লাইক দিন', meta:'1 মিনিট • RevenueWall', price:'₹3'},
-    {icon:'📱', name:'অ্যাপ ওপেন করুন', meta:'2 মিনিট • CPX Research', price:'₹7'},
-    {icon:'🎬', name:'শর্ট ভিডিও দেখুন', meta:'3 মিনিট • RevenueWall', price:'₹6'},
-    {icon:'⭐', name:'রিভিউ দিন', meta:'2 মিনিট • CPX Research', price:'₹5'},
-    {icon:'🔗', name:'লিংকে ক্লিক করুন', meta:'1 মিনিট • RevenueWall', price:'₹4'},
-    {icon:'📝', name:'ছোট সার্ভে সম্পূর্ণ করুন', meta:'4 মিনিট • CPX Research', price:'₹9'},
-    {icon:'💬', name:'কমেন্ট করুন', meta:'2 মিনিট • CPX Research', price:'₹5'},
-    {icon:'🛍️', name:'শপিং অফার সম্পূর্ণ করুন', meta:'3 মিনিট • RevenueWall', price:'₹—'},
-    {icon:'📋', name:'প্রোফাইল সার্ভে সম্পূর্ণ করুন', meta:'4 মিনিট • CPX Research', price:'₹—'},
-    {icon:'🎯', name:'বিশেষ অফার সম্পূর্ণ করুন', meta:'3 মিনিট • RevenueWall', price:'₹—'},
-  ];
 
-  const allTaskList = document.getElementById('allTaskList');
+  taskList.innerHTML = '';
 
-  if(allTaskList){
+
+  // ----------------------------------------------------------
+  // DAILY LIMIT
+  // ----------------------------------------------------------
+
+  if (
+    isDemoDailyLimitReached()
+  ) {
+
+    taskList.innerHTML = `
+
+      <div style="
+        text-align:center;
+        padding:25px;
+        font-weight:700;
+        color:#64748b;
+      ">
+
+        🎉 আজকের ১৫টি Demo Task সম্পূর্ণ হয়েছে।
+
+        <br>
+
+        🌙 রাত ১২টার পর আবার শুরু করতে পারবেন।
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  // ----------------------------------------------------------
+  // ONLY UNCOMPLETED TASKS
+  // ----------------------------------------------------------
+
+  const availableTasks =
+    taskData.filter(
+      (task, index) => {
+
+        const taskId =
+          getTaskId(
+            task,
+            index
+          );
+
+        return !isTaskCompleted(
+          taskId
+        );
+
+      }
+    );
+
+
+  // ----------------------------------------------------------
+  // NO TASK LEFT
+  // ----------------------------------------------------------
+
+  if (
+    !availableTasks.length
+  ) {
+
+    taskList.innerHTML = `
+
+      <div style="
+        text-align:center;
+        padding:25px;
+        font-weight:700;
+        color:#64748b;
+      ">
+
+        🎉 আজকের সব Demo Task সম্পূর্ণ হয়েছে!
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  // ----------------------------------------------------------
+  // ALWAYS SHOW MAXIMUM 4 ACTIVE TASKS
+  // ----------------------------------------------------------
+
+  const visibleTasks =
+    availableTasks.slice(
+      0,
+      4
+    );
+
+
+  visibleTasks.forEach(
+    t => {
+
+      const actualIndex =
+        taskData.indexOf(t);
+
+
+      const taskId =
+        getTaskId(
+          t,
+          actualIndex
+        );
+
+
+      const row =
+        document.createElement(
+          'div'
+        );
+
+
+      row.className =
+        'task-row';
+
+
+      row.dataset.taskId =
+        taskId;
+
+
+      row.innerHTML = `
+
+        <div class="task-icon">
+          ${t.icon}
+        </div>
+
+
+        <div class="task-info">
+
+          <div class="task-name">
+            ${t.name}
+          </div>
+
+          <div class="task-meta">
+            ${t.meta}
+          </div>
+
+        </div>
+
+
+        <div class="task-price">
+          ${t.price}
+        </div>
+
+
+        <button
+          class="task-start"
+          type="button"
+        >
+          শুরু করুন
+        </button>
+
+      `;
+
+
+      taskList.appendChild(
+        row
+      );
+
+    }
+  );
+}
+
+
+// ============================================================
+// COMMON TASK COMPLETION
+// ============================================================
+
+function handleTaskCompletion(
+  row,
+  button,
+  fromHome
+) {
+
+  if (
+    !row ||
+    !button
+  ) {
+    return;
+  }
+
+
+  const taskId =
+    row.dataset.taskId;
+
+
+  const nameEl =
+    row.querySelector(
+      '.task-name'
+    );
+
+
+  const rewardEl =
+    row.querySelector(
+      '.task-price'
+    );
+
+
+  if (
+    !taskId ||
+    !nameEl
+  ) {
+    return;
+  }
+
+
+  const name =
+    nameEl.textContent.trim();
+
+
+  const reward =
+    rewardEl
+      ? rewardEl.textContent.trim()
+      : '₹—';
+
+
+  // ----------------------------------------------------------
+  // ALREADY COMPLETED
+  // ----------------------------------------------------------
+
+  if (
+    isTaskCompleted(taskId)
+  ) {
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      '✓ সম্পূর্ণ';
+
+    return;
+  }
+
+
+  // ----------------------------------------------------------
+  // DAILY LIMIT
+  // ----------------------------------------------------------
+
+  if (
+    isDemoDailyLimitReached()
+  ) {
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      'আজকের ১৫টি সম্পূর্ণ';
+
+    renderHomeTasks();
     renderAllTasks();
 
-    allTaskList.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('task-start')) return;
+    return;
+  }
 
-      const row = e.target.closest('.task-row');
-      const taskId = row.dataset.taskId;
-      const name = row.querySelector('.task-name').textContent;
 
-      // Prevent duplicate completion.
-      if (!markTaskCompleted(taskId)) {
-        e.target.disabled = true;
-        e.target.textContent = '✓ সম্পূর্ণ';
+  // ----------------------------------------------------------
+  // MARK COMPLETE
+  // ----------------------------------------------------------
+
+  if (
+    !markTaskCompleted(
+      taskId
+    )
+  ) {
+
+    return;
+  }
+
+
+  // ----------------------------------------------------------
+  // EXISTING SUCCESS POPUP
+  // ----------------------------------------------------------
+
+  if (
+    typeof showTaskSuccessPopup ===
+    'function'
+  ) {
+
+    showTaskSuccessPopup(
+      name,
+      reward
+    );
+
+  }
+
+
+  // ----------------------------------------------------------
+  // EXISTING STREAK LOGIC
+  // ----------------------------------------------------------
+
+  if (
+    typeof completeStreakTask ===
+    'function'
+  ) {
+
+    completeStreakTask();
+
+  }
+
+
+  // ----------------------------------------------------------
+  // TASK HISTORY
+  // ----------------------------------------------------------
+
+  recordTaskResult(
+    taskId,
+    name,
+    reward,
+    'completed'
+  );
+
+
+  // ----------------------------------------------------------
+  // BUTTON STATE
+  // ----------------------------------------------------------
+
+  button.disabled =
+    true;
+
+  button.textContent =
+    '✓ সম্পূর্ণ';
+
+
+  // ----------------------------------------------------------
+  // SYNCHRONIZE BOTH SCREENS
+  // ----------------------------------------------------------
+
+  renderAllTasks();
+
+  renderHomeTasks();
+
+}
+
+
+// ============================================================
+// ALL TASKS CLICK
+// ============================================================
+
+if (allTaskList) {
+
+  allTaskList.addEventListener(
+    'click',
+    function(e) {
+
+      const button =
+        e.target.closest(
+          '.task-start'
+        );
+
+
+      if (!button) {
         return;
       }
 
-      showTaskSuccessPopup(
-        name,
-        row.querySelector('.task-price').textContent
-      );
 
-      // Count toward today's 15-task streak requirement.
-      completeStreakTask();
+      const row =
+        button.closest(
+          '.task-row'
+        );
 
-      e.target.disabled = true;
-      e.target.textContent = '✓ সম্পূর্ণ';
 
-      // Keep Home screen synchronized.
-      renderHomeTasks();
-    });
-
-  }
-
-  const taskList = document.getElementById('taskList');
-
-  // Home shows only 4 tasks at a time
-  let homeTaskStart = 0;
-
-  function renderHomeTasks() {
-    if (!taskList) return;
-
-    taskList.innerHTML = '';
-
-    const visibleTasks = taskData.slice(homeTaskStart, homeTaskStart + 4);
-
-    visibleTasks.forEach((t, visibleIndex) => {
-      const actualIndex = homeTaskStart + visibleIndex;
-      const taskId = getTaskId(t, actualIndex);
-      const completed = isTaskCompleted(taskId);
-
-      const row = document.createElement('div');
-      row.className = 'task-row';
-      row.dataset.taskId = taskId;
-
-      row.innerHTML = `
-        <div class="task-icon">${t.icon}</div>
-        <div class="task-info">
-          <div class="task-name">${t.name}</div>
-          <div class="task-meta">${t.meta}</div>
-        </div>
-        <div class="task-price">${t.price}</div>
-        <button class="task-start" ${completed ? 'disabled' : ''}>
-          ${completed ? '✓ সম্পূর্ণ' : 'শুরু করুন'}
-        </button>
-      `;
-
-      taskList.appendChild(row);
-    });
-  }
-
-  if (taskList) {
-    renderHomeTasks();
-
-    taskList.addEventListener('click', (e) => {
-      if (e.target.classList.contains('task-start')) {
-        const row = e.target.closest('.task-row');
-        const taskId = row.dataset.taskId;
-        const name = row.querySelector('.task-name').textContent;
-
-        // Prevent the same task from being completed twice.
-        if (!markTaskCompleted(taskId)) {
-          e.target.disabled = true;
-          e.target.textContent = '✓ সম্পূর্ণ';
-          return;
-        }
-
-        showTaskSuccessPopup(
-        name,
-        row.querySelector('.task-price').textContent
-      );
-
-        completeStreakTask();
-
-        // Keep All Tasks synchronized.
-        renderAllTasks();
-
-        // Move Home forward only after a real completion.
-        homeTaskStart++;
-
-        if (homeTaskStart < taskData.length) {
-          renderHomeTasks();
-        } else {
-          taskList.innerHTML = '<div style="text-align:center;padding:25px;font-weight:700;">🎉 সব টাস্ক সম্পূর্ণ হয়েছে!</div>';
-        }
+      if (!row) {
+        return;
       }
-    });
+
+
+      handleTaskCompletion(
+        row,
+        button,
+        false
+      );
+
+    }
+  );
+
+}
+
+
+// ============================================================
+// HOME CLICK
+// ============================================================
+
+if (taskList) {
+
+  taskList.addEventListener(
+    'click',
+    function(e) {
+
+      const button =
+        e.target.closest(
+          '.task-start'
+        );
+
+
+      if (!button) {
+        return;
+      }
+
+
+      const row =
+        button.closest(
+          '.task-row'
+        );
+
+
+      if (!row) {
+        return;
+      }
+
+
+      handleTaskCompletion(
+        row,
+        button,
+        true
+      );
+
+    }
+  );
+
+}
+
+
+// ============================================================
+// TASK HISTORY SCREEN SETUP
+// ============================================================
+
+setupTaskHistoryScreen();
+
+
+// ============================================================
+// MIDNIGHT RESET TIMER
+// ============================================================
+
+scheduleDemoMidnightReset();
+
+
+// ============================================================
+// FINAL INITIAL RENDER
+// ============================================================
+
+renderAllTasks();
+
+renderHomeTasks();
+
+renderTaskHistory();
+
+
+// ============================================================
+// PREMIUM TASK HISTORY SCREEN STYLE
+// Scoped ONLY to Task History.
+// Other screens untouched.
+// ============================================================
+
+(function injectTaskHistoryPremiumStyle() {
+
+  if (
+    document.getElementById(
+      'priluck-task-history-premium-style'
+    )
+  ) {
+    return;
   }
+
+
+  const style =
+    document.createElement(
+      'style'
+    );
+
+
+  style.id =
+    'priluck-task-history-premium-style';
+
+
+  style.textContent = `
+
+    #screen-task-history {
+      background:
+        linear-gradient(
+          180deg,
+          #f7f3ff 0%,
+          #ffffff 48%,
+          #f8fafc 100%
+        );
+      min-height:100vh;
+      padding-bottom:30px;
+    }
+
+
+    #screen-task-history .details-header {
+      min-height:70px;
+      padding:10px 4px 16px;
+      margin-bottom:4px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+
+    #screen-task-history .details-back {
+      width:52px !important;
+      height:52px !important;
+      min-width:52px !important;
+      min-height:52px !important;
+      flex:0 0 52px !important;
+
+      border:none !important;
+      border-radius:16px !important;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7c4dff,
+          #5b3df0
+        ) !important;
+
+      color:#ffffff !important;
+
+      font-size:32px !important;
+      font-weight:900 !important;
+
+      line-height:1 !important;
+
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+
+      box-shadow:
+        0 8px 20px
+        rgba(91,61,240,.25) !important;
+
+      cursor:pointer;
+    }
+
+
+    #screen-task-history .details-title {
+      color:#24154f !important;
+      font-size:23px !important;
+      font-weight:900 !important;
+      letter-spacing:-.2px;
+    }
+
+
+    #screen-task-history > div:not(.details-header) {
+      padding:14px 14px 28px !important;
+    }
+
+
+    #screen-task-history > div:not(.details-header) > div:first-child {
+      background:#ffffff;
+      padding:6px;
+      border-radius:18px;
+      margin-bottom:16px !important;
+
+      box-shadow:
+        0 8px 24px
+        rgba(60,40,120,.08);
+
+      border:1px solid #eee8ff;
+    }
+
+
+    #screen-task-history > div:not(.details-header) > div:first-child button {
+      flex:1;
+      min-width:72px;
+
+      border:none;
+      border-radius:13px;
+
+      background:#f5f3ff;
+      color:#6b6486;
+
+      padding:11px 9px;
+
+      font-family:inherit;
+      font-size:12px;
+      font-weight:800;
+
+      cursor:pointer;
+
+      transition:
+        background .18s ease,
+        color .18s ease,
+        transform .18s ease;
+    }
+
+
+    #screen-task-history > div:not(.details-header) > div:first-child button:active {
+      transform:scale(.97);
+    }
+
+
+    #screen-task-history > div:not(.details-header) > div:first-child button.history-filter-active {
+      background:
+        linear-gradient(
+          135deg,
+          #7c4dff,
+          #5b3df0
+        );
+
+      color:#ffffff;
+
+      box-shadow:
+        0 6px 15px
+        rgba(91,61,240,.22);
+    }
+
+
+    .priluck-history-empty {
+      background:#ffffff;
+      border:1px solid #eeeaf8;
+      border-radius:22px;
+      padding:36px 20px;
+      text-align:center;
+
+      box-shadow:
+        0 10px 30px
+        rgba(48,30,100,.07);
+    }
+
+
+    .priluck-history-empty-icon {
+      width:64px;
+      height:64px;
+      margin:0 auto 14px;
+
+      border-radius:20px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      background:#f3efff;
+
+      font-size:29px;
+    }
+
+
+    .priluck-history-empty-title {
+      color:#24154f;
+      font-size:16px;
+      font-weight:900;
+      margin-bottom:5px;
+    }
+
+
+    .priluck-history-empty-sub {
+      color:#8a82a0;
+      font-size:12px;
+      line-height:1.55;
+    }
+
+
+    .priluck-history-card {
+      display:flex;
+      align-items:center;
+      gap:12px;
+
+      background:#ffffff;
+
+      border:1px solid #eeeaf8;
+
+      border-radius:20px;
+
+      padding:14px;
+
+      margin-bottom:10px;
+
+      box-shadow:
+        0 8px 24px
+        rgba(48,30,100,.065);
+    }
+
+
+    .priluck-history-icon {
+      width:44px;
+      height:44px;
+      flex:0 0 44px;
+
+      border-radius:14px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      font-size:20px;
+      font-weight:900;
+    }
+
+
+    .priluck-history-icon.success {
+      background:#ecfdf5;
+      color:#16a34a;
+    }
+
+
+    .priluck-history-icon.failed {
+      background:#fef2f2;
+      color:#dc2626;
+    }
+
+
+    .priluck-history-content {
+      flex:1;
+      min-width:0;
+    }
+
+
+    .priluck-history-name {
+      color:#24154f;
+      font-size:13.5px;
+      font-weight:900;
+
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+
+    .priluck-history-time {
+      color:#8b849d;
+      font-size:10.5px;
+      margin-top:4px;
+    }
+
+
+    .priluck-history-status {
+      font-size:10.5px;
+      font-weight:900;
+      margin-top:4px;
+    }
+
+
+    .priluck-history-reward {
+      font-size:13px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+
+    .success-text {
+      color:#16a34a;
+    }
+
+
+    .failed-text {
+      color:#dc2626;
+    }
+
+  `;
+
+
+  document.head.appendChild(
+    style
+  );
+
+})();
+
 
 </script>
 
