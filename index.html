@@ -9259,36 +9259,154 @@ renderTaskHistory();
           } else {
 
             /*
-             * Telegram / Android WebView fallback.
-             * Opens Android native SEND chooser.
-             * Only Rank Share logic is changed.
+             * Telegram / Android WebView safe fallback.
+             * No intent:// scheme is used.
+             * Only Rank Share fallback is changed.
              */
-            var encodedText =
+
+            var shareUrl =
+              window.location.href;
+
+            var encodedUrl =
+              encodeURIComponent(shareUrl);
+
+            var encodedMessage =
               encodeURIComponent(
-                shareText + "\n" + window.location.href
+                shareText + "\n" + shareUrl
               );
 
-            var androidShareIntent =
-              "intent://send/#Intent;" +
-              "action=android.intent.action.SEND;" +
-              "type=text/plain;" +
-              "S.android.intent.extra.TEXT=" +
-              encodedText +
-              ";end";
+            var shareHtml =
+              '<div style="text-align:left;">' +
 
-            try {
+              '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">' +
 
-              window.location.href =
-                androidShareIntent;
+              '<button type="button" data-priluck-share="telegram" ' +
+              'style="border:0;border-radius:14px;padding:13px;background:#229ED9;color:#fff;font-weight:700;font-size:15px;">' +
+              '✈️ Telegram' +
+              '</button>' +
 
-            } catch (error) {
+              '<button type="button" data-priluck-share="whatsapp" ' +
+              'style="border:0;border-radius:14px;padding:13px;background:#25D366;color:#fff;font-weight:700;font-size:15px;">' +
+              '💬 WhatsApp' +
+              '</button>' +
 
-              showActionMessage(
-                "📤 র‍্যাঙ্ক শেয়ার করুন",
-                "এই পরিবেশে Native Share অপশন চালু করা যায়নি।"
+              '<button type="button" data-priluck-share="facebook" ' +
+              'style="border:0;border-radius:14px;padding:13px;background:#1877F2;color:#fff;font-weight:700;font-size:15px;">' +
+              '📘 Facebook' +
+              '</button>' +
+
+              '<button type="button" data-priluck-share="copy" ' +
+              'style="border:0;border-radius:14px;padding:13px;background:#6C3FE8;color:#fff;font-weight:700;font-size:15px;">' +
+              '🔗 লিংক কপি' +
+              '</button>' +
+
+              '</div>' +
+
+              '</div>';
+
+            showActionMessage(
+              "📤 র‍্যাঙ্ক শেয়ার করুন",
+              shareHtml
+            );
+
+            setTimeout(function () {
+
+              var shareButtons =
+                document.querySelectorAll(
+                  '[data-priluck-share]'
+                );
+
+              shareButtons.forEach(
+                function (button) {
+
+                  button.addEventListener(
+                    "click",
+                    function () {
+
+                      var type =
+                        button.getAttribute(
+                          "data-priluck-share"
+                        );
+
+                      if (type === "telegram") {
+
+                        window.open(
+                          "https://t.me/share/url?url=" +
+                          encodedUrl +
+                          "&text=" +
+                          encodedMessage,
+                          "_blank"
+                        );
+
+                      } else if (
+                        type === "whatsapp"
+                      ) {
+
+                        window.open(
+                          "https://wa.me/?text=" +
+                          encodedMessage,
+                          "_blank"
+                        );
+
+                      } else if (
+                        type === "facebook"
+                      ) {
+
+                        window.open(
+                          "https://www.facebook.com/sharer/sharer.php?u=" +
+                          encodedUrl,
+                          "_blank"
+                        );
+
+                      } else if (
+                        type === "copy"
+                      ) {
+
+                        if (
+                          navigator.clipboard &&
+                          typeof navigator.clipboard.writeText === "function"
+                        ) {
+
+                          navigator.clipboard.writeText(
+                            shareText + "\n" + shareUrl
+                          ).then(
+                            function () {
+
+                              showActionMessage(
+                                "✅ লিংক কপি হয়েছে",
+                                "আপনার Rank Share text এবং link clipboard-এ কপি হয়েছে।"
+                              );
+
+                            }
+                          ).catch(
+                            function () {
+
+                              showActionMessage(
+                                "📋 শেয়ার তথ্য",
+                                shareText + "<br><br>" + shareUrl
+                              );
+
+                            }
+                          );
+
+                        } else {
+
+                          showActionMessage(
+                            "📋 শেয়ার তথ্য",
+                            shareText + "<br><br>" + shareUrl
+                          );
+
+                        }
+
+                      }
+
+                    }
+                  );
+
+                }
               );
 
-            }
+            }, 50);
 
           }
 
