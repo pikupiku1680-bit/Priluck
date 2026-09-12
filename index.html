@@ -9241,13 +9241,11 @@ renderTaskHistory();
             typeof navigator.share === "function"
           ) {
 
-            var shareData = {
+            navigator.share({
               title: "PriLuck Leaderboard",
               text: shareText,
               url: window.location.href
-            };
-
-            navigator.share(shareData).catch(function (error) {
+            }).catch(function (error) {
 
               if (
                 error &&
@@ -9260,15 +9258,41 @@ renderTaskHistory();
 
           } else {
 
-            showActionMessage(
-              "📤 র‍্যাঙ্ক শেয়ার করুন",
-              "এই পরিবেশে native Share অপশন উপলব্ধ নেই। ব্রাউজার বা supported app environment থেকে আবার চেষ্টা করুন।"
-            );
+            /*
+             * Telegram / Android WebView fallback.
+             * Opens Android native SEND chooser.
+             * Only Rank Share logic is changed.
+             */
+            var encodedText =
+              encodeURIComponent(
+                shareText + "\n" + window.location.href
+              );
+
+            var androidShareIntent =
+              "intent://send/#Intent;" +
+              "action=android.intent.action.SEND;" +
+              "type=text/plain;" +
+              "S.android.intent.extra.TEXT=" +
+              encodedText +
+              ";end";
+
+            try {
+
+              window.location.href =
+                androidShareIntent;
+
+            } catch (error) {
+
+              showActionMessage(
+                "📤 র‍্যাঙ্ক শেয়ার করুন",
+                "এই পরিবেশে Native Share অপশন চালু করা যায়নি।"
+              );
+
+            }
 
           }
 
-        } else if (
-          title.includes("লিডারবোর্ড নিয়ম")
+        } else if (title.includes("লিডারবোর্ড নিয়ম")
         ) {
 
           showActionMessage(
