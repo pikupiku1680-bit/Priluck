@@ -7101,5 +7101,4577 @@ renderTaskHistory();
 
 </script>
 
+
+<script>
+/* PRILUCK_LEADERBOARD_CONTROLLER_START */
+(function () {
+  "use strict";
+
+  /*
+   * PRILUCK SINGLE LEADERBOARD CONTROLLER
+   * Step 5 only:
+   * - Creates one isolated controller namespace
+   * - Does NOT replace existing Leaderboard HTML
+   * - Does NOT alter existing CSS
+   * - Does NOT duplicate existing UI
+   */
+
+  if (window.PriLuckLeaderboardController) {
+    console.warn("[Priluck] Leaderboard controller already initialized.");
+    return;
+  }
+
+  const controller = {
+    initialized: false,
+    currentFilter: "all",
+
+    init() {
+      if (this.initialized) return;
+
+      const screen = document.getElementById("screen-leaderboard");
+
+      if (!screen) {
+        console.warn("[Priluck] Leaderboard screen not found.");
+        return;
+      }
+
+      this.screen = screen;
+      this.filterButtons = screen.querySelectorAll(".f-btn");
+      this.rows = screen.querySelectorAll(".l-row");
+
+      this.initialized = true;
+
+      console.log("[Priluck] Single Leaderboard Controller initialized.");
+      console.log("[Priluck] Filter buttons:", this.filterButtons.length);
+      console.log("[Priluck] Leaderboard rows:", this.rows.length);
+    }
+  };
+
+  window.PriLuckLeaderboardController = controller;
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => controller.init(), { once: true });
+  } else {
+    controller.init();
+  }
+})();
+/* PRILUCK_LEADERBOARD_CONTROLLER_END */
+</script>
+
+
+
+<script>
+/* PRILUCK_LEADERBOARD_FUNCTIONS_START */
+(function () {
+  "use strict";
+
+  const controller = window.PriLuckLeaderboardController;
+
+  if (!controller) {
+    console.warn("[Priluck] Leaderboard controller not found. Step 6 skipped.");
+    return;
+  }
+
+  if (controller.functionsInitialized) {
+    console.warn("[Priluck] Leaderboard functions already initialized.");
+    return;
+  }
+
+  /*
+   * PRILUCK LEADERBOARD FUNCTIONS
+   * Step 6:
+   * - Filter button handling
+   * - Active filter state
+   * - Leaderboard row visibility
+   * - Safe action-card handling
+   * - No HTML/CSS replacement
+   */
+
+  controller.functionsInitialized = false;
+  controller.currentFilter = "all";
+
+  controller.getFilterName = function (button, index) {
+    const text = (button.textContent || "").trim();
+
+    if (text.includes("বন্ধু")) return "friends";
+    if (text.includes("আজকের")) return "today";
+    if (text.includes("সপ্তাহ")) return "week";
+    if (text.includes("মাস")) return "month";
+
+    const filters = ["all", "friends", "today", "week", "month"];
+    return filters[index] || "all";
+  };
+
+  controller.applyFilter = function (filterName) {
+    this.currentFilter = filterName || "all";
+
+    /*
+     * Step 6 is UI-safe.
+     * Real earning/date/friend filtering will be connected
+     * after Task History data sync in Step 7.
+     *
+     * Therefore existing demo rows remain visible for now.
+     */
+    this.rows.forEach(function (row) {
+      row.style.display = "";
+    });
+
+    this.filterButtons.forEach(function (button, index) {
+      const buttonFilter = controller.getFilterName(button, index);
+      const active = buttonFilter === controller.currentFilter;
+
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-selected", active ? "true" : "false");
+    });
+
+    console.log("[Priluck] Leaderboard filter:", this.currentFilter);
+  };
+
+  controller.bindFilterButtons = function () {
+    this.filterButtons.forEach(function (button, index) {
+      if (button.dataset.priluckLeaderboardBound === "true") {
+        return;
+      }
+
+      button.dataset.priluckLeaderboardBound = "true";
+
+      button.addEventListener("click", function () {
+        const filterName =
+          controller.getFilterName(button, index);
+
+        controller.applyFilter(filterName);
+      });
+    });
+  };
+
+  controller.bindActionCards = function () {
+    const cards = this.screen.querySelectorAll(".action-card");
+
+    cards.forEach(function (card) {
+      if (card.dataset.priluckLeaderboardActionBound === "true") {
+        return;
+      }
+
+      card.dataset.priluckLeaderboardActionBound = "true";
+
+      card.addEventListener("click", function () {
+        const titleElement = card.querySelector("h4");
+        const title = titleElement
+          ? titleElement.textContent.trim()
+          : "";
+
+        if (title === "বন্ধুদের আমন্ত্রণ") {
+          console.log("[Priluck] Invite action selected.");
+        } else if (title === "শেয়ার করুন") {
+          console.log("[Priluck] Share action selected.");
+        } else if (title === "লিডারবোর্ড নিয়ম") {
+          console.log("[Priluck] Leaderboard rules selected.");
+        } else if (title === "পূর্বের বিজয়ী") {
+          console.log("[Priluck] Previous winners selected.");
+        }
+      });
+    });
+
+    this.actionCards = cards;
+  };
+
+  controller.refresh = function () {
+    const screen = document.getElementById("screen-leaderboard");
+
+    if (!screen) {
+      console.warn("[Priluck] Leaderboard screen unavailable.");
+      return;
+    }
+
+    this.screen = screen;
+    this.filterButtons = screen.querySelectorAll(".f-btn");
+    this.rows = screen.querySelectorAll(".l-row");
+
+    this.bindFilterButtons();
+    this.bindActionCards();
+    this.applyFilter(this.currentFilter);
+
+    console.log("[Priluck] Leaderboard refreshed.");
+  };
+
+  controller.initStep6 = function () {
+    if (this.functionsInitialized) return;
+
+    this.refresh();
+
+    this.functionsInitialized = true;
+
+    console.log("[Priluck] Leaderboard functions initialized.");
+    console.log("[Priluck] Filter buttons:", this.filterButtons.length);
+    console.log("[Priluck] Leaderboard rows:", this.rows.length);
+    console.log("[Priluck] Action cards:", this.actionCards.length);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+        controller.initStep6();
+      },
+      { once: true }
+    );
+  } else {
+    controller.initStep6();
+  }
+
+})();
+ /* PRILUCK_LEADERBOARD_FUNCTIONS_END */
+</script>
+
+
+
+<script>
+/* PRILUCK_LEADERBOARD_SYNC_START */
+(function () {
+  "use strict";
+
+  const controller = window.PriLuckLeaderboardController;
+
+  if (!controller) {
+    console.warn("[Priluck] Leaderboard controller not found. Step 7 skipped.");
+    return;
+  }
+
+  if (controller.syncInitialized) {
+    console.warn("[Priluck] Leaderboard sync already initialized.");
+    return;
+  }
+
+  /*
+   * PRILUCK LEADERBOARD EARNING SYNC
+   * Step 7:
+   * - Creates a safe sync bridge between app earning data and Leaderboard
+   * - Does NOT replace existing Leaderboard HTML
+   * - Does NOT replace existing Task History HTML
+   * - Does NOT invent new earning records
+   * - Reads compatible existing localStorage data when available
+   * - Keeps demo Leaderboard values as fallback
+   * - Prepares Step 8 for final validation
+   */
+
+  controller.syncInitialized = false;
+
+  controller.syncConfig = {
+    storageKeys: [
+      "priluck_tasks",
+      "priluck_task_history",
+      "priluck_taskHistory",
+      "taskHistory",
+      "task_history",
+      "priluck_earnings",
+      "priluck_earning_history",
+      "priluck_completed_tasks"
+    ]
+  };
+
+  controller.readStoredData = function () {
+    const results = [];
+
+    this.syncConfig.storageKeys.forEach(function (key) {
+      try {
+        const raw = localStorage.getItem(key);
+
+        if (!raw) return;
+
+        let parsed;
+
+        try {
+          parsed = JSON.parse(raw);
+        } catch (e) {
+          parsed = raw;
+        }
+
+        results.push({
+          key: key,
+          value: parsed
+        });
+      } catch (error) {
+        console.warn("[Priluck] Could not read storage key:", key, error);
+      }
+    });
+
+    return results;
+  };
+
+  controller.extractNumeric = function (value) {
+    if (typeof value === "number" && Number.isFinite(value)) {
+      return value;
+    }
+
+    if (typeof value !== "string") {
+      return null;
+    }
+
+    const cleaned = value
+      .replace(/₹/g, "")
+      .replace(/,/g, "")
+      .trim();
+
+    const number = Number(cleaned);
+
+    return Number.isFinite(number) ? number : null;
+  };
+
+  controller.extractEarningFromRecord = function (record) {
+    if (!record || typeof record !== "object") {
+      return null;
+    }
+
+    const possibleKeys = [
+      "earning",
+      "earnings",
+      "amount",
+      "reward",
+      "rewardAmount",
+      "income",
+      "earned",
+      "value"
+    ];
+
+    for (const key of possibleKeys) {
+      if (Object.prototype.hasOwnProperty.call(record, key)) {
+        const number = this.extractNumeric(record[key]);
+
+        if (number !== null) {
+          return number;
+        }
+      }
+    }
+
+    return null;
+  };
+
+  controller.calculateStoredEarnings = function () {
+    const sources = this.readStoredData();
+
+    let total = 0;
+    let records = 0;
+
+    const visited = new WeakSet();
+
+    function scan(value, controllerRef) {
+      if (value === null || value === undefined) return;
+
+      if (typeof value === "object") {
+        if (visited.has(value)) return;
+        visited.add(value);
+      }
+
+      if (Array.isArray(value)) {
+        value.forEach(function (item) {
+          scan(item, controllerRef);
+        });
+        return;
+      }
+
+      if (typeof value === "object") {
+        const earning = controllerRef.extractEarningFromRecord(value);
+
+        if (earning !== null) {
+          total += earning;
+          records += 1;
+        }
+
+        Object.keys(value).forEach(function (key) {
+          const child = value[key];
+
+          if (
+            child &&
+            typeof child === "object" &&
+            !Array.isArray(child)
+          ) {
+            scan(child, controllerRef);
+          } else if (Array.isArray(child)) {
+            scan(child, controllerRef);
+          }
+        });
+      }
+    }
+
+    sources.forEach(function (source) {
+      scan(source.value, this);
+    }, this);
+
+    return {
+      total: Number(total.toFixed(2)),
+      records: records,
+      sources: sources.map(function (source) {
+        return source.key;
+      })
+    };
+  };
+
+  controller.getCurrentUserEarning = function () {
+    const possibleKeys = [
+      "priluck_user",
+      "priluck_current_user",
+      "currentUser",
+      "user",
+      "profile",
+      "priluck_profile"
+    ];
+
+    for (const key of possibleKeys) {
+      try {
+        const raw = localStorage.getItem(key);
+
+        if (!raw) continue;
+
+        let parsed;
+
+        try {
+          parsed = JSON.parse(raw);
+        } catch (e) {
+          parsed = null;
+        }
+
+        if (!parsed || typeof parsed !== "object") continue;
+
+        const possibleEarningKeys = [
+          "earning",
+          "earnings",
+          "balance",
+          "walletBalance",
+          "totalEarning",
+          "totalEarnings",
+          "income"
+        ];
+
+        for (const earningKey of possibleEarningKeys) {
+          if (
+            Object.prototype.hasOwnProperty.call(
+              parsed,
+              earningKey
+            )
+          ) {
+            const amount = this.extractNumeric(
+              parsed[earningKey]
+            );
+
+            if (amount !== null) {
+              return amount;
+            }
+          }
+        }
+      } catch (error) {
+        console.warn(
+          "[Priluck] Could not read current user earning:",
+          key,
+          error
+        );
+      }
+    }
+
+    return null;
+  };
+
+  controller.syncLeaderboardUser = function () {
+    if (!this.screen) {
+      this.screen = document.getElementById("screen-leaderboard");
+    }
+
+    if (!this.screen) {
+      console.warn("[Priluck] Leaderboard screen unavailable.");
+      return;
+    }
+
+    const activeUser =
+      this.screen.querySelector(".l-row.active-user");
+
+    if (!activeUser) {
+      console.warn("[Priluck] Active leaderboard user row not found.");
+      return;
+    }
+
+    const earningElement =
+      activeUser.querySelector(".l-earn");
+
+    const currentUserEarning =
+      this.getCurrentUserEarning();
+
+    if (
+      currentUserEarning === null ||
+      !Number.isFinite(currentUserEarning)
+    ) {
+      console.log(
+        "[Priluck] No compatible current-user earning found. Demo value preserved."
+      );
+      return;
+    }
+
+    if (!earningElement) {
+      console.warn("[Priluck] Active user earning element not found.");
+      return;
+    }
+
+    const arrow =
+      earningElement.querySelector(".l-arrow");
+
+    const formatted =
+      "₹" +
+      currentUserEarning.toLocaleString("en-IN", {
+        minimumFractionDigits:
+          currentUserEarning % 1 !== 0 ? 2 : 0,
+        maximumFractionDigits: 2
+      });
+
+    earningElement.textContent = formatted + " ";
+
+    if (arrow) {
+      earningElement.appendChild(arrow);
+    }
+
+    console.log(
+      "[Priluck] Current user Leaderboard earning synced:",
+      formatted
+    );
+  };
+
+  controller.runEarningSync = function () {
+    const summary = this.calculateStoredEarnings();
+
+    console.log(
+      "[Priluck] Stored earning scan:",
+      summary
+    );
+
+    this.syncLeaderboardUser();
+
+    return summary;
+  };
+
+  controller.initStep7 = function () {
+    if (this.syncInitialized) return;
+
+    this.syncInitialized = true;
+
+    this.runEarningSync();
+
+    console.log(
+      "[Priluck] Step 7 earning sync bridge initialized."
+    );
+  };
+
+  /*
+   * Run after Step 5 controller + Step 6 functions.
+   */
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+        setTimeout(function () {
+          controller.initStep7();
+        }, 0);
+      },
+      { once: true }
+    );
+  } else {
+    setTimeout(function () {
+      controller.initStep7();
+    }, 0);
+  }
+
+})();
+ /* PRILUCK_LEADERBOARD_SYNC_END */
+</script>
+
+
+
+
+
+
+
+<script>
+/* PRILUCK_LEADERBOARD_FINAL_ENGINE_START */
+(function () {
+  "use strict";
+
+  /*
+   * PRILUCK LEADERBOARD FINAL ENGINE
+   * STEP 10
+   *
+   * Final demo controller for:
+   * - 5 filters
+   * - statistics cards
+   * - podium
+   * - ranking rows 4-9
+   * - current user rank
+   * - current user earning
+   *
+   * Existing Leaderboard UI/CSS is preserved.
+   * No duplicate Leaderboard screen is created.
+   */
+
+  const controller = window.PriLuckLeaderboardController;
+
+  if (!controller) {
+    console.warn(
+      "[Priluck] Leaderboard controller unavailable. Step 10 stopped."
+    );
+    return;
+  }
+
+  const screen =
+    document.getElementById("screen-leaderboard");
+
+  if (!screen) {
+    console.warn(
+      "[Priluck] Leaderboard screen not found. Step 10 stopped."
+    );
+    return;
+  }
+
+  if (controller.finalEngineInitialized) {
+    console.warn(
+      "[Priluck] Step 10 already initialized."
+    );
+    return;
+  }
+
+  controller.finalEngineInitialized = true;
+  controller.screen = screen;
+
+  /*
+   * ==========================================================
+   * FINAL DEMO DATA
+   * ==========================================================
+   */
+
+  const DATA = {
+
+    all: {
+      stats: {
+        participants: "1,287",
+        earning: "₹45,280",
+        tasks: "15,632",
+        streak: "42"
+      },
+
+      podium: [
+        ["Anik D.", 2650],
+        ["Sohel R.", 2152],
+        ["Piyal B.", 2008]
+      ],
+
+      rows: [
+        [4, "Rahul H.", 1820],
+        [5, "Sayan M.", 1715],
+        [6, "Arjun K.", 1640],
+        [7, "Rakesh P.", 1510],
+        [8, "Milan S.", 1435],
+        [9, "Kunal B.", 1370]
+      ],
+
+      me: [18, 142.50]
+    },
+
+    friends: {
+      stats: {
+        participants: "42",
+        earning: "₹3,860",
+        tasks: "1,248",
+        streak: "21"
+      },
+
+      podium: [
+        ["Rahul H.", 820],
+        ["Sayan M.", 715],
+        ["Pritam G.", 642]
+      ],
+
+      rows: [
+        [4, "Arjun K.", 590],
+        [5, "Rakesh P.", 520],
+        [6, "Sohel R.", 480],
+        [7, "Piyal B.", 415],
+        [8, "Milan S.", 380],
+        [9, "Kunal B.", 345]
+      ],
+
+      me: [3, 642]
+    },
+
+    today: {
+      stats: {
+        participants: "386",
+        earning: "₹8,420",
+        tasks: "2,914",
+        streak: "12"
+      },
+
+      podium: [
+        ["Piyal B.", 420],
+        ["Anik D.", 385],
+        ["Rahul H.", 340]
+      ],
+
+      rows: [
+        [4, "Sayan M.", 315],
+        [5, "Arjun K.", 292],
+        [6, "Rakesh P.", 275],
+        [7, "Sohel R.", 260],
+        [8, "Milan S.", 245],
+        [9, "Kunal B.", 230]
+      ],
+
+      me: [18, 142.50]
+    },
+
+    week: {
+      stats: {
+        participants: "812",
+        earning: "₹22,640",
+        tasks: "7,481",
+        streak: "28"
+      },
+
+      podium: [
+        ["Sohel R.", 1280],
+        ["Anik D.", 1175],
+        ["Rahul H.", 1040]
+      ],
+
+      rows: [
+        [4, "Piyal B.", 980],
+        [5, "Sayan M.", 915],
+        [6, "Arjun K.", 850],
+        [7, "Rakesh P.", 790],
+        [8, "Milan S.", 745],
+        [9, "Kunal B.", 710]
+      ],
+
+      me: [18, 142.50]
+    },
+
+    month: {
+      stats: {
+        participants: "1,104",
+        earning: "₹38,920",
+        tasks: "13,806",
+        streak: "42"
+      },
+
+      podium: [
+        ["Anik D.", 2480],
+        ["Piyal B.", 2210],
+        ["Sohel R.", 1985]
+      ],
+
+      rows: [
+        [4, "Rahul H.", 1760],
+        [5, "Sayan M.", 1635],
+        [6, "Arjun K.", 1540],
+        [7, "Rakesh P.", 1485],
+        [8, "Milan S.", 1390],
+        [9, "Kunal B.", 1325]
+      ],
+
+      me: [18, 142.50]
+    }
+
+  };
+
+
+  /*
+   * ==========================================================
+   * HELPERS
+   * ==========================================================
+   */
+
+  function money(value) {
+
+    const n = Number(value);
+
+    if (!Number.isFinite(n)) {
+      return "₹0";
+    }
+
+    return "₹" + n.toLocaleString("en-IN", {
+      minimumFractionDigits:
+        n % 1 !== 0 ? 2 : 0,
+      maximumFractionDigits: 2
+    });
+  }
+
+
+  function getFilterName(button, index) {
+
+    const text =
+      (button.textContent || "").trim();
+
+    if (text.includes("বন্ধু")) {
+      return "friends";
+    }
+
+    if (text.includes("আজকের")) {
+      return "today";
+    }
+
+    if (text.includes("সপ্তাহ")) {
+      return "week";
+    }
+
+    if (text.includes("মাস")) {
+      return "month";
+    }
+
+    return [
+      "all",
+      "friends",
+      "today",
+      "week",
+      "month"
+    ][index] || "all";
+  }
+
+
+  /*
+   * ==========================================================
+   * STATISTICS
+   * ==========================================================
+   */
+
+  function updateStats(data) {
+
+    const statCards =
+      Array.from(
+        screen.querySelectorAll(
+          ".stat-card, .stats-card, .l-stat, .leader-stat"
+        )
+      );
+
+    /*
+     * First use explicit data attributes if present.
+     */
+    const explicit = {
+
+      participants:
+        screen.querySelector(
+          '[data-leaderboard-stat="participants"],' +
+          '[data-leaderboard-stat="participant"],' +
+          '[data-leaderboard-stat="users"]'
+        ),
+
+      earning:
+        screen.querySelector(
+          '[data-leaderboard-stat="earning"],' +
+          '[data-leaderboard-stat="earnings"],' +
+          '[data-leaderboard-stat="total-earning"],' +
+          '[data-leaderboard-stat="total-earnings"]'
+        ),
+
+      tasks:
+        screen.querySelector(
+          '[data-leaderboard-stat="tasks"],' +
+          '[data-leaderboard-stat="task"],' +
+          '[data-leaderboard-stat="total-tasks"]'
+        ),
+
+      streak:
+        screen.querySelector(
+          '[data-leaderboard-stat="streak"],' +
+          '[data-leaderboard-stat="max-streak"],' +
+          '[data-leaderboard-stat="best-streak"]'
+        )
+
+    };
+
+
+    function put(card, value) {
+
+      if (!card) return;
+
+      const valueNode =
+        card.querySelector(
+          ".stat-value," +
+          ".value," +
+          ".amount," +
+          ".stat-number," +
+          ".l-stat-value," +
+          "strong," +
+          "b"
+        );
+
+      if (valueNode) {
+        valueNode.textContent = value;
+      } else {
+        card.setAttribute(
+          "data-priluck-final-value",
+          value
+        );
+
+        /*
+         * Only update a clearly numeric text node.
+         */
+        const nodes =
+          Array.from(card.childNodes);
+
+        for (const node of nodes) {
+
+          if (
+            node.nodeType === 3 &&
+            /[0-9₹]/.test(node.textContent || "")
+          ) {
+            node.textContent = value;
+            break;
+          }
+
+        }
+      }
+    }
+
+
+    put(
+      explicit.participants,
+      data.stats.participants
+    );
+
+    put(
+      explicit.earning,
+      data.stats.earning
+    );
+
+    put(
+      explicit.tasks,
+      data.stats.tasks
+    );
+
+    put(
+      explicit.streak,
+      data.stats.streak
+    );
+
+
+    /*
+     * Fallback mapping for the actual visible cards.
+     * This only runs when explicit targets are unavailable.
+     */
+    if (
+      !explicit.participants ||
+      !explicit.earning ||
+      !explicit.tasks ||
+      !explicit.streak
+    ) {
+
+      statCards.forEach(function (card) {
+
+        const text =
+          (card.textContent || "").toLowerCase();
+
+        if (
+          !explicit.participants &&
+          (
+            text.includes("অংশগ্রহণ") ||
+            text.includes("participant") ||
+            text.includes("user")
+          )
+        ) {
+          put(card, data.stats.participants);
+          explicit.participants = card;
+          return;
+        }
+
+        if (
+          !explicit.earning &&
+          (
+            text.includes("earning") ||
+            text.includes("আয়") ||
+            text.includes("উপার্জন")
+          )
+        ) {
+          put(card, data.stats.earning);
+          explicit.earning = card;
+          return;
+        }
+
+        if (
+          !explicit.tasks &&
+          (
+            text.includes("task") ||
+            text.includes("টাস্ক")
+          )
+        ) {
+          put(card, data.stats.tasks);
+          explicit.tasks = card;
+          return;
+        }
+
+        if (
+          !explicit.streak &&
+          (
+            text.includes("streak") ||
+            text.includes("স্ট্রিক")
+          )
+        ) {
+          put(card, data.stats.streak);
+          explicit.streak = card;
+        }
+
+      });
+
+    }
+
+  }
+
+
+  /*
+   * ==========================================================
+   * PODIUM
+   * ==========================================================
+   */
+
+  function updatePodium(data) {
+
+    const podium =
+      screen.querySelector(
+        ".podium-container"
+      );
+
+    if (!podium) return;
+
+
+    let items =
+      Array.from(
+        podium.querySelectorAll(
+          ".podium-item," +
+          ".podium-card," +
+          ".podium-place," +
+          "[data-podium-rank]"
+        )
+      );
+
+
+    /*
+     * If the original class names differ,
+     * collect direct children that visually act as podium cards.
+     */
+    if (items.length < 3) {
+
+      items =
+        Array.from(podium.children)
+          .filter(function (el) {
+            return el.children.length > 0;
+          })
+          .slice(0, 3);
+
+    }
+
+
+    data.podium.forEach(function (person, index) {
+
+      const item = items[index];
+
+      if (!item) return;
+
+      const name =
+        item.querySelector(
+          ".podium-name," +
+          ".p-name," +
+          ".name," +
+          "h3," +
+          "h4," +
+          "h5," +
+          "strong"
+        );
+
+      const earn =
+        item.querySelector(
+          ".podium-earning," +
+          ".p-earn," +
+          ".earning," +
+          ".amount," +
+          ".value," +
+          "b"
+        );
+
+
+      if (name) {
+        name.textContent = person[0];
+      }
+
+      if (earn) {
+        earn.textContent =
+          money(person[1]);
+      }
+
+    });
+
+  }
+
+
+  /*
+   * ==========================================================
+   * RANKING ROWS
+   * ==========================================================
+   */
+
+  function updateRows(data) {
+
+    const rows =
+      Array.from(
+        screen.querySelectorAll(
+          ".l-row"
+        )
+      );
+
+    if (!rows.length) return;
+
+
+    /*
+     * Separate the active-user row.
+     */
+    const normalRows =
+      rows.filter(function (row) {
+        return !row.classList.contains("active-user");
+      });
+
+    /*
+     * We need ranks 4-9.
+     */
+    data.rows.forEach(function (person, index) {
+
+      const row = normalRows[index];
+
+      if (!row) return;
+
+      row.style.display = "";
+
+
+      const rank =
+        row.querySelector(
+          ".l-rank," +
+          ".rank," +
+          ".l-no"
+        );
+
+      const name =
+        row.querySelector(
+          ".l-name," +
+          ".name," +
+          "h4," +
+          "h5," +
+          "strong"
+        );
+
+      const earning =
+        row.querySelector(
+          ".l-earn," +
+          ".earning," +
+          ".amount," +
+          ".value," +
+          "b"
+        );
+
+
+      if (rank) {
+        rank.textContent =
+          String(person[0]);
+      }
+
+      if (name) {
+        name.textContent =
+          person[1];
+      }
+
+      if (earning) {
+
+        const arrow =
+          earning.querySelector(
+            ".l-arrow"
+          );
+
+        earning.textContent =
+          money(person[2]) + " ";
+
+        if (arrow) {
+          earning.appendChild(arrow);
+        }
+
+      }
+
+    });
+
+
+    /*
+     * Hide extra normal rows if they exist.
+     * Active-user row is NEVER hidden here.
+     */
+    for (
+      let i = data.rows.length;
+      i < normalRows.length;
+      i++
+    ) {
+      normalRows[i].style.display = "none";
+    }
+
+  }
+
+
+  /*
+   * ==========================================================
+   * CURRENT USER / OWN RANK
+   * ==========================================================
+   */
+
+  function updateCurrentUser(data) {
+
+    const activeRows =
+      Array.from(
+        screen.querySelectorAll(
+          ".l-row.active-user"
+        )
+      );
+
+    if (!activeRows.length) {
+      console.warn(
+        "[Priluck] Current-user row not found."
+      );
+      return;
+    }
+
+
+    const meRank =
+      data.me[0];
+
+    const meEarning =
+      data.me[1];
+
+
+    activeRows.forEach(function (row) {
+
+      row.style.display = "";
+
+      row.removeAttribute(
+        "hidden"
+      );
+
+      row.style.visibility =
+        "visible";
+
+
+      const rank =
+        row.querySelector(
+          ".l-rank," +
+          ".rank," +
+          ".l-no"
+        );
+
+      const earning =
+        row.querySelector(
+          ".l-earn," +
+          ".earning," +
+          ".amount," +
+          ".value," +
+          "b"
+        );
+
+
+      if (rank) {
+        rank.textContent =
+          String(meRank);
+      }
+
+      if (earning) {
+
+        const arrow =
+          earning.querySelector(
+            ".l-arrow"
+          );
+
+        earning.textContent =
+          money(meEarning) + " ";
+
+        if (arrow) {
+          earning.appendChild(arrow);
+        }
+
+      }
+
+
+      row.setAttribute(
+        "data-priluck-final-rank",
+        String(meRank)
+      );
+
+      row.setAttribute(
+        "data-priluck-final-earning",
+        String(meEarning)
+      );
+
+    });
+
+  }
+
+
+  /*
+   * ==========================================================
+   * APPLY FILTER
+   * ==========================================================
+   */
+
+  function applyFilter(filterName) {
+
+    const data =
+      DATA[filterName] ||
+      DATA.all;
+
+    controller.currentFilter =
+      DATA[filterName]
+        ? filterName
+        : "all";
+
+
+    /*
+     * Active filter button.
+     */
+    const buttons =
+      Array.from(
+        screen.querySelectorAll(
+          ".f-btn"
+        )
+      );
+
+    buttons.forEach(function (button, index) {
+
+      const name =
+        getFilterName(
+          button,
+          index
+        );
+
+      const active =
+        name === controller.currentFilter;
+
+      button.classList.toggle(
+        "active",
+        active
+      );
+
+      button.setAttribute(
+        "aria-selected",
+        active
+          ? "true"
+          : "false"
+      );
+
+    });
+
+
+    updateStats(data);
+    updatePodium(data);
+    updateRows(data);
+    updateCurrentUser(data);
+
+
+    screen.setAttribute(
+      "data-active-leaderboard-filter",
+      controller.currentFilter
+    );
+
+
+    console.log(
+      "[Priluck] STEP 10 filter applied:",
+      controller.currentFilter
+    );
+
+  }
+
+
+  /*
+   * ==========================================================
+   * FILTER BUTTON BINDING
+   * ==========================================================
+   */
+
+  const buttons =
+    Array.from(
+      screen.querySelectorAll(
+        ".f-btn"
+      )
+    );
+
+
+  if (buttons.length !== 5) {
+
+    console.warn(
+      "[Priluck] Step 10 expected 5 filters, found:",
+      buttons.length
+    );
+
+    controller.finalEngineInitialized =
+      false;
+
+    return;
+  }
+
+
+  buttons.forEach(function (button, index) {
+
+    if (
+      button.dataset.priluckFinalBound === "true"
+    ) {
+      return;
+    }
+
+    button.dataset.priluckFinalBound =
+      "true";
+
+
+    button.addEventListener(
+      "click",
+      function (event) {
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        const filterName =
+          getFilterName(
+            button,
+            index
+          );
+
+        applyFilter(
+          filterName
+        );
+
+      },
+      true
+    );
+
+  });
+
+
+  /*
+   * ==========================================================
+   * INITIAL RENDER
+   * ==========================================================
+   */
+
+  applyFilter(
+    controller.currentFilter ||
+    "all"
+  );
+
+
+  /*
+   * ==========================================================
+   * PUBLIC API
+   * ==========================================================
+   */
+
+  controller.applyFinalFilter =
+    applyFilter;
+
+  controller.finalLeaderboardData =
+    DATA;
+
+
+  console.log(
+    "[Priluck] Step 10 Final Leaderboard Engine initialized."
+  );
+
+})();
+ /* PRILUCK_LEADERBOARD_FINAL_ENGINE_END */
+</script>
+
+
+
+
+
+
+
+<script>
+/* PRILUCK_LEADERBOARD_FINAL_REPAIR_START */
+(function () {
+  "use strict";
+
+  /*
+   * PRILUCK LEADERBOARD FINAL REPAIR ENGINE
+   *
+   * Actual HTML structure:
+   * .podium-container
+   * .podium-col
+   * .p-name
+   * .p-earn
+   * .stats-panel
+   * .stat-item
+   * .s-val
+   * .f-btn
+   * .l-row
+   * .l-rank
+   * .l-name
+   * .l-earn
+   * .l-row.active-user
+   * .action-card
+   *
+   * This replaces the incomplete Step 9 data engine.
+   *
+   * No duplicate Leaderboard HTML is created.
+   * Existing CSS/UI is preserved.
+   */
+
+  const controller =
+    window.PriLuckLeaderboardController || {};
+
+  const screen =
+    document.getElementById("screen-leaderboard");
+
+  if (!screen) {
+    console.warn(
+      "[Priluck] Final repair stopped: Leaderboard screen not found."
+    );
+    return;
+  }
+
+  if (controller.finalRepairInitialized) {
+    console.warn(
+      "[Priluck] Final repair already initialized."
+    );
+    return;
+  }
+
+  controller.finalRepairInitialized = true;
+  controller.screen = screen;
+
+  /* =========================================================
+     1. FINAL DEMO DATA
+     ========================================================= */
+
+  const DATA = {
+
+    all: {
+      stats: ["1,287", "₹45,280", "15,632", "42"],
+
+      podium: [
+        ["Anik D.", "₹2,650"],
+        ["Sohel R.", "₹2,152"],
+        ["Piyal B.", "₹2,008"]
+      ],
+
+      rows: [
+        [4, "Rahul H.", 1820],
+        [5, "Sayan M.", 1715],
+        [6, "Arjun K.", 1640],
+        [7, "Rakesh P.", 1510],
+        [8, "Milan S.", 1435],
+        [9, "Kunal B.", 1370]
+      ],
+
+      me: [18, 142.50]
+    },
+
+    friends: {
+      stats: ["42", "₹3,860", "1,248", "21"],
+
+      podium: [
+        ["Rahul H.", "₹820"],
+        ["Sayan M.", "₹715"],
+        ["Pritam G.", "₹642"]
+      ],
+
+      rows: [
+        [4, "Arjun K.", 590],
+        [5, "Rakesh P.", 520],
+        [6, "Sohel R.", 480],
+        [7, "Piyal B.", 415],
+        [8, "Milan S.", 380],
+        [9, "Kunal B.", 345]
+      ],
+
+      me: [3, 642]
+    },
+
+    today: {
+      stats: ["386", "₹8,420", "2,914", "12"],
+
+      podium: [
+        ["Piyal B.", "₹420"],
+        ["Anik D.", "₹385"],
+        ["Rahul H.", "₹340"]
+      ],
+
+      rows: [
+        [4, "Sayan M.", 315],
+        [5, "Arjun K.", 292],
+        [6, "Rakesh P.", 275],
+        [7, "Sohel R.", 260],
+        [8, "Milan S.", 245],
+        [9, "Kunal B.", 230]
+      ],
+
+      me: [18, 142.50]
+    },
+
+    week: {
+      stats: ["812", "₹22,640", "7,481", "28"],
+
+      podium: [
+        ["Sohel R.", "₹1,280"],
+        ["Anik D.", "₹1,175"],
+        ["Rahul H.", "₹1,040"]
+      ],
+
+      rows: [
+        [4, "Piyal B.", 980],
+        [5, "Sayan M.", 915],
+        [6, "Arjun K.", 850],
+        [7, "Rakesh P.", 790],
+        [8, "Milan S.", 735],
+        [9, "Kunal B.", 690]
+      ],
+
+      me: [18, 142.50]
+    },
+
+    month: {
+      stats: ["1,104", "₹38,920", "13,806", "42"],
+
+      podium: [
+        ["Anik D.", "₹2,480"],
+        ["Piyal B.", "₹2,210"],
+        ["Sohel R.", "₹1,985"]
+      ],
+
+      rows: [
+        [4, "Rahul H.", 1760],
+        [5, "Sayan M.", 1635],
+        [6, "Arjun K.", 1540],
+        [7, "Rakesh P.", 1485],
+        [8, "Milan S.", 1390],
+        [9, "Kunal B.", 1325]
+      ],
+
+      me: [18, 142.50]
+    }
+
+  };
+
+  /* =========================================================
+     2. HELPERS
+     ========================================================= */
+
+  function money(value) {
+    const n = Number(value);
+
+    if (!Number.isFinite(n)) {
+      return "₹0";
+    }
+
+    return "₹" + n.toLocaleString("en-IN", {
+      minimumFractionDigits:
+        n % 1 !== 0 ? 2 : 0,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function getFilterName(button, index) {
+
+    const value =
+      (
+        button.getAttribute("data-filter") ||
+        button.getAttribute("data-leader-filter") ||
+        ""
+      ).toLowerCase().trim();
+
+    if (
+      value === "all" ||
+      value === "friends" ||
+      value === "today" ||
+      value === "week" ||
+      value === "month"
+    ) {
+      return value;
+    }
+
+    const text =
+      (button.textContent || "").toLowerCase();
+
+    if (text.includes("বন্ধু")) return "friends";
+    if (text.includes("আজকের")) return "today";
+    if (text.includes("সপ্তাহ")) return "week";
+    if (text.includes("মাস")) return "month";
+
+    return [
+      "all",
+      "friends",
+      "today",
+      "week",
+      "month"
+    ][index] || "all";
+  }
+
+  function setActiveFilter(button) {
+
+    screen
+      .querySelectorAll(".f-btn")
+      .forEach(function (item) {
+        item.classList.remove("active");
+      });
+
+    if (button) {
+      button.classList.add("active");
+    }
+  }
+
+  /* =========================================================
+     3. STATISTICS
+     ========================================================= */
+
+  function updateStats(dataset) {
+
+    const cards =
+      screen.querySelectorAll(
+        ".stats-panel .stat-item"
+      );
+
+    dataset.stats.forEach(function (value, index) {
+
+      const card = cards[index];
+
+      if (!card) return;
+
+      const valueElement =
+        card.querySelector(".s-val");
+
+      if (valueElement) {
+        valueElement.textContent = value;
+      }
+
+    });
+  }
+
+  /* =========================================================
+     4. PODIUM
+     ========================================================= */
+
+  function updatePodium(dataset) {
+
+    const columns =
+      screen.querySelectorAll(
+        ".podium-container .podium-col"
+      );
+
+    dataset.podium.forEach(function (person, index) {
+
+      const column = columns[index];
+
+      if (!column) return;
+
+      const name =
+        column.querySelector(".p-name");
+
+      const earn =
+        column.querySelector(".p-earn");
+
+      if (name) {
+        name.textContent = person[0];
+      }
+
+      if (earn) {
+        earn.textContent = person[1];
+      }
+
+    });
+  }
+
+  /* =========================================================
+     5. RANKING ROWS
+     ========================================================= */
+
+  function updateRows(dataset) {
+
+    const allRows =
+      Array.from(
+        screen.querySelectorAll(".l-row")
+      );
+
+    const normalRows =
+      allRows.filter(function (row) {
+        return !row.classList.contains("active-user");
+      });
+
+    /*
+     * IMPORTANT:
+     * Never hide 8, 9 or active user.
+     * The actual HTML already contains those rows.
+     */
+
+    dataset.rows.forEach(function (person, index) {
+
+      const row = normalRows[index];
+
+      if (!row) return;
+
+      row.style.display = "";
+
+      const rank =
+        row.querySelector(".l-rank");
+
+      const name =
+        row.querySelector(".l-name");
+
+      const earning =
+        row.querySelector(".l-earn");
+
+      if (rank) {
+        rank.textContent =
+          String(person[0]);
+      }
+
+      if (name) {
+        name.textContent =
+          person[1];
+      }
+
+      if (earning) {
+
+        const arrow =
+          earning.querySelector(".l-arrow");
+
+        earning.textContent =
+          money(person[2]) + " ";
+
+        if (arrow) {
+          earning.appendChild(arrow);
+        }
+      }
+
+    });
+
+    /*
+     * Preserve all original ranking rows.
+     * Only rows that are not mapped are hidden.
+     * Current user is never hidden.
+     */
+
+    for (
+      let i = dataset.rows.length;
+      i < normalRows.length;
+      i++
+    ) {
+
+      const row = normalRows[i];
+
+      if (row) {
+        row.style.display = "";
+      }
+    }
+  }
+
+  /* =========================================================
+     6. CURRENT USER
+     ========================================================= */
+
+  function updateCurrentUser(dataset) {
+
+    const activeUser =
+      screen.querySelector(
+        ".l-row.active-user"
+      );
+
+    if (!activeUser || !dataset.me) {
+      return;
+    }
+
+    const rank =
+      activeUser.querySelector(".l-rank");
+
+    const name =
+      activeUser.querySelector(".l-name");
+
+    const earning =
+      activeUser.querySelector(".l-earn");
+
+    if (rank) {
+      rank.textContent =
+        String(dataset.me[0]);
+    }
+
+    if (name) {
+      /*
+       * Keep actual "(আপনি)" identity label.
+       */
+      const currentName =
+        name.textContent || "";
+
+      if (
+        currentName.includes("আপনি")
+      ) {
+        name.textContent =
+          "Rahul H. (আপনি)";
+      }
+    }
+
+    if (earning) {
+
+      const arrow =
+        earning.querySelector(".l-arrow");
+
+      earning.textContent =
+        money(dataset.me[1]) + " ";
+
+      if (arrow) {
+        earning.appendChild(arrow);
+      }
+    }
+
+    activeUser.setAttribute(
+      "data-priluck-rank",
+      String(dataset.me[0])
+    );
+
+    activeUser.setAttribute(
+      "data-priluck-earning",
+      String(dataset.me[1])
+    );
+  }
+
+  /* =========================================================
+     7. APPLY FILTER
+     ========================================================= */
+
+  function applyFilter(filterName, button) {
+
+    const dataset =
+      DATA[filterName] || DATA.all;
+
+    controller.currentFilter =
+      filterName;
+
+    updateStats(dataset);
+    updatePodium(dataset);
+    updateRows(dataset);
+    updateCurrentUser(dataset);
+
+    setActiveFilter(button);
+
+    screen.setAttribute(
+      "data-active-leaderboard-filter",
+      filterName
+    );
+
+    try {
+      localStorage.setItem(
+        "priluck_leaderboard_filter",
+        filterName
+      );
+    } catch (e) {}
+
+    console.log(
+      "[Priluck] FINAL filter applied:",
+      filterName
+    );
+  }
+
+  /* =========================================================
+     8. FILTER BUTTON BINDING
+     ========================================================= */
+
+  const filterButtons =
+    Array.from(
+      screen.querySelectorAll(".f-btn")
+    );
+
+  if (filterButtons.length !== 5) {
+    console.warn(
+      "[Priluck] Expected 5 filters, found:",
+      filterButtons.length
+    );
+    return;
+  }
+
+  filterButtons.forEach(function (button, index) {
+
+    if (
+      button.dataset.priluckFinalRepairBound === "true"
+    ) {
+      return;
+    }
+
+    button.dataset.priluckFinalRepairBound = "true";
+
+    button.addEventListener(
+      "click",
+      function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const filterName =
+          getFilterName(button, index);
+
+        applyFilter(
+          filterName,
+          button
+        );
+      },
+      true
+    );
+
+  });
+
+  /* =========================================================
+     9. ACTION CARDS
+     ========================================================= */
+
+  const actionCards =
+    Array.from(
+      screen.querySelectorAll(".action-card")
+    );
+
+  function showActionMessage(title, message) {
+
+    const old =
+      document.getElementById(
+        "priluck-leaderboard-action-message"
+      );
+
+    if (old) {
+      old.remove();
+    }
+
+    const overlay =
+      document.createElement("div");
+
+    overlay.id =
+      "priluck-leaderboard-action-message";
+
+    overlay.style.cssText =
+      "position:fixed;inset:0;z-index:9999;" +
+      "background:rgba(20,10,50,.45);" +
+      "display:flex;align-items:center;" +
+      "justify-content:center;padding:20px;";
+
+    overlay.innerHTML =
+      '<div style="' +
+      'width:min(92vw,380px);' +
+      'background:#fff;border-radius:22px;' +
+      'padding:22px;color:#24124d;' +
+      'box-shadow:0 20px 60px rgba(0,0,0,.25);' +
+      'text-align:center;">' +
+
+      '<div style="font-size:21px;font-weight:900;">' +
+      title +
+      '</div>' +
+
+      '<div style="' +
+      'font-size:13px;color:#756b8f;' +
+      'line-height:1.55;margin-top:9px;">' +
+      message +
+      '</div>' +
+
+      '<button type="button" ' +
+      'style="' +
+      'margin-top:18px;border:0;' +
+      'border-radius:12px;' +
+      'padding:10px 20px;' +
+      'background:#6a3df0;color:#fff;' +
+      'font-weight:800;cursor:pointer;">' +
+      'ঠিক আছে' +
+      '</button>' +
+
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    const closeButton =
+      overlay.querySelector("button");
+
+    closeButton.addEventListener(
+      "click",
+      function () {
+        overlay.remove();
+      }
+    );
+
+    overlay.addEventListener(
+      "click",
+      function (e) {
+        if (e.target === overlay) {
+          overlay.remove();
+        }
+      }
+    );
+  }
+
+  actionCards.forEach(function (card) {
+
+    if (
+      card.dataset.priluckFinalActionBound === "true"
+    ) {
+      return;
+    }
+
+    card.dataset.priluckFinalActionBound = "true";
+
+    card.addEventListener(
+      "click",
+      function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const titleElement =
+          card.querySelector("h4");
+
+        const title =
+          titleElement
+            ? titleElement.textContent.trim()
+            : "";
+
+        if (title.includes("বন্ধুদের আমন্ত্রণ")) {
+
+          showActionMessage(
+            "👤 বন্ধুদের আমন্ত্রণ",
+            "আপনার রেফার লিংক ব্যবহার করে বন্ধুদের আমন্ত্রণ করুন এবং রেফার বোনাস অর্জন করুন।"
+          );
+
+        } else if (title.includes("শেয়ার")) {
+
+          const shareText =
+            "আমি PriLuck Leaderboard-এ আমার র‍্যাঙ্ক দেখছি!";
+
+          if (
+            navigator.share
+          ) {
+
+            navigator.share({
+              title: "PriLuck Leaderboard",
+              text: shareText
+            }).catch(function () {});
+
+          } else {
+
+            showActionMessage(
+              "📤 র‍্যাঙ্ক শেয়ার করুন",
+              "আপনার বর্তমান Leaderboard rank অন্যদের সঙ্গে শেয়ার করার জন্য Share অপশন প্রস্তুত।"
+            );
+          }
+
+        } else if (
+          title.includes("লিডারবোর্ড নিয়ম")
+        ) {
+
+          showActionMessage(
+            "📘 লিডারবোর্ডের নিয়ম",
+            "র‍্যাঙ্কিং নির্বাচিত সময়ের মোট earning অনুযায়ী সাজানো হয়। সমান earning হলে আগে সম্পন্ন করা earning record অগ্রাধিকার পাবে।"
+
+          );
+
+        } else if (
+          title.includes("পূর্বের বিজয়ী")
+        ) {
+
+          showActionMessage(
+            "🏆 পূর্বের বিজয়ী",
+            "পূর্বের সময়ের সেরা পারফর্মারদের leaderboard history এখানে দেখানো হবে।"
+          );
+
+        } else {
+
+          showActionMessage(
+            "Leaderboard",
+            "এই অপশনটি সফলভাবে নির্বাচিত হয়েছে।"
+          );
+        }
+
+      },
+      true
+    );
+
+  });
+
+  /* =========================================================
+     10. INITIAL FILTER
+     ========================================================= */
+
+  let initialFilter = "all";
+
+  try {
+
+    const saved =
+      localStorage.getItem(
+        "priluck_leaderboard_filter"
+      );
+
+    if (
+      DATA[saved]
+    ) {
+      initialFilter = saved;
+    }
+
+  } catch (e) {}
+
+  const initialButton =
+    filterButtons.find(function (button, index) {
+      return (
+        getFilterName(button, index) ===
+        initialFilter
+      );
+    }) || filterButtons[0];
+
+  applyFilter(
+    initialFilter,
+    initialButton
+  );
+
+  /* =========================================================
+     11. EXPOSE SAFE CONTROLLER API
+     ========================================================= */
+
+  controller.applyFinalLeaderboardFilter =
+    function (filterName) {
+
+      const name =
+        DATA[filterName]
+          ? filterName
+          : "all";
+
+      const button =
+        filterButtons.find(
+          function (item, index) {
+            return (
+              getFilterName(item, index) ===
+              name
+            );
+          }
+        );
+
+      applyFilter(
+        name,
+        button
+      );
+    };
+
+  controller.finalLeaderboardData =
+    DATA;
+
+  console.log(
+    "✅ PRILUCK LEADERBOARD FINAL REPAIR ENGINE READY"
+  );
+
+})();
+ /* PRILUCK_LEADERBOARD_FINAL_REPAIR_END */
+</script>
+
+
+
+<script>
+/* PRILUCK_LEADERBOARD_SAFE_V6_START */
+(function () {
+  "use strict";
+
+  /*
+   * SAFE V6
+   *
+   * IMPORTANT:
+   * - Does NOT delete old scripts from index.html.
+   * - Does NOT replace Leaderboard HTML.
+   * - Does NOT replace CSS.
+   * - Does NOT use Node.
+   * - Existing filter buttons are cloned at runtime so old
+   *   click listeners are removed without touching the HTML.
+   *
+   * Final logic:
+   * 1. Five filters
+   * 2. Dynamic statistics
+   * 3. Dynamic 1st/2nd/3rd podium
+   * 4. Dynamic rows 4-9
+   * 5. Dynamic current-user earning
+   * 6. Rank calculated automatically from earning
+   * 7. Same calculateRank() can later receive API/database users
+   */
+
+  function boot() {
+
+    var screen =
+      document.getElementById("screen-leaderboard");
+
+    if (!screen) {
+      console.warn(
+        "[Priluck] SAFE V6: Leaderboard screen not found."
+      );
+      return;
+    }
+
+    var filterButtons =
+      Array.prototype.slice.call(
+        screen.querySelectorAll(".f-btn")
+      );
+
+    if (filterButtons.length !== 5) {
+      console.warn(
+        "[Priluck] SAFE V6: Expected 5 filters, found:",
+        filterButtons.length
+      );
+      return;
+    }
+
+    /*
+     * ==========================================================
+     * 1. DEMO DATA
+     * ==========================================================
+     */
+
+    var DATA = {
+
+      all: {
+        stats: ["1,287", "₹45,280", "15,632", "42"],
+        users: [
+          { name: "Anik D.", earning: 2650 },
+          { name: "Sohel R.", earning: 2152 },
+          { name: "Piyal B.", earning: 2008 },
+          { name: "Rahul H.", earning: 1820 },
+          { name: "Sayan M.", earning: 1715 },
+          { name: "Arjun K.", earning: 1640 },
+          { name: "Rakesh P.", earning: 1510 },
+          { name: "Milan S.", earning: 1435 },
+          { name: "Kunal B.", earning: 1370 },
+          { name: "User 10", earning: 1280 },
+          { name: "User 11", earning: 1195 },
+          { name: "User 12", earning: 1080 },
+          { name: "User 13", earning: 980 },
+          { name: "User 14", earning: 870 },
+          { name: "User 15", earning: 760 },
+          { name: "User 16", earning: 650 },
+          { name: "User 17", earning: 540 },
+          { name: "Rahul H. (আপনি)", earning: 142.50 }
+        ]
+      },
+
+      friends: {
+        stats: ["42", "₹3,860", "1,248", "21"],
+        users: [
+          { name: "Sayan M.", earning: 715 },
+          { name: "Pritam G.", earning: 690 },
+          { name: "Arjun K.", earning: 590 },
+          { name: "Rakesh P.", earning: 520 },
+          { name: "Sohel R.", earning: 480 },
+          { name: "Piyal B.", earning: 415 },
+          { name: "Milan S.", earning: 380 },
+          { name: "Kunal B.", earning: 345 },
+          { name: "Friend 10", earning: 320 },
+          { name: "Friend 11", earning: 285 },
+          { name: "Friend 12", earning: 250 },
+          { name: "Rahul H. (আপনি)", earning: 142.50 }
+        ]
+      },
+
+      today: {
+        stats: ["386", "₹8,420", "2,914", "12"],
+        users: [
+          { name: "Piyal B.", earning: 420 },
+          { name: "Anik D.", earning: 385 },
+          { name: "Rahul H. (আপনি)", earning: 340 },
+          { name: "Sayan M.", earning: 315 },
+          { name: "Arjun K.", earning: 292 },
+          { name: "Rakesh P.", earning: 275 },
+          { name: "Sohel R.", earning: 260 },
+          { name: "Milan S.", earning: 245 },
+          { name: "Kunal B.", earning: 230 },
+          { name: "User 10", earning: 210 },
+          { name: "User 11", earning: 195 },
+          { name: "User 12", earning: 180 },
+          { name: "User 13", earning: 165 },
+          { name: "User 14", earning: 150 },
+          { name: "User 15", earning: 135 },
+          { name: "User 16", earning: 120 },
+          { name: "User 17", earning: 105 },
+          { name: "User 18", earning: 90 },
+          { name: "User 19", earning: 80 }
+        ]
+      },
+
+      week: {
+        stats: ["812", "₹22,640", "7,481", "28"],
+        users: [
+          { name: "Sohel R.", earning: 1280 },
+          { name: "Anik D.", earning: 1175 },
+          { name: "Rahul H. (আপনি)", earning: 1040 },
+          { name: "Piyal B.", earning: 980 },
+          { name: "Sayan M.", earning: 915 },
+          { name: "Arjun K.", earning: 850 },
+          { name: "Rakesh P.", earning: 790 },
+          { name: "Milan S.", earning: 735 },
+          { name: "Kunal B.", earning: 690 },
+          { name: "User 10", earning: 650 },
+          { name: "User 11", earning: 610 },
+          { name: "User 12", earning: 570 },
+          { name: "User 13", earning: 530 },
+          { name: "User 14", earning: 490 },
+          { name: "User 15", earning: 450 },
+          { name: "User 16", earning: 410 },
+          { name: "User 17", earning: 370 },
+          { name: "User 18", earning: 330 },
+          { name: "User 19", earning: 290 },
+          { name: "User 20", earning: 250 }
+        ]
+      },
+
+      month: {
+        stats: ["1,104", "₹38,920", "13,806", "42"],
+        users: [
+          { name: "Anik D.", earning: 2480 },
+          { name: "Piyal B.", earning: 2210 },
+          { name: "Sohel R.", earning: 1985 },
+          { name: "Rahul H.", earning: 1760 },
+          { name: "Sayan M.", earning: 1635 },
+          { name: "Arjun K.", earning: 1540 },
+          { name: "Rakesh P.", earning: 1485 },
+          { name: "Milan S.", earning: 1390 },
+          { name: "Kunal B.", earning: 1325 },
+          { name: "User 10", earning: 1260 },
+          { name: "User 11", earning: 1190 },
+          { name: "User 12", earning: 1110 },
+          { name: "User 13", earning: 1030 },
+          { name: "User 14", earning: 950 },
+          { name: "User 15", earning: 870 },
+          { name: "User 16", earning: 790 },
+          { name: "User 17", earning: 710 },
+          { name: "Rahul H. (আপনি)", earning: 142.50 }
+        ]
+      }
+
+    };
+
+    /*
+     * ==========================================================
+     * 2. HELPERS
+     * ==========================================================
+     */
+
+    function money(value) {
+      var n = Number(value);
+
+      if (!isFinite(n)) {
+        n = 0;
+      }
+
+      return "₹" + n.toLocaleString("en-IN", {
+        minimumFractionDigits: n % 1 !== 0 ? 2 : 0,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function sortUsers(users) {
+      return users
+        .slice()
+        .sort(function (a, b) {
+          var diff =
+            Number(b.earning) -
+            Number(a.earning);
+
+          if (diff !== 0) {
+            return diff;
+          }
+
+          return String(a.name).localeCompare(
+            String(b.name)
+          );
+        });
+    }
+
+    /*
+     * THIS IS THE IMPORTANT REAL RANK LOGIC.
+     *
+     * Rank is calculated from the sorted earning.
+     * There is NO hard-coded "#18".
+     *
+     * Later API/database users can be passed into
+     * the exact same function.
+     */
+
+    function calculateRank(users, currentUser) {
+
+      var sorted = sortUsers(users);
+
+      var index = sorted.findIndex(
+        function (user) {
+          return (
+            user === currentUser ||
+            (
+              String(user.name) ===
+              String(currentUser.name) &&
+              Number(user.earning) ===
+              Number(currentUser.earning)
+            )
+          );
+        }
+      );
+
+      return index >= 0
+        ? index + 1
+        : null;
+    }
+
+    function findCurrentUser(users) {
+
+      var current =
+        users.find(function (user) {
+          return String(user.name)
+            .indexOf("(আপনি)") !== -1;
+        });
+
+      if (current) {
+        return current;
+      }
+
+      current =
+        users.find(function (user) {
+          return user.name === "Rahul H.";
+        });
+
+      if (current) {
+        return current;
+      }
+
+      return {
+        name: "Rahul H. (আপনি)",
+        earning: 142.50
+      };
+    }
+
+    function filterName(button, index) {
+
+      var value =
+        (
+          button.getAttribute(
+            "data-leader-filter"
+          ) || ""
+        )
+        .toLowerCase()
+        .trim();
+
+      if (
+        DATA[value]
+      ) {
+        return value;
+      }
+
+      var text =
+        (
+          button.textContent || ""
+        )
+        .trim()
+        .toLowerCase();
+
+      if (text.indexOf("বন্ধু") !== -1) {
+        return "friends";
+      }
+
+      if (text.indexOf("আজকের") !== -1) {
+        return "today";
+      }
+
+      if (text.indexOf("সপ্তাহ") !== -1) {
+        return "week";
+      }
+
+      if (text.indexOf("মাস") !== -1) {
+        return "month";
+      }
+
+      return [
+        "all",
+        "friends",
+        "today",
+        "week",
+        "month"
+      ][index] || "all";
+    }
+
+    /*
+     * ==========================================================
+     * 3. STATISTICS
+     * ==========================================================
+     */
+
+    function updateStats(data) {
+
+      var cards =
+        Array.prototype.slice.call(
+          screen.querySelectorAll(
+            ".stats-panel .stat-item"
+          )
+        );
+
+      data.stats.forEach(
+        function (value, index) {
+
+          var card = cards[index];
+
+          if (!card) {
+            return;
+          }
+
+          var valueElement =
+            card.querySelector(".s-val");
+
+          if (valueElement) {
+            valueElement.textContent = value;
+          }
+
+        }
+      );
+    }
+
+    /*
+     * ==========================================================
+     * 4. PODIUM — 1st / 2nd / 3rd
+     * ==========================================================
+     */
+
+    function updatePodium(sorted) {
+
+      var positions = [
+        {
+          selector: ".podium-container .col-1st",
+          index: 0
+        },
+        {
+          selector: ".podium-container .col-2nd",
+          index: 1
+        },
+        {
+          selector: ".podium-container .col-3rd",
+          index: 2
+        }
+      ];
+
+      positions.forEach(
+        function (item) {
+
+          var column =
+            screen.querySelector(
+              item.selector
+            );
+
+          var user =
+            sorted[item.index];
+
+          if (!column || !user) {
+            return;
+          }
+
+          var name =
+            column.querySelector(".p-name");
+
+          var earn =
+            column.querySelector(".p-earn");
+
+          if (name) {
+            name.textContent = user.name;
+          }
+
+          if (earn) {
+            earn.textContent =
+              money(user.earning);
+          }
+
+        }
+      );
+    }
+
+    /*
+     * ==========================================================
+     * 5. RANKING ROWS 4-9
+     * ==========================================================
+     */
+
+    function updateRows(sorted) {
+
+      var rows =
+        Array.prototype.slice.call(
+          screen.querySelectorAll(".l-row")
+        );
+
+      var normalRows =
+        rows.filter(function (row) {
+          return !row.classList.contains(
+            "active-user"
+          );
+        });
+
+      var users =
+        sorted.slice(3, 9);
+
+      normalRows.forEach(
+        function (row, index) {
+
+          var user = users[index];
+
+          if (!user) {
+            row.style.display = "none";
+            return;
+          }
+
+          row.style.display = "";
+
+          var rank =
+            row.querySelector(".l-rank");
+
+          var name =
+            row.querySelector(".l-name");
+
+          var earn =
+            row.querySelector(".l-earn");
+
+          if (rank) {
+            rank.textContent =
+              String(index + 4);
+          }
+
+          if (name) {
+            name.textContent =
+              user.name;
+          }
+
+          if (earn) {
+
+            var arrow =
+              earn.querySelector(".l-arrow");
+
+            earn.textContent =
+              money(user.earning) + " ";
+
+            if (arrow) {
+              earn.appendChild(arrow);
+            }
+
+          }
+
+        }
+      );
+    }
+
+    /*
+     * ==========================================================
+     * 6. CURRENT USER
+     * ==========================================================
+     */
+
+    function updateCurrentUser(
+      sorted,
+      currentUser
+    ) {
+
+      var row =
+        screen.querySelector(
+          ".l-row.active-user"
+        );
+
+      if (!row) {
+        return;
+      }
+
+      var rank =
+        calculateRank(
+          sorted,
+          currentUser
+        );
+
+      var rankElement =
+        row.querySelector(".l-rank");
+
+      var nameElement =
+        row.querySelector(".l-name");
+
+      var earningElement =
+        row.querySelector(".l-earn");
+
+      if (rankElement && rank !== null) {
+        rankElement.textContent =
+          String(rank);
+      }
+
+      if (nameElement) {
+        nameElement.textContent =
+          "Rahul H. (আপনি)";
+      }
+
+      if (earningElement) {
+
+        var arrow =
+          earningElement.querySelector(
+            ".l-arrow"
+          );
+
+        earningElement.textContent =
+          money(currentUser.earning) + " ";
+
+        if (arrow) {
+          earningElement.appendChild(arrow);
+        }
+
+      }
+
+      row.setAttribute(
+        "data-priluck-rank",
+        String(rank || "")
+      );
+
+      row.setAttribute(
+        "data-priluck-earning",
+        String(currentUser.earning)
+      );
+    }
+
+    /*
+     * ==========================================================
+     * 7. APPLY COMPLETE FILTER
+     * ==========================================================
+     */
+
+    function applyFilter(filter) {
+
+      var data =
+        DATA[filter] || DATA.all;
+
+      var sorted =
+        sortUsers(data.users);
+
+      var currentUser =
+        findCurrentUser(sorted);
+
+      updateStats(data);
+      updatePodium(sorted);
+      updateRows(sorted);
+      updateCurrentUser(
+        sorted,
+        currentUser
+      );
+
+      filterButtons.forEach(
+        function (button, index) {
+
+          var current =
+            filterName(
+              button,
+              index
+            );
+
+          var active =
+            current === filter;
+
+          button.classList.toggle(
+            "active",
+            active
+          );
+
+          button.setAttribute(
+            "aria-selected",
+            active
+              ? "true"
+              : "false"
+          );
+        }
+      );
+
+      screen.setAttribute(
+        "data-active-leaderboard-filter",
+        filter
+      );
+
+      try {
+        localStorage.setItem(
+          "priluck_leaderboard_filter",
+          filter
+        );
+      } catch (e) {}
+
+      console.log(
+        "[Priluck] SAFE V6 filter:",
+        filter
+      );
+
+      console.log(
+        "[Priluck] SAFE V6 earning:",
+        currentUser.earning
+      );
+
+      console.log(
+        "[Priluck] SAFE V6 calculated rank:",
+        calculateRank(
+          sorted,
+          currentUser
+        )
+      );
+    }
+
+    /*
+     * ==========================================================
+     * 8. REMOVE OLD CLICK LISTENERS SAFELY
+     *
+     * IMPORTANT:
+     * This happens only in the browser DOM.
+     * It does NOT delete anything from index.html.
+     * ==========================================================
+     */
+
+    var freshButtons = [];
+
+    filterButtons.forEach(
+      function (oldButton) {
+
+        var newButton =
+          oldButton.cloneNode(true);
+
+        oldButton.parentNode.replaceChild(
+          newButton,
+          oldButton
+        );
+
+        freshButtons.push(newButton);
+      }
+    );
+
+    filterButtons = freshButtons;
+
+    /*
+     * ==========================================================
+     * 9. NEW FILTER LISTENERS
+     * ==========================================================
+     */
+
+    filterButtons.forEach(
+      function (button, index) {
+
+        button.addEventListener(
+          "click",
+          function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            applyFilter(
+              filterName(
+                button,
+                index
+              )
+            );
+
+          }
+        );
+
+      }
+    );
+
+    /*
+     * ==========================================================
+     * 10. INITIAL FILTER
+     * ==========================================================
+     */
+
+    var initial = "all";
+
+    try {
+
+      var saved =
+        localStorage.getItem(
+          "priluck_leaderboard_filter"
+        );
+
+      if (DATA[saved]) {
+        initial = saved;
+      }
+
+    } catch (e) {}
+
+    applyFilter(initial);
+
+    /*
+     * ==========================================================
+     * PUBLIC API
+     * ==========================================================
+     */
+
+    window.PriLuckLeaderboardSafeV6 = {
+
+      data: DATA,
+
+      calculateRank:
+        calculateRank,
+
+      applyFilter:
+        applyFilter,
+
+      currentFilter:
+        initial
+
+    };
+
+    console.log(
+      "=================================================="
+    );
+
+    console.log(
+      "✅ PRILUCK LEADERBOARD SAFE V6 READY"
+    );
+
+    console.log(
+      "✅ 3rd podium dynamic"
+    );
+
+    console.log(
+      "✅ 4 statistics dynamic"
+    );
+
+    console.log(
+      "✅ Current earning dynamic"
+    );
+
+    console.log(
+      "✅ Current rank dynamic"
+    );
+
+    console.log(
+      "✅ Rank calculated from earning"
+    );
+
+    console.log(
+      "✅ Rows 4-9 dynamic"
+    );
+
+    console.log(
+      "✅ Five filters connected"
+    );
+
+    console.log(
+      "✅ API/database compatible calculateRank()"
+    );
+
+    console.log(
+      "=================================================="
+    );
+  }
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      boot,
+      { once: true }
+    );
+
+  } else {
+
+    boot();
+
+  }
+
+})();
+/* PRILUCK_LEADERBOARD_SAFE_V6_END */
+</script>
+
+
+
+<script>
+/* ==========================================================
+   PRILUCK_LEADERBOARD_ACTIONS_V7_START
+
+   ONLY these 3 Leaderboard actions are changed:
+   1. বন্ধুদের আমন্ত্রণ
+   2. লিডারবোর্ড নিয়ম
+   3. পূর্বের বিজয়ী
+
+   Share action is intentionally untouched.
+   Leaderboard filters / podium / stats / rank / rows are untouched.
+   Existing HTML/CSS are untouched.
+   ========================================================== */
+
+(function () {
+  "use strict";
+
+  function openV7Modal(title, html, buttonText, onButton) {
+
+    var old = document.getElementById(
+      "priluck-leaderboard-action-v7-modal"
+    );
+
+    if (old) {
+      old.remove();
+    }
+
+    var overlay = document.createElement("div");
+
+    overlay.id =
+      "priluck-leaderboard-action-v7-modal";
+
+    overlay.style.cssText =
+      "position:fixed;" +
+      "inset:0;" +
+      "z-index:10050;" +
+      "background:rgba(20,10,50,.45);" +
+      "display:flex;" +
+      "align-items:center;" +
+      "justify-content:center;" +
+      "padding:20px;";
+
+    overlay.innerHTML =
+      '<div style="' +
+        'width:min(92vw,390px);' +
+        'max-height:82vh;' +
+        'overflow:auto;' +
+        'background:#fff;' +
+        'border-radius:22px;' +
+        'padding:22px;' +
+        'color:#24124d;' +
+        'box-shadow:0 20px 60px rgba(0,0,0,.25);' +
+        'text-align:left;' +
+      '">' +
+
+        '<div style="' +
+          'font-size:21px;' +
+          'font-weight:900;' +
+          'text-align:center;' +
+        '">' +
+          title +
+        '</div>' +
+
+        '<div style="' +
+          'font-size:13px;' +
+          'color:#756b8f;' +
+          'line-height:1.65;' +
+          'margin-top:13px;' +
+        '">' +
+          html +
+        '</div>' +
+
+        (
+          buttonText
+            ? '<button type="button" id="priluckV7ModalAction" style="' +
+                'display:block;' +
+                'width:100%;' +
+                'margin-top:18px;' +
+                'border:0;' +
+                'border-radius:13px;' +
+                'padding:12px 18px;' +
+                'background:#6a3df0;' +
+                'color:#fff;' +
+                'font-weight:800;' +
+                'font-size:14px;' +
+                'cursor:pointer;' +
+              '">' +
+                buttonText +
+              '</button>'
+            : ''
+        ) +
+
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    if (buttonText) {
+
+      var actionButton =
+        document.getElementById(
+          "priluckV7ModalAction"
+        );
+
+      if (actionButton) {
+
+        actionButton.addEventListener(
+          "click",
+          function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (typeof onButton === "function") {
+              onButton();
+            }
+
+            if (overlay.parentNode) {
+              overlay.remove();
+            }
+
+          }
+        );
+
+      }
+    }
+
+    overlay.addEventListener(
+      "click",
+      function (event) {
+
+        if (event.target === overlay) {
+
+          overlay.remove();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* ==========================================================
+     NAVIGATION — ONLY USED BY "রেফার করুন"
+     ========================================================== */
+
+  function goToReferScreen() {
+
+    var targetScreen =
+      document.getElementById(
+        "screen-refer"
+      );
+
+    if (!targetScreen) {
+      console.warn(
+        "[Priluck] V7: screen-refer not found."
+      );
+      return;
+    }
+
+    document
+      .querySelectorAll(".screen")
+      .forEach(function (screen) {
+        screen.classList.remove("active");
+      });
+
+    document
+      .querySelectorAll(".nav-item")
+      .forEach(function (nav) {
+        nav.classList.remove("active");
+      });
+
+    targetScreen.classList.add("active");
+
+    var referNav =
+      document.querySelector(
+        '.nav-item[data-screen="refer"]'
+      );
+
+    if (referNav) {
+      referNav.classList.add("active");
+    }
+
+    document.body.classList.remove(
+      "notification-mode"
+    );
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  /* ==========================================================
+     1. INVITE FRIENDS
+     ========================================================== */
+
+  function showInvitePopup() {
+
+    openV7Modal(
+      "👥 বন্ধুদের আমন্ত্রণ",
+
+      '<p>' +
+        'আপনার রেফার লিংক ব্যবহার করে বন্ধুদের আমন্ত্রণ করুন ' +
+        'এবং রেফার বোনাস অর্জন করুন।' +
+      '</p>' +
+
+      '<div style="' +
+        'margin-top:13px;' +
+        'padding:13px;' +
+        'border-radius:14px;' +
+        'background:#f7f3ff;' +
+      '">' +
+        '<strong>🎁 রেফার বোনাস</strong>' +
+        '<div style="margin-top:5px;">' +
+          'বন্ধু আপনার রেফার লিংক ব্যবহার করে যোগ দিলে ' +
+          'এবং নির্ধারিত যোগ্যতা পূরণ করলে আপনার রেফার বোনাস ' +
+          'অর্জিত হবে।' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="' +
+        'margin-top:10px;' +
+        'padding:13px;' +
+        'border-radius:14px;' +
+        'background:#f8fafc;' +
+      '">' +
+        '<strong>🔗 কীভাবে করবেন?</strong>' +
+        '<div style="margin-top:5px;">' +
+          'রেফার স্ক্রিনে গিয়ে আপনার ব্যক্তিগত রেফার লিংক ' +
+          'কপি বা শেয়ার করুন। নতুন বন্ধু সেই লিংক দিয়ে ' +
+          'PriLuck-এ যোগ করলে referral tracking-এর মাধ্যমে ' +
+          'বোনাসের eligibility যাচাই করা যাবে।' +
+        '</div>' +
+      '</div>',
+
+      "রেফার করুন",
+
+      goToReferScreen
+    );
+
+  }
+
+
+  /* ==========================================================
+     2. LEADERBOARD RULES
+     ========================================================== */
+
+  function showRulesPopup() {
+
+    openV7Modal(
+      "📘 লিডারবোর্ডের নিয়ম",
+
+      '<div style="' +
+        'padding:12px;' +
+        'border-radius:14px;' +
+        'background:#f7f3ff;' +
+      '">' +
+        '<strong>১. র‍্যাঙ্ক কীভাবে নির্ধারণ হয়?</strong>' +
+        '<div style="margin-top:5px;">' +
+          'নির্বাচিত সময়ের মোট earning অনুযায়ী ' +
+          'সকল eligible user-কে বেশি থেকে কম ক্রমে সাজানো হয়। ' +
+          'যার earning বেশি, তার rank ভালো।' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="margin-top:10px;padding:12px;border-radius:14px;background:#f8fafc;">' +
+        '<strong>২. পাঁচটি সময়ের Filter</strong>' +
+        '<div style="margin-top:5px;">' +
+          'সবাই, বন্ধু, আজকের, এই সপ্তাহে এবং এই মাসে—' +
+          'প্রতিটি filter তার নিজস্ব সময়সীমার earning অনুযায়ী ' +
+          'leaderboard দেখাবে।' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="margin-top:10px;padding:12px;border-radius:14px;background:#f8fafc;">' +
+        '<strong>৩. সমান earning হলে</strong>' +
+        '<div style="margin-top:5px;">' +
+          'দুই বা তার বেশি user-এর earning সমান হলে আগে ' +
+          'সম্পন্ন হওয়া earning record অগ্রাধিকার পাবে।' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="margin-top:10px;padding:12px;border-radius:14px;background:#f8fafc;">' +
+        '<strong>৪. আপনার Rank</strong>' +
+        '<div style="margin-top:5px;">' +
+          'আপনার earning পরিবর্তন হলে ranking list-এর ' +
+          'সঙ্গে আপনার rank-ও স্বয়ংক্রিয়ভাবে recalculated হবে।' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="margin-top:10px;padding:12px;border-radius:14px;background:#f8fafc;">' +
+        '<strong>৫. Podium ও Ranking Rows</strong>' +
+        '<div style="margin-top:5px;">' +
+          '১ম, ২য় ও ৩য় স্থান podium-এ এবং পরবর্তী ' +
+          'ranking rows একই নির্বাচিত filter-এর ranking অনুযায়ী ' +
+          'দেখানো হবে।' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="margin-top:10px;padding:12px;border-radius:14px;background:#f8fafc;">' +
+        '<strong>৬. Demo বনাম Real Version</strong>' +
+        '<div style="margin-top:5px;">' +
+          'Demo version-এ sample leaderboard data ব্যবহার করা হচ্ছে। ' +
+          'Real version-এ server/API/database থেকে পাওয়া ' +
+          'verified earning records একই ranking calculation-এর ' +
+          'মাধ্যমে ব্যবহার করা যাবে।' +
+        '</div>' +
+      '</div>' +
+
+      '<p style="margin-top:13px;">' +
+        'Leaderboard-এর লক্ষ্য হলো নির্বাচিত সময়ে ' +
+        'earning performance অনুযায়ী একটি পরিষ্কার ও ' +
+        'স্বচ্ছ ranking দেখানো।' +
+      '</p>',
+
+      "ঠিক আছে",
+
+      null
+    );
+
+  }
+
+
+  /* ==========================================================
+     3. PREVIOUS WINNERS
+     ========================================================== */
+
+  function getPreviousWinnerData() {
+
+    /*
+     * Real/API version:
+     * Backend later can provide:
+     *
+     * window.PriLuckLeaderboardHistory = [
+     *   {
+     *     period: "...",
+     *     winners: [
+     *       {name:"...", earning:123}
+     *     ]
+     *   }
+     * ];
+     *
+     * Demo fallback below uses the existing Leaderboard
+     * demo datasets already present in the app.
+     */
+
+    if (
+      Array.isArray(
+        window.PriLuckLeaderboardHistory
+      ) &&
+      window.PriLuckLeaderboardHistory.length
+    ) {
+
+      return window.PriLuckLeaderboardHistory;
+
+    }
+
+
+    var controller =
+      window.PriLuckLeaderboardController;
+
+    var data =
+      controller &&
+      controller.finalLeaderboardData
+        ? controller.finalLeaderboardData
+        : null;
+
+
+    if (!data) {
+
+      var safe =
+        window.PriLuckLeaderboardSafeV6;
+
+      if (
+        safe &&
+        safe.data
+      ) {
+        data = safe.data;
+      }
+
+    }
+
+
+    var result = [];
+
+
+    function topThree(dataset) {
+
+      if (!dataset) {
+        return [];
+      }
+
+      if (Array.isArray(dataset.podium)) {
+
+        return dataset.podium
+          .slice(0, 3)
+          .map(function (item) {
+
+            return {
+              name: item[0],
+              earning: item[1]
+            };
+
+          });
+
+      }
+
+      if (Array.isArray(dataset.users)) {
+
+        return dataset.users
+          .slice()
+          .sort(function (a, b) {
+            return (
+              Number(b.earning) -
+              Number(a.earning)
+            );
+          })
+          .slice(0, 3);
+
+      }
+
+      return [];
+
+    }
+
+
+    /*
+     * Demo history:
+     * existing Today / Week / Month datasets are used
+     * as the previous-period demo history.
+     */
+
+    if (data) {
+
+      if (data.today) {
+
+        result.push({
+          period: "ডেমো — পূর্বের দিন",
+          winners: topThree(data.today)
+        });
+
+      }
+
+      if (data.week) {
+
+        result.push({
+          period: "ডেমো — পূর্বের সপ্তাহ",
+          winners: topThree(data.week)
+        });
+
+      }
+
+      if (data.month) {
+
+        result.push({
+          period: "ডেমো — পূর্বের মাস",
+          winners: topThree(data.month)
+        });
+
+      }
+
+    }
+
+
+    return result;
+
+  }
+
+
+  function showPreviousWinnersPopup() {
+
+    var history =
+      getPreviousWinnerData();
+
+    var html = "";
+
+    if (!history.length) {
+
+      html =
+        '<div style="' +
+          'padding:14px;' +
+          'border-radius:14px;' +
+          'background:#f8fafc;' +
+        '">' +
+          '<strong>🏆 এখনো কোনো history নেই</strong>' +
+          '<div style="margin-top:5px;">' +
+            'Leaderboard history তৈরি হলে এখানে ' +
+            'পূর্বের সময়ের সেরা performers-এর বিস্তারিত ' +
+            'দেখানো হবে।' +
+          '</div>' +
+        '</div>';
+
+    } else {
+
+      history.forEach(
+        function (period) {
+
+          html +=
+            '<div style="' +
+              'margin-bottom:12px;' +
+              'padding:14px;' +
+              'border-radius:15px;' +
+              'background:#f8fafc;' +
+            '">' +
+
+              '<div style="' +
+                'font-weight:900;' +
+                'font-size:14px;' +
+                'margin-bottom:9px;' +
+              '">' +
+                '🏆 ' +
+                period.period +
+              '</div>';
+
+          if (
+            Array.isArray(period.winners) &&
+            period.winners.length
+          ) {
+
+            period.winners
+              .slice(0, 3)
+              .forEach(
+                function (winner, index) {
+
+                  var medal =
+                    index === 0
+                      ? "🥇"
+                      : index === 1
+                        ? "🥈"
+                        : "🥉";
+
+                  var earning =
+                    winner.earning;
+
+                  if (
+                    typeof earning === "number"
+                  ) {
+
+                    earning =
+                      "₹" +
+                      earning.toLocaleString(
+                        "en-IN",
+                        {
+                          maximumFractionDigits: 2
+                        }
+                      );
+
+                  }
+
+                  html +=
+                    '<div style="' +
+                      'display:flex;' +
+                      'align-items:center;' +
+                      'justify-content:space-between;' +
+                      'padding:9px 0;' +
+                      'border-top:1px solid #ece8f5;' +
+                    '">' +
+
+                      '<span>' +
+                        medal +
+                        ' ' +
+                        String(
+                          winner.name || "User"
+                        ) +
+                      '</span>' +
+
+                      '<strong style="color:#1fae5c;">' +
+                        String(
+                          earning || "₹0"
+                        ) +
+                      '</strong>' +
+
+                    '</div>';
+
+                }
+              );
+
+          } else {
+
+            html +=
+              '<div style="color:#756b8f;">' +
+                'এই সময়ের কোনো winner data নেই।' +
+              '</div>';
+
+          }
+
+          html +=
+            '</div>';
+
+        }
+      );
+
+      html +=
+        '<div style="' +
+          'padding:12px;' +
+          'border-radius:14px;' +
+          'background:#f7f3ff;' +
+        '">' +
+          'ℹ️ Real version-এ প্রতিটি completed period-এর ' +
+          'verified leaderboard result server/API/database-এ ' +
+          'সংরক্ষণ করে একই structure-এ history দেখানো যাবে।' +
+        '</div>';
+
+    }
+
+
+    openV7Modal(
+      "🏆 পূর্বের বিজয়ী",
+      html,
+      "ঠিক আছে",
+      null
+    );
+
+  }
+
+
+  /* ==========================================================
+     4. REBIND ONLY THE THREE TARGET CARDS
+     ========================================================== */
+
+  function bindThreeActions() {
+
+    var screen =
+      document.getElementById(
+        "screen-leaderboard"
+      );
+
+    if (!screen) {
+      return false;
+    }
+
+
+    var cards =
+      Array.prototype.slice.call(
+        screen.querySelectorAll(
+          ".action-card"
+        )
+      );
+
+
+    var targets = [
+      {
+        text: "বন্ধুদের আমন্ত্রণ",
+        handler: showInvitePopup
+      },
+      {
+        text: "লিডারবোর্ড নিয়ম",
+        handler: showRulesPopup
+      },
+      {
+        text: "পূর্বের বিজয়ী",
+        handler: showPreviousWinnersPopup
+      }
+    ];
+
+
+    var changed = 0;
+
+
+    targets.forEach(
+      function (target) {
+
+        var card =
+          cards.find(
+            function (item) {
+
+              var title =
+                item.querySelector("h4");
+
+              return (
+                title &&
+                title.textContent.trim() ===
+                target.text
+              );
+
+            }
+          );
+
+
+        if (!card) {
+          return;
+        }
+
+
+        if (
+          card.dataset
+            .priluckActionV7Bound ===
+          "true"
+        ) {
+          return;
+        }
+
+
+        /*
+         * Clone only this target card.
+         * This removes its old click listeners from
+         * the browser DOM without modifying any other
+         * action card or HTML source.
+         */
+
+        var fresh =
+          card.cloneNode(true);
+
+
+        fresh.dataset
+          .priluckActionV7Bound =
+          "true";
+
+
+        card.parentNode.replaceChild(
+          fresh,
+          card
+        );
+
+
+        fresh.addEventListener(
+          "click",
+          function (event) {
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            target.handler();
+
+          }
+        );
+
+
+        changed++;
+
+      }
+    );
+
+
+    console.log(
+      "[Priluck] V7 target actions rebound:",
+      changed
+    );
+
+
+    return changed === 3;
+
+  }
+
+
+  function bootV7() {
+
+    var success =
+      bindThreeActions();
+
+    if (!success) {
+
+      console.warn(
+        "[Priluck] V7: Waiting for Leaderboard action cards..."
+      );
+
+      setTimeout(
+        function () {
+          bindThreeActions();
+        },
+        250
+      );
+
+      setTimeout(
+        function () {
+          bindThreeActions();
+        },
+        1000
+      );
+
+    } else {
+
+      console.log(
+        "✅ PRILUCK LEADERBOARD ACTIONS V7 READY"
+      );
+
+    }
+
+  }
+
+
+  if (
+    document.readyState === "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      bootV7,
+      { once: true }
+    );
+
+  } else {
+
+    bootV7();
+
+  }
+
+
+  window.PriLuckLeaderboardActionsV7 = {
+    showInvitePopup:
+      showInvitePopup,
+
+    showRulesPopup:
+      showRulesPopup,
+
+    showPreviousWinnersPopup:
+      showPreviousWinnersPopup,
+
+    getPreviousWinnerData:
+      getPreviousWinnerData
+  };
+
+
+  console.log(
+    "PRILUCK_LEADERBOARD_ACTIONS_V7_END"
+  );
+
+})();
+</script>
+
+
+
+<style>
+/* ==========================================================
+   PRILUCK_FINAL_LEADERBOARD_DETAIL_START
+
+   ONLY:
+   1. Fixed Top-3 podium name area
+   2. Ranking-row arrow detail popup
+
+   Existing filter / podium / stats / share / V7 actions /
+   navigation / other buttons are untouched.
+   ========================================================== */
+
+/* ----------------------------------------------------------
+   1. TOP 3 — FIXED PODIUM BOX / NAME AREA
+   ---------------------------------------------------------- */
+
+#screen-leaderboard .podium-container .col-1st,
+#screen-leaderboard .podium-container .col-2nd,
+#screen-leaderboard .podium-container .col-3rd {
+  min-width: 0 !important;
+  flex: 1 1 0 !important;
+}
+
+#screen-leaderboard .podium-container .col-1st .p-name,
+#screen-leaderboard .podium-container .col-2nd .p-name,
+#screen-leaderboard .podium-container .col-3rd .p-name {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: clip !important;
+
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+/* ----------------------------------------------------------
+   2. RANKING DETAIL MODAL
+   ---------------------------------------------------------- */
+
+#priluck-ranking-detail-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10080;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(20, 10, 50, .48);
+  backdrop-filter: blur(3px);
+}
+
+#priluck-ranking-detail-modal .prd-box {
+  width: min(92vw, 390px);
+  max-height: 82vh;
+  overflow-y: auto;
+
+  background: #ffffff;
+  color: #24124d;
+
+  border-radius: 22px;
+  padding: 22px;
+
+  box-shadow:
+    0 22px 65px rgba(0,0,0,.25);
+
+  text-align: left;
+
+  animation: priluckRankingDetailIn .20s ease;
+}
+
+@keyframes priluckRankingDetailIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#priluck-ranking-detail-modal .prd-icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 10px;
+
+  border-radius: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f0ebff;
+
+  font-size: 27px;
+}
+
+#priluck-ranking-detail-modal .prd-title {
+  text-align: center;
+
+  font-size: 20px;
+  font-weight: 900;
+
+  color: #24124d;
+}
+
+#priluck-ranking-detail-modal .prd-subtitle {
+  margin-top: 4px;
+
+  text-align: center;
+
+  color: #756b8f;
+  font-size: 12px;
+}
+
+#priluck-ranking-detail-modal .prd-main {
+  margin-top: 16px;
+
+  padding: 15px;
+
+  border-radius: 16px;
+
+  background: #f7f3ff;
+  border: 1px solid #e8ddff;
+}
+
+#priluck-ranking-detail-modal .prd-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 9px 0;
+
+  border-bottom: 1px solid #ece8f5;
+}
+
+#priluck-ranking-detail-modal .prd-row:last-child {
+  border-bottom: none;
+}
+
+#priluck-ranking-detail-modal .prd-label {
+  color: #756b8f;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+#priluck-ranking-detail-modal .prd-value {
+  color: #24124d;
+  font-size: 13px;
+  font-weight: 900;
+
+  text-align: right;
+
+  word-break: break-word;
+}
+
+#priluck-ranking-detail-modal .prd-earning {
+  color: #1fae5c;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+#priluck-ranking-detail-modal .prd-close {
+  width: 100%;
+
+  margin-top: 17px;
+
+  border: 0;
+  border-radius: 13px;
+
+  padding: 12px 18px;
+
+  background: #6a3df0;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  /*
+   * ==========================================================
+   * PRILUCK_FINAL_LEADERBOARD_DETAIL
+   *
+   * Only two additions:
+   * 1. Fixed podium name rendering
+   * 2. Ranking row arrow detail popup
+   * ==========================================================
+   */
+
+  var screen =
+    document.getElementById("screen-leaderboard");
+
+  if (!screen) {
+    console.warn(
+      "[Priluck] Final detail patch: Leaderboard not found."
+    );
+    return;
+  }
+
+  if (
+    window.PriLuckFinalLeaderboardDetailInitialized
+  ) {
+    return;
+  }
+
+  window.PriLuckFinalLeaderboardDetailInitialized =
+    true;
+
+
+  /* ==========================================================
+     1. PODIUM NAME — MAX 6 CHARACTERS
+     ========================================================== */
+
+  function getShortPodiumName(fullName) {
+
+    var name =
+      String(fullName || "User").trim();
+
+    /*
+     * User requested:
+     * 6 characters or less = full name
+     * More than 6 = first 6 + ...
+     *
+     * Example:
+     * kumaresh -> kumare...
+     */
+
+    if (name.length <= 6) {
+      return name;
+    }
+
+    return name.slice(0, 6) + "...";
+  }
+
+
+  function applyFixedPodiumNames() {
+
+    var podiumItems =
+      screen.querySelectorAll(
+        ".podium-container .col-1st," +
+        ".podium-container .col-2nd," +
+        ".podium-container .col-3rd"
+      );
+
+    podiumItems.forEach(function (item) {
+
+      var nameElement =
+        item.querySelector(".p-name");
+
+      if (!nameElement) {
+        return;
+      }
+
+      /*
+       * Read the current name AFTER the existing
+       * Leaderboard filter engine changes it.
+       */
+      var fullName =
+        nameElement.getAttribute(
+          "data-priluck-full-name"
+        ) ||
+        nameElement.textContent.trim();
+
+      if (!fullName) {
+        return;
+      }
+
+      /*
+       * Never lose the original/full name.
+       */
+      nameElement.setAttribute(
+        "data-priluck-full-name",
+        fullName
+      );
+
+      nameElement.setAttribute(
+        "title",
+        fullName
+      );
+
+      nameElement.setAttribute(
+        "aria-label",
+        fullName
+      );
+
+      /*
+       * Only visual text is shortened.
+       * Existing podium data/earning remains untouched.
+       */
+      nameElement.textContent =
+        getShortPodiumName(fullName);
+
+    });
+
+  }
+
+
+  /*
+   * Existing filter engine changes .p-name text.
+   * MutationObserver watches ONLY podium name elements.
+   * It does not modify filters or ranking logic.
+   */
+  var podiumObserver =
+    new MutationObserver(function () {
+
+      applyFixedPodiumNames();
+
+    });
+
+  var podiumContainer =
+    screen.querySelector(
+      ".podium-container"
+    );
+
+  if (podiumContainer) {
+
+    podiumObserver.observe(
+      podiumContainer,
+      {
+        subtree: true,
+        childList: true,
+        characterData: true
+      }
+    );
+
+  }
+
+  applyFixedPodiumNames();
+
+
+  /* ==========================================================
+     2. RANKING DETAIL POPUP
+     ========================================================== */
+
+  function getFilterLabel() {
+
+    var filter =
+      screen.getAttribute(
+        "data-active-leaderboard-filter"
+      ) || "all";
+
+    var labels = {
+      all: "সবাই",
+      friends: "বন্ধু",
+      today: "আজকের",
+      week: "এই সপ্তাহে",
+      month: "এই মাসে"
+    };
+
+    return labels[filter] || filter;
+
+  }
+
+
+  function closeRankingDetail() {
+
+    var modal =
+      document.getElementById(
+        "priluck-ranking-detail-modal"
+      );
+
+    if (modal) {
+      modal.remove();
+    }
+
+  }
+
+
+  function showRankingDetail(row) {
+
+    if (!row) {
+      return;
+    }
+
+    closeRankingDetail();
+
+
+    var rankElement =
+      row.querySelector(".l-rank");
+
+    var nameElement =
+      row.querySelector(".l-name");
+
+    var earningElement =
+      row.querySelector(".l-earn");
+
+
+    var rank =
+      rankElement
+        ? rankElement.textContent.trim()
+        : "—";
+
+
+    var fullName =
+      row.getAttribute(
+        "data-priluck-full-name"
+      ) ||
+      (
+        nameElement
+          ? nameElement.textContent.trim()
+          : "User"
+      );
+
+
+    /*
+     * Store complete name on the row.
+     * Future API/database rendering can also
+     * populate this same attribute.
+     */
+    row.setAttribute(
+      "data-priluck-full-name",
+      fullName
+    );
+
+
+    var earning =
+      earningElement
+        ? earningElement.textContent
+            .replace("›", "")
+            .trim()
+        : "₹0";
+
+
+    var period =
+      getFilterLabel();
+
+
+    var modal =
+      document.createElement("div");
+
+    modal.id =
+      "priluck-ranking-detail-modal";
+
+
+    modal.innerHTML =
+
+      '<div class="prd-box" role="dialog" aria-modal="true">' +
+
+        '<div class="prd-icon">🏆</div>' +
+
+        '<div class="prd-title">' +
+          'Ranking Details' +
+        '</div>' +
+
+        '<div class="prd-subtitle">' +
+          'এই leaderboard-এর বিস্তারিত তথ্য' +
+        '</div>' +
+
+        '<div class="prd-main">' +
+
+          '<div class="prd-row">' +
+            '<span class="prd-label">Rank</span>' +
+            '<span class="prd-value">#' +
+              rank +
+            '</span>' +
+          '</div>' +
+
+          '<div class="prd-row">' +
+            '<span class="prd-label">Full name</span>' +
+            '<span class="prd-value">' +
+              escapeHtml(fullName) +
+            '</span>' +
+          '</div>' +
+
+          '<div class="prd-row">' +
+            '<span class="prd-label">Earning</span>' +
+            '<span class="prd-value prd-earning">' +
+              escapeHtml(earning) +
+            '</span>' +
+          '</div>' +
+
+          '<div class="prd-row">' +
+            '<span class="prd-label">Leaderboard period</span>' +
+            '<span class="prd-value">' +
+              escapeHtml(period) +
+            '</span>' +
+          '</div>' +
+
+          '<div class="prd-row">' +
+            '<span class="prd-label">Ranking status</span>' +
+            '<span class="prd-value">' +
+              'Selected period অনুযায়ী ranked' +
+            '</span>' +
+          '</div>' +
+
+          '<div class="prd-row">' +
+            '<span class="prd-label">Ranking basis</span>' +
+            '<span class="prd-value">' +
+              'Selected period-এর earning' +
+            '</span>' +
+          '</div>' +
+
+        '</div>' +
+
+        '<button type="button" class="prd-close">' +
+          'ঠিক আছে' +
+        '</button>' +
+
+      '</div>';
+
+
+    document.body.appendChild(modal);
+
+
+    var closeButton =
+      modal.querySelector(
+        ".prd-close"
+      );
+
+    if (closeButton) {
+
+      closeButton.addEventListener(
+        "click",
+        function (event) {
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          closeRankingDetail();
+
+        }
+      );
+
+    }
+
+
+    modal.addEventListener(
+      "click",
+      function (event) {
+
+        if (
+          event.target === modal
+        ) {
+
+          closeRankingDetail();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /*
+   * Small HTML escape helper.
+   * Prevents a user/API name from becoming HTML.
+   */
+  function escapeHtml(value) {
+
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* ==========================================================
+     ARROW CLICK — EVENT DELEGATION
+     ========================================================== */
+
+  screen.addEventListener(
+    "click",
+    function (event) {
+
+      var arrow =
+        event.target.closest(
+          ".l-arrow"
+        );
+
+      if (!arrow) {
+        return;
+      }
+
+      /*
+       * Only ranking-row arrows are handled.
+       * No other button/action is changed.
+       */
+      var row =
+        arrow.closest(".l-row");
+
+      if (!row) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+
+      showRankingDetail(row);
+
+    },
+    true
+  );
+
+
+  console.log(
+    "=================================================="
+  );
+
+  console.log(
+    "✅ PRILUCK FINAL LEADERBOARD DETAIL READY"
+  );
+
+  console.log(
+    "✅ Top 3 podium name boxes fixed"
+  );
+
+  console.log(
+    "✅ Podium names max 6 characters"
+  );
+
+  console.log(
+    "✅ Full podium names preserved"
+  );
+
+  console.log(
+    "✅ Ranking-row arrow detail popup ready"
+  );
+
+  console.log(
+    "✅ Filter period included in ranking details"
+  );
+
+  console.log(
+    "✅ Existing filter logic untouched"
+  );
+
+  console.log(
+    "✅ Existing podium earning logic untouched"
+  );
+
+  console.log(
+    "✅ Existing stats untouched"
+  );
+
+  console.log(
+    "✅ Existing share logic untouched"
+  );
+
+  console.log(
+    "✅ Existing V7 action popups untouched"
+  );
+
+  console.log(
+    "=================================================="
+  );
+
+
+})();
+</script>
+
+<!-- PRILUCK_FINAL_LEADERBOARD_DETAIL_END -->
+
 </body>
 </html>
