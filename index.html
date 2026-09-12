@@ -9765,7 +9765,24 @@ renderTaskHistory();
             column.querySelector(".p-earn");
 
           if (name) {
-            name.textContent = user.name;
+            var fullName = String(user.name || "").trim();
+
+            name.setAttribute(
+              "data-priluck-full-name",
+              fullName
+            );
+
+            name.setAttribute(
+              "title",
+              fullName
+            );
+
+            var displayName =
+              fullName.length <= 6
+                ? fullName
+                : fullName.substring(0, 6) + "...";
+
+            name.textContent = displayName;
           }
 
           if (earn) {
@@ -11021,19 +11038,18 @@ renderTaskHistory();
 #screen-leaderboard .podium-container .col-1st .p-name,
 #screen-leaderboard .podium-container .col-2nd .p-name,
 #screen-leaderboard .podium-container .col-3rd .p-name {
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: 100% !important;
   min-width: 0 !important;
   max-width: 100% !important;
-
-  height: 22px !important;
-  min-height: 22px !important;
-  max-height: 22px !important;
-
+  height: 24px !important;
+  min-height: 24px !important;
+  max-height: 24px !important;
   overflow: hidden !important;
   white-space: nowrap !important;
   text-overflow: clip !important;
-
   text-align: center !important;
   box-sizing: border-box !important;
 }
@@ -11273,11 +11289,17 @@ renderTaskHistory();
        * Read the current name AFTER the existing
        * Leaderboard filter engine changes it.
        */
-      var fullName =
+      var currentVisibleName =
+        nameElement.textContent.trim();
+
+      var storedFullName =
         nameElement.getAttribute(
           "data-priluck-full-name"
-        ) ||
-        nameElement.textContent.trim();
+        );
+
+      var fullName =
+        storedFullName ||
+        currentVisibleName;
 
       if (!fullName) {
         return;
@@ -11305,8 +11327,10 @@ renderTaskHistory();
        * Only visual text is shortened.
        * Existing podium data/earning remains untouched.
        */
-      nameElement.textContent =
-        getShortPodiumName(fullName);
+      var shortName = getShortPodiumName(fullName);
+      if (nameElement.textContent !== shortName) {
+        nameElement.textContent = shortName;
+      }
 
     });
 
