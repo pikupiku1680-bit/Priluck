@@ -9237,20 +9237,34 @@ renderTaskHistory();
             "আমি PriLuck Leaderboard-এ আমার র‍্যাঙ্ক দেখছি!";
 
           if (
-            navigator.share
+            navigator.share &&
+            typeof navigator.share === "function"
           ) {
 
-            navigator.share({
+            var shareData = {
               title: "PriLuck Leaderboard",
-              text: shareText
-            }).catch(function () {});
+              text: shareText,
+              url: window.location.href
+            };
+
+            navigator.share(shareData).catch(function (error) {
+
+              if (
+                error &&
+                error.name === "AbortError"
+              ) {
+                return;
+              }
+
+            });
 
           } else {
 
             showActionMessage(
               "📤 র‍্যাঙ্ক শেয়ার করুন",
-              "আপনার বর্তমান Leaderboard rank অন্যদের সঙ্গে শেয়ার করার জন্য Share অপশন প্রস্তুত।"
+              "এই পরিবেশে native Share অপশন উপলব্ধ নেই। ব্রাউজার বা supported app environment থেকে আবার চেষ্টা করুন।"
             );
+
           }
 
         } else if (
