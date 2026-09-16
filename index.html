@@ -11853,5 +11853,6150 @@ renderTaskHistory();
 
 <!-- PRILUCK_FINAL_LEADERBOARD_DETAIL_END -->
 
+
+
+<!-- PRILUCK_WALLET_REFER_PROFILE_DEMO_LOGIC_V1 -->
+
+
+<style>
+/* PRILUCK WALLET PREMIUM V2 — Wallet scoped only */
+
+.pr-wallet-modal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:12000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+  background:rgba(24,12,55,.58);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.pr-wallet-modal{
+  width:min(94vw,430px);
+  max-height:91vh;
+  overflow:auto;
+  background:linear-gradient(180deg,#ffffff 0%,#faf7ff 100%);
+  border:1px solid rgba(124,58,237,.16);
+  border-radius:28px;
+  box-shadow:0 28px 90px rgba(30,12,70,.34);
+  color:#24124d;
+  animation:prWalletModalIn .22s ease-out;
+}
+
+@keyframes prWalletModalIn{
+  from{opacity:0;transform:translateY(18px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.pr-wallet-modal-head{
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:18px 18px 14px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #eee7fb;
+}
+
+.pr-wallet-modal-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:900;
+}
+
+.pr-wallet-modal-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  color:#fff;
+  font-size:20px;
+  box-shadow:0 8px 22px rgba(99,64,210,.25);
+}
+
+.pr-wallet-close{
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:12px;
+  background:#f3effc;
+  color:#4c1d95;
+  font-size:21px;
+  cursor:pointer;
+}
+
+.pr-wallet-modal-body{
+  padding:18px;
+}
+
+.pr-wallet-balance-card{
+  padding:17px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#5b21b6,#7c3aed 58%,#9333ea);
+  color:#fff;
+  box-shadow:0 12px 28px rgba(91,33,182,.22);
+  margin-bottom:16px;
+}
+
+.pr-wallet-balance-label{
+  font-size:12px;
+  opacity:.84;
+  font-weight:700;
+}
+
+.pr-wallet-balance-value{
+  margin-top:4px;
+  font-size:28px;
+  font-weight:950;
+}
+
+.pr-wallet-field-label{
+  display:block;
+  margin:14px 0 7px;
+  font-size:12px;
+  font-weight:850;
+  color:#4c1d95;
+}
+
+.pr-wallet-amount{
+  width:100%;
+  box-sizing:border-box;
+  border:1.5px solid #ded2f4;
+  border-radius:15px;
+  padding:13px 14px;
+  outline:none;
+  font-size:17px;
+  font-weight:800;
+  color:#24124d;
+  background:#fff;
+}
+
+.pr-wallet-amount:focus{
+  border-color:#7c3aed;
+  box-shadow:0 0 0 4px rgba(124,58,237,.10);
+}
+
+.pr-wallet-method-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.pr-wallet-method{
+  border:1.5px solid #e3daf3;
+  background:#fff;
+  border-radius:16px;
+  padding:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.16s ease;
+}
+
+.pr-wallet-method.active{
+  border-color:#7c3aed;
+  background:#f5f0ff;
+  box-shadow:0 6px 18px rgba(124,58,237,.12);
+}
+
+.pr-wallet-method-top{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-weight:900;
+  font-size:13px;
+}
+
+.pr-wallet-method-logo{
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f0eaff;
+  font-size:16px;
+}
+
+.pr-wallet-method-sub{
+  margin-top:5px;
+  color:#7b6d91;
+  font-size:10px;
+}
+
+.pr-wallet-submit{
+  width:100%;
+  border:0;
+  border-radius:16px;
+  margin-top:16px;
+  padding:14px;
+  color:#fff;
+  background:linear-gradient(135deg,#6d28d9,#4f46e5);
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 10px 24px rgba(79,70,229,.25);
+}
+
+.pr-wallet-filter-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin-bottom:14px;
+}
+
+.pr-wallet-filter{
+  border:1px solid #e4dbf1;
+  background:#fff;
+  border-radius:12px;
+  padding:9px 4px;
+  font-size:10px;
+  font-weight:850;
+  color:#695a7e;
+  cursor:pointer;
+}
+
+.pr-wallet-filter.active{
+  background:#6d28d9;
+  border-color:#6d28d9;
+  color:#fff;
+}
+
+.pr-wallet-date-picker{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.pr-wallet-date-btn{
+  width:100%;
+  border:1px solid #ddd3ef;
+  background:#fff;
+  border-radius:14px;
+  padding:11px;
+  text-align:left;
+  cursor:pointer;
+}
+
+.pr-wallet-date-caption{
+  display:block;
+  font-size:9px;
+  color:#897b9e;
+  margin-bottom:3px;
+}
+
+.pr-wallet-date-value{
+  font-size:13px;
+  font-weight:900;
+  color:#4c1d95;
+}
+
+.pr-wallet-calendar{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin-top:10px;
+  padding:12px;
+  background:#f8f5fd;
+  border-radius:16px;
+}
+
+.pr-wallet-calendar-year{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:5px;
+  max-height:170px;
+  overflow:auto;
+}
+
+.pr-wallet-calendar button{
+  border:1px solid #e4dbf1;
+  background:#fff;
+  border-radius:9px;
+  padding:7px 3px;
+  font-size:10px;
+  cursor:pointer;
+}
+
+.pr-wallet-calendar button.active{
+  background:#7c3aed;
+  color:#fff;
+  border-color:#7c3aed;
+}
+
+.pr-wallet-tx{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #eee8f6;
+}
+
+.pr-wallet-tx:last-child{
+  border-bottom:0;
+}
+
+.pr-wallet-tx-icon{
+  flex:0 0 38px;
+  width:38px;
+  height:38px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f0eaff;
+  font-size:17px;
+}
+
+.pr-wallet-tx-main{
+  min-width:0;
+  flex:1;
+}
+
+.pr-wallet-tx-title{
+  font-size:12px;
+  font-weight:900;
+}
+
+.pr-wallet-tx-sub{
+  margin-top:3px;
+  color:#8a7c9c;
+  font-size:9px;
+}
+
+.pr-wallet-tx-right{
+  text-align:right;
+}
+
+.pr-wallet-tx-amount{
+  font-size:12px;
+  font-weight:950;
+}
+
+.pr-wallet-plus{color:#15803d}
+.pr-wallet-minus{color:#dc2626}
+.pr-wallet-pending{color:#d97706}
+.pr-wallet-failed{color:#dc2626}
+
+.pr-wallet-summary-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.pr-wallet-summary-card{
+  border:1px solid #e8e0f3;
+  border-radius:18px;
+  padding:15px;
+  background:#fff;
+  cursor:pointer;
+  box-shadow:0 5px 16px rgba(45,20,90,.05);
+}
+
+.pr-wallet-summary-card-icon{
+  font-size:22px;
+}
+
+.pr-wallet-summary-card-title{
+  margin-top:8px;
+  font-size:11px;
+  font-weight:850;
+  color:#665875;
+}
+
+.pr-wallet-summary-card-value{
+  margin-top:3px;
+  font-size:17px;
+  font-weight:950;
+  color:#32145e;
+}
+
+.pr-wallet-detail-box{
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:17px;
+  background:#f7f3fc;
+  border:1px solid #ebe3f5;
+}
+
+.pr-wallet-detail-title{
+  font-weight:950;
+  color:#4c1d95;
+}
+
+.pr-wallet-detail-line{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:7px 0;
+  border-bottom:1px dashed #ded3ee;
+  font-size:11px;
+}
+
+.pr-wallet-detail-line:last-child{
+  border-bottom:0;
+}
+
+.pr-wallet-stat-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.pr-wallet-stat{
+  padding:13px;
+  border-radius:16px;
+  background:#f8f5fd;
+  border:1px solid #ebe4f5;
+}
+
+.pr-wallet-stat span{
+  display:block;
+  color:#897b9e;
+  font-size:9px;
+}
+
+.pr-wallet-stat strong{
+  display:block;
+  margin-top:4px;
+  font-size:17px;
+}
+
+.pr-wallet-empty{
+  padding:28px 12px;
+  text-align:center;
+  color:#8a7c9c;
+  font-size:12px;
+}
+
+.pr-wallet-mini-tabs{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:5px;
+  margin-bottom:12px;
+}
+
+.pr-wallet-mini-tab{
+  border:1px solid #e4dbf1;
+  background:#fff;
+  border-radius:10px;
+  padding:8px 3px;
+  font-size:9px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.pr-wallet-mini-tab.active{
+  background:#ede5ff;
+  border-color:#8b5cf6;
+  color:#5b21b6;
+}
+
+.pr-wallet-cycle-row{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:10px 0;
+  border-bottom:1px solid #eee8f6;
+}
+
+.pr-wallet-cycle-day{
+  flex:0 0 34px;
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#ede9fe;
+  color:#5b21b6;
+  font-size:10px;
+  font-weight:950;
+}
+
+.pr-wallet-cycle-main{
+  flex:1;
+}
+
+.pr-wallet-cycle-main strong{
+  display:block;
+  font-size:11px;
+}
+
+.pr-wallet-cycle-main span{
+  display:block;
+  margin-top:2px;
+  font-size:9px;
+  color:#8a7c9c;
+}
+
+.pr-wallet-cycle-amount{
+  font-weight:950;
+  font-size:11px;
+}
+</style>
+
+<script>
+/* PRILUCK_WALLET_PREMIUM_ENGINE_V2_START */
+(function(){
+  "use strict";
+
+  var wallet = document.getElementById("screen-wallet");
+
+  if(!wallet){
+    console.warn("[Priluck] Wallet Premium V2: screen-wallet not found.");
+    return;
+  }
+
+  if(window.PriLuckWalletPremiumV2){
+    console.warn("[Priluck] Wallet Premium V2 already initialized.");
+    return;
+  }
+
+  window.PriLuckWalletPremiumV2 = true;
+
+  var state = {
+    filter: "all",
+    year: new Date().getFullYear(),
+    month: new Date().getMonth(),
+    calendarOpen: false,
+    selectedMethod: "UPI"
+  };
+
+  var seedTransactions = [
+    {id:1,type:"task_bonus",title:"টাস্ক কমপ্লিট বোনাস",sub:"15 টি টাস্ক সম্পূর্ণ",amount:50,status:"success",date:"2026-09-13T09:35:00",icon:"✓"},
+    {id:2,type:"refer_bonus",title:"রেফার বোনাস",sub:"বন্ধুকে Refer করার বোনাস",amount:50,status:"success",date:"2026-09-12T18:20:00",icon:"🎁"},
+    {id:3,type:"withdraw",title:"উইথড্র",sub:"UPI • PhonePe",amount:200,status:"success",date:"2026-09-10T14:10:00",icon:"↗"},
+    {id:4,type:"task_complete",title:"টাস্ক কমপ্লিট",sub:"Offer task verified",amount:15,status:"success",date:"2026-09-09T11:25:00",icon:"✓"},
+    {id:5,type:"task_bonus",title:"ডেইলি বোনাস",sub:"28 দিনের bonus cycle • Day 4",amount:5,status:"success",date:"2026-09-08T20:10:00",icon:"🔥"},
+    {id:6,type:"withdraw",title:"উইথড্র",sub:"Bank Transfer",amount:150,status:"pending",date:"2026-08-25T16:20:00",icon:"↗"},
+    {id:7,type:"refer_bonus",title:"রেফার বোনাস",sub:"Successful referral",amount:50,status:"success",date:"2026-08-22T12:10:00",icon:"🎁"},
+    {id:8,type:"task_complete",title:"টাস্ক কমপ্লিট",sub:"Task verified",amount:12,status:"failed",date:"2026-08-18T09:40:00",icon:"!"},
+    {id:9,type:"task_bonus",title:"টাস্ক কমপ্লিট বোনাস",sub:"15 টি টাস্ক সম্পূর্ণ",amount:20,status:"success",date:"2026-07-28T19:05:00",icon:"✓"},
+    {id:10,type:"refer_bonus",title:"রেফার বোনাস",sub:"Successful referral",amount:50,status:"success",date:"2026-07-20T13:15:00",icon:"🎁"},
+    {id:11,type:"withdraw",title:"উইথড্র",sub:"UPI • Google Pay",amount:100,status:"success",date:"2026-07-18T17:45:00",icon:"↗"},
+    {id:12,type:"task_complete",title:"টাস্ক কমপ্লিট",sub:"Offer task verified",amount:10,status:"success",date:"2026-06-16T10:25:00",icon:"✓"}
+  ];
+
+  var cycleRewards = [5,5,5,5,5,5,20];
+
+  function money(v){
+    var n = Number(v) || 0;
+    return "₹" + n.toLocaleString("en-IN",{
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    });
+  }
+
+  function getWalletBalance(){
+    var el = wallet.querySelector(".w-hero-amt");
+    if(!el) return 0;
+    return Number((el.textContent || "").replace(/[^0-9.]/g,"")) || 0;
+  }
+
+  function getMainBalance(){
+    var boxes = wallet.querySelectorAll(".w-split-box b");
+    if(boxes.length < 1) return 0;
+    return Number((boxes[0].textContent || "").replace(/[^0-9.]/g,"")) || 0;
+  }
+
+  function getBonusBalance(){
+    var boxes = wallet.querySelectorAll(".w-split-box b");
+    if(boxes.length < 2) return 0;
+    return Number((boxes[1].textContent || "").replace(/[^0-9.]/g,"")) || 0;
+  }
+
+  function syncWalletBalances(total, main, bonus){
+    var hero = wallet.querySelector(".w-hero-amt");
+    var boxes = wallet.querySelectorAll(".w-split-box b");
+
+    if(hero){
+      hero.textContent = money(total);
+    }
+
+    if(boxes.length >= 2){
+      boxes[0].textContent = money(main);
+      boxes[1].textContent = money(bonus);
+    }
+
+    try{
+      localStorage.setItem("priluck_wallet_total", String(total));
+      localStorage.setItem("priluck_wallet_main", String(main));
+      localStorage.setItem("priluck_wallet_bonus", String(bonus));
+    }catch(e){}
+  }
+
+  function getStoredTransactions(){
+    try{
+      var raw = localStorage.getItem("priluck_wallet_transactions_v2");
+      if(raw){
+        var parsed = JSON.parse(raw);
+        if(Array.isArray(parsed)) return parsed;
+      }
+    }catch(e){}
+
+    try{
+      var old = localStorage.getItem("priluck_wallet_state_v1");
+      if(old){
+        var parsedOld = JSON.parse(old);
+        if(parsedOld && Array.isArray(parsedOld.transactions)){
+          return parsedOld.transactions.map(function(x,i){
+            return {
+              id:"old-"+i,
+              type:x.type === "debit" ? "withdraw" : "task_bonus",
+              title:x.title || "লেনদেন",
+              sub:x.sub || "",
+              amount:Number(x.amount)||0,
+              status:(x.status === "সফল" ? "success" : "pending"),
+              date:new Date(x.timestamp || Date.now()).toISOString(),
+              icon:x.type === "debit" ? "↗" : "✓"
+            };
+          });
+        }
+      }
+    }catch(e){}
+
+    return seedTransactions.slice();
+  }
+
+  function saveTransactions(list){
+    try{
+      localStorage.setItem(
+        "priluck_wallet_transactions_v2",
+        JSON.stringify(list)
+      );
+    }catch(e){}
+  }
+
+  var transactions = getStoredTransactions();
+
+  if(!transactions.length){
+    transactions = seedTransactions.slice();
+    saveTransactions(transactions);
+  }
+
+  function statusText(s){
+    if(s === "success") return "সফল";
+    if(s === "pending") return "Pending";
+    if(s === "failed") return "Failed";
+    return s || "সফল";
+  }
+
+  function typeText(t){
+    if(t === "task_bonus") return "টাস্ক কমপ্লিট বোনাস";
+    if(t === "refer_bonus") return "রেফার বোনাস";
+    if(t === "withdraw") return "উইথড্র";
+    if(t === "task_complete") return "টাস্ক কমপ্লিট";
+    return "অন্যান্য";
+  }
+
+  function dateInfo(value){
+    var d = new Date(value);
+    if(isNaN(d.getTime())) d = new Date();
+
+    return {
+      year:d.getFullYear(),
+      month:d.getMonth(),
+      date:d.toLocaleDateString("bn-BD",{
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
+      }),
+      time:d.toLocaleTimeString("en-IN",{
+        hour:"2-digit",
+        minute:"2-digit"
+      }),
+      weekday:d.toLocaleDateString("bn-BD",{weekday:"long"})
+    };
+  }
+
+  function currentFilteredTransactions(){
+    return transactions.filter(function(item){
+      var d = dateInfo(item.date);
+
+      if(state.year !== d.year || state.month !== d.month) return false;
+
+      if(state.filter === "all") return true;
+      return item.status === state.filter;
+    }).sort(function(a,b){
+      return new Date(b.date) - new Date(a.date);
+    });
+  }
+
+  function addTransaction(item){
+    item.id = "tx-" + Date.now() + "-" + Math.floor(Math.random()*9999);
+    transactions.unshift(item);
+    saveTransactions(transactions);
+  }
+
+  function closeModal(){
+    var old = document.querySelector(".pr-wallet-modal-overlay");
+    if(old) old.remove();
+  }
+
+  function modal(title, icon, body, footer){
+    var overlay = document.createElement("div");
+    overlay.className = "pr-wallet-modal-overlay";
+
+    overlay.innerHTML =
+      '<div class="pr-wallet-modal">' +
+        '<div class="pr-wallet-modal-head">' +
+          '<div class="pr-wallet-modal-title">' +
+            '<div class="pr-wallet-modal-icon">'+icon+'</div>' +
+            '<span>'+title+'</span>' +
+          '</div>' +
+          '<button class="pr-wallet-close" type="button">×</button>' +
+        '</div>' +
+        '<div class="pr-wallet-modal-body">'+body+'</div>' +
+        (footer || "") +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+/* =========================================================
+   PRILUCK WALLET NESTED POPUP STACK V7
+   ← Back = close current/top popup only
+   × X    = close every Wallet popup layer
+   ========================================================= */
+
+var walletHead = overlay.querySelector(".pr-wallet-modal-head");
+
+if(walletHead){
+  var walletBack = document.createElement("button");
+
+  walletBack.type = "button";
+  walletBack.id = "pr-wallet-back";
+  walletBack.setAttribute("aria-label","Back");
+  walletBack.innerHTML = "←";
+
+  walletBack.style.cssText =
+    "border:1px solid #e5daf5;" +
+    "background:#f7f2ff;" +
+    "color:#4c1d95;" +
+    "border-radius:12px;" +
+    "width:38px;" +
+    "height:38px;" +
+    "min-width:38px;" +
+    "font-size:22px;" +
+    "font-weight:900;" +
+    "line-height:1;" +
+    "cursor:pointer;" +
+    "display:flex;" +
+    "align-items:center;" +
+    "justify-content:center;" +
+    "padding:0;" +
+    "flex:0 0 38px;";
+
+  walletBack.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    /* Back closes ONLY the current popup */
+    overlay.remove();
+  });
+
+  walletHead.insertBefore(walletBack,walletHead.firstChild);
+}
+
+    overlay.querySelector(".pr-wallet-close").addEventListener("click",function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      document.querySelectorAll(".pr-wallet-modal-overlay").forEach(function(layer){
+        layer.remove();
+      });
+    });
+
+    overlay.addEventListener("click",function(e){
+      if(e.target === overlay){
+        e.preventDefault();
+        e.stopPropagation();
+        overlay.remove();
+      }
+    });
+
+    return overlay;
+  }
+
+  function openWithdraw(){
+    state.selectedMethod = "UPI";
+
+    var mainBalance = getMainBalance();
+    var totalBalance = getWalletBalance();
+    var bonusBalance = getBonusBalance();
+
+    var body =
+      '<div class="pr-wallet-balance-card">' +
+        '<div class="pr-wallet-balance-label">উইথড্র করার জন্য উপলব্ধ মূল ব্যালেন্স</div>' +
+        '<div class="pr-wallet-balance-value">'+money(mainBalance)+'</div>' +
+        '<div style="margin-top:5px;font-size:10px;opacity:.78;">মোট ব্যালেন্স: '+money(totalBalance)+' • Bonus: '+money(bonusBalance)+'</div>' +
+      '</div>' +
+
+      '<label class="pr-wallet-field-label">কত টাকা Withdraw করবেন?</label>' +
+      '<input class="pr-wallet-amount" id="pr-wallet-withdraw-amount" type="number" min="50" step="0.01" placeholder="যেমন 100">' +
+
+      '<label class="pr-wallet-field-label">Payment Method নির্বাচন করুন</label>' +
+
+      '<div class="pr-wallet-method-grid">' +
+
+        '<button class="pr-wallet-method active" data-method="UPI">' +
+          '<div class="pr-wallet-method-top"><span class="pr-wallet-method-logo">₹</span> UPI</div>' +
+          '<div class="pr-wallet-method-sub">Google Pay • PhonePe • Paytm • BHIM</div>' +
+        '</button>' +
+
+        '<button class="pr-wallet-method" data-method="Bank">' +
+          '<div class="pr-wallet-method-top"><span class="pr-wallet-method-logo">🏦</span> Bank</div>' +
+          '<div class="pr-wallet-method-sub">Bank account transfer</div>' +
+        '</button>' +
+
+      '</div>' +
+
+      '<div id="pr-wallet-payment-fields">' +
+        '<label class="pr-wallet-field-label">UPI ID / Payment App</label>' +
+        '<input class="pr-wallet-amount" id="pr-wallet-payment-id" type="text" placeholder="example@upi">' +
+      '</div>' +
+
+      '<button class="pr-wallet-submit" id="pr-wallet-withdraw-submit">Withdraw Request পাঠান</button>';
+
+    var m = modal("উইথড্র করুন","💸",body);
+
+    m.querySelectorAll(".pr-wallet-method").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        m.querySelectorAll(".pr-wallet-method").forEach(function(x){
+          x.classList.remove("active");
+        });
+        btn.classList.add("active");
+
+        state.selectedMethod = btn.getAttribute("data-method");
+
+        var fields = m.querySelector("#pr-wallet-payment-fields");
+
+        if(state.selectedMethod === "UPI"){
+          fields.innerHTML =
+            '<label class="pr-wallet-field-label">UPI ID / Payment App</label>' +
+            '<input class="pr-wallet-amount" id="pr-wallet-payment-id" type="text" placeholder="example@upi">' +
+            '<div style="margin-top:8px;font-size:10px;color:#897b9e;">Supported demo apps: Google Pay, PhonePe, Paytm, BHIM</div>';
+        }else{
+          fields.innerHTML =
+            '<label class="pr-wallet-field-label">Bank Account / Demo Details</label>' +
+            '<input class="pr-wallet-amount" id="pr-wallet-payment-id" type="text" placeholder="Account number / demo account">';
+        }
+      });
+    });
+
+    m.querySelector("#pr-wallet-withdraw-submit").addEventListener("click",function(){
+      var amount = Number(m.querySelector("#pr-wallet-withdraw-amount").value);
+      var payment = String(m.querySelector("#pr-wallet-payment-id").value || "").trim();
+
+      if(!Number.isFinite(amount) || amount < 50){
+        alert("❌ Minimum withdrawal ₹50।");
+        return;
+      }
+
+      var freshMain = getMainBalance();
+      var freshBonus = getBonusBalance();
+      var freshTotal = getWalletBalance();
+
+      if(amount > freshMain){
+        alert("❌ পর্যাপ্ত main balance নেই। Available: " + money(freshMain));
+        return;
+      }
+
+      if(!payment){
+        alert("❌ Payment details দিন।");
+        return;
+      }
+
+      var newMain = Number((freshMain - amount).toFixed(2));
+      var newTotal = Number((newMain + freshBonus).toFixed(2));
+
+      /*
+       * Withdraw always consumes MAIN balance only.
+       * Bonus balance remains untouched.
+       */
+      syncWalletBalances(newTotal, newMain, freshBonus);
+
+      addTransaction({
+        type:"withdraw",
+        title:"উইথড্র রিকোয়েস্ট",
+        sub:state.selectedMethod === "UPI"
+          ? "UPI • "+payment
+          : "Bank Transfer • "+payment,
+        amount:amount,
+        status:"pending",
+        date:new Date().toISOString(),
+        icon:"↗"
+      });
+
+      closeModal();
+
+      alert(
+        "✅ Withdraw request তৈরি হয়েছে।\n\n" +
+        "Amount: " + money(amount) + "\n" +
+        "Method: " + state.selectedMethod + "\n\n" +
+        "Demo version-এ status Pending রাখা হয়েছে।"
+      );
+    });
+  }
+
+  function buildCalendar(m){
+    var html =
+      '<div class="pr-wallet-calendar">' +
+        '<div style="grid-column:1/-1;font-size:11px;font-weight:900;color:#4c1d95;">Year</div>' +
+        '<div class="pr-wallet-calendar-year">';
+
+    for(var y=2000;y<=2040;y++){
+      html +=
+        '<button type="button" data-year="'+y+'" class="'+(y===state.year?"active":"")+'">'+y+'</button>';
+    }
+
+    html +=
+        '</div>' +
+        '<div style="grid-column:1/-1;font-size:11px;font-weight:900;color:#4c1d95;margin-top:5px;">Month</div>';
+
+    for(var i=0;i<12;i++){
+      var monthName = new Date(2000,i,1).toLocaleDateString("en-US",{month:"short"});
+      html +=
+        '<button type="button" data-month="'+i+'" class="'+(i===state.month?"active":"")+'">'+monthName+'</button>';
+    }
+
+    html += '</div>';
+
+    m.querySelector("#pr-wallet-calendar-wrap").innerHTML = html;
+
+    m.querySelectorAll("[data-year]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        state.year = Number(btn.getAttribute("data-year"));
+        renderHistoryModal(m);
+      });
+    });
+
+    m.querySelectorAll("[data-month]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        state.month = Number(btn.getAttribute("data-month"));
+        renderHistoryModal(m);
+      });
+    });
+  }
+
+  function txRows(list){
+    if(!list.length){
+      return '<div class="pr-wallet-empty">এই মাস/ফিল্টারে কোনো transaction নেই।</div>';
+    }
+
+    return list.map(function(item){
+      var d = dateInfo(item.date);
+      var isDebit = item.type === "withdraw";
+      var cls = item.status === "success"
+        ? (isDebit ? "pr-wallet-minus" : "pr-wallet-plus")
+        : (item.status === "pending" ? "pr-wallet-pending" : "pr-wallet-failed");
+
+      return (
+        '<div class="pr-wallet-tx">' +
+          '<div class="pr-wallet-tx-icon">'+(item.icon || "₹")+'</div>' +
+          '<div class="pr-wallet-tx-main">' +
+            '<div class="pr-wallet-tx-title">'+item.title+'</div>' +
+            '<div class="pr-wallet-tx-sub">'+item.sub+' • '+d.date+' • '+d.time+'</div>' +
+          '</div>' +
+          '<div class="pr-wallet-tx-right">' +
+            '<div class="pr-wallet-tx-amount '+cls+'">'+(isDebit?"- ":"+ ")+money(item.amount)+'</div>' +
+            '<div class="pr-wallet-tx-sub">'+statusText(item.status)+'</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join("");
+  }
+
+  function renderHistoryModal(m){
+    var list = currentFilteredTransactions();
+
+    var body =
+      '<div class="pr-wallet-filter-row">' +
+        '<button class="pr-wallet-filter '+(state.filter==="all"?"active":"")+'" data-filter="all">সব</button>' +
+        '<button class="pr-wallet-filter '+(state.filter==="success"?"active":"")+'" data-filter="success">সফল</button>' +
+        '<button class="pr-wallet-filter '+(state.filter==="pending"?"active":"")+'" data-filter="pending">Pending</button>' +
+        '<button class="pr-wallet-filter '+(state.filter==="failed"?"active":"")+'" data-filter="failed">Failed</button>' +
+      '</div>' +
+
+      '<div class="pr-wallet-date-picker">' +
+        '<button class="pr-wallet-date-btn" id="pr-wallet-year-btn">' +
+          '<span class="pr-wallet-date-caption">YEAR</span>' +
+          '<span class="pr-wallet-date-value">'+state.year+'</span>' +
+        '</button>' +
+        '<button class="pr-wallet-date-btn" id="pr-wallet-month-btn">' +
+          '<span class="pr-wallet-date-caption">MONTH</span>' +
+          '<span class="pr-wallet-date-value">'+new Date(2000,state.month,1).toLocaleDateString("en-US",{month:"long"})+'</span>' +
+        '</button>' +
+      '</div>' +
+
+      '<div id="pr-wallet-calendar-wrap"></div>' +
+
+      '<div style="margin:14px 0 4px;font-size:12px;font-weight:900;color:#4c1d95;">'+
+        new Date(state.year,state.month,1).toLocaleDateString("bn-BD",{month:"long",year:"numeric"})+
+      '</div>' +
+
+      txRows(list);
+
+    m.querySelector(".pr-wallet-modal-body").innerHTML = body;
+
+    m.querySelectorAll("[data-filter]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        state.filter = btn.getAttribute("data-filter");
+        renderHistoryModal(m);
+      });
+    });
+
+    m.querySelector("#pr-wallet-year-btn").addEventListener("click",function(){
+      var wrap = m.querySelector("#pr-wallet-calendar-wrap");
+      wrap.innerHTML = "";
+      buildCalendar(m);
+    });
+
+    m.querySelector("#pr-wallet-month-btn").addEventListener("click",function(){
+      buildCalendar(m);
+    });
+  }
+
+  function openHistory(){
+
+    /*
+     * ========================================================
+     * TRANSACTION HISTORY
+     *
+     * ONLY WITHDRAW transactions are shown here.
+     *
+     * This popup has its OWN independent year/month/filter
+     * state. It never changes Recent All popup state.
+     * ========================================================
+     */
+
+    var historyState = {
+      filter: "all",
+      year: new Date().getFullYear(),
+      month: new Date().getMonth()
+    };
+
+    function getWithdrawList(){
+
+      return transactions.filter(function(item){
+
+        var d = dateInfo(item.date);
+
+        if(
+          d.year !== historyState.year ||
+          d.month !== historyState.month
+        ){
+          return false;
+        }
+
+        if(item.type !== "withdraw"){
+          return false;
+        }
+
+        if(
+          historyState.filter !== "all" &&
+          item.status !== historyState.filter
+        ){
+          return false;
+        }
+
+        return true;
+
+      }).sort(function(a,b){
+
+        return new Date(b.date) - new Date(a.date);
+
+      });
+
+    }
+
+
+    function withdrawSummary(){
+
+      var list = transactions.filter(function(item){
+
+        var d = dateInfo(item.date);
+
+        return (
+          d.year === historyState.year &&
+          d.month === historyState.month &&
+          item.type === "withdraw"
+        );
+
+      });
+
+      var total = 0;
+      var success = 0;
+      var pending = 0;
+      var failed = 0;
+
+      list.forEach(function(item){
+
+        var amount = Number(item.amount) || 0;
+
+        if(item.status !== "failed"){
+          total += amount;
+        }
+
+        if(item.status === "success"){
+          success++;
+        }
+
+        if(item.status === "pending"){
+          pending++;
+        }
+
+        if(item.status === "failed"){
+          failed++;
+        }
+
+      });
+
+      return {
+        count: list.length,
+        total: total,
+        success: success,
+        pending: pending,
+        failed: failed
+      };
+
+    }
+
+
+    var m = modal(
+      "লেনদেন ইতিহাস",
+      "🧾",
+      "<div></div>"
+    );
+
+
+    function renderHistory(){
+
+      var list = getWithdrawList();
+      var summary = withdrawSummary();
+
+      var body =
+
+        '<div class="pr-wallet-filter-row">' +
+
+          '<button class="pr-wallet-filter '+
+            (historyState.filter === "all" ? "active" : "")+
+            '" data-history-filter="all">সব</button>' +
+
+          '<button class="pr-wallet-filter '+
+            (historyState.filter === "success" ? "active" : "")+
+            '" data-history-filter="success">সফল</button>' +
+
+          '<button class="pr-wallet-filter '+
+            (historyState.filter === "pending" ? "active" : "")+
+            '" data-history-filter="pending">Pending</button>' +
+
+          '<button class="pr-wallet-filter '+
+            (historyState.filter === "failed" ? "active" : "")+
+            '" data-history-filter="failed">Failed</button>' +
+
+        '</div>' +
+
+
+        '<div class="pr-wallet-date-picker">' +
+
+          '<button class="pr-wallet-date-btn" id="pr-history-year">' +
+            '<span class="pr-wallet-date-caption">YEAR</span>' +
+            '<span class="pr-wallet-date-value">'+
+              historyState.year+
+            '</span>' +
+          '</button>' +
+
+          '<button class="pr-wallet-date-btn" id="pr-history-month">' +
+            '<span class="pr-wallet-date-caption">MONTH</span>' +
+            '<span class="pr-wallet-date-value">'+
+              new Date(
+                2000,
+                historyState.month,
+                1
+              ).toLocaleDateString(
+                "en-US",
+                {month:"long"}
+              )+
+            '</span>' +
+          '</button>' +
+
+        '</div>' +
+
+
+        '<div id="pr-history-calendar"></div>' +
+
+
+        '<div style="margin:14px 0 8px;font-size:12px;font-weight:900;color:#4c1d95;">'+
+          new Date(
+            historyState.year,
+            historyState.month,
+            1
+          ).toLocaleDateString(
+            "bn-BD",
+            {month:"long",year:"numeric"}
+          )+
+        '</div>' +
+
+
+        '<div class="pr-wallet-detail-box">' +
+
+          '<div class="pr-wallet-detail-title">💸 এই মাসের Withdraw Summary</div>' +
+
+          '<div class="pr-wallet-detail-line">' +
+            '<span>মোট Withdraw</span>' +
+            '<strong>'+money(summary.total)+'</strong>' +
+          '</div>' +
+
+          '<div class="pr-wallet-detail-line">' +
+            '<span>Withdraw count</span>' +
+            '<strong>'+summary.count+'</strong>' +
+          '</div>' +
+
+          '<div class="pr-wallet-detail-line">' +
+            '<span>সফল</span>' +
+            '<strong>'+summary.success+'</strong>' +
+          '</div>' +
+
+          '<div class="pr-wallet-detail-line">' +
+            '<span>Pending</span>' +
+            '<strong>'+summary.pending+'</strong>' +
+          '</div>' +
+
+          '<div class="pr-wallet-detail-line">' +
+            '<span>Failed</span>' +
+            '<strong>'+summary.failed+'</strong>' +
+          '</div>' +
+
+        '</div>' +
+
+
+        txRows(list);
+
+
+      m.querySelector(".pr-wallet-modal-body").innerHTML = body;
+
+
+      m.querySelectorAll("[data-history-filter]").forEach(
+        function(btn){
+
+          btn.addEventListener("click",function(){
+
+            historyState.filter =
+              btn.getAttribute(
+                "data-history-filter"
+              );
+
+            renderHistory();
+
+          });
+
+        }
+      );
+
+
+      m.querySelector("#pr-history-year").addEventListener(
+        "click",
+        function(){
+
+          buildHistoryCalendar();
+
+        }
+      );
+
+
+      m.querySelector("#pr-history-month").addEventListener(
+        "click",
+        function(){
+
+          buildHistoryCalendar();
+
+        }
+      );
+
+    }
+
+
+    function buildHistoryCalendar(){
+
+      var html =
+
+        '<div class="pr-wallet-calendar">' +
+
+          '<div style="grid-column:1/-1;font-size:11px;font-weight:900;color:#4c1d95;">Year</div>' +
+
+          '<div class="pr-wallet-calendar-year">';
+
+
+      for(var y=2000;y<=2040;y++){
+
+        html +=
+
+          '<button type="button" data-history-year="'+
+            y+
+            '" class="'+
+            (y === historyState.year ? "active" : "")+
+          '">'+
+            y+
+          '</button>';
+
+      }
+
+
+      html +=
+
+          '</div>' +
+
+          '<div style="grid-column:1/-1;font-size:11px;font-weight:900;color:#4c1d95;margin-top:5px;">Month</div>';
+
+
+      for(var i=0;i<12;i++){
+
+        var monthName =
+          new Date(
+            2000,
+            i,
+            1
+          ).toLocaleDateString(
+            "en-US",
+            {month:"short"}
+          );
+
+        html +=
+
+          '<button type="button" data-history-month="'+
+            i+
+            '" class="'+
+            (i === historyState.month ? "active" : "")+
+          '">'+
+            monthName+
+          '</button>';
+
+      }
+
+
+      html += '</div>';
+
+
+      m.querySelector(
+        "#pr-history-calendar"
+      ).innerHTML = html;
+
+
+      m.querySelectorAll(
+        "[data-history-year]"
+      ).forEach(function(btn){
+
+        btn.addEventListener(
+          "click",
+          function(){
+
+            historyState.year =
+              Number(
+                btn.getAttribute(
+                  "data-history-year"
+                )
+              );
+
+            renderHistory();
+
+          }
+        );
+
+      });
+
+
+      m.querySelectorAll(
+        "[data-history-month]"
+      ).forEach(function(btn){
+
+        btn.addEventListener(
+          "click",
+          function(){
+
+            historyState.month =
+              Number(
+                btn.getAttribute(
+                  "data-history-month"
+                )
+              );
+
+            renderHistory();
+
+          }
+        );
+
+      });
+
+    }
+
+
+    renderHistory();
+
+}
+
+  function summaryForMonth(year,month){
+    var list = transactions.filter(function(item){
+      var d = dateInfo(item.date);
+      return d.year === year && d.month === month;
+    });
+
+    var income = 0;
+    var expense = 0;
+    var bonus = 0;
+
+    list.forEach(function(item){
+      if(item.status === "failed") return;
+
+      if(item.type === "withdraw"){
+        expense += Number(item.amount)||0;
+      }else{
+        income += Number(item.amount)||0;
+      }
+
+      if(item.type === "task_bonus" || item.type === "refer_bonus"){
+        bonus += Number(item.amount)||0;
+      }
+    });
+
+    return {
+      totalIncome:income,
+      totalExpense:expense,
+      bonus:bonus,
+      transactions:list.length
+    };
+  }
+
+  function openSummaryDetails(){
+    var current = summaryForMonth(state.year,state.month);
+
+    var body =
+      '<div class="pr-wallet-stat-row">' +
+        '<div class="pr-wallet-stat"><span>Total Income</span><strong class="pr-wallet-plus">'+money(current.totalIncome)+'</strong></div>' +
+        '<div class="pr-wallet-stat"><span>Total Expenditure</span><strong class="pr-wallet-minus">'+money(current.totalExpense)+'</strong></div>' +
+      '</div>' +
+
+      '<div style="font-size:11px;font-weight:900;color:#4c1d95;margin:14px 0 8px;">'+
+        new Date(state.year,state.month,1).toLocaleDateString("bn-BD",{month:"long",year:"numeric"})+
+      '</div>' +
+
+      '<div class="pr-wallet-summary-grid">' +
+        '<div class="pr-wallet-summary-card" data-summary="income">' +
+          '<div class="pr-wallet-summary-card-icon">📈</div>' +
+          '<div class="pr-wallet-summary-card-title">মোট উপার্জন</div>' +
+          '<div class="pr-wallet-summary-card-value">'+money(current.totalIncome)+'</div>' +
+        '</div>' +
+
+        '<div class="pr-wallet-summary-card" data-summary="expense">' +
+          '<div class="pr-wallet-summary-card-icon">💸</div>' +
+          '<div class="pr-wallet-summary-card-title">মোট উত্তোলন</div>' +
+          '<div class="pr-wallet-summary-card-value">'+money(current.totalExpense)+'</div>' +
+        '</div>' +
+
+        '<div class="pr-wallet-summary-card" data-summary="bonus">' +
+          '<div class="pr-wallet-summary-card-icon">🎁</div>' +
+          '<div class="pr-wallet-summary-card-title">মোট বোনাস</div>' +
+          '<div class="pr-wallet-summary-card-value">'+money(current.bonus)+'</div>' +
+        '</div>' +
+
+        '<div class="pr-wallet-summary-card" data-summary="balance">' +
+          '<div class="pr-wallet-summary-card-icon">💰</div>' +
+          '<div class="pr-wallet-summary-card-title">বর্তমান ব্যালেন্স</div>' +
+          '<div class="pr-wallet-summary-card-value">'+money(getWalletBalance())+'</div>' +
+        '</div>' +
+      '</div>';
+
+    var m = modal("সংক্ষিপ্ত হিসেবের বিস্তারিত","📊",body);
+
+    m.querySelectorAll("[data-summary]").forEach(function(card){
+      card.addEventListener("click",function(){
+        var type = card.getAttribute("data-summary");
+        openSingleSummary(type);
+      });
+    });
+  }
+
+  function openSingleSummary(type){
+    var current = summaryForMonth(state.year,state.month);
+    var title = "";
+    var icon = "📊";
+    var content = "";
+
+    if(type === "income"){
+      title = "মোট উপার্জন";
+      icon = "📈";
+
+      var task = transactions.filter(function(x){
+        var d=dateInfo(x.date);
+        return d.year===state.year && d.month===state.month &&
+          x.status!=="failed" &&
+          (x.type==="task_bonus" || x.type==="task_complete");
+      }).reduce(function(a,x){return a+(Number(x.amount)||0)},0);
+
+      var refer = transactions.filter(function(x){
+        var d=dateInfo(x.date);
+        return d.year===state.year && d.month===state.month &&
+          x.status!=="failed" && x.type==="refer_bonus";
+      }).reduce(function(a,x){return a+(Number(x.amount)||0)},0);
+
+      content =
+        '<div class="pr-wallet-detail-box">' +
+          '<div class="pr-wallet-detail-title">এই মাসের Total Income</div>' +
+          '<div class="pr-wallet-detail-line"><span>Task Bonus + Task Complete</span><strong>'+money(task)+'</strong></div>' +
+          '<div class="pr-wallet-detail-line"><span>Refer Bonus</span><strong>'+money(refer)+'</strong></div>' +
+          '<div class="pr-wallet-detail-line"><span>মোট</span><strong>'+money(task+refer)+'</strong></div>' +
+        '</div>';
+    }
+
+    if(type === "expense"){
+      title = "মোট উত্তোলন";
+      icon = "💸";
+
+      var withdrawals = transactions.filter(function(x){
+        var d=dateInfo(x.date);
+        return d.year===state.year && d.month===state.month &&
+          x.type==="withdraw" && x.status!=="failed";
+      });
+
+      content = withdrawals.length
+        ? withdrawals.map(function(x){
+            return '<div class="pr-wallet-detail-line"><span>'+x.sub+'</span><strong>- '+money(x.amount)+'</strong></div>';
+          }).join("")
+        : '<div class="pr-wallet-empty">এই মাসে কোনো withdrawal নেই।</div>';
+    }
+
+    if(type === "bonus"){
+      title = "মোট বোনাস";
+      icon = "🎁";
+
+      var bonuses = transactions.filter(function(x){
+        var d=dateInfo(x.date);
+        return d.year===state.year && d.month===state.month &&
+          x.status!=="failed" &&
+          (x.type==="task_bonus" || x.type==="refer_bonus");
+      });
+
+      content = bonuses.length
+        ? bonuses.map(function(x){
+            return '<div class="pr-wallet-detail-line"><span>'+typeText(x.type)+'</span><strong>+ '+money(x.amount)+'</strong></div>';
+          }).join("")
+        : '<div class="pr-wallet-empty">এই মাসে কোনো bonus নেই।</div>';
+    }
+
+    if(type === "balance"){
+      title = "বর্তমান ব্যালেন্স";
+      icon = "💰";
+
+      content =
+        '<div class="pr-wallet-balance-card">' +
+          '<div class="pr-wallet-balance-label">Current Wallet Balance</div>' +
+          '<div class="pr-wallet-balance-value">'+money(getWalletBalance())+'</div>' +
+        '</div>' +
+        '<div class="pr-wallet-detail-box">' +
+          '<div class="pr-wallet-detail-line"><span>মূল ব্যালেন্স</span><strong>'+money(getMainBalance())+'</strong></div>' +
+          '<div class="pr-wallet-detail-line"><span>বোনাস</span><strong>'+money(getBonusBalance())+'</strong></div>' +
+          '<div class="pr-wallet-detail-line"><span>মোট</span><strong>'+money(getWalletBalance())+'</strong></div>' +
+        '</div>';
+    }
+
+    modal(title,icon,content);
+  }
+
+  function build28DayCycle(){
+    var start = new Date();
+    start.setHours(0,0,0,0);
+    start.setDate(start.getDate()-27);
+
+    var html = "";
+
+    for(var i=0;i<28;i++){
+      var d = new Date(start);
+      d.setDate(start.getDate()+i);
+
+      var dayNo = i+1;
+      var reward = cycleRewards[(dayNo-1)%7];
+
+      html +=
+        '<div class="pr-wallet-cycle-row">' +
+          '<div class="pr-wallet-cycle-day">'+dayNo+'</div>' +
+          '<div class="pr-wallet-cycle-main">' +
+            '<strong>'+d.toLocaleDateString("bn-BD",{weekday:"long"})+'</strong>' +
+            '<span>'+d.toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"})+
+            ' • 15 Task requirement • '+d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"})+
+            '</span>' +
+          '</div>' +
+          '<div class="pr-wallet-cycle-amount">+ '+money(reward)+'</div>' +
+        '</div>';
+    }
+
+    return html;
+  }
+
+  function openRecentAll(){
+
+    /*
+     * ========================================================
+     * RECENT TRANSACTIONS — ALL
+     *
+     * Completely independent year/month/filter state.
+     *
+     * This popup NEVER calls openHistory().
+     * ========================================================
+     */
+
+    var recentState = {
+      filter: "all",
+      year: new Date().getFullYear(),
+      month: new Date().getMonth()
+    };
+
+
+    function getRecentList(){
+
+      return transactions.filter(function(item){
+
+        var d = dateInfo(item.date);
+
+        if(
+          d.year !== recentState.year ||
+          d.month !== recentState.month
+        ){
+          return false;
+        }
+
+        if(
+          recentState.filter !== "all" &&
+          item.type !== recentState.filter
+        ){
+          return false;
+        }
+
+        return true;
+
+      }).sort(function(a,b){
+
+        return new Date(b.date) - new Date(a.date);
+
+      });
+
+    }
+
+
+    function recentSummary(){
+
+      var list = transactions.filter(function(item){
+
+        var d = dateInfo(item.date);
+
+        return (
+          d.year === recentState.year &&
+          d.month === recentState.month
+        );
+
+      });
+
+
+      var taskCount = 0;
+
+      var taskBonusCount = 0;
+      var taskBonusAmount = 0;
+
+      var referCount = 0;
+      var referAmount = 0;
+
+      var withdrawCount = 0;
+      var withdrawAmount = 0;
+
+
+      list.forEach(function(item){
+
+        var amount =
+          Number(item.amount) || 0;
+
+
+        if(item.type === "task_complete"){
+          taskCount++;
+        }
+
+
+        if(item.type === "task_bonus"){
+
+          taskBonusCount++;
+          taskBonusAmount += amount;
+
+        }
+
+
+        if(item.type === "refer_bonus"){
+
+          referCount++;
+          referAmount += amount;
+
+        }
+
+
+        if(item.type === "withdraw"){
+
+          withdrawCount++;
+
+          if(item.status !== "failed"){
+            withdrawAmount += amount;
+          }
+
+        }
+
+      });
+
+
+      return {
+        taskCount: taskCount,
+
+        taskBonusCount: taskBonusCount,
+        taskBonusAmount: taskBonusAmount,
+
+        referCount: referCount,
+        referAmount: referAmount,
+
+        withdrawCount: withdrawCount,
+        withdrawAmount: withdrawAmount,
+
+        totalTransactions: list.length
+      };
+
+    }
+
+
+    var m = modal(
+      "সাম্প্রতিক লেনদেন — সব দেখুন",
+      "🔔",
+      "<div></div>"
+    );
+
+
+    function renderRecent(){
+
+      var list =
+        getRecentList();
+
+      var summary =
+        recentSummary();
+
+
+      var body =
+
+        '<div class="pr-wallet-mini-tabs">' +
+
+          '<button class="pr-wallet-mini-tab '+
+            (recentState.filter === "all" ? "active" : "")+
+            '" data-recent-filter="all">সব</button>' +
+
+          '<button class="pr-wallet-mini-tab '+
+            (recentState.filter === "task_bonus" ? "active" : "")+
+            '" data-recent-filter="task_bonus">Task Bonus</button>' +
+
+          '<button class="pr-wallet-mini-tab '+
+            (recentState.filter === "refer_bonus" ? "active" : "")+
+            '" data-recent-filter="refer_bonus">Refer</button>' +
+
+          '<button class="pr-wallet-mini-tab '+
+            (recentState.filter === "withdraw" ? "active" : "")+
+            '" data-recent-filter="withdraw">Withdraw</button>' +
+
+          '<button class="pr-wallet-mini-tab '+
+            (recentState.filter === "task_complete" ? "active" : "")+
+            '" data-recent-filter="task_complete">Task</button>' +
+
+        '</div>' +
+
+
+        '<div class="pr-wallet-date-picker">' +
+
+          '<button class="pr-wallet-date-btn" id="pr-recent-year-v1">' +
+            '<span class="pr-wallet-date-caption">YEAR</span>' +
+            '<span class="pr-wallet-date-value">'+
+              recentState.year+
+            '</span>' +
+          '</button>' +
+
+          '<button class="pr-wallet-date-btn" id="pr-recent-month-v1">' +
+            '<span class="pr-wallet-date-caption">MONTH</span>' +
+            '<span class="pr-wallet-date-value">'+
+              new Date(
+                2000,
+                recentState.month,
+                1
+              ).toLocaleDateString(
+                "en-US",
+                {month:"long"}
+              )+
+            '</span>' +
+          '</button>' +
+
+        '</div>' +
+
+
+        '<div id="pr-recent-calendar-v1"></div>' +
+
+
+        '<div style="margin:14px 0 8px;font-size:12px;font-weight:900;color:#4c1d95;">'+
+          new Date(
+            recentState.year,
+            recentState.month,
+            1
+          ).toLocaleDateString(
+            "bn-BD",
+            {month:"long",year:"numeric"}
+          )+
+        '</div>' +
+
+
+        /*
+         * ------------------------------------------------------
+         * ALL MONTH/YEAR SUMMARY
+         * ------------------------------------------------------
+         */
+
+        '<div class="pr-wallet-summary-grid">' +
+
+          '<div class="pr-wallet-summary-card">' +
+            '<div class="pr-wallet-summary-card-icon">✓</div>' +
+            '<div class="pr-wallet-summary-card-title">Task Complete</div>' +
+            '<div class="pr-wallet-summary-card-value">'+
+              summary.taskCount+
+            '</div>' +
+          '</div>' +
+
+
+          '<div class="pr-wallet-summary-card">' +
+            '<div class="pr-wallet-summary-card-icon">🎁</div>' +
+            '<div class="pr-wallet-summary-card-title">Task Bonus</div>' +
+            '<div class="pr-wallet-summary-card-value">'+
+              money(summary.taskBonusAmount)+
+            '</div>' +
+            '<div style="font-size:9px;color:#897b9e;margin-top:2px;">'+
+              summary.taskBonusCount+
+              ' টি bonus'+
+            '</div>' +
+          '</div>' +
+
+
+          '<div class="pr-wallet-summary-card">' +
+            '<div class="pr-wallet-summary-card-icon">👥</div>' +
+            '<div class="pr-wallet-summary-card-title">Refer Bonus</div>' +
+            '<div class="pr-wallet-summary-card-value">'+
+              money(summary.referAmount)+
+            '</div>' +
+            '<div style="font-size:9px;color:#897b9e;margin-top:2px;">'+
+              summary.referCount+
+              ' টি referral bonus'+
+            '</div>' +
+          '</div>' +
+
+
+          '<div class="pr-wallet-summary-card">' +
+            '<div class="pr-wallet-summary-card-icon">💸</div>' +
+            '<div class="pr-wallet-summary-card-title">Withdraw</div>' +
+            '<div class="pr-wallet-summary-card-value">'+
+              money(summary.withdrawAmount)+
+            '</div>' +
+            '<div style="font-size:9px;color:#897b9e;margin-top:2px;">'+
+              summary.withdrawCount+
+              ' টি request'+
+            '</div>' +
+          '</div>' +
+
+        '</div>' +
+
+
+        '<div style="margin-top:12px;">'+
+          txRows(list)+
+        '</div>';
+
+
+      m.querySelector(
+        ".pr-wallet-modal-body"
+      ).innerHTML = body;
+
+      /* SUMMARY CARDS = ONLY "সব" FILTER */
+      if(recentState.filter !== "all"){
+        var recentSummaryGrid =
+          m.querySelector(".pr-wallet-summary-grid");
+        if(recentSummaryGrid){
+          recentSummaryGrid.remove();
+        }
+      }
+
+
+      /*
+       * ------------------------------------------------------
+       * CATEGORY FILTER
+       * ------------------------------------------------------
+       */
+
+      m.querySelectorAll(
+        "[data-recent-filter]"
+      ).forEach(function(btn){
+
+        btn.addEventListener(
+          "click",
+          function(){
+
+            recentState.filter =
+              btn.getAttribute(
+                "data-recent-filter"
+              );
+
+            renderRecent();
+
+          }
+        );
+
+      });
+
+
+      /*
+       * ------------------------------------------------------
+       * OWN CALENDAR
+       * ------------------------------------------------------
+       */
+
+      m.querySelector(
+        "#pr-recent-year-v1"
+      ).addEventListener(
+        "click",
+        function(){
+
+          buildRecentCalendar();
+
+        }
+      );
+
+
+      m.querySelector(
+        "#pr-recent-month-v1"
+      ).addEventListener(
+        "click",
+        function(){
+
+          buildRecentCalendar();
+
+        }
+      );
+
+    }
+
+
+    function buildRecentCalendar(){
+
+      var html =
+
+        '<div class="pr-wallet-calendar">' +
+
+          '<div style="grid-column:1/-1;font-size:11px;font-weight:900;color:#4c1d95;">Year</div>' +
+
+          '<div class="pr-wallet-calendar-year">';
+
+
+      for(var y=2000;y<=2040;y++){
+
+        html +=
+
+          '<button type="button" data-recent-year-v1="'+
+            y+
+            '" class="'+
+            (y === recentState.year ? "active" : "")+
+          '">'+
+            y+
+          '</button>';
+
+      }
+
+
+      html +=
+
+          '</div>' +
+
+          '<div style="grid-column:1/-1;font-size:11px;font-weight:900;color:#4c1d95;margin-top:5px;">Month</div>';
+
+
+      for(var i=0;i<12;i++){
+
+        var monthName =
+          new Date(
+            2000,
+            i,
+            1
+          ).toLocaleDateString(
+            "en-US",
+            {month:"short"}
+          );
+
+
+        html +=
+
+          '<button type="button" data-recent-month-v1="'+
+            i+
+            '" class="'+
+            (i === recentState.month ? "active" : "")+
+          '">'+
+            monthName+
+          '</button>';
+
+      }
+
+
+      html += '</div>';
+
+
+      m.querySelector(
+        "#pr-recent-calendar-v1"
+      ).innerHTML = html;
+
+
+      m.querySelectorAll(
+        "[data-recent-year-v1]"
+      ).forEach(function(btn){
+
+        btn.addEventListener(
+          "click",
+          function(){
+
+            recentState.year =
+              Number(
+                btn.getAttribute(
+                  "data-recent-year-v1"
+                )
+              );
+
+            renderRecent();
+
+          }
+        );
+
+      });
+
+
+      m.querySelectorAll(
+        "[data-recent-month-v1]"
+      ).forEach(function(btn){
+
+        btn.addEventListener(
+          "click",
+          function(){
+
+            recentState.month =
+              Number(
+                btn.getAttribute(
+                  "data-recent-month-v1"
+                )
+              );
+
+            renderRecent();
+
+          }
+        );
+
+      });
+
+    }
+
+
+    renderRecent();
+
+}
+
+  function openOffers(){
+    var target = document.getElementById("screen-offers");
+
+    if(!target){
+      alert("🎁 Offers screen পাওয়া যায়নি।");
+      return;
+    }
+
+    document.querySelectorAll(".screen").forEach(function(x){
+      x.classList.remove("active");
+    });
+
+    target.classList.add("active");
+
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  /* PRILUCK_WALLET_OLD_HANDLER_FIX_V1 */
+
+  function removeOldInlineHandlers(el){
+    if(!el) return;
+
+    /*
+      cloneNode() copies inline onclick/onchange/etc attributes.
+      Those old Wallet handlers were causing the old popup/alert
+      to appear before the new Premium V2 popup.
+    */
+    Array.prototype.slice.call(el.attributes || []).forEach(function(attr){
+      if(/^on/i.test(attr.name)){
+        el.removeAttribute(attr.name);
+      }
+    });
+
+    var all = el.querySelectorAll ? el.querySelectorAll("*") : [];
+
+    Array.prototype.forEach.call(all,function(node){
+      Array.prototype.slice.call(node.attributes || []).forEach(function(attr){
+        if(/^on/i.test(attr.name)){
+          node.removeAttribute(attr.name);
+        }
+      });
+
+      try{
+        node.onclick = null;
+        node.onmousedown = null;
+        node.onmouseup = null;
+        node.ontouchstart = null;
+        node.ontouchend = null;
+        node.onchange = null;
+        node.onsubmit = null;
+      }catch(e){}
+    });
+
+    try{
+      el.onclick = null;
+      el.onmousedown = null;
+      el.onmouseup = null;
+      el.ontouchstart = null;
+      el.ontouchend = null;
+      el.onchange = null;
+      el.onsubmit = null;
+    }catch(e){}
+  }
+
+  function replaceButton(oldButton, handler){
+    var clone = oldButton.cloneNode(true);
+
+    /* Remove every old inline Wallet handler before inserting clone. */
+    removeOldInlineHandlers(clone);
+
+    oldButton.parentNode.replaceChild(clone,oldButton);
+
+    clone.addEventListener("click",function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      handler();
+    });
+
+    return clone;
+  }
+
+  function bindWalletButtons(){
+
+    /*
+     * V2 is the ONLY Wallet click-handler owner.
+     * Old V1 Wallet handlers are disabled above.
+     */
+    var buttons = Array.prototype.slice.call(
+      wallet.querySelectorAll(".w-act-btn")
+    );
+
+    buttons.forEach(function(button){
+      var label = (button.textContent || "").trim();
+
+      if(label.includes("উইথড্র")){
+        replaceButton(button,openWithdraw);
+      }else if(label.includes("লেনদেন ইতিহাস")){
+        replaceButton(button,openHistory);
+      }else if(label.includes("অফার")){
+        replaceButton(button,openOffers);
+      }
+    });
+
+    wallet.querySelectorAll(".w-sec-header a").forEach(function(link){
+      var text = (link.textContent || "").trim();
+
+      if(text.includes("সব দেখুন")){
+        var clone = link.cloneNode(true);
+
+        /* Remove old inline onclick/handlers from "সব দেখুন". */
+        removeOldInlineHandlers(clone);
+
+        link.parentNode.replaceChild(clone,link);
+
+        clone.addEventListener("click",function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+
+          var heading = clone.parentNode.querySelector("h3");
+          var title = heading ? heading.textContent.trim() : "";
+
+          if(title.includes("সংক্ষিপ্ত")){
+            openSummaryDetails();
+          }else if(title.includes("সাম্প্রতিক")){
+            openRecentAll();
+          }
+        });
+      }
+    });
+  }
+
+  function observeWalletChanges(){
+    var last = getWalletBalance();
+
+    setInterval(function(){
+      var now = getWalletBalance();
+
+      if(now > last + 0.009){
+        var difference = Number((now-last).toFixed(2));
+
+        var existing = transactions[0];
+
+        if(!existing || Math.abs(Number(existing.amount||0)-difference)>0.009){
+          addTransaction({
+            type:"task_complete",
+            title:"টাস্ক কমপ্লিট",
+            sub:"Wallet balance updated • নতুন earning detected",
+            amount:difference,
+            status:"success",
+            date:new Date().toISOString(),
+            icon:"✓"
+          });
+        }
+      }
+
+      last = now;
+    },1500);
+  }
+
+  bindWalletButtons();
+  observeWalletChanges();
+
+  console.log("==================================================");
+  console.log("✅ PRILUCK WALLET PREMIUM V2 READY");
+  console.log("✅ Premium Withdraw modal");
+  console.log("✅ UPI: Google Pay / PhonePe / Paytm / BHIM");
+  console.log("✅ Bank transfer option");
+  console.log("✅ Transaction History filters");
+  console.log("✅ Year selector 2000-2040");
+  console.log("✅ 12-month selector");
+  console.log("✅ Current month auto selected");
+  console.log("✅ Monthly transaction filtering");
+  console.log("✅ Summary cards detailed modal");
+  console.log("✅ Recent transaction detailed modal");
+  console.log("✅ 5 recent-transaction categories");
+  console.log("✅ 28-day demo bonus cycle");
+  console.log("✅ Total Income / Total Expenditure");
+  console.log("🚫 Home untouched");
+  console.log("🚫 Leaderboard untouched");
+  console.log("🚫 Refer untouched");
+  console.log("🚫 Profile untouched");
+  console.log("==================================================");
+
+})();
+/* PRILUCK_WALLET_PREMIUM_ENGINE_V2_END */
+</script>
+
+
+<!-- PRILUCK_WALLET_LOGIC_CLEANUP_V2_END -->
+
+
+<style>
+/* ==========================================================
+   PRILUCK REFER + PROFILE PREMIUM V2
+   ONLY #screen-refer + #screen-profile
+   ========================================================== */
+
+.pr-rp-overlay{
+  position:fixed;
+  inset:0;
+  z-index:25000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+  background:rgba(20,10,48,.62);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+}
+
+.pr-rp-modal{
+  width:min(94vw,430px);
+  max-height:90vh;
+  overflow:auto;
+  border-radius:28px;
+  background:linear-gradient(180deg,#fff 0%,#faf7ff 100%);
+  color:#24124d;
+  border:1px solid rgba(109,61,240,.15);
+  box-shadow:0 30px 90px rgba(35,12,75,.38);
+  animation:prRpIn .22s ease-out;
+}
+
+@keyframes prRpIn{
+  from{opacity:0;transform:translateY(18px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.pr-rp-head{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:18px 18px 14px;
+  border-bottom:1px solid #eee7fa;
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(12px);
+}
+
+.pr-rp-head-icon{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  color:#fff;
+  font-size:20px;
+  flex:0 0 43px;
+}
+
+.pr-rp-head-title{
+  flex:1;
+  font-size:17px;
+  font-weight:950;
+}
+
+.pr-rp-close{
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:12px;
+  background:#f2edfb;
+  color:#4c1d95;
+  font-size:21px;
+  cursor:pointer;
+}
+
+.pr-rp-body{
+  padding:18px;
+}
+
+.pr-rp-hero{
+  padding:18px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#5b21b6,#7c3aed,#9333ea);
+  color:#fff;
+  box-shadow:0 12px 28px rgba(91,33,182,.22);
+  margin-bottom:15px;
+}
+
+.pr-rp-hero-icon{
+  font-size:28px;
+}
+
+.pr-rp-hero-title{
+  margin-top:7px;
+  font-size:19px;
+  font-weight:950;
+}
+
+.pr-rp-hero-sub{
+  margin-top:4px;
+  font-size:11px;
+  opacity:.82;
+  line-height:1.5;
+}
+
+.pr-rp-info{
+  padding:14px;
+  border-radius:17px;
+  background:#f7f3fc;
+  border:1px solid #ebe3f5;
+  margin-bottom:10px;
+}
+
+.pr-rp-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:9px 0;
+  border-bottom:1px dashed #ddd3eb;
+  font-size:11px;
+}
+
+.pr-rp-row:last-child{
+  border-bottom:0;
+}
+
+.pr-rp-label{
+  color:#806f96;
+  font-weight:700;
+}
+
+.pr-rp-value{
+  color:#32145e;
+  font-weight:900;
+  text-align:right;
+}
+
+.pr-rp-input{
+  width:100%;
+  border:1.5px solid #ded2f4;
+  border-radius:14px;
+  padding:12px 13px;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:700;
+  color:#24124d;
+  outline:none;
+  background:#fff;
+  box-sizing:border-box;
+}
+
+.pr-rp-input:focus{
+  border-color:#7c3aed;
+  box-shadow:0 0 0 4px rgba(124,58,237,.10);
+}
+
+.pr-rp-label2{
+  display:block;
+  margin:12px 0 6px;
+  font-size:11px;
+  color:#4c1d95;
+  font-weight:900;
+}
+
+.pr-rp-primary{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:13px;
+  margin-top:14px;
+  background:linear-gradient(135deg,#6d28d9,#4f46e5);
+  color:#fff;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:950;
+  cursor:pointer;
+  box-shadow:0 10px 24px rgba(79,70,229,.22);
+}
+
+.pr-rp-secondary{
+  width:100%;
+  border:1px solid #ded3ef;
+  border-radius:15px;
+  padding:12px;
+  margin-top:9px;
+  background:#fff;
+  color:#5b21b6;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.pr-rp-ref-row{
+  padding:12px;
+  margin-bottom:9px;
+  border-radius:15px;
+  background:#fff;
+  border:1px solid #e8def5;
+}
+
+.pr-rp-ref-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+}
+
+.pr-rp-ref-name{
+  font-size:12px;
+  font-weight:950;
+  color:#32145e;
+}
+
+.pr-rp-ref-status{
+  font-size:9px;
+  font-weight:900;
+  padding:4px 8px;
+  border-radius:8px;
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.pr-rp-ref-progress{
+  margin-top:8px;
+  height:7px;
+  background:#eee8f7;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.pr-rp-ref-fill{
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#7c3aed,#a855f7);
+}
+
+.pr-rp-ref-bottom{
+  display:flex;
+  justify-content:space-between;
+  margin-top:7px;
+  font-size:9px;
+  color:#817392;
+}
+
+.pr-rp-rating{
+  display:flex;
+  gap:7px;
+  justify-content:center;
+  margin:16px 0;
+}
+
+.pr-rp-star{
+  width:43px;
+  height:43px;
+  border:1px solid #ded3ef;
+  border-radius:13px;
+  background:#fff;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.pr-rp-star.active{
+  background:#fff4cf;
+  border-color:#f5c542;
+}
+
+.pr-rp-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px;
+  border-radius:16px;
+  background:#f7f3fc;
+  border:1px solid #ebe3f5;
+}
+
+.pr-rp-toggle-button{
+  border:0;
+  border-radius:99px;
+  padding:8px 14px;
+  background:#16a34a;
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.pr-rp-toggle-button.off{
+  background:#94a3b8;
+}
+</style>
+
+<script>
+/* PRILUCK_REFER_PROFILE_PREMIUM_V2 */
+(function(){
+  "use strict";
+
+  var refer = document.getElementById("screen-refer");
+  var profile = document.getElementById("screen-profile");
+
+  if(!refer && !profile) return;
+
+  function removeInlineHandlers(el){
+    if(!el) return;
+
+    Array.prototype.slice.call(el.attributes || []).forEach(function(a){
+      if(/^on/i.test(a.name)) el.removeAttribute(a.name);
+    });
+
+    Array.prototype.slice.call(
+      el.querySelectorAll ? el.querySelectorAll("*") : []
+    ).forEach(function(node){
+      Array.prototype.slice.call(node.attributes || []).forEach(function(a){
+        if(/^on/i.test(a.name)) node.removeAttribute(a.name);
+      });
+    });
+  }
+
+  function replaceNode(el){
+    if(!el || !el.parentNode) return null;
+    var clone = el.cloneNode(true);
+    removeInlineHandlers(clone);
+    el.parentNode.replaceChild(clone,el);
+    return clone;
+  }
+
+  function closePopup(){
+    var all=document.querySelectorAll(".pr-rp-overlay");
+    if(all.length){
+        all[all.length-1].remove();
+    }
+}
+
+  function popup(title, icon, body, buttons){
+    var overlay = document.createElement("div");
+    overlay.className = "pr-rp-overlay";
+
+    var footer = buttons || "";
+
+    overlay.innerHTML =
+      '<div class="pr-rp-modal" role="dialog" aria-modal="true">' +
+        '<div class="pr-rp-head">' +
+          '<div class="pr-rp-head-icon">'+icon+'</div>' +
+          '<div class="pr-rp-head-title">'+title+'</div>' +
+          '<button type="button" class="pr-rp-close">×</button>' +
+        '</div>' +
+        '<div class="pr-rp-body">'+body+'</div>' +
+        footer +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    overlay.querySelector(".pr-rp-close").addEventListener(
+      "click",
+      function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        closePopup();
+      }
+    );
+
+    overlay.addEventListener("click",function(e){
+      if(e.target === overlay) closePopup();
+    });
+
+    return overlay;
+  }
+
+  function successPopup(title,message,detail,icon){
+    popup(
+      title,
+      icon || "✓",
+      '<div class="pr-rp-hero">' +
+        '<div class="pr-rp-hero-icon">'+(icon || "✓")+'</div>' +
+        '<div class="pr-rp-hero-title">'+message+'</div>' +
+        '<div class="pr-rp-hero-sub">'+detail+'</div>' +
+      '</div>' +
+      '<button type="button" class="pr-rp-primary pr-rp-ok">ঠিক আছে</button>'
+    );
+  }
+
+  function copyValue(value,label){
+    function done(){
+      successPopup(
+        "কপি সম্পন্ন",
+        label,
+        "তথ্যটি সফলভাবে আপনার clipboard-এ copy হয়েছে।",
+        "✓"
+      );
+    }
+
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(value).then(done).catch(function(){
+        fallback();
+      });
+    }else{
+      fallback();
+    }
+
+    function fallback(){
+      try{
+        var t=document.createElement("textarea");
+        t.value=value;
+        t.style.position="fixed";
+        t.style.opacity="0";
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand("copy");
+        t.remove();
+        done();
+      }catch(e){
+        successPopup(
+          "কপি তথ্য",
+          label,
+          value,
+          "📋"
+        );
+      }
+    }
+  }
+
+  /* ==========================================================
+     REFER
+     ========================================================== */
+
+  var referralNames = [
+    "Sohel Rana",
+    "Anik Das",
+    "Piyal Barman",
+    "Mehedi Khan",
+    "Riya Tiwari",
+    "Arjun S.",
+    "Sayan M.",
+    "Rakesh P.",
+    "Milan K.",
+    "Kunal B."
+  ];
+
+  var referralProgress = [80,80,45,22,0,80,65,38,12,5];
+
+  function getReferState(){
+    try{
+      var raw=localStorage.getItem("priluck_demo_refer_state_v1");
+      if(raw){
+        var x=JSON.parse(raw);
+        if(x && typeof x==="object") return x;
+      }
+    }catch(e){}
+
+    return {
+      code:"RAHUL2K26",
+      link:"https://t.me/EarnTasks_bot?start=RAHUL2K26",
+      shares:24,
+      successful:11,
+      earning:550,
+      paid:550
+    };
+  }
+
+  function renderFiveReferrals(){
+    if(!refer) return;
+
+    var tbody=refer.querySelector(".rf-table tbody");
+    if(!tbody) return;
+
+    var total=getReferState().successful || 5;
+
+    var start=Math.max(0,Math.min(
+      referralNames.length-5,
+      Number(total)-5
+    ));
+
+    var items=referralNames.slice(start,start+5);
+
+    if(items.length<5){
+      items=referralNames.slice(0,5);
+    }
+
+    tbody.innerHTML="";
+
+    items.forEach(function(name,i){
+      var originalIndex=referralNames.indexOf(name);
+      var progress=referralProgress[originalIndex] || 0;
+      var complete=progress>=80;
+
+      var tr=document.createElement("tr");
+      tr.className="rf-tr";
+
+      tr.innerHTML=
+        '<td class="rf-td">' +
+          '<div class="rf-user-col">' +
+            '<span class="rf-initial-badge" style="background:#ede9fe;color:#5b21b6;">'+
+              name.charAt(0)+
+            '</span>' +
+            '<span class="rf-name-box" style="background:#e0e7ff;color:#3730a3;">'+
+              name+
+            '</span>' +
+          '</div>' +
+        '</td>' +
+
+        '<td class="rf-td">' +
+          '<span class="rf-status '+(complete ? "complete":"ongoing-org")+'">'+
+            (complete ? "কমপ্লিট":"চলছে")+
+          '</span>' +
+        '</td>' +
+
+        '<td class="rf-td">' +
+          '<div class="rf-prog-wrap">' +
+            '<div class="rf-prog-text">'+progress+'/80 টাস্ক</div>' +
+            '<div class="rf-prog-bar">' +
+              '<div class="rf-prog-fill" style="width:'+Math.min(100,progress/80*100)+'%;"></div>' +
+            '</div>' +
+          '</div>' +
+        '</td>' +
+
+        '<td class="rf-td">' +
+          '<span class="rf-date">আজ</span>' +
+        '</td>' +
+
+        '<td class="rf-td rf-earn '+(complete ? "":"none")+'">'+
+          (complete ? "+ ₹50" : "—")+
+        '</td>';
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  function showAllReferrals(){
+    var st=getReferState();
+    var html=
+      '<div class="pr-rp-hero">' +
+        '<div class="pr-rp-hero-icon">👥</div>' +
+        '<div class="pr-rp-hero-title">আপনার Referral Network</div>' +
+        '<div class="pr-rp-hero-sub">মোট successful referral: '+st.successful+'</div>' +
+      '</div>';
+
+    var total=Math.max(5,Number(st.successful)||5);
+
+    for(var i=0;i<total;i++){
+      var name=referralNames[i % referralNames.length];
+      var progress=referralProgress[i % referralProgress.length];
+      var complete=progress>=80;
+
+      html +=
+        '<div class="pr-rp-ref-row">' +
+          '<div class="pr-rp-ref-top">' +
+            '<div class="pr-rp-ref-name">'+name+'</div>' +
+            '<div class="pr-rp-ref-status" style="'+
+              (complete ? "" : "background:#fff7ed;color:#c2410c;")+
+            '">' +
+              (complete ? "কমপ্লিট" : "চলছে")+
+            '</div>' +
+          '</div>' +
+          '<div class="pr-rp-ref-progress">' +
+            '<div class="pr-rp-ref-fill" style="width:'+Math.min(100,progress/80*100)+'%;"></div>' +
+          '</div>' +
+          '<div class="pr-rp-ref-bottom">' +
+            '<span>'+progress+'/80 টাস্ক</span>' +
+            '<span>'+(
+              complete ? "+ ₹50" : "Bonus pending"
+            )+'</span>' +
+          '</div>' +
+        '</div>';
+    }
+
+    popup(
+      "রেফার করা সদস্যদের বিস্তারিত",
+      "👥",
+      html,
+      '<div style="padding:0 18px 18px;"><button type="button" class="pr-rp-primary pr-rp-ok">ঠিক আছে</button></div>'
+    );
+  }
+
+  if(refer){
+    var copyButtons=Array.prototype.slice.call(
+      refer.querySelectorAll(".rf-copy-btn")
+    );
+
+    if(copyButtons[0]){
+      var c1=replaceNode(copyButtons[0]);
+      c1.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var st=getReferState();
+        copyValue(st.code,"আপনার রেফার কোড কপি হয়েছে");
+      });
+    }
+
+    if(copyButtons[1]){
+      var c2=replaceNode(copyButtons[1]);
+      c2.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var st=getReferState();
+        copyValue(st.link,"আপনার রেফার লিংক কপি হয়েছে");
+      });
+    }
+
+    var share=refer.querySelector(".rf-share-btn");
+
+    if(share){
+      share=replaceNode(share);
+
+      share.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        var st=getReferState();
+
+        var text=
+          "PriLuck-এ যোগ দিন এবং Task করে Earn করুন!\n\n"+
+          "আমার Referral Code: "+st.code+"\n\n"+
+          st.link;
+
+        try{
+          if(navigator.share){
+            navigator.share({
+              title:"PriLuck Referral",
+              text:text,
+              url:st.link
+            });
+          }else{
+            window.open(
+              "https://t.me/share/url?url="+
+              encodeURIComponent(st.link)+
+              "&text="+encodeURIComponent(text),
+              "_blank"
+            );
+          }
+        }catch(err){}
+
+        successPopup(
+          "Referral Share",
+          "Referral share প্রস্তুত হয়েছে",
+          "আপনার referral code এবং link share করার জন্য প্রস্তুত।",
+          "📤"
+        );
+      });
+    }
+
+    var seeAll=Array.prototype.slice.call(
+      refer.querySelectorAll(".rf-see-all")
+    );
+
+    seeAll.forEach(function(link){
+      var x=replaceNode(link);
+      x.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        showAllReferrals();
+      });
+    });
+
+    renderFiveReferrals();
+  }
+
+  /* ==========================================================
+     PROFILE
+     ========================================================== */
+
+  function getProfileState(){
+    try{
+      var raw=localStorage.getItem("priluck_demo_profile_state_v1");
+      if(raw){
+        var x=JSON.parse(raw);
+        if(x && typeof x==="object") return x;
+      }
+    }catch(e){}
+
+    return {
+      name:"Pritam Gayen",
+      userId:"PRILUCK6324",
+      level:3,
+      mobile:"01XXXXXXXXX",
+      email:"pritam@example.com",
+      paymentMethod:"এখনো যোগ করা হয়নি",
+      notifications:true
+    };
+  }
+
+  function saveProfileState(st){
+    try{
+      localStorage.setItem(
+        "priluck_demo_profile_state_v1",
+        JSON.stringify(st)
+      );
+    }catch(e){}
+  }
+
+  function showEditProfile(){
+    var st=getProfileState();
+
+    var m=popup(
+      "প্রোফাইল এডিট",
+      "✏️",
+      '<div class="pr-rp-info">' +
+        '<label class="pr-rp-label2">আপনার নাম</label>' +
+        '<input class="pr-rp-input" id="pr-rp-name" value="'+
+          String(st.name||"").replace(/"/g,"&quot;")+
+        '">' +
+
+        '<label class="pr-rp-label2">মোবাইল নম্বর</label>' +
+        '<input class="pr-rp-input" id="pr-rp-mobile" value="'+
+          String(st.mobile||"").replace(/"/g,"&quot;")+
+        '">' +
+
+        '<label class="pr-rp-label2">ইমেইল</label>' +
+        '<input class="pr-rp-input" id="pr-rp-email" value="'+
+          String(st.email||"").replace(/"/g,"&quot;")+
+        '">' +
+      '</div>' +
+      '<button type="button" class="pr-rp-primary" id="pr-rp-save-profile">Save Changes</button>' +
+      '<button type="button" class="pr-rp-secondary" id="pr-rp-cancel-profile">Cancel</button>'
+    );
+
+    m.querySelector("#pr-rp-cancel-profile").addEventListener(
+      "click",closePopup
+    );
+
+    m.querySelector("#pr-rp-save-profile").addEventListener(
+      "click",
+      function(){
+        var name=m.querySelector("#pr-rp-name").value.trim();
+        var mobile=m.querySelector("#pr-rp-mobile").value.trim();
+        var email=m.querySelector("#pr-rp-email").value.trim();
+
+        if(!name){
+          successPopup(
+            "তথ্য প্রয়োজন",
+            "নাম খালি রাখা যাবে না",
+            "অনুগ্রহ করে আপনার নাম লিখুন।",
+            "⚠️"
+          );
+          return;
+        }
+
+        st.name=name;
+        st.mobile=mobile;
+        st.email=email;
+
+        saveProfileState(st);
+
+        var nameNode=profile.querySelector(".pf-name");
+        if(nameNode) nameNode.textContent=name;
+
+        closePopup();
+
+        setTimeout(function(){
+          successPopup(
+            "প্রোফাইল আপডেট",
+            "Profile successfully updated",
+            "আপনার নাম, মোবাইল এবং ইমেইল তথ্য সংরক্ষণ করা হয়েছে।",
+            "✓"
+          );
+        },30);
+      }
+    );
+  }
+
+  function showPersonalInfo(){
+    var st=getProfileState();
+
+    popup(
+      "ব্যক্তিগত তথ্য",
+      "👤",
+      '<div class="pr-rp-hero">' +
+        '<div class="pr-rp-hero-icon">👤</div>' +
+        '<div class="pr-rp-hero-title">'+st.name+'</div>' +
+        '<div class="pr-rp-hero-sub">আপনার account profile information</div>' +
+      '</div>' +
+
+      '<div class="pr-rp-info">' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Full name</span><span class="pr-rp-value">'+st.name+'</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">User ID</span><span class="pr-rp-value">'+st.userId+'</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Level</span><span class="pr-rp-value">⭐ Level '+st.level+'</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Mobile</span><span class="pr-rp-value">'+st.mobile+'</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Email</span><span class="pr-rp-value">'+st.email+'</span></div>' +
+      '</div>' +
+
+      '<button type="button" class="pr-rp-primary" id="pr-rp-edit-from-info">প্রোফাইল এডিট করুন</button>' +
+      '<button type="button" class="pr-rp-secondary pr-rp-ok">ঠিক আছে</button>'
+    ).querySelector("#pr-rp-edit-from-info").addEventListener(
+      "click",
+      function(){
+        closePopup();
+        setTimeout(showEditProfile,30);
+      }
+    );
+  }
+
+  function showPaymentMethod(){
+    var st=getProfileState();
+
+    var m=popup(
+      "পেমেন্ট মেথড",
+      "💳",
+      '<div class="pr-rp-hero">' +
+        '<div class="pr-rp-hero-icon">💳</div>' +
+        '<div class="pr-rp-hero-title">Payment Method</div>' +
+        '<div class="pr-rp-hero-sub">UPI অথবা Bank account payment information পরিচালনা করুন</div>' +
+      '</div>' +
+
+      '<div class="pr-rp-info">' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Current method</span><span class="pr-rp-value">'+st.paymentMethod+'</span></div>' +
+      '</div>' +
+
+      '<label class="pr-rp-label2">Payment method</label>' +
+      '<select class="pr-rp-input" id="pr-rp-pay-type">' +
+        '<option>UPI</option>' +
+        '<option>Bank Transfer</option>' +
+      '</select>' +
+
+      '<label class="pr-rp-label2">UPI ID / Account details</label>' +
+      '<input class="pr-rp-input" id="pr-rp-pay-detail" placeholder="example@upi / account details">' +
+
+      '<button type="button" class="pr-rp-primary" id="pr-rp-save-pay">Save Payment Method</button>'
+    );
+
+    m.querySelector("#pr-rp-save-pay").addEventListener(
+      "click",
+      function(){
+        var type=m.querySelector("#pr-rp-pay-type").value;
+        var detail=m.querySelector("#pr-rp-pay-detail").value.trim();
+
+        if(!detail){
+          successPopup(
+            "তথ্য প্রয়োজন",
+            "Payment details দিন",
+            "UPI ID অথবা bank account details প্রয়োজন।",
+            "⚠️"
+          );
+          return;
+        }
+
+        st.paymentMethod=type+" • "+detail;
+        saveProfileState(st);
+
+        closePopup();
+
+        setTimeout(function(){
+          successPopup(
+            "Payment Method",
+            "Payment method saved",
+            st.paymentMethod,
+            "💳"
+          );
+        },30);
+      }
+    );
+  }
+
+  function showSecurity(){
+    popup(
+      "সিকিউরিটি",
+      "🛡️",
+      '<div class="pr-rp-info">' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Telegram verification</span><span class="pr-rp-value">✓ Verified</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Two-step security</span><span class="pr-rp-value">✓ Active</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Session protection</span><span class="pr-rp-value">✓ Active</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Account protection</span><span class="pr-rp-value">✓ Protected</span></div>' +
+      '</div>' +
+      '<div class="pr-rp-hero">' +
+        '<div class="pr-rp-hero-icon">🔐</div>' +
+        '<div class="pr-rp-hero-title">আপনার account নিরাপদ রাখুন</div>' +
+        '<div class="pr-rp-hero-sub">Real version-এ এখানে authentication, session এবং security controls backend/API-এর সঙ্গে যুক্ত হবে।</div>' +
+      '</div>' +
+      '<button type="button" class="pr-rp-primary pr-rp-ok">ঠিক আছে</button>'
+    );
+  }
+
+  function showNotifications(){
+    var st=getProfileState();
+
+    var m=popup(
+      "নোটিফিকেশন সেটিংস",
+      "🔔",
+      '<div class="pr-rp-toggle">' +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:950;">Push Notifications</div>' +
+          '<div style="font-size:10px;color:#897b9e;margin-top:3px;">Reward, task এবং account update notification</div>' +
+        '</div>' +
+        '<button type="button" id="pr-rp-notif-toggle" class="pr-rp-toggle-button '+
+          (st.notifications ? "" : "off")+
+        '">' +
+          (st.notifications ? "ON" : "OFF")+
+        '</button>' +
+      '</div>' +
+
+      '<button type="button" class="pr-rp-primary pr-rp-ok">ঠিক আছে</button>'
+    );
+
+    m.querySelector("#pr-rp-notif-toggle").addEventListener(
+      "click",
+      function(){
+        st.notifications=!st.notifications;
+        saveProfileState(st);
+
+        var b=m.querySelector("#pr-rp-notif-toggle");
+        b.textContent=st.notifications ? "ON":"OFF";
+        b.classList.toggle("off",!st.notifications);
+      }
+    );
+  }
+
+  function showSupport(){
+    popup(
+      "সাপোর্ট ও সাহায্য",
+      "🎧",
+      '<div class="pr-rp-info">' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Account Help</span><span class="pr-rp-value">›</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Task Help</span><span class="pr-rp-value">›</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Payment Help</span><span class="pr-rp-value">›</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Referral Help</span><span class="pr-rp-value">›</span></div>' +
+      '</div>' +
+      '<div class="pr-rp-hero">' +
+        '<div class="pr-rp-hero-icon">💬</div>' +
+        '<div class="pr-rp-hero-title">PriLuck Support Center</div>' +
+        '<div class="pr-rp-hero-sub">Real version-এ এখান থেকে support bot অথবা support team contact যুক্ত করা যাবে।</div>' +
+      '</div>' +
+      '<button type="button" class="pr-rp-primary pr-rp-ok">ঠিক আছে</button>'
+    );
+  }
+
+  function showAbout(){
+    popup(
+      "অ্যাপ সম্পর্কে",
+      "ℹ️",
+      '<div class="pr-rp-hero">' +
+        '<div class="pr-rp-hero-icon">🚀</div>' +
+        '<div class="pr-rp-hero-title">PriLuck</div>' +
+        '<div class="pr-rp-hero-sub">Task করুন, Earn করুন</div>' +
+      '</div>' +
+      '<div class="pr-rp-info">' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Version</span><span class="pr-rp-value">Demo V2</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Platform</span><span class="pr-rp-value">PriLuck Web App</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Referral System</span><span class="pr-rp-value">Enabled</span></div>' +
+        '<div class="pr-rp-row"><span class="pr-rp-label">Wallet System</span><span class="pr-rp-value">Existing system</span></div>' +
+      '</div>' +
+      '<button type="button" class="pr-rp-primary pr-rp-ok">ঠিক আছে</button>'
+    );
+  }
+
+  function showRating(){
+    var selected=0;
+
+    var m=popup(
+      "PriLuck-কে Rate করুন",
+      "⭐",
+      '<div style="text-align:center;">' +
+        '<div style="font-size:13px;font-weight:900;color:#4c1d95;">আপনার অভিজ্ঞতা কেমন?</div>' +
+        '<div style="font-size:10px;color:#897b9e;margin-top:4px;">১ থেকে ৫টি star নির্বাচন করুন</div>' +
+      '</div>' +
+
+      '<div class="pr-rp-rating">' +
+        '<button class="pr-rp-star" data-star="1">★</button>' +
+        '<button class="pr-rp-star" data-star="2">★</button>' +
+        '<button class="pr-rp-star" data-star="3">★</button>' +
+        '<button class="pr-rp-star" data-star="4">★</button>' +
+        '<button class="pr-rp-star" data-star="5">★</button>' +
+      '</div>' +
+
+      '<button type="button" class="pr-rp-primary" id="pr-rp-rate-submit">Rating Submit করুন</button>'
+    );
+
+    m.querySelectorAll(".pr-rp-star").forEach(function(star){
+      star.addEventListener("click",function(){
+        selected=Number(star.getAttribute("data-star"));
+
+        m.querySelectorAll(".pr-rp-star").forEach(function(x){
+          x.classList.toggle(
+            "active",
+            Number(x.getAttribute("data-star"))<=selected
+          );
+        });
+      });
+    });
+
+    m.querySelector("#pr-rp-rate-submit").addEventListener(
+      "click",
+      function(){
+        if(!selected){
+          successPopup(
+            "Rating প্রয়োজন",
+            "একটি rating নির্বাচন করুন",
+            "আপনার অভিজ্ঞতা অনুযায়ী ১–৫ star নির্বাচন করুন।",
+            "⭐"
+          );
+          return;
+        }
+
+        closePopup();
+
+        setTimeout(function(){
+          successPopup(
+            "Rating Saved",
+            "ধন্যবাদ! "+selected+"/5 rating saved হয়েছে",
+            "আপনার feedback PriLuck-এর demo profile system-এ সংরক্ষিত হয়েছে।",
+            "⭐"
+          );
+        },30);
+      }
+    );
+  }
+
+  function showLogout(){
+    var m=popup(
+      "Logout",
+      "🚪",
+      '<div class="pr-rp-hero">' +
+        '<div class="pr-rp-hero-icon">🚪</div>' +
+        '<div class="pr-rp-hero-title">আপনি কি Logout করতে চান?</div>' +
+        '<div class="pr-rp-hero-sub">Logout করলে demo profile session data থেকে profile state remove করা হবে।</div>' +
+      '</div>' +
+
+      '<button type="button" class="pr-rp-primary" id="pr-rp-logout-confirm">Logout করুন</button>' +
+      '<button type="button" class="pr-rp-secondary" id="pr-rp-logout-cancel">Cancel</button>'
+    );
+
+    m.querySelector("#pr-rp-logout-cancel").addEventListener(
+      "click",closePopup
+    );
+
+    m.querySelector("#pr-rp-logout-confirm").addEventListener(
+      "click",
+      function(){
+        try{
+          localStorage.removeItem("priluck_demo_profile_state_v1");
+        }catch(e){}
+
+        closePopup();
+
+        setTimeout(function(){
+          successPopup(
+            "Logout",
+            "Demo logout সম্পন্ন হয়েছে",
+            "Real authentication system যুক্ত হলে এখানে backend session logout হবে।",
+            "✓"
+          );
+        },30);
+      }
+    );
+  }
+
+  function profileAction(title){
+    if(title==="ব্যক্তিগত তথ্য"){
+      showPersonalInfo();
+    }else if(title==="পেমেন্ট মেথড"){
+      showPaymentMethod();
+    }else if(title==="সিকিউরিটি"){
+      showSecurity();
+    }else if(title==="নোটিফিকেশন সেটিংস"){
+      showNotifications();
+    }else if(title==="সাপোর্ট ও সাহায্য"){
+      showSupport();
+    }else if(title==="অ্যাপ সম্পর্কে"){
+      showAbout();
+    }else if(title==="রেট দিন"){
+      showRating();
+    }else if(title==="লগ আউট"){
+      showLogout();
+    }
+  }
+
+  if(profile){
+
+    var userIdBox=profile.querySelector(".pf-userid");
+
+    if(userIdBox){
+      userIdBox=replaceNode(userIdBox);
+
+      userIdBox.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        var st=getProfileState();
+        copyValue(st.userId,"User ID কপি হয়েছে");
+      });
+    }
+
+    var edit=profile.querySelector(".pf-edit-btn");
+
+    if(edit){
+      edit=replaceNode(edit);
+
+      edit.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        showEditProfile();
+      });
+    }
+
+    var camera=profile.querySelector(".pf-cam-btn");
+
+    if(camera){
+      camera=replaceNode(camera);
+
+      camera.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        popup(
+          "Profile Photo",
+          "📷",
+          '<div class="pr-rp-hero">' +
+            '<div class="pr-rp-hero-icon">📷</div>' +
+            '<div class="pr-rp-hero-title">Profile Photo</div>' +
+            '<div class="pr-rp-hero-sub">Photo selection/upload interface প্রস্তুত। Real version-এ Telegram profile photo বা secure upload API এখানে যুক্ত হবে।</div>' +
+          '</div>' +
+          '<button type="button" class="pr-rp-primary pr-rp-ok">ঠিক আছে</button>'
+        );
+      });
+    }
+
+    Array.prototype.slice.call(
+      profile.querySelectorAll(".pf-menu-item")
+    ).forEach(function(item){
+
+      var titleNode=item.querySelector(".pf-item-title");
+      var title=titleNode ? titleNode.textContent.trim() : "";
+
+      var clone=replaceNode(item);
+
+      clone.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        profileAction(title);
+      });
+    });
+
+  }
+
+  document.addEventListener("click",function(e){
+    var ok=e.target.closest ? e.target.closest(".pr-rp-ok") : null;
+    if(ok){
+      e.preventDefault();
+      e.stopPropagation();
+      closePopup();
+    }
+  },true);
+
+  console.log("==================================================");
+  console.log("🎉 PRILUCK REFER + PROFILE PREMIUM V2 READY");
+  console.log("==================================================");
+  console.log("✅ Refer Code premium popup");
+  console.log("✅ Refer Link premium popup");
+  console.log("✅ Referral share flow");
+  console.log("✅ Referral list premium details");
+  console.log("✅ Exactly 5 referral rows maintained");
+  console.log("✅ Profile Edit premium form");
+  console.log("✅ Personal Information details");
+  console.log("✅ Payment Method details");
+  console.log("✅ Security details");
+  console.log("✅ Notification settings");
+  console.log("✅ Support & Help");
+  console.log("✅ About PriLuck");
+  console.log("✅ Rating popup");
+  console.log("✅ Logout confirmation");
+  console.log("✅ User ID copy popup");
+  console.log("✅ Profile photo popup");
+  console.log("✅ Old Refer/Profile handlers replaced");
+  console.log("🚫 Home untouched");
+  console.log("🚫 Leaderboard untouched");
+  console.log("🚫 Wallet untouched");
+  console.log("==================================================");
+
+})();
+</script>
+
+<!-- PRILUCK_REFER_PROFILE_PREMIUM_V2_END -->
+
+
+<style>
+/* ==========================================================
+   PRILUCK REFER + PROFILE PREMIUM V3
+   ONLY REFER + PROFILE POPUP/DEMO LOGIC
+   WALLET: PAYMENT-METHOD VALIDATION ONLY
+   ========================================================== */
+
+.pr-v3-overlay{
+  position:fixed;
+  inset:0;
+  z-index:30000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+  background:rgba(25,12,55,.62);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+}
+
+.pr-v3-modal{
+  width:min(94vw,430px);
+  max-height:90vh;
+  overflow:auto;
+  border-radius:28px;
+  background:linear-gradient(180deg,#fff 0%,#faf7ff 100%);
+  color:#24124d;
+  border:1px solid rgba(109,61,240,.15);
+  box-shadow:0 30px 90px rgba(35,12,75,.38);
+  animation:prV3In .22s ease-out;
+}
+
+@keyframes prV3In{
+  from{opacity:0;transform:translateY(18px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.pr-v3-head{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:18px 18px 14px;
+  border-bottom:1px solid #eee7fa;
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(12px);
+}
+
+.pr-v3-icon{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  color:#fff;
+  font-size:20px;
+  flex:0 0 43px;
+}
+
+.pr-v3-title{
+  flex:1;
+  font-size:17px;
+  font-weight:950;
+}
+
+.pr-v3-close{
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:12px;
+  background:#f2edfb;
+  color:#4c1d95;
+  font-size:21px;
+  cursor:pointer;
+}
+
+.pr-v3-body{
+  padding:18px;
+}
+
+.pr-v3-hero{
+  padding:18px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#5b21b6,#7c3aed,#9333ea);
+  color:#fff;
+  box-shadow:0 12px 28px rgba(91,33,182,.22);
+  margin-bottom:15px;
+}
+
+.pr-v3-hero-icon{
+  font-size:28px;
+}
+
+.pr-v3-hero-title{
+  margin-top:7px;
+  font-size:19px;
+  font-weight:950;
+}
+
+.pr-v3-hero-sub{
+  margin-top:5px;
+  font-size:11px;
+  opacity:.84;
+  line-height:1.55;
+}
+
+.pr-v3-info{
+  padding:14px;
+  border-radius:17px;
+  background:#f7f3fc;
+  border:1px solid #ebe3f5;
+  margin-bottom:11px;
+}
+
+.pr-v3-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px dashed #ddd3eb;
+  font-size:11px;
+}
+
+.pr-v3-row:last-child{
+  border-bottom:0;
+}
+
+.pr-v3-label{
+  color:#806f96;
+  font-weight:700;
+}
+
+.pr-v3-value{
+  color:#32145e;
+  font-weight:900;
+  text-align:right;
+}
+
+.pr-v3-label2{
+  display:block;
+  margin:12px 0 6px;
+  font-size:11px;
+  color:#4c1d95;
+  font-weight:900;
+}
+
+.pr-v3-input{
+  width:100%;
+  border:1.5px solid #ded2f4;
+  border-radius:14px;
+  padding:12px 13px;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:700;
+  color:#24124d;
+  outline:none;
+  background:#fff;
+  box-sizing:border-box;
+}
+
+.pr-v3-input:focus{
+  border-color:#7c3aed;
+  box-shadow:0 0 0 4px rgba(124,58,237,.10);
+}
+
+.pr-v3-primary{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:13px;
+  margin-top:14px;
+  background:linear-gradient(135deg,#6d28d9,#4f46e5);
+  color:#fff;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:950;
+  cursor:pointer;
+  box-shadow:0 10px 24px rgba(79,70,229,.22);
+}
+
+.pr-v3-secondary{
+  width:100%;
+  border:1px solid #ded3ef;
+  border-radius:15px;
+  padding:12px;
+  margin-top:9px;
+  background:#fff;
+  color:#5b21b6;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.pr-v3-level{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  margin-bottom:9px;
+  border-radius:15px;
+  background:#fff;
+  border:1px solid #e8def5;
+}
+
+.pr-v3-level-num{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  color:#fff;
+  font-size:13px;
+  font-weight:950;
+}
+
+.pr-v3-level-main{
+  flex:1;
+  min-width:0;
+}
+
+.pr-v3-level-name{
+  font-size:12px;
+  font-weight:950;
+  color:#32145e;
+}
+
+.pr-v3-level-sub{
+  margin-top:3px;
+  font-size:9px;
+  color:#817392;
+  line-height:1.45;
+}
+
+.pr-v3-level-badge{
+  font-size:9px;
+  font-weight:900;
+  padding:5px 8px;
+  border-radius:9px;
+  background:#ede9fe;
+  color:#6d28d9;
+}
+
+.pr-v3-error{
+  padding:14px;
+  border-radius:17px;
+  background:#fff1f2;
+  border:1px solid #fecdd3;
+  color:#9f1239;
+  font-size:11px;
+  line-height:1.55;
+}
+
+.pr-v3-success{
+  padding:14px;
+  border-radius:17px;
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+  color:#166534;
+  font-size:11px;
+  line-height:1.55;
+}
+</style>
+
+<script>
+/* ==========================================================
+   PRILUCK_REFER_PROFILE_PREMIUM_V3
+   ========================================================== */
+(function(){
+  "use strict";
+
+  if(window.PriLuckReferProfilePremiumV3){
+    return;
+  }
+
+  window.PriLuckReferProfilePremiumV3 = true;
+
+  var REFER_KEY = "priluck_demo_refer_state_v1";
+  var PROFILE_KEY = "priluck_demo_profile_state_v1";
+
+  function readJSON(key,fallback){
+    try{
+      var raw = localStorage.getItem(key);
+      if(!raw) return fallback;
+      var x = JSON.parse(raw);
+      return x && typeof x === "object" ? x : fallback;
+    }catch(e){
+      return fallback;
+    }
+  }
+
+  function writeJSON(key,value){
+    try{
+      localStorage.setItem(key,JSON.stringify(value));
+    }catch(e){}
+  }
+
+  function referState(){
+    return readJSON(REFER_KEY,{
+      code:"RAHUL2K26",
+      link:"https://t.me/EarnTasks_bot?start=RAHUL2K26",
+      shares:24,
+      successful:11,
+      earning:550,
+      paid:550
+    });
+  }
+
+  function profileState(){
+    return readJSON(PROFILE_KEY,{
+      name:"Pritam Gayen",
+      userId:"PRILUCK6324",
+      level:3,
+      mobile:"01XXXXXXXXX",
+      email:"pritam@example.com",
+      paymentMethod:"এখনো যোগ করা হয়নি",
+      paymentType:"",
+      paymentDetail:"",
+      notifications:true
+    });
+  }
+
+  function closeV3(){var all=document.querySelectorAll(".pr-v3-overlay");if(all.length)all[all.length-1].remove();}
+
+  function popup(title,icon,body,footer){
+
+    var overlay = document.createElement("div");
+    overlay.className = "pr-v3-overlay";
+
+    overlay.innerHTML =
+      '<div class="pr-v3-modal" role="dialog" aria-modal="true">' +
+        '<div class="pr-v3-head">' +
+          '<div class="pr-v3-icon">'+icon+'</div>' +
+          '<div class="pr-v3-title">'+title+'</div>' +
+          '<button type="button" class="pr-v3-close">×</button>' +
+        '</div>' +
+        '<div class="pr-v3-body">'+body+'</div>' +
+        (footer || "") +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    var ok = overlay.querySelector(".pr-v3-ok");
+    if(ok){ok.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();closeV3();});}
+
+    var close = overlay.querySelector(".pr-v3-close");
+
+    if(close){
+      close.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        closeV3();
+      });
+    }
+
+    overlay.addEventListener("click",function(e){
+      if(e.target === overlay){
+        closeV3();
+      }
+    });
+
+    return overlay;
+  }
+
+  function okButton(){
+    return '<div style="padding:0 18px 18px;">' +
+      '<button type="button" class="pr-v3-primary pr-v3-ok">ঠিক আছে</button>' +
+      '</div>';
+  }
+
+  function success(title,message,detail,icon){
+    popup(
+      title,
+      icon || "✓",
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">'+(icon || "✓")+'</div>' +
+        '<div class="pr-v3-hero-title">'+message+'</div>' +
+        '<div class="pr-v3-hero-sub">'+detail+'</div>' +
+      '</div>',
+      okButton()
+    );
+  }
+
+  function copyValue(value,label){
+    function done(){
+      success(
+        "কপি সম্পন্ন",
+        label,
+        "তথ্যটি সফলভাবে clipboard-এ copy হয়েছে।",
+        "✓"
+      );
+    }
+
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(value).then(done).catch(fallback);
+    }else{
+      fallback();
+    }
+
+    function fallback(){
+      try{
+        var area=document.createElement("textarea");
+        area.value=value;
+        area.style.position="fixed";
+        area.style.opacity="0";
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        done();
+      }catch(e){
+        success("কপি তথ্য",label,String(value),"📋");
+      }
+    }
+  }
+
+  /* ==========================================================
+     REFER — ORIGINAL TABLE HTML/CSS KEPT
+     ========================================================== */
+
+  var referralDemo = [
+    {name:"Sohel Rana",progress:80,date:"20 মে, 2025",avatar:"11",bg:"#e0e7ff",fg:"#3730a3"},
+    {name:"Anik Das",progress:80,date:"18 মে, 2025",avatar:"68",bg:"#ffedd5",fg:"#9a3412"},
+    {name:"Piyal Barman",progress:45,date:"16 মে, 2025",avatar:"60",bg:"#dcfce7",fg:"#166534"},
+    {name:"Mehedi Khan",progress:22,date:"14 মে, 2025",avatar:"33",bg:"#f3e8ff",fg:"#6b21a8"},
+    {name:"Riya Tiwari",progress:0,date:"12 মে, 2025",avatar:"47",bg:"#fee2e2",fg:"#991b1b"},
+    {name:"Arjun S.",progress:80,date:"10 মে, 2025",avatar:"12",bg:"#dbeafe",fg:"#1e3a8a"},
+    {name:"Kunal M.",progress:65,date:"08 মে, 2025",avatar:"24",bg:"#fef3c7",fg:"#92400e"},
+    {name:"Sayan M.",progress:38,date:"06 মে, 2025",avatar:"31",bg:"#fce7f3",fg:"#9d174d"},
+    {name:"Rakesh P.",progress:12,date:"04 মে, 2025",avatar:"41",bg:"#e0f2fe",fg:"#075985"},
+    {name:"Milan K.",progress:5,date:"02 মে, 2025",avatar:"52",bg:"#ede9fe",fg:"#5b21b6"}
+  ];
+
+  function renderOriginalReferralRows(){
+    var screen=document.getElementById("screen-refer");
+    if(!screen) return;
+
+    var tbody=screen.querySelector(".rf-table tbody");
+    if(!tbody) return;
+
+    var st=referState();
+    var total=Math.max(0,Number(st.successful)||0);
+
+    if(total <= 0){
+      tbody.innerHTML="";
+      return;
+    }
+
+    var count=Math.min(total,referralDemo.length);
+
+    /* Always exactly 5 visible rows once referrals exist.
+       When 6th+ referral exists, newest 5 are shown. */
+    var start=Math.max(0,count-5);
+    var items=referralDemo.slice(start,count);
+
+    while(items.length<5){
+      items.unshift(referralDemo[Math.max(0,items.length-1)]);
+    }
+
+    items=items.slice(-5);
+
+    tbody.innerHTML="";
+
+    items.forEach(function(item){
+      var complete=item.progress>=80;
+      var tr=document.createElement("tr");
+      tr.className="rf-tr";
+
+      var width=Math.min(100,(item.progress/80)*100);
+
+      var statusClass=complete
+        ? "complete"
+        : (item.progress===0 ? "not-started" : "ongoing");
+
+      var statusText=complete
+        ? "কমপ্লিট"
+        : (item.progress===0 ? "শুরু করেনি" : "চলছে");
+
+      tr.innerHTML =
+        '<td class="rf-td">' +
+          '<div class="rf-user-col">' +
+            '<img src="https://i.pravatar.cc/150?img='+item.avatar+'" alt="Avatar" class="rf-real-avatar">' +
+            '<span class="rf-initial-badge" style="background: '+item.bg+'; color: '+item.fg+';">'+
+              item.name.charAt(0)+
+            '</span>' +
+            '<span class="rf-name-box" style="background: '+item.bg+'; color: '+item.fg+';">'+
+              item.name+
+            '</span>' +
+          '</div>' +
+        '</td>' +
+
+        '<td class="rf-td">' +
+          '<span class="rf-status '+statusClass+'">'+statusText+'</span>' +
+        '</td>' +
+
+        '<td class="rf-td">' +
+          '<div class="rf-prog-wrap">' +
+            '<div class="rf-prog-text">'+item.progress+'/80 টাস্ক</div>' +
+            '<div class="rf-prog-bar">' +
+              '<div class="rf-prog-fill" style="width: '+width+'%;"></div>' +
+            '</div>' +
+          '</div>' +
+        '</td>' +
+
+        '<td class="rf-td"><span class="rf-date">'+item.date+'</span></td>' +
+
+        '<td class="rf-td rf-earn '+(complete ? "plus":"none")+'">'+
+          (complete ? "+ ₹50":"—")+
+        '</td>';
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  function showReferralDetails(){
+    var st = (typeof referState === "function")
+      ? referState()
+      : {};
+
+    var total = Math.max(
+      0,
+      Number(st && st.successful) || 0
+    );
+
+    /*
+     * Same current referral data source.
+     * Real referral data later uses the same array structure.
+     */
+    var source = [];
+
+    try{
+      if(
+        typeof referralDemo !== "undefined" &&
+        Array.isArray(referralDemo)
+      ){
+        source = referralDemo.slice();
+      }
+    }catch(e){
+      source = [];
+    }
+
+    var html =
+      '<style>' +
+
+        '.pr-v7-ref-wrap{' +
+          'width:100%;' +
+          'box-sizing:border-box;' +
+        '}' +
+
+        '.pr-v7-ref-header{' +
+          'padding:16px;' +
+          'margin-bottom:12px;' +
+          'border-radius:18px;' +
+          'background:linear-gradient(135deg,#f4efff,#ffffff);' +
+          'border:1px solid #e7dcf8;' +
+          'box-sizing:border-box;' +
+        '}' +
+
+        '.pr-v7-ref-header-title{' +
+          'font-size:15px;' +
+          'font-weight:950;' +
+          'color:#32145e;' +
+        '}' +
+
+        '.pr-v7-ref-header-sub{' +
+          'margin-top:5px;' +
+          'font-size:10.5px;' +
+          'font-weight:700;' +
+          'line-height:1.6;' +
+          'color:#756b8f;' +
+        '}' +
+
+        '.pr-v7-ref-legend{' +
+          'display:flex;' +
+          'flex-wrap:wrap;' +
+          'gap:6px;' +
+          'margin-top:10px;' +
+        '}' +
+
+        '.pr-v7-ref-legend span{' +
+          'padding:5px 8px;' +
+          'border-radius:999px;' +
+          'font-size:9px;' +
+          'font-weight:900;' +
+        '}' +
+
+        '.pr-v7-green-legend{' +
+          'background:#dcfce7;' +
+          'color:#15803d;' +
+        '}' +
+
+        '.pr-v7-blue-legend{' +
+          'background:#dbeafe;' +
+          'color:#1d4ed8;' +
+        '}' +
+
+        '.pr-v7-red-legend{' +
+          'background:#fee2e2;' +
+          'color:#b91c1c;' +
+        '}' +
+
+        '.pr-v7-ref-card{' +
+          'width:100%;' +
+          'padding:14px;' +
+          'margin-bottom:10px;' +
+          'border-radius:18px;' +
+          'background:#ffffff;' +
+          'border:1px solid #e8def5;' +
+          'box-shadow:0 5px 16px rgba(54,35,100,.07);' +
+          'box-sizing:border-box;' +
+        '}' +
+
+        '.pr-v7-ref-top{' +
+          'display:flex;' +
+          'align-items:center;' +
+          'gap:10px;' +
+        '}' +
+
+        '.pr-v7-ref-number{' +
+          'width:38px;' +
+          'height:38px;' +
+          'flex:0 0 38px;' +
+          'display:flex;' +
+          'align-items:center;' +
+          'justify-content:center;' +
+          'border-radius:12px;' +
+          'background:linear-gradient(135deg,#7c3aed,#4f46e5);' +
+          'color:#ffffff;' +
+          'font-size:13px;' +
+          'font-weight:950;' +
+        '}' +
+
+        '.pr-v7-ref-main{' +
+          'flex:1;' +
+          'min-width:0;' +
+        '}' +
+
+        '.pr-v7-ref-name{' +
+          'font-size:14px;' +
+          'font-weight:950;' +
+          'line-height:1.3;' +
+          'color:#32145e;' +
+        '}' +
+
+        '.pr-v7-ref-status{' +
+          'margin-top:3px;' +
+          'font-size:10.5px;' +
+          'font-weight:700;' +
+          'color:#817392;' +
+        '}' +
+
+        '.pr-v7-ref-badge{' +
+          'padding:6px 9px;' +
+          'border-radius:10px;' +
+          'background:#ede9fe;' +
+          'color:#6d28d9;' +
+          'font-size:9px;' +
+          'font-weight:900;' +
+          'white-space:nowrap;' +
+        '}' +
+
+        '.pr-v7-progress-track{' +
+          'width:100%;' +
+          'height:10px;' +
+          'margin-top:12px;' +
+          'border-radius:999px;' +
+          'background:#ece9f3;' +
+          'overflow:hidden;' +
+        '}' +
+
+        '.pr-v7-progress-fill{' +
+          'height:100%;' +
+          'border-radius:999px;' +
+        '}' +
+
+        '.pr-v7-progress-fill.green{' +
+          'background:#16a34a !important;' +
+        '}' +
+
+        '.pr-v7-progress-fill.blue{' +
+          'background:#2563eb !important;' +
+        '}' +
+
+        '.pr-v7-progress-fill.red{' +
+          'background:#dc2626 !important;' +
+        '}' +
+
+        '.pr-v7-progress-row{' +
+          'display:flex;' +
+          'justify-content:space-between;' +
+          'align-items:center;' +
+          'margin-top:5px;' +
+          'font-size:10px;' +
+          'font-weight:800;' +
+          'color:#756b8f;' +
+        '}' +
+
+        '.pr-v7-detail-grid{' +
+          'display:grid;' +
+          'grid-template-columns:1fr 1fr;' +
+          'gap:7px;' +
+          'margin-top:11px;' +
+        '}' +
+
+        '.pr-v7-detail-box{' +
+          'padding:9px;' +
+          'border-radius:11px;' +
+          'background:#f8f6fc;' +
+          'box-sizing:border-box;' +
+        '}' +
+
+        '.pr-v7-detail-label{' +
+          'font-size:9px;' +
+          'font-weight:700;' +
+          'color:#968da8;' +
+        '}' +
+
+        '.pr-v7-detail-value{' +
+          'margin-top:2px;' +
+          'font-size:11px;' +
+          'font-weight:900;' +
+          'color:#33235a;' +
+          'word-break:break-word;' +
+        '}' +
+
+        '.pr-v7-bonus{' +
+          'margin-top:9px;' +
+          'padding:10px;' +
+          'border-radius:11px;' +
+          'background:#f0faf3;' +
+          'color:#16803a;' +
+          'font-size:10.5px;' +
+          'font-weight:900;' +
+        '}' +
+
+        '.pr-v7-bonus.pending{' +
+          'background:#fff7e8;' +
+          'color:#a16207;' +
+        '}' +
+
+        '.pr-v7-empty{' +
+          'padding:18px;' +
+          'border-radius:16px;' +
+          'background:#f8f6fc;' +
+          'color:#756b8f;' +
+          'font-size:11px;' +
+          'font-weight:800;' +
+          'text-align:center;' +
+        '}' +
+
+      '</style>' +
+
+      '<div class="pr-v7-ref-wrap">' +
+
+        '<div class="pr-v7-ref-header">' +
+          '<div class="pr-v7-ref-header-title">' +
+            '👥 আপনার Referral Network' +
+          '</div>' +
+
+          '<div class="pr-v7-ref-header-sub">' +
+            'মোট successful referral: ' + total +
+            '<br>' +
+            'প্রতিটি referral member-এর 80 task completion পর্যন্ত সম্পূর্ণ progress ও bonus details এখানে দেখা যাবে।' +
+          '</div>' +
+
+          '<div class="pr-v7-ref-legend">' +
+            '<span class="pr-v7-green-legend">80/80 • GREEN • সম্পূর্ণ</span>' +
+            '<span class="pr-v7-blue-legend">30–79 • BLUE • চলছে</span>' +
+            '<span class="pr-v7-red-legend">0–29 • RED • কম progress</span>' +
+          '</div>' +
+        '</div>';
+
+    if(!source.length){
+
+      html +=
+        '<div class="pr-v7-empty">' +
+          'এখনও কোনো referral member-এর data পাওয়া যায়নি।' +
+          '<br><br>' +
+          'Real referral data এলে একই full-detail format-এ এখানে দেখানো হবে।' +
+        '</div>';
+
+    }else{
+
+      source.forEach(function(item,index){
+
+        item = item || {};
+
+        var progress = Math.max(
+          0,
+          Math.min(80, Number(item.progress) || 0)
+        );
+
+        var remaining = Math.max(
+          0,
+          80 - progress
+        );
+
+        var percent = Math.round(
+          (progress / 80) * 100
+        );
+
+        var type =
+          progress >= 80
+            ? "green"
+            : (progress >= 30 ? "blue" : "red");
+
+        var complete = progress >= 80;
+
+        var status =
+          complete
+            ? "কমপ্লিট"
+            : (progress === 0 ? "শুরু করেনি" : "চলছে");
+
+        var joinDate =
+          item.date ||
+          item.joinDate ||
+          item.join_date ||
+          "—";
+
+        var name =
+          item.name ||
+          item.username ||
+          item.userName ||
+          ("Referral Member " + (index + 1));
+
+        var bonus =
+          complete
+            ? "🎁 Bonus earned: ₹50"
+            : "⏳ Bonus pending — 80 task complete হলে ₹50";
+
+        html +=
+
+          '<div class="pr-v7-ref-card">' +
+
+            '<div class="pr-v7-ref-top">' +
+
+              '<div class="pr-v7-ref-number">' +
+                (index + 1) +
+              '</div>' +
+
+              '<div class="pr-v7-ref-main">' +
+
+                '<div class="pr-v7-ref-name">' +
+                  name +
+                '</div>' +
+
+                '<div class="pr-v7-ref-status">' +
+                  status +
+                  ' • ' +
+                  progress +
+                  '/80 task complete' +
+                '</div>' +
+
+              '</div>' +
+
+              '<div class="pr-v7-ref-badge">' +
+                status +
+              '</div>' +
+
+            '</div>' +
+
+            '<div class="pr-v7-progress-track">' +
+              '<div class="pr-v7-progress-fill ' +
+                type +
+                '" style="width:' +
+                percent +
+                '%;"></div>' +
+            '</div>' +
+
+            '<div class="pr-v7-progress-row">' +
+              '<span>Progress: ' +
+                progress +
+                '/80' +
+              '</span>' +
+              '<span>' +
+                percent +
+                '%' +
+              '</span>' +
+            '</div>' +
+
+            '<div class="pr-v7-detail-grid">' +
+
+              '<div class="pr-v7-detail-box">' +
+                '<div class="pr-v7-detail-label">' +
+                  'Task completed' +
+                '</div>' +
+                '<div class="pr-v7-detail-value">' +
+                  progress +
+                  ' / 80' +
+                '</div>' +
+              '</div>' +
+
+              '<div class="pr-v7-detail-box">' +
+                '<div class="pr-v7-detail-label">' +
+                  'Remaining task' +
+                '</div>' +
+                '<div class="pr-v7-detail-value">' +
+                  remaining +
+                '</div>' +
+              '</div>' +
+
+              '<div class="pr-v7-detail-box">' +
+                '<div class="pr-v7-detail-label">' +
+                  'Progress percentage' +
+                '</div>' +
+                '<div class="pr-v7-detail-value">' +
+                  percent +
+                  '%' +
+                '</div>' +
+              '</div>' +
+
+              '<div class="pr-v7-detail-box">' +
+                '<div class="pr-v7-detail-label">' +
+                  'Join date' +
+                '</div>' +
+                '<div class="pr-v7-detail-value">' +
+                  joinDate +
+                '</div>' +
+              '</div>' +
+
+              '<div class="pr-v7-detail-box">' +
+                '<div class="pr-v7-detail-label">' +
+                  'Current status' +
+                '</div>' +
+                '<div class="pr-v7-detail-value">' +
+                  status +
+                '</div>' +
+              '</div>' +
+
+              '<div class="pr-v7-detail-box">' +
+                '<div class="pr-v7-detail-label">' +
+                  'Referral rank' +
+                '</div>' +
+                '<div class="pr-v7-detail-value">' +
+                  '#' +
+                  (index + 1) +
+                '</div>' +
+              '</div>' +
+
+            '</div>' +
+
+            '<div class="pr-v7-bonus ' +
+              (complete ? '' : 'pending') +
+            '">' +
+              bonus +
+            '</div>' +
+
+          '</div>';
+      });
+    }
+
+    html += '</div>';
+
+    popup(
+      "রেফার করা সদস্যদের বিস্তারিত",
+      "👥",
+      html,
+      okButton()
+    );
+  }
+
+  /* ==========================================================
+     PROFILE
+     ========================================================== */
+
+  var levelRules=[
+    {level:1,tasks:0,earning:0,referrals:0},
+    {level:2,tasks:15,earning:50,referrals:1},
+    {level:3,tasks:50,earning:200,referrals:2},
+    {level:4,tasks:100,earning:500,referrals:3},
+    {level:5,tasks:250,earning:1000,referrals:5},
+    {level:6,tasks:500,earning:2500,referrals:8},
+    {level:7,tasks:1000,earning:5000,referrals:12},
+    {level:8,tasks:2000,earning:10000,referrals:20}
+  ];
+
+  function showLevelDetails(){
+    var st=profileState();
+    var current=Math.max(1,Math.min(8,Number(st.level)||1));
+
+    var html=
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">⭐</div>' +
+        '<div class="pr-v3-hero-title">আপনার Level Progress</div>' +
+        '<div class="pr-v3-hero-sub">বর্তমান Level: '+current+'<br>Level 8 পর্যন্ত সম্পূর্ণ progression নিচে দেওয়া আছে।</div>' +
+      '</div>';
+
+    levelRules.forEach(function(rule){
+      var stateText=
+        rule.level<current ? "সম্পন্ন" :
+        rule.level===current ? "বর্তমান Level" :
+        "পরবর্তী";
+
+      html +=
+        '<div class="pr-v3-level">' +
+          '<div class="pr-v3-level-num">L'+rule.level+'</div>' +
+          '<div class="pr-v3-level-main">' +
+            '<div class="pr-v3-level-name">Level '+rule.level+'</div>' +
+            '<div class="pr-v3-level-sub">' +
+              'কমপক্ষে '+rule.tasks+' task • মোট earning ₹'+rule.earning+
+              ' • Referral '+rule.referrals+
+            '</div>' +
+          '</div>' +
+          '<div class="pr-v3-level-badge">'+stateText+'</div>' +
+        '</div>';
+    });
+
+    popup(
+      "Level System — বিস্তারিত",
+      "⭐",
+      html,
+      okButton()
+    );
+  }
+
+  function showPersonalInfo(){
+    var st=profileState();
+
+    popup(
+      "ব্যক্তিগত তথ্য",
+      "👤",
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">👤</div>' +
+        '<div class="pr-v3-hero-title">'+st.name+'</div>' +
+        '<div class="pr-v3-hero-sub">আপনার account-এর বর্তমান profile information</div>' +
+      '</div>' +
+
+      '<div class="pr-v3-info">' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Full name</span><span class="pr-v3-value">'+st.name+'</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">User ID</span><span class="pr-v3-value">'+st.userId+'</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Level</span><span class="pr-v3-value">⭐ Level '+st.level+'</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Mobile</span><span class="pr-v3-value">'+st.mobile+'</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Email</span><span class="pr-v3-value">'+st.email+'</span></div>' +
+      '</div>',
+      okButton()
+    );
+  }
+
+  function showEditProfile(){
+    var st=profileState();
+
+    var m=popup(
+      "প্রোফাইল এডিট",
+      "✏️",
+      '<div class="pr-v3-info">' +
+        '<label class="pr-v3-label2">আপনার নাম</label>' +
+        '<input class="pr-v3-input" id="pr-v3-name" value="'+String(st.name||"").replace(/"/g,"&quot;")+'">' +
+
+        '<label class="pr-v3-label2">মোবাইল নম্বর</label>' +
+        '<input class="pr-v3-input" id="pr-v3-mobile" value="'+String(st.mobile||"").replace(/"/g,"&quot;")+'">' +
+
+        '<label class="pr-v3-label2">ইমেইল</label>' +
+        '<input class="pr-v3-input" id="pr-v3-email" value="'+String(st.email||"").replace(/"/g,"&quot;")+'">' +
+      '</div>' +
+
+      '<button type="button" class="pr-v3-primary" id="pr-v3-save-profile">Save Changes</button>' +
+      '<button type="button" class="pr-v3-secondary" id="pr-v3-cancel-profile">Cancel</button>'
+    );
+
+    m.querySelector("#pr-v3-cancel-profile").addEventListener("click",closeV3);
+
+    m.querySelector("#pr-v3-save-profile").addEventListener("click",function(){
+      var name=m.querySelector("#pr-v3-name").value.trim();
+
+      if(!name){
+        success(
+          "তথ্য প্রয়োজন",
+          "নাম খালি রাখা যাবে না",
+          "অনুগ্রহ করে আপনার নাম লিখুন।",
+          "⚠️"
+        );
+        return;
+      }
+
+      st.name=name;
+      st.mobile=m.querySelector("#pr-v3-mobile").value.trim();
+      st.email=m.querySelector("#pr-v3-email").value.trim();
+
+      writeJSON(PROFILE_KEY,st);
+
+      var nameNode=document.querySelector("#screen-profile .pf-name");
+      if(nameNode) nameNode.textContent=name;
+
+      closeV3();
+
+      setTimeout(function(){
+        success(
+          "প্রোফাইল আপডেট",
+          "Profile successfully updated",
+          "আপনার নাম, মোবাইল এবং ইমেইল তথ্য সংরক্ষণ করা হয়েছে।",
+          "✓"
+        );
+      },30);
+    });
+  }
+
+  function showPaymentMethod(){
+    var st=profileState();
+
+    var current=st.paymentMethod || "এখনো যোগ করা হয়নি";
+
+    var m=popup(
+      "পেমেন্ট মেথড",
+      "💳",
+
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">💳</div>' +
+        '<div class="pr-v3-hero-title">Payment Method</div>' +
+        '<div class="pr-v3-hero-sub">একই payment detail Profile এবং Wallet Withdraw—দুই জায়গাতেই ব্যবহার হবে।</div>' +
+      '</div>' +
+
+      '<div class="pr-v3-info">' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Current method</span><span class="pr-v3-value">'+current+'</span></div>' +
+      '</div>' +
+
+      '<label class="pr-v3-label2">Payment method</label>' +
+      '<select class="pr-v3-input" id="pr-v3-pay-type">' +
+        '<option value="UPI" '+(st.paymentType==="UPI"?"selected":"")+'>UPI</option>' +
+        '<option value="Bank" '+(st.paymentType==="Bank"?"selected":"")+'>Bank Account</option>' +
+      '</select>' +
+
+      '<label class="pr-v3-label2" id="pr-v3-detail-label">UPI ID / Payment App</label>' +
+      '<input class="pr-v3-input" id="pr-v3-pay-detail" value="'+String(st.paymentDetail||"").replace(/"/g,"&quot;")+'" placeholder="example@upi">' +
+
+      '<button type="button" class="pr-v3-primary" id="pr-v3-save-payment">Save Payment Method</button>'
+    );
+
+    var type=m.querySelector("#pr-v3-pay-type");
+    var label=m.querySelector("#pr-v3-detail-label");
+    var input=m.querySelector("#pr-v3-pay-detail");
+
+    function syncType(){
+      if(type.value==="UPI"){
+        label.textContent="UPI ID / Payment App";
+        input.placeholder="example@upi";
+      }else{
+        label.textContent="Bank Account Details";
+        input.placeholder="Account number / IFSC / bank details";
+      }
+    }
+
+    type.addEventListener("change",syncType);
+    syncType();
+
+    m.querySelector("#pr-v3-save-payment").addEventListener("click",function(){
+      var detail=input.value.trim();
+
+      if(!detail){
+        success(
+          "তথ্য প্রয়োজন",
+          "Payment details দিন",
+          type.value==="UPI"
+            ? "আপনার UPI ID / payment app detail প্রয়োজন।"
+            : "আপনার bank account details প্রয়োজন।",
+          "⚠️"
+        );
+        return;
+      }
+
+      st.paymentType=type.value;
+      st.paymentDetail=detail;
+      st.paymentMethod=(type.value==="UPI"?"UPI • ":"Bank • ")+detail;
+
+      writeJSON(PROFILE_KEY,st);
+
+      closeV3();
+
+      setTimeout(function(){
+        success(
+          "Payment Method Saved",
+          "Payment method সংরক্ষণ হয়েছে",
+          "Wallet Withdraw-এ এখন শুধুমাত্র এই একই payment detail গ্রহণ করা হবে।",
+          "💳"
+        );
+      },30);
+    });
+  }
+
+  function showSecurity(){
+    popup(
+      "সিকিউরিটি",
+      "🛡️",
+      '<div class="pr-v3-info">' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Telegram verification</span><span class="pr-v3-value">✓ Verified</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Two-step security</span><span class="pr-v3-value">✓ Active</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Session protection</span><span class="pr-v3-value">✓ Active</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Account protection</span><span class="pr-v3-value">✓ Protected</span></div>' +
+      '</div>' +
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">🔐</div>' +
+        '<div class="pr-v3-hero-title">আপনার account নিরাপদ রাখুন</div>' +
+        '<div class="pr-v3-hero-sub">Demo logic একই structure অনুসরণ করবে; real version-এ authentication/security backend-এর সঙ্গে যুক্ত হবে।</div>' +
+      '</div>',
+      okButton()
+    );
+  }
+
+  function showNotifications(){
+    var st=profileState();
+
+    var m=popup(
+      "নোটিফিকেশন সেটিংস",
+      "🔔",
+      '<div class="pr-v3-info">' +
+        '<div class="pr-v3-row">' +
+          '<span class="pr-v3-label">Push Notifications</span>' +
+          '<span class="pr-v3-value" id="pr-v3-notif-state">'+(st.notifications?"ON":"OFF")+'</span>' +
+        '</div>' +
+      '</div>' +
+      '<button type="button" class="pr-v3-primary" id="pr-v3-notif-toggle">'+
+        (st.notifications?"Notifications OFF করুন":"Notifications ON করুন")+
+      '</button>'
+    );
+
+    m.querySelector("#pr-v3-notif-toggle").addEventListener("click",function(){
+      st.notifications=!st.notifications;
+      writeJSON(PROFILE_KEY,st);
+      closeV3();
+
+      setTimeout(function(){
+        success(
+          "নোটিফিকেশন",
+          st.notifications ? "Notifications ON":"Notifications OFF",
+          "আপনার notification preference সংরক্ষণ করা হয়েছে।",
+          st.notifications ? "🔔":"🔕"
+        );
+      },30);
+    });
+  }
+
+  function showSupport(){
+    popup(
+      "সাপোর্ট ও সাহায্য",
+      "🎧",
+      '<div class="pr-v3-info">' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Account Help</span><span class="pr-v3-value">›</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Task Help</span><span class="pr-v3-value">›</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Payment Help</span><span class="pr-v3-value">›</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Referral Help</span><span class="pr-v3-value">›</span></div>' +
+      '</div>' +
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">💬</div>' +
+        '<div class="pr-v3-hero-title">PriLuck Support Center</div>' +
+        '<div class="pr-v3-hero-sub">Real version-এ support bot/support team এখানে যুক্ত করা যাবে।</div>' +
+      '</div>',
+      okButton()
+    );
+  }
+
+  function showAbout(){
+    popup(
+      "অ্যাপ সম্পর্কে",
+      "ℹ️",
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">🚀</div>' +
+        '<div class="pr-v3-hero-title">PriLuck</div>' +
+        '<div class="pr-v3-hero-sub">Task করুন, Earn করুন</div>' +
+      '</div>' +
+      '<div class="pr-v3-info">' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Version</span><span class="pr-v3-value">Demo V3</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Platform</span><span class="pr-v3-value">PriLuck Web App</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Referral System</span><span class="pr-v3-value">Enabled</span></div>' +
+        '<div class="pr-v3-row"><span class="pr-v3-label">Payment System</span><span class="pr-v3-value">Profile ↔ Wallet linked</span></div>' +
+      '</div>',
+      okButton()
+    );
+  }
+
+  function showRating(){
+    var m=popup(
+      "PriLuck-কে Rate করুন",
+      "⭐",
+      '<div style="text-align:center;">' +
+        '<div style="font-size:13px;font-weight:900;color:#4c1d95;">আপনার অভিজ্ঞতা কেমন?</div>' +
+        '<div style="font-size:10px;color:#897b9e;margin-top:4px;">১ থেকে ৫ star নির্বাচন করুন</div>' +
+      '</div>' +
+      '<div id="pr-v3-stars" style="display:flex;gap:7px;justify-content:center;margin:18px 0;">' +
+        '<button class="pr-v3-star" data-star="1" style="font-size:24px;border:1px solid #ded3ef;background:#fff;border-radius:13px;width:43px;height:43px;">★</button>' +
+        '<button class="pr-v3-star" data-star="2" style="font-size:24px;border:1px solid #ded3ef;background:#fff;border-radius:13px;width:43px;height:43px;">★</button>' +
+        '<button class="pr-v3-star" data-star="3" style="font-size:24px;border:1px solid #ded3ef;background:#fff;border-radius:13px;width:43px;height:43px;">★</button>' +
+        '<button class="pr-v3-star" data-star="4" style="font-size:24px;border:1px solid #ded3ef;background:#fff;border-radius:13px;width:43px;height:43px;">★</button>' +
+        '<button class="pr-v3-star" data-star="5" style="font-size:24px;border:1px solid #ded3ef;background:#fff;border-radius:13px;width:43px;height:43px;">★</button>' +
+      '</div>' +
+      '<button type="button" class="pr-v3-primary" id="pr-v3-submit-rating">Rating Submit করুন</button>'
+    );
+
+    var selected=0;
+
+    m.querySelectorAll(".pr-v3-star").forEach(function(star){
+      star.addEventListener("click",function(){
+        selected=Number(star.getAttribute("data-star"));
+
+        m.querySelectorAll(".pr-v3-star").forEach(function(x){
+          x.style.background=
+            Number(x.getAttribute("data-star"))<=selected
+              ? "#fff4cf"
+              : "#fff";
+        });
+      });
+    });
+
+    m.querySelector("#pr-v3-submit-rating").addEventListener("click",function(){
+      if(!selected){
+        success(
+          "Rating প্রয়োজন",
+          "একটি rating নির্বাচন করুন",
+          "আপনার অভিজ্ঞতা অনুযায়ী ১–৫ star নির্বাচন করুন।",
+          "⭐"
+        );
+        return;
+      }
+
+      closeV3();
+
+      setTimeout(function(){
+        success(
+          "Rating Saved",
+          selected+"/5 rating saved হয়েছে",
+          "আপনার feedback demo profile system-এ সংরক্ষিত হয়েছে।",
+          "⭐"
+        );
+      },30);
+    });
+  }
+
+  function showLogout(){
+    var m=popup(
+      "Logout",
+      "🚪",
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">🚪</div>' +
+        '<div class="pr-v3-hero-title">আপনি কি Logout করতে চান?</div>' +
+        '<div class="pr-v3-hero-sub">Logout করলে demo profile state local storage থেকে remove হবে।</div>' +
+      '</div>' +
+      '<button type="button" class="pr-v3-primary" id="pr-v3-logout-confirm">Logout করুন</button>' +
+      '<button type="button" class="pr-v3-secondary" id="pr-v3-logout-cancel">Cancel</button>'
+    );
+
+    m.querySelector("#pr-v3-logout-cancel").addEventListener("click",closeV3);
+
+    m.querySelector("#pr-v3-logout-confirm").addEventListener("click",function(){
+      try{
+        localStorage.removeItem(PROFILE_KEY);
+      }catch(e){}
+
+      closeV3();
+
+      setTimeout(function(){
+        success(
+          "Logout",
+          "Demo logout সম্পন্ন হয়েছে",
+          "Real authentication system যুক্ত হলে backend session logout হবে।",
+          "✓"
+        );
+      },30);
+    });
+  }
+
+  function showProfilePhoto(){
+    popup(
+      "Profile Photo",
+      "📷",
+      '<div class="pr-v3-hero">' +
+        '<div class="pr-v3-hero-icon">📷</div>' +
+        '<div class="pr-v3-hero-title">Profile Photo</div>' +
+        '<div class="pr-v3-hero-sub">Demo-তে photo selection/upload interface প্রস্তুত। Real version-এ secure upload/API এখানে যুক্ত হবে।</div>' +
+      '</div>',
+      okButton()
+    );
+  }
+
+  function profileAction(title){
+    if(title==="ব্যক্তিগত তথ্য") return showPersonalInfo();
+    if(title==="পেমেন্ট মেথড") return showPaymentMethod();
+    if(title==="সিকিউরিটি") return showSecurity();
+    if(title==="নোটিফিকেশন সেটিংস") return showNotifications();
+    if(title==="সাপোর্ট ও সাহায্য") return showSupport();
+    if(title==="অ্যাপ সম্পর্কে") return showAbout();
+    if(title==="রেট দিন") return showRating();
+    if(title==="লগ আউট") return showLogout();
+  }
+
+  /* ==========================================================
+     SINGLE-CLICK CAPTURE
+     পুরোনো V1/V2 handlers-কে click-এর আগেই আটকানো হবে।
+     ========================================================== */
+
+  document.addEventListener("click",function(e){
+
+    var t=e.target && e.target.closest
+      ? e.target.closest("#screen-refer .rf-copy-btn, #screen-refer .rf-share-btn, #screen-refer .rf-see-all, #screen-profile .pf-userid, #screen-profile .pf-copy, #screen-profile .pf-edit-btn, #screen-profile .pf-cam-btn, #screen-profile .pf-level, #screen-profile .pf-menu-item, #screen-profile .pf-item-title")
+      : null;
+
+    if(!t) return;
+
+    /* IMPORTANT:
+       only Refer/Profile targets are intercepted here.
+       Home/Leaderboard/Wallet normal clicks are untouched.
+    */
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+
+    if(t.closest("#screen-refer")){
+
+      if(t.matches(".rf-copy-btn")){
+        var buttons=document.querySelectorAll("#screen-refer .rf-copy-btn");
+        var st=referState();
+
+        if(t===buttons[0]){
+          copyValue(st.code,"আপনার রেফার কোড কপি হয়েছে");
+        }else{
+          copyValue(st.link,"আপনার রেফার লিংক কপি হয়েছে");
+        }
+        return;
+      }
+
+      if(t.matches(".rf-share-btn")){
+        var rs=referState();
+
+        if(navigator.share){
+          navigator.share({
+            title:"PriLuck Referral",
+            text:"PriLuck-এ যোগ দিন এবং Task করে Earn করুন!\n\nআমার Referral Code: "+rs.code+"\n\n"+rs.link,
+            url:rs.link
+          }).catch(function(){});
+        }else{
+          window.open(
+            "https://t.me/share/url?url="+encodeURIComponent(rs.link)+
+            "&text="+encodeURIComponent("PriLuck-এ যোগ দিন এবং Task করে Earn করুন!\n\nআমার Referral Code: "+rs.code),
+            "_blank"
+          );
+        }
+
+        success(
+          "Referral Share",
+          "Referral share প্রস্তুত হয়েছে",
+          "আপনার referral code এবং link share করার জন্য প্রস্তুত।",
+          "📤"
+        );
+        return;
+      }
+
+      if(t.matches(".rf-see-all")){
+        showReferralDetails();
+        return;
+      }
+    }
+
+    if(t.closest("#screen-profile")){
+
+      if(t.matches(".pf-copy") || t.matches(".pf-userid")){
+        var ps=profileState();
+        copyValue(ps.userId,"User ID কপি হয়েছে");
+        return;
+      }
+
+      if(t.matches(".pf-edit-btn")){
+        showEditProfile();
+        return;
+      }
+
+      if(t.matches(".pf-cam-btn")){
+        showProfilePhoto();
+        return;
+      }
+
+      if(t.matches(".pf-level") || t.closest(".pf-level")){
+        showLevelDetails();
+        return;
+      }
+
+      var item=t.closest(".pf-menu-item");
+
+      if(item){
+        var titleNode=item.querySelector(".pf-item-title");
+        var title=titleNode ? titleNode.textContent.trim() : "";
+        profileAction(title);
+        return;
+      }
+    }
+
+  },true);
+
+  /* ==========================================================
+     WALLET WITHDRAW — ONLY PAYMENT DETAIL VALIDATION
+     Existing Wallet UI/withdraw logic remains owner.
+     ========================================================== */
+
+  document.addEventListener("click",function(e){
+
+    var submit=e.target && e.target.closest
+      ? e.target.closest("#pr-wallet-withdraw-submit")
+      : null;
+
+    if(!submit) return;
+
+    var st=profileState();
+
+    /* If no saved payment method exists, leave existing Wallet
+       validation untouched. */
+    if(!st.paymentDetail){
+      return;
+    }
+
+    var modal=submit.closest(".pr-wallet-modal");
+    if(!modal) return;
+
+    var input=modal.querySelector("#pr-wallet-payment-id");
+    var methodButton=modal.querySelector(".pr-wallet-method.active");
+
+    var entered=input ? String(input.value||"").trim() : "";
+    var selected=methodButton
+      ? methodButton.getAttribute("data-method")
+      : "";
+
+    var expectedType=st.paymentType || "";
+    var expected=String(st.paymentDetail||"").trim();
+
+    if(
+      !entered ||
+      !expected ||
+      selected!==expectedType ||
+      entered!==expected
+    ){
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      closeV3();
+
+      setTimeout(function(){
+        popup(
+          "Payment Method মিলছে না",
+          "⚠️",
+          '<div class="pr-v3-error">' +
+            '<strong>Withdrawal blocked</strong><br><br>' +
+            'Profile-এ saved payment method-এর সাথেই Wallet Withdraw করতে হবে।<br><br>' +
+            '<strong>Saved:</strong> '+(expectedType||"Not set")+' • '+expected+
+            '<br><br>' +
+            '<strong>Entered:</strong> '+(selected||"Not selected")+' • '+(entered||"Empty")+
+          '</div>' +
+          '<div class="pr-v3-info" style="margin-top:12px;">' +
+            '<div class="pr-v3-row"><span class="pr-v3-label">Rule</span><span class="pr-v3-value">Same payment detail required</span></div>' +
+            '<div class="pr-v3-row"><span class="pr-v3-label">Action</span><span class="pr-v3-value">Profile → Payment Method</span></div>' +
+          '</div>',
+          okButton()
+        );
+      },30);
+    }
+
+  },true);
+
+  /* ==========================================================
+     KEEP ORIGINAL REFERRAL TABLE DESIGN + FIVE ROWS
+     ========================================================== */
+
+  renderOriginalReferralRows();
+
+  console.log("==================================================");
+  console.log("🎉 PRILUCK REFER + PROFILE PREMIUM V3 READY");
+  console.log("==================================================");
+  console.log("✅ Old Refer/Profile popup handlers blocked before click");
+  console.log("✅ One click = one new premium popup");
+  console.log("✅ Original referral table HTML/CSS classes preserved");
+  console.log("✅ Referral table always maintains 5 visible rows");
+  console.log("✅ 6th+ referral = newest 5 logic");
+  console.log("✅ Referral demo data remains localStorage based");
+  console.log("✅ Profile Edit premium popup");
+  console.log("✅ Personal Information premium popup");
+  console.log("✅ Payment Method premium popup");
+  console.log("✅ Payment detail stored for Wallet validation");
+  console.log("✅ Security premium popup");
+  console.log("✅ Notification Settings premium popup");
+  console.log("✅ Support premium popup");
+  console.log("✅ About premium popup");
+  console.log("✅ Rating premium popup");
+  console.log("✅ Logout premium popup");
+  console.log("✅ Profile Photo premium popup");
+  console.log("✅ Level click → Level 1 to Level 8 details");
+  console.log("✅ Wallet Withdraw accepts only saved Profile payment detail");
+  console.log("🚫 Home untouched");
+  console.log("🚫 Leaderboard untouched");
+  console.log("🚫 Wallet UI untouched");
+  console.log("==================================================");
+
+})();
+
+
+/* ==========================================================
+   PRILUCK REFER CLEAN MASTER V5
+   ONLY:
+   1) Refer progress-bar colors
+   2) Refer "সব দেখুন" full details
+   EVERYTHING ELSE UNTOUCHED
+   ========================================================== */
+(function(){
+
+  var MARKER = "PRILUCK_REFER_CLEAN_MASTER_V5";
+
+  if(document.getElementById(MARKER)){
+    return;
+  }
+
+  /* --------------------------------------------------------
+     1) REFER PROGRESS COLOR CSS
+     80/80   = GREEN
+     30–79   = BLUE
+     0–29    = RED
+     -------------------------------------------------------- */
+
+  var style = document.createElement("style");
+  style.id = MARKER;
+
+  style.textContent = `
+    /* Refer screen only */
+    #screen-refer .rf-prog-fill.rf-v5-green,
+    #screen-refer .rf-prog-fill.rf-v5-blue,
+    #screen-refer .rf-prog-fill.rf-v5-red{
+      transition: background-color .2s ease;
+    }
+
+    #screen-refer .rf-prog-fill.rf-v5-green{
+      background:#16a34a !important;
+    }
+
+    #screen-refer .rf-prog-fill.rf-v5-blue{
+      background:#2563eb !important;
+    }
+
+    #screen-refer .rf-prog-fill.rf-v5-red{
+      background:#dc2626 !important;
+    }
+
+    /* Full-detail popup */
+    .pr-v5-detail-progress{
+      margin-top:9px;
+      width:100%;
+      height:8px;
+      border-radius:999px;
+      background:#e5e7eb;
+      overflow:hidden;
+    }
+
+    .pr-v5-detail-progress-fill{
+      height:100%;
+      border-radius:999px;
+      transition:background-color .2s ease;
+    }
+
+    .pr-v5-detail-progress-fill.green{
+      background:#16a34a !important;
+    }
+
+    .pr-v5-detail-progress-fill.blue{
+      background:#2563eb !important;
+    }
+
+    .pr-v5-detail-progress-fill.red{
+      background:#dc2626 !important;
+    }
+
+    .pr-v5-detail-date{
+      margin-top:5px;
+      font-size:10px;
+      color:#897b9e;
+      font-weight:700;
+    }
+  `;
+
+  document.head.appendChild(style);
+
+
+  /* --------------------------------------------------------
+     2) COMMON PROGRESS RULE
+     -------------------------------------------------------- */
+
+  function v5ProgressType(progress){
+    var n = Math.max(0, Number(progress) || 0);
+
+    if(n >= 80){
+      return "green";
+    }
+
+    if(n >= 30){
+      return "blue";
+    }
+
+    return "red";
+  }
+
+
+  function v5ProgressWidth(progress){
+    var n = Math.max(0, Number(progress) || 0);
+    return Math.min(100, (n / 80) * 100);
+  }
+
+
+  function v5ApplyProgressColor(fill, progress){
+    if(!fill) return;
+
+    var type = v5ProgressType(progress);
+
+    fill.classList.remove(
+      "rf-v5-green",
+      "rf-v5-blue",
+      "rf-v5-red"
+    );
+
+    fill.classList.add("rf-v5-" + type);
+
+    /* Override old inline colors without changing logic */
+    fill.style.setProperty(
+      "background",
+      type === "green"
+        ? "#16a34a"
+        : (type === "blue" ? "#2563eb" : "#dc2626"),
+      "important"
+    );
+  }
+
+
+  /* --------------------------------------------------------
+     3) PAINT ALL CURRENT REFER BARS
+     Works with existing demo rows and future dynamically
+     rendered real-data rows.
+     -------------------------------------------------------- */
+
+  function v5PaintReferBars(root){
+
+    root = root || document.getElementById("screen-refer");
+
+    if(!root) return;
+
+    var fills = root.querySelectorAll(".rf-prog-fill");
+
+    fills.forEach(function(fill){
+
+      var wrap = fill.closest(".rf-prog-wrap");
+
+      if(!wrap) return;
+
+      var text = wrap.querySelector(".rf-prog-text");
+
+      if(!text) return;
+
+      var match = String(text.textContent || "").match(/(\d+(?:\.\d+)?)\s*\/\s*80/);
+
+      if(!match) return;
+
+      var progress = Number(match[1]);
+
+      v5ApplyProgressColor(fill, progress);
+    });
+  }
+
+
+  /* Initial paint */
+  v5PaintReferBars();
+
+
+  /* --------------------------------------------------------
+     4) WATCH ONLY REFER SCREEN
+     When real data later replaces/re-renders the rows,
+     colors are automatically reapplied.
+     -------------------------------------------------------- */
+
+  var referScreen = document.getElementById("screen-refer");
+
+  if(referScreen){
+
+    var observer = new MutationObserver(function(){
+      v5PaintReferBars(referScreen);
+    });
+
+    observer.observe(referScreen, {
+      childList:true,
+      subtree:true
+    });
+  }
+
+
+  /* --------------------------------------------------------
+     5) REPLACE THE FUNCTION REFERENCE ONLY
+     We do NOT search/replace the old showReferralDetails()
+     block. This avoids the previous patch error.
+     -------------------------------------------------------- */
+
+  if(typeof showReferralDetails === "function"){
+
+    showReferralDetails = function(){
+
+      var st = referState ? referState() : {};
+      var total = Math.max(
+        0,
+        Number(st.successful) || 0
+      );
+
+      /*
+       * Current demo source.
+       * If the same referral array is later updated with
+       * real data, this renderer uses that current array.
+       */
+      var source = [];
+
+      try{
+        if(Array.isArray(referralDemo)){
+          source = referralDemo.slice();
+        }
+      }catch(e){
+        source = [];
+      }
+
+      if(!source.length){
+
+        popup(
+          "রেফার করা সদস্যদের বিস্তারিত",
+          "👥",
+          '<div class="pr-v3-hero">' +
+            '<div class="pr-v3-hero-icon">👥</div>' +
+            '<div class="pr-v3-hero-title">কোনো referral data নেই</div>' +
+            '<div class="pr-v3-hero-sub">' +
+              'এখনও কোনো referral member-এর data পাওয়া যায়নি।' +
+            '</div>' +
+          '</div>',
+          okButton()
+        );
+
+        return;
+      }
+
+
+      /* ------------------------------------------------------
+         FULL REFERRAL DETAIL HEADER
+         ------------------------------------------------------ */
+
+      var html =
+        '<div class="pr-v3-hero">' +
+
+          '<div class="pr-v3-hero-icon">👥</div>' +
+
+          '<div class="pr-v3-hero-title">' +
+            'আপনার Referral Network' +
+          '</div>' +
+
+          '<div class="pr-v3-hero-sub">' +
+            'মোট successful referral: ' + total +
+            '<br>' +
+            'প্রতিটি referral-এর 80 task completion-এর ভিত্তিতে bonus হিসাব হবে।' +
+            '<br><br>' +
+            '<strong>80/80 = Green</strong> • ' +
+            '<strong>30–79 = Blue</strong> • ' +
+            '<strong>0–29 = Red</strong>' +
+          '</div>' +
+
+        '</div>';
+
+
+      /* ------------------------------------------------------
+         FULL DETAIL LIST
+         ------------------------------------------------------ */
+
+      source.forEach(function(item, index){
+
+        var progress = Math.max(
+          0,
+          Number(item.progress) || 0
+        );
+
+        var width = v5ProgressWidth(progress);
+        var type = v5ProgressType(progress);
+
+        var complete = progress >= 80;
+
+        var statusText =
+          complete
+            ? "কমপ্লিট"
+            : (progress === 0 ? "শুরু করেনি" : "চলছে");
+
+        var bonusText =
+          complete
+            ? "Bonus earned ₹50"
+            : "Bonus pending";
+
+        html +=
+
+          '<div class="pr-v3-level">' +
+
+            '<div class="pr-v3-level-num">' +
+              (index + 1) +
+            '</div>' +
+
+            '<div class="pr-v3-level-main">' +
+
+              '<div class="pr-v3-level-name">' +
+                item.name +
+              '</div>' +
+
+              '<div class="pr-v3-level-sub">' +
+                progress + '/80 task • ' +
+                statusText +
+                ' • ' +
+                bonusText +
+              '</div>' +
+
+              '<div class="pr-v5-detail-progress">' +
+
+                '<div class="pr-v5-detail-progress-fill ' +
+                  type +
+                  '" style="width:' +
+                  width +
+                  '%;"></div>' +
+
+              '</div>' +
+
+              '<div class="pr-v5-detail-date">' +
+                'Join date: ' +
+                (item.date || "—") +
+              '</div>' +
+
+            '</div>' +
+
+            '<div class="pr-v3-level-badge">' +
+              statusText +
+            '</div>' +
+
+          '</div>';
+      });
+
+
+      popup(
+        "রেফার করা সদস্যদের বিস্তারিত",
+        "👥",
+        html,
+        okButton()
+      );
+    };
+  }
+
+
+  /* --------------------------------------------------------
+     6) REPAINT ONCE MORE AFTER FUNCTION OVERRIDE
+     -------------------------------------------------------- */
+
+  setTimeout(function(){
+    v5PaintReferBars();
+  }, 0);
+
+
+})();
+
+
+
+/* ==========================================================
+   PRILUCK REFER DETAILS ONLY — V6
+
+   ONLY changes:
+   Refer screen → "সব দেখুন" → referral details popup
+
+   Progress rule:
+   80/80   = GREEN
+   30–79   = BLUE
+   0–29    = RED
+
+   Existing Refer logic remains untouched.
+   Home / Leaderboard / Wallet / Profile untouched.
+   ========================================================== */
+(function(){
+
+  var V6_MARKER = "PRILUCK_REFER_DETAILS_ONLY_V6";
+
+  if(document.getElementById(V6_MARKER)){
+    return;
+  }
+
+  /* ----------------------------------------------------------
+     ONLY popup-detail CSS
+     ---------------------------------------------------------- */
+
+  var style = document.createElement("style");
+  style.id = V6_MARKER;
+
+  style.textContent = `
+    .pr-v6-ref-detail-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      max-height:65vh;
+      overflow-y:auto;
+      padding-right:2px;
+    }
+
+    .pr-v6-ref-card{
+      width:100%;
+      padding:14px;
+      border-radius:18px;
+      background:#ffffff;
+      border:1px solid #eee8f8;
+      box-shadow:0 6px 18px rgba(54,35,100,.08);
+      box-sizing:border-box;
+    }
+
+    .pr-v6-ref-top{
+      display:flex;
+      align-items:center;
+      gap:11px;
+    }
+
+    .pr-v6-ref-number{
+      width:36px;
+      height:36px;
+      flex:0 0 36px;
+      border-radius:12px;
+      background:#eee8ff;
+      color:#6d3df0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .pr-v6-ref-main{
+      flex:1;
+      min-width:0;
+    }
+
+    .pr-v6-ref-name{
+      color:#24124d;
+      font-size:14px;
+      font-weight:900;
+      line-height:1.3;
+    }
+
+    .pr-v6-ref-status{
+      margin-top:3px;
+      color:#756b8f;
+      font-size:11px;
+      font-weight:700;
+    }
+
+    .pr-v6-ref-badge{
+      flex:0 0 auto;
+      padding:6px 9px;
+      border-radius:999px;
+      font-size:10px;
+      font-weight:900;
+      white-space:nowrap;
+      background:#f2eff8;
+      color:#6b6280;
+    }
+
+    .pr-v6-ref-progress-wrap{
+      margin-top:11px;
+    }
+
+    .pr-v6-ref-progress-track{
+      width:100%;
+      height:10px;
+      border-radius:999px;
+      background:#ece9f3;
+      overflow:hidden;
+    }
+
+    .pr-v6-ref-progress-fill{
+      height:100%;
+      border-radius:999px;
+    }
+
+    .pr-v6-ref-progress-fill.green{
+      background:#16a34a !important;
+    }
+
+    .pr-v6-ref-progress-fill.blue{
+      background:#2563eb !important;
+    }
+
+    .pr-v6-ref-progress-fill.red{
+      background:#dc2626 !important;
+    }
+
+    .pr-v6-ref-progress-text{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:5px;
+      color:#756b8f;
+      font-size:10px;
+      font-weight:800;
+    }
+
+    .pr-v6-ref-details{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      margin-top:10px;
+    }
+
+    .pr-v6-ref-detail{
+      padding:8px 9px;
+      border-radius:11px;
+      background:#f8f6fc;
+    }
+
+    .pr-v6-ref-detail-label{
+      color:#968da8;
+      font-size:9px;
+      font-weight:700;
+    }
+
+    .pr-v6-ref-detail-value{
+      margin-top:2px;
+      color:#33235a;
+      font-size:11px;
+      font-weight:900;
+      word-break:break-word;
+    }
+
+    .pr-v6-ref-bonus{
+      margin-top:8px;
+      padding:9px 10px;
+      border-radius:11px;
+      background:#f0faf3;
+      color:#16803a;
+      font-size:10.5px;
+      font-weight:900;
+    }
+
+    .pr-v6-ref-bonus.pending{
+      background:#fff7e8;
+      color:#a16207;
+    }
+
+    .pr-v6-ref-header{
+      margin-bottom:12px;
+      padding:14px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#f5f0ff,#ffffff);
+      border:1px solid #e9defb;
+    }
+
+    .pr-v6-ref-header-title{
+      color:#28134f;
+      font-size:15px;
+      font-weight:900;
+    }
+
+    .pr-v6-ref-header-sub{
+      margin-top:4px;
+      color:#756b8f;
+      font-size:10.5px;
+      line-height:1.5;
+      font-weight:600;
+    }
+
+    .pr-v6-ref-legend{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-top:9px;
+    }
+
+    .pr-v6-ref-legend span{
+      padding:5px 8px;
+      border-radius:999px;
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .pr-v6-legend-green{
+      background:#dcfce7;
+      color:#15803d;
+    }
+
+    .pr-v6-legend-blue{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .pr-v6-legend-red{
+      background:#fee2e2;
+      color:#b91c1c;
+    }
+  `;
+
+  document.head.appendChild(style);
+
+
+  /* ----------------------------------------------------------
+     PROGRESS HELPERS
+     ---------------------------------------------------------- */
+
+  function v6ProgressType(progress){
+    var n = Math.max(0, Number(progress) || 0);
+
+    if(n >= 80) return "green";
+    if(n >= 30) return "blue";
+    return "red";
+  }
+
+  function v6ProgressWidth(progress){
+    var n = Math.max(0, Number(progress) || 0);
+    return Math.min(100, (n / 80) * 100);
+  }
+
+
+  /* ----------------------------------------------------------
+     READ CURRENT referralDemo DATA
+
+     Demo data এখন ব্যবহার করবে।
+     পরে referralDemo real-data দিয়ে update হলে
+     একই renderer সেই data-ই ব্যবহার করবে।
+     ---------------------------------------------------------- */
+
+  function v6GetReferralSource(){
+
+    try{
+      if(
+        typeof referralDemo !== "undefined" &&
+        Array.isArray(referralDemo)
+      ){
+        return referralDemo.slice();
+      }
+    }catch(e){}
+
+    return [];
+  }
+
+
+  /* ----------------------------------------------------------
+     ONLY REPLACE CLICKED "সব দেখুন" ACTION
+
+     Existing showReferralDetails() block touch করা হচ্ছে না.
+     ---------------------------------------------------------- */
+
+  document.addEventListener("click", function(e){
+
+    var target = e.target && e.target.closest
+      ? e.target.closest("#screen-refer .rf-see-all")
+      : null;
+
+    if(!target) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+
+
+    var source = v6GetReferralSource();
+
+    var total = 0;
+
+    try{
+      if(typeof referState === "function"){
+        var st = referState();
+        total = Math.max(
+          0,
+          Number(st && st.successful) || 0
+        );
+      }
+    }catch(e){}
+
+
+    /* --------------------------------------------------------
+       HEADER
+       -------------------------------------------------------- */
+
+    var html =
+      '<div class="pr-v6-ref-header">' +
+
+        '<div class="pr-v6-ref-header-title">' +
+          '👥 আপনার Referral Network' +
+        '</div>' +
+
+        '<div class="pr-v6-ref-header-sub">' +
+          'মোট successful referral: ' +
+          total +
+          '<br>' +
+          'প্রতিটি referral member-এর 80 task completion পর্যন্ত progress এখানে দেখানো হবে।' +
+        '</div>' +
+
+        '<div class="pr-v6-ref-legend">' +
+          '<span class="pr-v6-legend-green">80/80 • GREEN • সম্পূর্ণ</span>' +
+          '<span class="pr-v6-legend-blue">30–79 • BLUE • চলছে</span>' +
+          '<span class="pr-v6-legend-red">0–29 • RED • কম progress</span>' +
+        '</div>' +
+
+      '</div>';
+
+
+    /* --------------------------------------------------------
+       FULL REFERRAL CARDS
+       -------------------------------------------------------- */
+
+    html += '<div class="pr-v6-ref-detail-list">';
+
+
+    if(!source.length){
+
+      html +=
+        '<div class="pr-v6-ref-card">' +
+          '<div class="pr-v6-ref-name">' +
+            'এখনও কোনো referral member-এর data পাওয়া যায়নি।' +
+          '</div>' +
+          '<div class="pr-v6-ref-status">' +
+            'Real referral data এলে এখানেই একই format-এ দেখা যাবে।' +
+          '</div>' +
+        '</div>';
+
+    }else{
+
+      source.forEach(function(item, index){
+
+        item = item || {};
+
+        var progress = Math.max(
+          0,
+          Number(item.progress) || 0
+        );
+
+        var type = v6ProgressType(progress);
+        var width = v6ProgressWidth(progress);
+
+        var complete = progress >= 80;
+
+        var status =
+          complete
+            ? "কমপ্লিট"
+            : (
+                progress === 0
+                  ? "শুরু করেনি"
+                  : "চলছে"
+              );
+
+        var bonus =
+          complete
+            ? "🎁 Bonus earned: ₹50"
+            : "⏳ Bonus pending — 80 task complete হলে ₹50";
+
+        var joinDate =
+          item.date ||
+          item.joinDate ||
+          item.join_date ||
+          "—";
+
+        var name =
+          item.name ||
+          item.username ||
+          item.userName ||
+          "Referral Member " + (index + 1);
+
+
+        html +=
+
+          '<div class="pr-v6-ref-card">' +
+
+            '<div class="pr-v6-ref-top">' +
+
+              '<div class="pr-v6-ref-number">' +
+                (index + 1) +
+              '</div>' +
+
+              '<div class="pr-v6-ref-main">' +
+
+                '<div class="pr-v6-ref-name">' +
+                  name +
+                '</div>' +
+
+                '<div class="pr-v6-ref-status">' +
+                  status +
+                  ' • ' +
+                  progress +
+                  '/80 task complete' +
+                '</div>' +
+
+              '</div>' +
+
+              '<div class="pr-v6-ref-badge">' +
+                progress +
+                '/80' +
+              '</div>' +
+
+            '</div>' +
+
+
+            '<div class="pr-v6-ref-progress-wrap">' +
+
+              '<div class="pr-v6-ref-progress-track">' +
+
+                '<div class="pr-v6-ref-progress-fill ' +
+                  type +
+                  '" style="width:' +
+                  width +
+                  '%;"></div>' +
+
+              '</div>' +
+
+              '<div class="pr-v6-ref-progress-text">' +
+
+                '<span>' +
+                  'Progress ' +
+                  Math.round(width) +
+                  '%' +
+                '</span>' +
+
+                '<span>' +
+                  status +
+                '</span>' +
+
+              '</div>' +
+
+            '</div>' +
+
+
+            '<div class="pr-v6-ref-details">' +
+
+              '<div class="pr-v6-ref-detail">' +
+                '<div class="pr-v6-ref-detail-label">' +
+                  'Task completed' +
+                '</div>' +
+                '<div class="pr-v6-ref-detail-value">' +
+                  progress +
+                  ' / 80' +
+                '</div>' +
+              '</div>' +
+
+              '<div class="pr-v6-ref-detail">' +
+                '<div class="pr-v6-ref-detail-label">' +
+                  'Remaining task' +
+                '</div>' +
+                '<div class="pr-v6-ref-detail-value">' +
+                  Math.max(0, 80 - progress) +
+                '</div>' +
+              '</div>' +
+
+              '<div class="pr-v6-ref-detail">' +
+                '<div class="pr-v6-ref-detail-label">' +
+                  'Join date' +
+                '</div>' +
+                '<div class="pr-v6-ref-detail-value">' +
+                  joinDate +
+                '</div>' +
+              '</div>' +
+
+              '<div class="pr-v6-ref-detail">' +
+                '<div class="pr-v6-ref-detail-label">' +
+                  'Current status' +
+                '</div>' +
+                '<div class="pr-v6-ref-detail-value">' +
+                  status +
+                '</div>' +
+              '</div>' +
+
+            '</div>' +
+
+
+            '<div class="pr-v6-ref-bonus ' +
+              (complete ? '' : 'pending') +
+            '">' +
+              bonus +
+            '</div>' +
+
+          '</div>';
+
+      });
+
+    }
+
+
+    html += '</div>';
+
+
+    /* --------------------------------------------------------
+       OPEN ONLY THIS REFER DETAILS POPUP
+       -------------------------------------------------------- */
+
+    popup(
+      "রেফার করা সদস্যদের বিস্তারিত",
+      "👥",
+      html,
+      okButton()
+    );
+
+  }, true);
+
+
+})();
+
+</script>
+
+
+<style id="pr-final-clean-surgical-style">
+@keyframes prCleanModalIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.pr-clean-master-overlay #pr-cr-body select{appearance:none;-webkit-appearance:none;border:1px solid #e2d7f2 !important;background:linear-gradient(180deg,#fff,#faf7ff) !important;color:#35136a !important;border-radius:14px !important;box-shadow:0 5px 15px rgba(76,29,149,.07) !important;font-weight:900 !important;min-height:42px !important;padding:10px 34px 10px 11px !important;}
+.pr-clean-master-overlay #pr-cr-body select:focus{outline:2px solid rgba(124,58,237,.18) !important;outline-offset:1px !important;}
+.pr-clean-master-overlay #pr-cr-body button[data-hf],.pr-clean-master-overlay #pr-cr-body button[data-rf]{border:1px solid #e5dcf2 !important;background:linear-gradient(180deg,#fff,#faf7ff) !important;color:#6b5c7d !important;box-shadow:0 4px 12px rgba(76,29,149,.05) !important;}
+.pr-clean-master-overlay #pr-cr-body button[data-hf]:hover,.pr-clean-master-overlay #pr-cr-body button[data-rf]:hover{transform:translateY(-1px);}
+</style>
+<!-- PRILUCK_HISTORY_RECENT_SURGICAL_V2 -->
+<script>
+
+<style id="pr-history-recent-premium-only-v3">
+/* =========================================================
+   PRILUCK HISTORY + RECENT
+   PREMIUM VISUAL ONLY
+   NO DATA / FILTER / TRANSACTION LOGIC CHANGED
+   ========================================================= */
+
+/* Premium overlay */
+.pr-clean-master-overlay{
+  background:rgba(20,10,48,.72) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+}
+
+/* Premium popup card */
+.pr-clean-master-overlay > div{
+  background:linear-gradient(180deg,#ffffff 0%,#fcfaff 100%) !important;
+  border:1px solid rgba(124,58,237,.14) !important;
+  border-radius:28px !important;
+  box-shadow:0 24px 80px rgba(35,12,75,.30) !important;
+  overflow:hidden !important;
+}
+
+/* Premium popup header */
+.pr-clean-master-overlay > div > div:first-child{
+  background:linear-gradient(135deg,#faf7ff 0%,#ffffff 100%) !important;
+  border-bottom:1px solid #eee8f7 !important;
+  padding:15px !important;
+}
+
+/* Popup title */
+.pr-clean-master-overlay > div > div:first-child strong{
+  color:#2f1459 !important;
+  font-size:17px !important;
+  font-weight:950 !important;
+}
+
+/* Popup close button */
+.pr-clean-master-overlay #pr-cr-close{
+  border:1px solid #e5d9f4 !important;
+  background:linear-gradient(135deg,#f7f1ff,#eee5ff) !important;
+  color:#54209a !important;
+  border-radius:13px !important;
+  box-shadow:0 4px 12px rgba(76,29,149,.10) !important;
+  transition:transform .15s ease,box-shadow .15s ease !important;
+}
+
+.pr-clean-master-overlay #pr-cr-close:active{
+  transform:scale(.94) !important;
+}
+
+/* Popup body */
+.pr-clean-master-overlay #pr-cr-body{
+  background:linear-gradient(180deg,#ffffff 0%,#fcfaff 100%) !important;
+}
+
+/* History + Recent filter buttons */
+.pr-clean-master-overlay #pr-cr-body button[data-hf],
+.pr-clean-master-overlay #pr-cr-body button[data-rf]{
+  border:1px solid #e6dcf3 !important;
+  background:linear-gradient(135deg,#ffffff,#faf7ff) !important;
+  color:#665978 !important;
+  box-shadow:0 3px 10px rgba(76,29,149,.05) !important;
+  transition:transform .15s ease,box-shadow .15s ease !important;
+}
+
+.pr-clean-master-overlay #pr-cr-body button[data-hf]:active,
+.pr-clean-master-overlay #pr-cr-body button[data-rf]:active{
+  transform:scale(.97) !important;
+}
+
+/* Selected History / Recent filter */
+.pr-clean-master-overlay #pr-cr-body button[data-hf][style*="eee5ff"],
+.pr-clean-master-overlay #pr-cr-body button[data-rf][style*="eee5ff"]{
+  border-color:#cdb8f0 !important;
+  background:linear-gradient(135deg,#eee4ff,#faf7ff) !important;
+  color:#54209a !important;
+  box-shadow:0 6px 16px rgba(91,33,182,.11) !important;
+}
+
+/* =========================================================
+   PREMIUM CALENDAR / DATE CONTROLS
+   Existing IDs and onchange logic untouched.
+   ========================================================= */
+
+.pr-clean-master-overlay #pr-hy,
+.pr-clean-master-overlay #pr-hm,
+.pr-clean-master-overlay #pr-ry,
+.pr-clean-master-overlay #pr-rm{
+  box-sizing:border-box !important;
+  padding:11px 12px !important;
+  min-height:42px !important;
+  border:1px solid #dfd2f0 !important;
+  border-radius:13px !important;
+  background:linear-gradient(180deg,#ffffff,#faf7ff) !important;
+  color:#32145f !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  outline:none !important;
+  box-shadow:0 4px 12px rgba(76,29,149,.07) !important;
+}
+
+/* Calendar focus */
+.pr-clean-master-overlay #pr-hy:focus,
+.pr-clean-master-overlay #pr-hm:focus,
+.pr-clean-master-overlay #pr-ry:focus,
+.pr-clean-master-overlay #pr-rm:focus{
+  border-color:#b99add !important;
+  box-shadow:0 0 0 3px rgba(124,58,237,.10) !important;
+}
+
+/* Calendar area: style the existing selector wrapper */
+.pr-clean-master-overlay #pr-hy,
+.pr-clean-master-overlay #pr-hm{
+  appearance:auto !important;
+  -webkit-appearance:auto !important;
+}
+
+.pr-clean-master-overlay #pr-ry,
+.pr-clean-master-overlay #pr-rm{
+  appearance:auto !important;
+  -webkit-appearance:auto !important;
+}
+
+/* Date/month heading */
+.pr-clean-master-overlay #pr-cr-body > div{
+  scrollbar-width:thin;
+}
+
+/* Premium date summary strip */
+.pr-clean-master-overlay #pr-cr-body div[style*="color:#4c1d95"]{
+  border-radius:14px !important;
+  background:linear-gradient(135deg,#f8f3ff,#ffffff) !important;
+}
+
+/* Small summary cards in Recent */
+.pr-clean-master-overlay #pr-cr-body div[style*="border:1px solid #eee"]{
+  border-color:#e8def5 !important;
+  background:linear-gradient(145deg,#ffffff,#faf7ff) !important;
+  box-shadow:0 6px 16px rgba(76,29,149,.06) !important;
+}
+
+/* Smooth popup appearance */
+@keyframes prHistoryRecentPremiumIn{
+  from{
+    opacity:0;
+    transform:translateY(9px) scale(.985);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.pr-clean-master-overlay > div{
+  animation:prHistoryRecentPremiumIn .20s ease !important;
+}
+</style>
+/* PRILUCK_HISTORY_RECENT_SURGICAL_V2 */
+(function(){
+  "use strict";
+  if(window.PriLuckHistoryRecentSurgicalV2)return;
+  window.PriLuckHistoryRecentSurgicalV2=true;
+  var KEY="priluck_wallet_transactions_v2";
+  var cycle=[5,5,5,5,5,5,20];
+  function read(){try{var x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch(e){return[]}}
+  function save(x){try{localStorage.setItem(KEY,JSON.stringify(x))}catch(e){}}
+  function seedDemo(a){
+    var ids={};a.forEach(function(t){ids[t.id]=1});
+    var base=new Date();base.setHours(10,10,0,0);base.setDate(base.getDate()-27);
+    var add=[];
+    for(var i=0;i<28;i++){
+      var d=new Date(base);d.setDate(base.getDate()+i);
+      var key="pr-demo-cycle-"+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+      if(!ids[key]){
+        add.push({id:key,type:"task_complete",title:"টাস্ক কমপ্লিট",sub:"Day "+(i+1)+" • 15 টি টাস্ক সম্পূর্ণ",amount:0,status:"success",date:d.toISOString(),icon:"✓"});
+        add.push({id:key+"-bonus",type:"task_bonus",title:i%7===6?"মেগা বোনাস":"টাস্ক বোনাস",sub:"28 দিনের bonus cycle • Day "+(i+1),amount:cycle[i%7],status:"success",date:new Date(d.getTime()+600000).toISOString(),icon:i%7===6?"💎":"🎁"});
+      }
+    }
+    if(add.length){a=a.concat(add);save(a)}
+    return a;
+  }
+  function data(){return seedDemo(read())}
+  function expire(a){var changed=false,n=Date.now();a.forEach(function(t){if(t.type==="withdraw"&&String(t.status||"").toLowerCase()==="pending"&&isFinite(new Date(t.date).getTime())&&n-new Date(t.date).getTime()>=86400000&&!t._failedAfter24h){t._failedAfter24h=true;changed=true}});if(changed)save(a);return a}
+  function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
+  function money(v){return "₹"+Number(v||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function dt(v){var d=new Date(v);return isNaN(d)?"—":d.toLocaleDateString("bn-BD",{day:"2-digit",month:"short",year:"numeric"})+" • "+d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"})}
+  function status(t,failedView){return t.type==="withdraw"&&t._failedAfter24h&&failedView?"failed":String(t.status||"success").toLowerCase()}
+  function rows(list,failedView){if(!list.length)return '<div style="text-align:center;padding:28px 10px;color:#817892;font-size:12px;font-weight:800">এই filter-এ কোনো history নেই।</div>';return list.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)}).map(function(t){var st=status(t,failedView),debit=t.type==="withdraw";return '<div style="display:flex;gap:9px;padding:12px 2px;border-bottom:1px solid #eee8f6;align-items:center"><div style="font-size:19px">'+esc(t.icon||"•")+'</div><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:900">'+esc(t.title||"লেনদেন")+'</div><div style="font-size:10px;color:#7d718f;margin-top:3px">'+esc(t.sub||"")+'</div><div style="font-size:9px;color:#8b8197;margin-top:4px">'+dt(t.date)+'</div></div><div style="text-align:right"><div style="font-size:12px;font-weight:950">'+(debit?"- ":"+ ")+money(t.amount)+'</div><div style="font-size:9px;font-weight:900;margin-top:3px">'+(st==="success"?"Success":st==="pending"?"Pending":"Failed")+'</div></div></div>'}).join('')}
+  function modal(title){var o=document.createElement('div');o.className='pr-clean-master-overlay';o.style.cssText='position:fixed;inset:0;z-index:'+(50000+document.querySelectorAll('.pr-clean-master-overlay').length)+';background:rgba(18,8,43,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:14px;animation:prCleanModalIn .18s ease';o.innerHTML='<div style="width:min(94vw,430px);max-height:91vh;overflow:auto;background:linear-gradient(180deg,#ffffff 0%,#fbf9ff 100%);border:1px solid rgba(124,58,237,.14);border-radius:28px;color:#24124d;box-shadow:0 24px 70px rgba(35,12,75,.28)"><div style="display:flex;align-items:center;gap:10px;padding:15px;border-bottom:1px solid #eee8f7;background:linear-gradient(135deg,#faf7ff,#ffffff);position:sticky;top:0;z-index:2"><div style="width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,#ede5ff,#f7f2ff);display:flex;align-items:center;justify-content:center;font-size:18px">✦</div><strong style="flex:1;font-size:17px;font-weight:950">'+title+'</strong><button id="pr-cr-close" type="button" style="border:1px solid #e5daf5;background:#f7f2ff;color:#4c1d95;border-radius:12px;width:38px;height:38px;font-size:22px;font-weight:800;cursor:pointer">×</button></div><div id="pr-cr-body" style="padding:15px"></div></div>';document.body.appendChild(o);o.querySelector('#pr-cr-close').onclick=function(e){e.preventDefault();e.stopPropagation();o.remove()};o.onclick=function(e){if(e.target===o)o.remove()};return o}
+  function selectors(y,m,p){return '<div style="display:flex;gap:7px;margin-bottom:10px"><select id="'+p+'y" style="flex:1;padding:9px;border:1px solid #ddd;border-radius:11px">'+Array.from({length:41},function(_,i){var yy=2040-i;return '<option value="'+yy+'" '+(yy===y?'selected':'')+'>'+yy+'</option>'}).join('')+'</select><select id="'+p+'m" style="flex:1;padding:9px;border:1px solid #ddd;border-radius:11px">'+Array.from({length:12},function(_,i){return '<option value="'+i+'" '+(i===m?'selected':'')+'>'+new Date(2000,i,1).toLocaleDateString('en-US',{month:'long'})+'</option>'}).join('')+'</select></div>'}
+  function history(){var o=modal('লেনদেন ইতিহাস'),f='all',y=new Date().getFullYear(),m=new Date().getMonth();function render(){var a=expire(data()).filter(function(t){var d=new Date(t.date);return d.getFullYear()===y&&d.getMonth()===m&&t.type==='withdraw'});var list=f==='all'?a:f==='success'?a.filter(function(t){return status(t,false)==='success'}):f==='pending'?a.filter(function(t){return String(t.status).toLowerCase()==='pending'}):a.filter(function(t){return String(t.status).toLowerCase()==='failed'||t._failedAfter24h});o.querySelector('#pr-cr-body').innerHTML='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px">'+[['all','সব'],['success','Success'],['pending','Pending'],['failed','Failed']].map(function(x){return '<button type="button" data-hf="'+x[0]+'" style="border:0;border-radius:11px;padding:10px 2px;background:'+(f===x[0]?'#eee5ff':'#f7f5fa')+';font-weight:900;font-size:10px">'+x[1]+'</button>'}).join('')+'</div>'+selectors(y,m,'pr-h')+'<div style="margin:10px 0 8px;font-size:12px;font-weight:900;color:#4c1d95">'+new Date(y,m,1).toLocaleDateString('bn-BD',{month:'long',year:'numeric'})+'</div>'+rows(list,f==='failed');o.querySelectorAll('[data-hf]').forEach(function(b){b.onclick=function(){f=b.dataset.hf;render()}});o.querySelector('#pr-hy').onchange=function(){y=Number(this.value);render()};o.querySelector('#pr-hm').onchange=function(){m=Number(this.value);render()}}render()}
+  function recent(){var o=modal('সাম্প্রতিক লেনদেন — সব দেখুন'),f='all',y=new Date().getFullYear(),m=new Date().getMonth();function render(){var a=expire(data()).filter(function(t){var d=new Date(t.date);return d.getFullYear()===y&&d.getMonth()===m});var list=f==='all'?a:f==='task_bonus'?a.filter(function(t){return t.type==='task_bonus'}):f==='refer_bonus'?a.filter(function(t){return t.type==='refer_bonus'}):f==='withdraw'?a.filter(function(t){return t.type==='withdraw'}):a.filter(function(t){return t.type==='task_complete'});var tc=a.filter(function(t){return t.type==='task_complete'}),tb=a.filter(function(t){return t.type==='task_bonus'}),rb=a.filter(function(t){return t.type==='refer_bonus'}),wd=a.filter(function(t){return t.type==='withdraw'});var summary=f==='all'?'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px">'+[['Task Complete',tc.length],['Task Bonus',money(tb.reduce(function(s,t){return s+Number(t.amount||0)},0))],['Refer Bonus',money(rb.reduce(function(s,t){return s+Number(t.amount||0)},0))],['Withdraw',money(wd.filter(function(t){return !t._failedAfter24h}).reduce(function(s,t){return s+Number(t.amount||0)},0))]].map(function(x){return '<div style="text-align:center;padding:9px 2px;border:1px solid #eee;border-radius:13px"><div style="font-size:8px;font-weight:900">'+x[0]+'</div><div style="font-size:12px;font-weight:950;margin-top:4px">'+x[1]+'</div></div>'}).join('')+'</div>':'';o.querySelector('#pr-cr-body').innerHTML=summary+'<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px">'+[['all','সব'],['task_bonus','Task Bonus'],['refer_bonus','Refer Bonus'],['withdraw','Withdraw'],['task_complete','Task']].map(function(x){return '<button type="button" data-rf="'+x[0]+'" style="border:0;border-radius:10px;padding:9px 2px;background:'+(f===x[0]?'#eee5ff':'#f7f5fa')+';font-weight:900;font-size:9px">'+x[1]+'</button>'}).join('')+'</div>'+selectors(y,m,'pr-r')+'<div style="margin:10px 0 8px;font-size:12px;font-weight:900;color:#4c1d95">'+new Date(y,m,1).toLocaleDateString('bn-BD',{month:'long',year:'numeric'})+'</div>'+rows(list,false);o.querySelectorAll('[data-rf]').forEach(function(b){b.onclick=function(){f=b.dataset.rf;render()}});o.querySelector('#pr-ry').onchange=function(){y=Number(this.value);render()};o.querySelector('#pr-rm').onchange=function(){m=Number(this.value);render()}}render()}
+  function bind(){var w=document.getElementById('screen-wallet');if(!w)return;w.querySelectorAll('.w-act-btn').forEach(function(b){var t=(b.textContent||'').trim();if(t.indexOf('লেনদেন ইতিহাস')>=0&&b.dataset.prHistoryBound!=='1'){b.dataset.prHistoryBound='1';b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();history()},{capture:true})}});w.querySelectorAll('.w-sec-header a').forEach(function(a){var h=a.parentNode.querySelector('h3');if((a.textContent||'').indexOf('সব দেখুন')>=0&&h&&h.textContent.indexOf('সাম্প্রতিক')>=0&&a.dataset.prRecentBound!=='1'){a.dataset.prRecentBound='1';a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();recent()},{capture:true})}})}
+  data();bind();new MutationObserver(bind).observe(document.body,{childList:true,subtree:true});setInterval(function(){expire(data())},60000);
+})();
+/* PRILUCK_HISTORY_RECENT_SURGICAL_V2 END */
+</script>
 </body>
 </html>
