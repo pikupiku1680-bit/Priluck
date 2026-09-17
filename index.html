@@ -12712,7 +12712,11 @@ if(walletHead){
       var freshTotal = getWalletBalance();
 
       if(amount > freshMain){
-        alert("❌ পর্যাপ্ত main balance নেই। Available: " + money(freshMain));
+        prPremiumWithdrawNotice(
+          "উইথড্র করা যাচ্ছে না",
+          "আপনার পর্যাপ্ত main balance নেই।\\n\\nAvailable: " + money(freshMain),
+          "error"
+        );
         return;
       }
 
@@ -12744,12 +12748,189 @@ if(walletHead){
 
       closeModal();
 
-      alert(
-        "✅ Withdraw request তৈরি হয়েছে।\n\n" +
+      prPremiumWithdrawNotice(
+        "Withdraw request তৈরি হয়েছে",
         "Amount: " + money(amount) + "\n" +
         "Method: " + state.selectedMethod + "\n\n" +
-        "Demo version-এ status Pending রাখা হয়েছে।"
+        "Demo version-এ status Pending রাখা হয়েছে।",
+        "success"
       );
+    });
+  }
+
+  /* ============================================================
+     PRILUCK WITHDRAW PREMIUM POPUP V1
+     UI ONLY — withdrawal logic untouched
+     ============================================================ */
+
+  var prWithdrawPremiumStyle = document.createElement("style");
+  prWithdrawPremiumStyle.id = "pr-withdraw-premium-style";
+  prWithdrawPremiumStyle.textContent = `
+    .pr-withdraw-premium-overlay{
+      position:fixed;
+      inset:0;
+      z-index:999999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      background:rgba(12,8,24,.58);
+      backdrop-filter:blur(9px);
+      -webkit-backdrop-filter:blur(9px);
+      animation:prWPOFade .18s ease-out;
+    }
+
+    .pr-withdraw-premium-card{
+      width:min(100%,390px);
+      border-radius:26px;
+      overflow:hidden;
+      background:linear-gradient(145deg,#ffffff 0%,#faf7ff 100%);
+      border:1px solid rgba(124,58,237,.16);
+      box-shadow:
+        0 30px 80px rgba(31,15,61,.32),
+        0 8px 28px rgba(76,29,149,.18);
+      transform:translateY(0) scale(1);
+      animation:prWPOCard .22s cubic-bezier(.2,.8,.2,1);
+      font-family:inherit;
+    }
+
+    .pr-withdraw-premium-top{
+      padding:24px 22px 20px;
+      text-align:center;
+      background:
+        radial-gradient(circle at 50% 0%,rgba(124,58,237,.16),transparent 55%),
+        linear-gradient(135deg,#fbf9ff,#f4edff);
+    }
+
+    .pr-withdraw-premium-icon{
+      width:62px;
+      height:62px;
+      margin:0 auto 13px;
+      border-radius:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:29px;
+      font-weight:900;
+      background:linear-gradient(135deg,#6d28d9,#9333ea);
+      color:#fff;
+      box-shadow:
+        0 12px 26px rgba(109,40,217,.28),
+        inset 0 1px 0 rgba(255,255,255,.35);
+    }
+
+    .pr-withdraw-premium-title{
+      margin:0;
+      font-size:20px;
+      font-weight:950;
+      letter-spacing:-.35px;
+      color:#24113f;
+    }
+
+    .pr-withdraw-premium-body{
+      padding:21px 22px 18px;
+      text-align:center;
+      color:#5f536e;
+      font-size:14px;
+      line-height:1.65;
+      white-space:pre-line;
+    }
+
+    .pr-withdraw-premium-body .pr-wp-amount{
+      display:inline-block;
+      margin-top:8px;
+      padding:8px 14px;
+      border-radius:12px;
+      background:#f1eaff;
+      color:#5b21b6;
+      font-size:18px;
+      font-weight:950;
+    }
+
+    .pr-withdraw-premium-actions{
+      padding:0 22px 22px;
+    }
+
+    .pr-withdraw-premium-ok{
+      width:100%;
+      min-height:50px;
+      border:0;
+      border-radius:16px;
+      background:linear-gradient(135deg,#5b21b6,#7c3aed);
+      color:#fff;
+      font-size:15px;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 10px 22px rgba(91,33,182,.24);
+    }
+
+    .pr-withdraw-premium-ok:active{
+      transform:scale(.985);
+    }
+
+    .pr-withdraw-premium-error .pr-withdraw-premium-icon{
+      background:linear-gradient(135deg,#7c3aed,#6d28d9);
+    }
+
+    .pr-withdraw-premium-success .pr-withdraw-premium-icon{
+      background:linear-gradient(135deg,#059669,#10b981);
+    }
+
+    @keyframes prWPOFade{
+      from{opacity:0}
+      to{opacity:1}
+    }
+
+    @keyframes prWPOCard{
+      from{opacity:0;transform:translateY(12px) scale(.96)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+  `;
+
+  document.head.appendChild(prWithdrawPremiumStyle);
+
+  function prPremiumWithdrawNotice(title, message, type){
+    var overlay = document.createElement("div");
+    overlay.className =
+      "pr-withdraw-premium-overlay " +
+      (type === "success"
+        ? "pr-withdraw-premium-success"
+        : "pr-withdraw-premium-error");
+
+    var card = document.createElement("div");
+    card.className = "pr-withdraw-premium-card";
+    card.setAttribute("role","alertdialog");
+    card.setAttribute("aria-modal","true");
+
+    var icon = type === "success" ? "✓" : "!";
+
+    card.innerHTML =
+      '<div class="pr-withdraw-premium-top">' +
+        '<div class="pr-withdraw-premium-icon">' + icon + '</div>' +
+        '<h3 class="pr-withdraw-premium-title"></h3>' +
+      '</div>' +
+      '<div class="pr-withdraw-premium-body"></div>' +
+      '<div class="pr-withdraw-premium-actions">' +
+        '<button type="button" class="pr-withdraw-premium-ok">ঠিক আছে</button>' +
+      '</div>';
+
+    card.querySelector(".pr-withdraw-premium-title").textContent = title;
+    card.querySelector(".pr-withdraw-premium-body").textContent = message;
+
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    function closePremiumNotice(){
+      overlay.remove();
+    }
+
+    card.querySelector(".pr-withdraw-premium-ok")
+      .addEventListener("click", closePremiumNotice);
+
+    overlay.addEventListener("click", function(e){
+      if(e.target === overlay){
+        closePremiumNotice();
+      }
     });
   }
 
