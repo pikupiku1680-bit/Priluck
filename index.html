@@ -6508,6 +6508,427 @@ function renderHomeTasks() {
 // COMMON TASK COMPLETION
 // ============================================================
 
+
+/* PRILUCK_FIX1_TASK_REWARD_V2 */
+
+function priluckFix1TaskRewardV2(
+  taskId,
+  taskName,
+  rewardText
+) {
+
+  if (!taskId) {
+    return false;
+  }
+
+  const amount = parseFloat(
+    String(rewardText || '')
+      .replace(/[^0-9.]/g, '')
+  );
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    console.warn(
+      '[Priluck Fix #1 V2] Invalid reward:',
+      rewardText
+    );
+    return false;
+  }
+
+  const today =
+    typeof getDemoTodayKey === 'function'
+      ? getDemoTodayKey()
+      : (
+          new Date().getFullYear() +
+          '-' +
+          String(
+            new Date().getMonth() + 1
+          ).padStart(2, '0') +
+          '-' +
+          String(
+            new Date().getDate()
+          ).padStart(2, '0')
+        );
+
+  const transactionId =
+    'task-complete-' +
+    today +
+    '-' +
+    String(taskId);
+
+  // ----------------------------------------------------------
+  // TRANSACTION STORAGE
+  // ----------------------------------------------------------
+
+  let transactions = [];
+
+  try {
+    transactions = JSON.parse(
+      localStorage.getItem(
+        'priluck_wallet_transactions_v2'
+      ) || '[]'
+    );
+
+    if (!Array.isArray(transactions)) {
+      transactions = [];
+    }
+
+  } catch (e) {
+    transactions = [];
+  }
+
+  // Same task cannot create the same reward twice.
+  if (
+    transactions.some(function(item) {
+      return item &&
+        item.id === transactionId;
+    })
+  ) {
+    console.warn(
+      '[Priluck Fix #1 V2] Duplicate blocked:',
+      transactionId
+    );
+
+    return false;
+  }
+
+  // ----------------------------------------------------------
+  // WALLET DOM
+  // ----------------------------------------------------------
+
+  const wallet =
+    document.getElementById('screen-wallet');
+
+  if (!wallet) {
+    console.warn(
+      '[Priluck Fix #1 V2] Wallet screen not found.'
+    );
+    return false;
+  }
+
+  const walletTotalEl =
+    wallet.querySelector('.w-hero-amt');
+
+  const walletBoxes =
+    wallet.querySelectorAll('.w-split-box b');
+
+  if (
+    !walletTotalEl ||
+    walletBoxes.length < 2
+  ) {
+    console.warn(
+      '[Priluck Fix #1 V2] Wallet balance elements not found.'
+    );
+    return false;
+  }
+
+  // ----------------------------------------------------------
+  // STORED WALLET BALANCE
+  // Stored values are preferred.
+  // DOM is fallback for existing demo state.
+  // ----------------------------------------------------------
+
+  const storedTotal =
+    parseFloat(
+      localStorage.getItem(
+        'priluck_wallet_total'
+      )
+    );
+
+  const storedMain =
+    parseFloat(
+      localStorage.getItem(
+        'priluck_wallet_main'
+      )
+    );
+
+  const storedBonus =
+    parseFloat(
+      localStorage.getItem(
+        'priluck_wallet_bonus'
+      )
+    );
+
+  const domTotal =
+    parseFloat(
+      walletTotalEl.textContent
+        .replace(/[^0-9.]/g, '')
+    );
+
+  const domMain =
+    parseFloat(
+      walletBoxes[0].textContent
+        .replace(/[^0-9.]/g, '')
+    );
+
+  const domBonus =
+    parseFloat(
+      walletBoxes[1].textContent
+        .replace(/[^0-9.]/g, '')
+    );
+
+  let bonus =
+    Number.isFinite(storedBonus)
+      ? storedBonus
+      : (
+          Number.isFinite(domBonus)
+            ? domBonus
+            : 0
+        );
+
+  let main;
+
+  if (Number.isFinite(storedMain)) {
+
+    main = storedMain;
+
+  } else if (Number.isFinite(storedTotal)) {
+
+    main = storedTotal - bonus;
+
+  } else {
+
+    main =
+      Number.isFinite(domMain)
+        ? domMain
+        : 0;
+  }
+
+  let total =
+    Number.isFinite(storedTotal)
+      ? storedTotal
+      : (
+          Number.isFinite(domTotal)
+            ? domTotal
+            : main + bonus
+        );
+
+  // ----------------------------------------------------------
+  // APPLY TASK REWARD
+  // Task reward goes to MAIN balance.
+  // Bonus remains unchanged.
+  // ----------------------------------------------------------
+
+  main = Number(
+    (main + amount).toFixed(2)
+  );
+
+  total = Number(
+    (total + amount).toFixed(2)
+  );
+
+  walletTotalEl.textContent =
+    '₹' + total.toFixed(2);
+
+  walletBoxes[0].textContent =
+    '₹' + main.toFixed(2);
+
+  walletBoxes[1].textContent =
+    '₹' + bonus.toFixed(2);
+
+  // ----------------------------------------------------------
+  // PERSIST WALLET
+  // ----------------------------------------------------------
+
+  localStorage.setItem(
+    'priluck_wallet_total',
+    String(total)
+  );
+
+  localStorage.setItem(
+    'priluck_wallet_main',
+    String(main)
+  );
+
+  localStorage.setItem(
+    'priluck_wallet_bonus',
+    String(bonus)
+  );
+
+  // ----------------------------------------------------------
+  // RECENT TRANSACTION
+  // ----------------------------------------------------------
+
+  transactions.unshift({
+
+    id: transactionId,
+
+    type: 'task_complete',
+
+    title: 'টাস্ক কমপ্লিট',
+
+    sub:
+      (taskName || 'Demo Task') +
+      ' • Demo Task',
+
+    amount:
+      Number(amount.toFixed(2)),
+
+    status: 'success',
+
+    date:
+      new Date().toISOString(),
+
+    icon: '✓'
+
+  });
+
+  localStorage.setItem(
+    'priluck_wallet_transactions_v2',
+    JSON.stringify(transactions)
+  );
+
+  // ----------------------------------------------------------
+  // HOME — TODAY'S EARNING
+  // Existing displayed value is treated as demo baseline.
+  // ----------------------------------------------------------
+
+  const homeStatCards =
+    document.querySelectorAll(
+      '#screen-home .stat-row .stat-card'
+    );
+
+  let earningBase =
+    parseFloat(
+      localStorage.getItem(
+        'priluck_today_earning_base_v1'
+      )
+    );
+
+  if (
+    !Number.isFinite(earningBase) &&
+    homeStatCards.length >= 1
+  ) {
+
+    const earningValue =
+      homeStatCards[0]
+        .querySelector('.stat-value');
+
+    earningBase =
+      earningValue
+        ? parseFloat(
+            earningValue.textContent
+              .replace(/[^0-9.]/g, '')
+          )
+        : 0;
+
+    if (!Number.isFinite(earningBase)) {
+      earningBase = 0;
+    }
+
+    localStorage.setItem(
+      'priluck_today_earning_base_v1',
+      String(earningBase)
+    );
+  }
+
+  if (!Number.isFinite(earningBase)) {
+    earningBase = 0;
+  }
+
+  const now = new Date();
+
+  const todayTaskEarning =
+    transactions
+      .filter(function(item) {
+
+        if (
+          !item ||
+          item.type !== 'task_complete'
+        ) {
+          return false;
+        }
+
+        const d =
+          new Date(item.date);
+
+        return (
+          d.getFullYear() ===
+            now.getFullYear() &&
+          d.getMonth() ===
+            now.getMonth() &&
+          d.getDate() ===
+            now.getDate()
+        );
+
+      })
+      .reduce(function(sum, item) {
+
+        return (
+          sum +
+          (Number(item.amount) || 0)
+        );
+
+      }, 0);
+
+  if (homeStatCards.length >= 1) {
+
+    const earningValue =
+      homeStatCards[0]
+        .querySelector('.stat-value');
+
+    if (earningValue) {
+
+      earningValue.textContent =
+        '₹' +
+        Number(
+          earningBase +
+          todayTaskEarning
+        ).toFixed(2);
+
+    }
+  }
+
+  // ----------------------------------------------------------
+  // HOME — TODAY'S TASK COUNT
+  // ----------------------------------------------------------
+
+  if (homeStatCards.length >= 2) {
+
+    const taskValue =
+      homeStatCards[1]
+        .querySelector('.stat-value');
+
+    let completedToday = 0;
+
+    if (
+      typeof getCompletedDemoTaskCount ===
+      'function'
+    ) {
+
+      completedToday =
+        Number(
+          getCompletedDemoTaskCount()
+        ) || 0;
+
+    } else if (
+      typeof completedTaskIds !==
+        'undefined' &&
+      Array.isArray(
+        completedTaskIds
+      )
+    ) {
+
+      completedToday =
+        completedTaskIds.length;
+    }
+
+    if (taskValue) {
+
+      taskValue.textContent =
+        completedToday + '/15';
+
+    }
+  }
+
+  console.log(
+    '[Priluck Fix #1 V2] Reward applied:',
+    transactionId,
+    '₹' + amount.toFixed(2)
+  );
+
+  return true;
+}
+
 function handleTaskCompletion(
   row,
   button,
@@ -6607,6 +7028,17 @@ function handleTaskCompletion(
 
     return;
   }
+
+
+  // ----------------------------------------------------------
+  // FIX #1 — TASK REWARD CORE FLOW
+  // ----------------------------------------------------------
+
+  priluckFix1TaskRewardV2(
+    taskId,
+    name,
+    reward
+  );
 
 
   // ----------------------------------------------------------
