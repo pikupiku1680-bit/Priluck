@@ -4403,6 +4403,15 @@ function showBonusSuccessPopup(reward) {
 
       targetScreen.classList.add('active');
 
+      if (
+        typeof refreshPriluckDynamicStatsFinal ===
+        'function'
+      ) {
+
+        refreshPriluckDynamicStatsFinal();
+
+      }
+
       if (target === 'home' && typeof updateHomeStreakUI === 'function') {
         updateHomeStreakUI();
       }
@@ -5427,10 +5436,16 @@ function saveCompletedTaskIds() {
 
 function getTaskId(task, index) {
 
-  return (
-    task.id ||
-    ('demo-task-' + index)
-  );
+  if (
+    task &&
+    task.id !== undefined &&
+    task.id !== null &&
+    String(task.id).trim() !== ''
+  ) {
+    return String(task.id);
+  }
+
+  return 'demo-task-' + index;
 }
 
 
@@ -5450,7 +5465,24 @@ function isTaskCompleted(taskId) {
 
 function getCompletedDemoTaskCount() {
 
-  return completedTaskIds.length;
+  if (!Array.isArray(completedTaskIds)) {
+    return 0;
+  }
+
+  if (!Array.isArray(taskData)) {
+    return completedTaskIds.length;
+  }
+
+  const currentTaskIds =
+    new Set(
+      taskData.map(function(task, index) {
+        return getTaskId(task, index);
+      })
+    );
+
+  return completedTaskIds.filter(function(id) {
+    return currentTaskIds.has(String(id));
+  }).length;
 }
 
 
@@ -5460,9 +5492,14 @@ function getCompletedDemoTaskCount() {
 
 function isDemoDailyLimitReached() {
 
+  const totalTasks =
+    Array.isArray(taskData)
+      ? taskData.length
+      : MAX_DEMO_TASKS_PER_DAY;
+
   return (
     getCompletedDemoTaskCount() >=
-    MAX_DEMO_TASKS_PER_DAY
+    totalTasks
   );
 }
 
@@ -5556,6 +5593,16 @@ function scheduleDemoMidnightReset() {
     ) {
 
       renderAllTasks();
+    }
+
+
+    if (
+      typeof refreshPriluckDynamicStatsFinal ===
+      'function'
+    ) {
+
+      refreshPriluckDynamicStatsFinal();
+
     }
 
 
@@ -6093,6 +6140,504 @@ function setupTaskHistoryScreen() {
 }
 
 
+/* PRILUCK_DYNAMIC_STATS_FINAL_V3 */
+
+// ============================================================
+// FINAL DYNAMIC STATS ENGINE
+// ============================================================
+
+function priluckDynamicReadTransactions() {
+
+  try {
+
+    const data = JSON.parse(
+      localStorage.getItem(
+        'priluck_wallet_transactions_v2'
+      ) || '[]'
+    );
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  } catch (e) {
+
+    return [];
+
+  }
+}
+
+
+function priluckDynamicReadHistory() {
+
+  try {
+
+    const data = JSON.parse(
+      localStorage.getItem(
+        TASK_HISTORY_KEY
+      ) || '[]'
+    );
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  } catch (e) {
+
+    return [];
+
+  }
+}
+
+
+function priluckDynamicIsToday(value) {
+
+  if (!value) {
+    return false;
+  }
+
+  const d = new Date(value);
+
+  if (Number.isNaN(d.getTime())) {
+    return false;
+  }
+
+  const now = new Date();
+
+  return (
+    d.getFullYear() === now.getFullYear() &&
+    d.getMonth() === now.getMonth() &&
+    d.getDate() === now.getDate()
+  );
+}
+
+
+function priluckDynamicTodayEarning() {
+
+  return (
+    priluckDynamicReadTransactions()
+      .filter(function(item) {
+
+        return (
+          item &&
+          item.type === 'task_complete' &&
+          priluckDynamicIsToday(item.date)
+        );
+
+      })
+      .reduce(function(sum, item) {
+
+        return (
+          sum +
+          (Number(item.amount) || 0)
+        );
+
+      }, 0)
+  );
+}
+
+
+function priluckDynamicStats() {
+
+  const total =
+    Array.isArray(taskData)
+      ? taskData.length
+      : 0;
+
+  const completed =
+    typeof getCompletedDemoTaskCount === 'function'
+      ? Number(getCompletedDemoTaskCount()) || 0
+      : 0;
+
+  const history =
+    priluckDynamicReadHistory();
+
+  const totalSuccessful =
+    history.filter(function(item) {
+
+      return (
+        item &&
+        item.status === 'completed'
+      );
+
+    }).length;
+
+  const totalFailed =
+    history.filter(function(item) {
+
+      return (
+        item &&
+        item.status === 'failed'
+      );
+
+    }).length;
+
+  const completionRate =
+    total > 0
+      ? Math.round(
+          (completed / total) * 100
+        )
+      : 0;
+
+  return {
+    total: total,
+    completed: completed,
+    completionRate: completionRate,
+    totalSuccessful: totalSuccessful,
+    totalFailed: totalFailed
+  };
+}
+
+
+// ============================================================
+// HOME
+// ============================================================
+
+function priluckDynamicRefreshHome() {
+
+  const screen =
+    document.getElementById(
+      'screen-home'
+    );
+
+  if (!screen) {
+    return;
+  }
+
+  const cards =
+    screen.querySelectorAll(
+      '.stat-row .stat-card'
+    );
+
+  const stats =
+    priluckDynamicStats();
+
+  if (cards.length >= 1) {
+
+    const el =
+      cards[0].querySelector(
+        '.stat-value'
+      );
+
+    if (el) {
+
+      el.textContent =
+        '₹' +
+        priluckDynamicTodayEarning()
+          .toFixed(2);
+
+    }
+  }
+
+  if (cards.length >= 2) {
+
+    const el =
+      cards[1].querySelector(
+        '.stat-value'
+      );
+
+    if (el) {
+
+      el.textContent =
+        stats.completed +
+        '/' +
+        stats.total;
+
+    }
+  }
+
+  // HOME — SUCCESS RATE
+  // Uses the exact same completionRate
+  // shown on the Success Rate details screen.
+
+  if (cards.length >= 3) {
+
+    const el =
+      cards[2].querySelector(
+        '.stat-value'
+      );
+
+    if (el) {
+
+      el.textContent =
+        stats.completionRate +
+        '%';
+
+    }
+  }
+}
+
+
+// ============================================================
+// SUCCESS RATE SCREEN
+// Actual screen ID = screen-details
+// ============================================================
+
+function priluckDynamicRefreshSuccessRate() {
+
+  const screen =
+    document.getElementById(
+      'screen-details'
+    );
+
+  if (!screen) {
+    return;
+  }
+
+  const stats =
+    priluckDynamicStats();
+
+  const summary =
+    screen.querySelector(
+      '.details-summary-value'
+    );
+
+  if (summary) {
+
+    summary.textContent =
+      stats.completionRate + '%';
+
+  }
+
+  const rows =
+    screen.querySelectorAll(
+      '.details-row'
+    );
+
+  rows.forEach(function(row) {
+
+    const label =
+      row.querySelector('span');
+
+    const value =
+      row.querySelector('strong');
+
+    if (!label || !value) {
+      return;
+    }
+
+    const text =
+      label.textContent.trim();
+
+    if (
+      text === 'মোট সফলভাবে সম্পন্ন'
+    ) {
+
+      value.textContent =
+        stats.totalSuccessful + 'টি';
+
+    }
+
+    else if (
+      text === 'আজ সম্পন্ন'
+    ) {
+
+      value.textContent =
+        stats.completed + 'টি';
+
+    }
+
+    else if (
+      text === 'অসম্পূর্ণ টাস্ক'
+    ) {
+
+      value.textContent =
+        Math.max(
+          0,
+          stats.total - stats.completed
+        ) + 'টি';
+
+    }
+
+    else if (
+      text === 'বাতিল টাস্ক'
+    ) {
+
+      value.textContent =
+        stats.totalFailed + 'টি';
+
+    }
+
+  });
+}
+
+
+// ============================================================
+// MY PERFORMANCE
+// Actual screen ID = screen-performance
+// Only current-data-supported values are changed.
+// Historical values are preserved.
+// ============================================================
+
+function priluckDynamicRefreshPerformance() {
+
+  const screen =
+    document.getElementById(
+      'screen-performance'
+    );
+
+  if (!screen) {
+    return;
+  }
+
+  const stats =
+    priluckDynamicStats();
+
+  const score =
+    screen.querySelector(
+      '.performance-score'
+    );
+
+  if (score) {
+
+    score.innerHTML =
+      stats.completionRate +
+      '<span>/100</span>';
+
+  }
+
+  const miniValues =
+    screen.querySelectorAll(
+      '.performance-mini b'
+    );
+
+  if (miniValues.length >= 1) {
+
+    miniValues[0].textContent =
+      stats.completionRate + '%';
+
+  }
+
+  const consistencyScore =
+    Array.from(
+      screen.querySelectorAll('.performance-card')
+    ).find(function(card) {
+
+      return card.textContent.includes(
+        'Consistency Score'
+      );
+
+    });
+
+  if (consistencyScore) {
+
+    const scoreBox =
+      Array.from(
+        consistencyScore.querySelectorAll('div')
+      ).find(function(el) {
+
+        return (
+          el.children.length === 0 &&
+          /^\d+\/100$/.test(
+            el.textContent.trim()
+          )
+        );
+
+      });
+
+    if (scoreBox) {
+
+      scoreBox.textContent =
+        stats.completionRate + '/100';
+
+    }
+
+    const progress =
+      consistencyScore.querySelector(
+        '.performance-progress > div'
+      );
+
+    if (progress) {
+
+      progress.style.width =
+        stats.completionRate + '%';
+
+    }
+  }
+
+  const recordRows =
+    screen.querySelectorAll(
+      '.performance-row'
+    );
+
+  recordRows.forEach(function(row) {
+
+    const label =
+      row.querySelector('span');
+
+    const value =
+      row.querySelector('strong');
+
+    if (!label || !value) {
+      return;
+    }
+
+    if (
+      label.textContent.trim() ===
+      '🚀 Best Session'
+    ) {
+
+      value.textContent =
+        stats.completed + ' tasks';
+
+    }
+
+  });
+
+  // Today's weekly bar reflects today's actual completion rate.
+  const dayBars =
+    screen.querySelectorAll(
+      '.performance-day-bar'
+    );
+
+  if (dayBars.length) {
+
+    const todayBar =
+      dayBars[dayBars.length - 1];
+
+    todayBar.style.height =
+      Math.max(
+        4,
+        stats.completionRate
+      ) + '%';
+
+  }
+}
+
+
+// ============================================================
+// MASTER REFRESH
+// ============================================================
+
+function refreshPriluckDynamicStatsFinal() {
+
+  priluckDynamicRefreshHome();
+
+  priluckDynamicRefreshSuccessRate();
+
+  priluckDynamicRefreshPerformance();
+
+}
+
+
+window.refreshPriluckDynamicStatsFinal =
+  refreshPriluckDynamicStatsFinal;
+
+
+setTimeout(function() {
+
+  if (
+    typeof refreshPriluckDynamicStatsFinal ===
+    'function'
+  ) {
+
+    refreshPriluckDynamicStatsFinal();
+
+  }
+
+}, 0);
+
+
 // ============================================================
 // DEMO TASK DATA
 // ============================================================
@@ -6298,7 +6843,7 @@ function renderAllTasks() {
               ? '✓ সম্পূর্ণ'
               : (
                   isDemoDailyLimitReached()
-                    ? 'আজকের ১৫টি সম্পূর্ণ'
+                    ? 'আজকের সব Task সম্পূর্ণ'
                     : 'শুরু করুন'
                 )
           }
@@ -6787,43 +7332,6 @@ function priluckFix1TaskRewardV2(
       '#screen-home .stat-row .stat-card'
     );
 
-  let earningBase =
-    parseFloat(
-      localStorage.getItem(
-        'priluck_today_earning_base_v1'
-      )
-    );
-
-  if (
-    !Number.isFinite(earningBase) &&
-    homeStatCards.length >= 1
-  ) {
-
-    const earningValue =
-      homeStatCards[0]
-        .querySelector('.stat-value');
-
-    earningBase =
-      earningValue
-        ? parseFloat(
-            earningValue.textContent
-              .replace(/[^0-9.]/g, '')
-          )
-        : 0;
-
-    if (!Number.isFinite(earningBase)) {
-      earningBase = 0;
-    }
-
-    localStorage.setItem(
-      'priluck_today_earning_base_v1',
-      String(earningBase)
-    );
-  }
-
-  if (!Number.isFinite(earningBase)) {
-    earningBase = 0;
-  }
 
   const now = new Date();
 
@@ -6871,7 +7379,6 @@ function priluckFix1TaskRewardV2(
       earningValue.textContent =
         '₹' +
         Number(
-          earningBase +
           todayTaskEarning
         ).toFixed(2);
 
@@ -6914,8 +7421,15 @@ function priluckFix1TaskRewardV2(
 
     if (taskValue) {
 
+      const totalTasks =
+        Array.isArray(taskData)
+          ? taskData.length
+          : 0;
+
       taskValue.textContent =
-        completedToday + '/15';
+        completedToday +
+        '/' +
+        totalTasks;
 
     }
   }
@@ -6925,6 +7439,13 @@ function priluckFix1TaskRewardV2(
     transactionId,
     '₹' + amount.toFixed(2)
   );
+
+  if (
+    typeof refreshPriluckDynamicStatsFinal ===
+    'function'
+  ) {
+    refreshPriluckDynamicStatsFinal();
+  }
 
   return true;
 }
@@ -7007,7 +7528,7 @@ function handleTaskCompletion(
       true;
 
     button.textContent =
-      'আজকের ১৫টি সম্পূর্ণ';
+      'আজকের সব Task সম্পূর্ণ';
 
     renderHomeTasks();
     renderAllTasks();
@@ -7102,6 +7623,15 @@ function handleTaskCompletion(
   renderAllTasks();
 
   renderHomeTasks();
+
+  if (
+    typeof refreshPriluckDynamicStatsFinal ===
+    'function'
+  ) {
+
+    refreshPriluckDynamicStatsFinal();
+
+  }
 
 }
 
