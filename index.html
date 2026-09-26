@@ -8112,7 +8112,7 @@ renderTaskHistory();
   window.PriLuckLeaderboardController = controller;
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => controller.init(), { once: true });
+    // Duplicate init listener removed
   } else {
     // controller.init(); duplicate removed
   }
