@@ -2451,6 +2451,16 @@ function showBonusSuccessPopup(reward) {
 }
 </style>
 
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+    }
+});
+</script>
+
 </head>
 <body>
 
